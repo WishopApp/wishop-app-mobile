@@ -1,24 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
-export default class App extends React.Component {
+class App extends React.Component {
+
   render() {
     return (
-      <View style={styles.container}>
+      <View style={style.container}>
         <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
         <Text>Shake your phone to open the developer menu.</Text>
-        <Text>Test React-native application2</Text>
+        <Text>Test React-native application312321</Text>
       </View>
     );
-  }2
+  }
 }
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
+
+
+
+export default App;
+
+

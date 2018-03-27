@@ -1,12 +1,11 @@
 {
   "expo": {
     "name": "Wishop",
-    "slug": "wishop-mobile",
+    "slug": "WishopMobile",
     "sdkVersion": "25.0.0",
     "privacy": "public",
     "githubUrl": "https://github.com/WishopApp/wishop-app-mobile",
     "platforms": ["ios","android"],
     "orientation": "portrait",
-    "entryPoint": "App.js"
   }
 }

@@ -2,11 +2,13 @@
   "presets": ["babel-preset-expo"],
   "env": {
     "development": {
-      "plugins": [
-        "transform-react-jsx-source",
-        ["module-resolver", {
-          "root": ["./src"]
-        }]
-      ]
+      "plugins": ["transform-react-jsx-source"]
     }
-  }
+  },
+  "plugins": [
+    ["module-alias", [
+      { "src": "./src/components", "expose": "@components" },
+      { "src": "./src/screens", "expose": "@screens" },
+    ]]
+  ]
+}
