@@ -7,8 +7,9 @@
   },
   "plugins": [
     ["module-alias", [
-      { "src": "./src/components", "expose": "@components" },
-      { "src": "./src/screens", "expose": "@screens" },
+      { "src": "./src/components/navigations", "expose": "@navigations" },
+      { "src": "./src/components/utils", "expose": "@utils" },
+      { "src": "./src/components/screens", "expose": "@screens" },
     ]]
   ]
 }
