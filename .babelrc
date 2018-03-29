@@ -1,15 +1,19 @@
 {
-  "presets": ["babel-preset-expo"],
-  "env": {
-    "development": {
-      "plugins": ["transform-react-jsx-source"]
-    }
-  },
-  "plugins": [
-    ["module-alias", [
-      { "src": "./src/components/navigations", "expose": "@navigations" },
-      { "src": "./src/components/utils", "expose": "@utils" },
-      { "src": "./src/components/screens", "expose": "@screens" },
-    ]]
-  ]
+	"presets": ["babel-preset-expo"],
+	"env": {
+		"development": {
+			"plugins": ["transform-react-jsx-source"]
+		}
+	},
+	"plugins": [
+		"graphql-tag",
+		[
+			"module-alias",
+			[
+				{ "src": "./src/components/navigations", "expose": "@navigations" },
+				{ "src": "./src/components/utils", "expose": "@utils" },
+				{ "src": "./src/components/screens", "expose": "@screens" }
+			]
+		]
+	]
 }
