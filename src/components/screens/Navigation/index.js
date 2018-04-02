@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React from 'react'
+import { Text, View, StyleSheet } from 'react-native'
 
 class Navigation extends React.Component {
 	render() {
@@ -7,8 +7,8 @@ class Navigation extends React.Component {
 			<View>
 				<Text>Navigation Text2</Text>
 			</View>
-		);
+		)
 	}
 }
 
-export default Navigation;
+export default Navigation

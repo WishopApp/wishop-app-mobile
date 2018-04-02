@@ -1,35 +1,14 @@
-import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import Navigation from '@screens/Navigation';
-import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset';
-import { ApolloProvider, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import React from 'react'
+import { View, StyleSheet, Text } from 'react-native'
+import Navigation from '@screens/Navigation'
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
+import { ApolloProvider } from 'react-apollo'
+import Movie from '@utils/Movie'
 
 const client = new ApolloClient({
 	link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cixos23120m0n0173veiiwrjr' }),
 	cache: new InMemoryCache(),
-});
-
-const TestString = ({ data }) => {
-	const { loading, Movie } = data;
-	// Loading
-	if (loading) return <Text>loading...</Text>;
-	// Loaded
-	return <Text>Test Apollo movie title: {Movie.title}</Text>;
-};
-
-const queryTestString = gql`
-	{
-		Movie(id: "cixos5gtq0ogi0126tvekxo27") {
-			id
-			title
-			actors {
-				name
-			}
-		}
-	}
-`;
-const TestStringWithData = graphql(queryTestString)(TestString);
+})
 
 class App extends React.Component {
 	render() {
@@ -41,10 +20,10 @@ class App extends React.Component {
 					<Text>Shake your phone to open the developer menu.</Text>
 					<Text>Test React-native application3121</Text>
 					<Navigation />
-					<TestStringWithData />
+					<Movie />
 				</View>
 			</ApolloProvider>
-		);
+		)
 	}
 }
 
@@ -55,6 +34,6 @@ const style = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
-});
+})
 
-export default App;
+export default App
