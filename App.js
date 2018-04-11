@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import Navigation from '@screens/Navigation'
+import { Tabs } from '@screens/Navigation'
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 import { ApolloProvider } from 'react-apollo'
 import Movie from '@utils/Movie'
@@ -14,14 +14,7 @@ class App extends React.Component {
 	render() {
 		return (
 			<ApolloProvider client={client}>
-				<View style={style.container}>
-					<Text>Open up App.js to start working on your app!</Text>
-					<Text>Changes you make will automatically reload.</Text>
-					<Text>Shake your phone to open the developer menu.</Text>
-					<Text>Test React-native application3121</Text>
-					<Navigation />
-					<Movie />
-				</View>
+				<Tabs />
 			</ApolloProvider>
 		)
 	}

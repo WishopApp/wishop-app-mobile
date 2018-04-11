@@ -12,7 +12,9 @@
 			[
 				{ "src": "./src/components/navigations", "expose": "@navigations" },
 				{ "src": "./src/components/utils", "expose": "@utils" },
-				{ "src": "./src/components/screens", "expose": "@screens" }
+				{ "src": "./src/components/screens", "expose": "@screens" },
+				{ "src": "./assets/icons", "expose": "@icons" },
+				{ "src": "./assets/images", "expose": "@images" }
 			]
 		]
 	]
