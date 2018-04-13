@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import Header from '@screens/Header'
+import MyWishlist from '@commons/Wishlist/MyWishlist'
 
 class Wishlist extends React.Component {
 	static navigationOptions = {
@@ -9,16 +10,22 @@ class Wishlist extends React.Component {
 
 	render() {
 		return (
-			<View style={styled.container}>
-				<View style={styled.createContainer}>
-					<Text style={styled.createText}>Create New</Text>
+			<ScrollView>
+				<View style={styled.container}>
+					<View style={styled.createContainer}>
+						<Text style={styled.createText}>Create New</Text>
+					</View>
 				</View>
-				<View style={styled.wishlistContainer}>
-					<Text>Product22</Text>
-					<Image style={styled.productImage} source={require('@images/pikachu.png')} />
-					<Image style={styled.productImage} source={require('@images/shoe.svg')} />
+				<View style={styled.MyWishlistContainer}>
+					<MyWishlist />
+					<MyWishlist />
+					<MyWishlist />
+					<MyWishlist />
+					<MyWishlist />
+					<MyWishlist />
+					<MyWishlist />
 				</View>
-			</View>
+			</ScrollView>
 		)
 	}
 }
@@ -26,7 +33,6 @@ class Wishlist extends React.Component {
 const styled = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: '100%',
 	},
 	createContainer: {
 		margin: '5%',
@@ -39,15 +45,11 @@ const styled = StyleSheet.create({
 		padding: 15,
 		fontSize: 20,
 	},
-	wishlistContainer: {
-		margin: '5%',
+	MyWishlistContainer: {
 		display: 'flex',
 		flex: 1,
-		flexDirection: 'row',
-	},
-	productImage: {
-		width: 50,
-		height: 50,
+		flexDirection: 'column',
+		justifyContent: 'space-between',
 	},
 })
 

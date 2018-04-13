@@ -17,12 +17,12 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
-			navigationOptions: {
-				tabBarLabel: 'Home',
-			},
-		},
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		// 	},
+		// },
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
