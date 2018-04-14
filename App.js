@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { Tabs } from '@screens/Navigation'
+import { Tabs, Root } from '@screens/Navigation'
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 import { ApolloProvider } from 'react-apollo'
 import Movie from '@utils/Movie'
@@ -14,18 +14,15 @@ class App extends React.Component {
 	render() {
 		return (
 			<ApolloProvider client={client}>
-				<Tabs />
+				<Root />
 			</ApolloProvider>
 		)
 	}
 }
 
-const style = StyleSheet.create({
+const styled = StyleSheet.create({
 	container: {
-		display: 'flex',
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
+		backgroundColor: '#FFF',
 	},
 })
 

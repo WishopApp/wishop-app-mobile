@@ -1,7 +1,9 @@
 import React from 'react'
+import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import Wishlist from '@screens/Wishlist'
 import Home from '@screens/Home'
+import Wishlist from '@screens/Wishlist'
+import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -9,11 +11,19 @@ export const HomeStack = StackNavigator({
 	},
 })
 
-export const MywishlistStack = StackNavigator({
-	Wishlist: {
-		screen: Wishlist,
+export const MywishlistStack = StackNavigator(
+	{
+		Wishlist: {
+			screen: Wishlist,
+			navigationOptions: {
+				title: 'W I S H L I S T',
+			},
+		},
 	},
-})
+	{
+		headerMode: 'none',
+	}
+)
 
 export const Tabs = TabNavigator(
 	{
@@ -23,6 +33,12 @@ export const Tabs = TabNavigator(
 		// 		tabBarLabel: 'Home',
 		// 	},
 		// },
+		CreateWishlistScreen: {
+			screen: CreateWishlistScreen,
+			navigationOptions: {
+				title: 'N E W W I S H L I S T',
+			},
+		},
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
@@ -32,5 +48,32 @@ export const Tabs = TabNavigator(
 	},
 	{
 		tabBarPosition: 'bottom',
+		headerMode: 'none',
+	}
+)
+
+export const ModalScreen = StackNavigator(
+	{
+		CreateWishlistScreen: {
+			screen: CreateWishlistScreen,
+			navigationOptions: {
+				title: 'N E W W I S H L I S T',
+			},
+		},
+	},
+	{
+		mode: 'modal',
+		headerMode: 'none',
+	}
+)
+
+export const Root = StackNavigator(
+	{
+		Tabs: Tabs,
+		Modal: ModalScreen,
+	},
+	{
+		// mode: 'modal',
+		// headerMode: 'none',
 	}
 )

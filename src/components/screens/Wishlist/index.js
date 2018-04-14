@@ -1,5 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { Button } from 'react-native-elements'
+import { StyledConstants } from '@constants/Styled'
 import Header from '@screens/Header'
 import MyWishlist from '@commons/Wishlist/MyWishlist'
 
@@ -8,12 +10,22 @@ class Wishlist extends React.Component {
 		headerTitle: <Header title="W I S H L I S T" />,
 	}
 
+	constructor(props) {
+		super(props)
+	}
+
 	render() {
 		return (
 			<ScrollView>
 				<View style={styled.container}>
 					<View style={styled.createContainer}>
-						<Text style={styled.createText}>Create New</Text>
+						<Button
+							backgroundColor="black"
+							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
+							textStyle={StyledConstants.TEXT_BUTTON_WHITE}
+							onPress={() => this.props.navigation.navigate('CreateWishlistScreen')}
+							title="Create New"
+						/>
 					</View>
 				</View>
 				<View style={styled.MyWishlistContainer}>
@@ -36,14 +48,9 @@ const styled = StyleSheet.create({
 	},
 	createContainer: {
 		margin: '5%',
-		alignItems: 'center',
 		borderStyle: 'solid',
 		borderColor: '#000000',
 		borderWidth: 5,
-	},
-	createText: {
-		padding: 15,
-		fontSize: 20,
 	},
 	MyWishlistContainer: {
 		display: 'flex',

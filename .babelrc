@@ -13,6 +13,7 @@
 				{ "src": "./src/components/commons", "expose": "@commons" },
 				{ "src": "./src/components/utils", "expose": "@utils" },
 				{ "src": "./src/components/screens", "expose": "@screens" },
+				{ "src": "./src/constants", "expose": "@constants" },
 				{ "src": "./assets/icons", "expose": "@icons" },
 				{ "src": "./assets/images", "expose": "@images" }
 			]

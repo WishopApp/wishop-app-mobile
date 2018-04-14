@@ -3,10 +3,6 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import Header from '@screens/Header'
 
 class MyWishlist extends React.Component {
-	static navigationOptions = {
-		headerTitle: <Header title="W I S H L I S T" />,
-	}
-
 	render() {
 		return (
 			<View style={styled.wishlistContainer}>
