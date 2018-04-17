@@ -5,6 +5,7 @@ import Home from '@screens/Home'
 import Wishlist from '@screens/Wishlist'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
+import DismissableModal from '@screens/DismissableModal'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -19,28 +20,22 @@ export const MywishlistStack = StackNavigator({
 			title: 'W I S H L I S T',
 		},
 	},
-	Category: {
-		screen: CategoryScreen,
-		navigationOptions: {
-			title: 'S E L E C T   C A T E G O R Y',
-		},
-	},
 })
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
-		// 	},
-		// },
-		CreateWishlist: {
-			screen: CreateWishlistScreen,
+		Home: {
+			screen: HomeStack,
 			navigationOptions: {
-				title: 'N E W W I S H L I S T',
+				tabBarLabel: 'Home',
 			},
 		},
+		// CreateWishlist: {
+		// 	screen: CreateWishlistScreen,
+		// 	navigationOptions: {
+		// 		title: 'N E W W I S H L I S T',
+		// 	},
+		// },
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
@@ -61,6 +56,12 @@ export const CreateWishlistStack = StackNavigator(
 				title: 'N E W W I S H L I S T',
 			},
 		},
+		Category: {
+			screen: CategoryScreen,
+			navigationOptions: {
+				title: 'S E L E C T   C A T E G O R Y',
+			},
+		},
 	},
 	{
 		mode: 'card',
@@ -74,7 +75,6 @@ export const ModalScreen = StackNavigator(
 		},
 	},
 	{
-		mode: 'card',
 		headerMode: 'none',
 	}
 )

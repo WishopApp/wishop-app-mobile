@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import CreateWishlist from '@commons/CreateWishlist'
 import DismissableModal from '@screens/DismissableModal'
 
@@ -8,9 +8,11 @@ class CreateWishlistScreen extends React.Component {
 		super(props)
 	}
 
-	static navigationOptions = {
-		headerLeft: null,
-		headerRight: <DismissableModal />,
+	static navigationOptions = ({ navigation }) => {
+		return {
+			headerLeft: null,
+			headerRight: <DismissableModal navigation={navigation} />,
+		}
 	}
 
 	render() {

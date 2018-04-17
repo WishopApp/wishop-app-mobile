@@ -15,6 +15,7 @@ class Wishlist extends React.Component {
 	}
 
 	render() {
+		let previous = this.props.navigation.state
 		return (
 			<ScrollView>
 				<View style={styled.container}>
@@ -23,7 +24,7 @@ class Wishlist extends React.Component {
 							backgroundColor="black"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							textStyle={StyledConstants.TEXT_BUTTON_WHITE}
-							onPress={() => this.props.navigation.navigate('CreateWishlist')}
+							onPress={() => this.props.navigation.navigate('CreateWishlist', { previous })}
 							title="Create New"
 						/>
 					</View>

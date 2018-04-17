@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 export const StyledConstants = StyleSheet.create({
 	FONT_TOPIC: {
-		fontSize: 20,
+		fontSize: 16,
 		fontWeight: 'bold',
 	},
 
@@ -23,7 +23,7 @@ export const StyledConstants = StyleSheet.create({
 	},
 })
 
-export const StyleSelected = {
+export const StyledSelected = {
 	background: StyledConstants.BACKGROUND_BLACK,
 	text: StyledConstants.TEXT_BUTTON_WHITE,
 }

@@ -5,14 +5,22 @@ import { Button } from 'react-native-elements'
 class DismissableModal extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log(this.props)
 	}
 
 	render() {
-		// let { previousRoute } = this.props.previous
+		let navigation = this.props.navigation
+		let previousRoute = null
+		if (this.props.navigation.state.params) {
+			previousRoute = this.props.navigation.state.params.previous.routeName
+		}
 		return (
 			<View>
-				<Button title="Close" />
+				<Button
+					title="Close"
+					onPress={() =>
+						previousRoute != null ? navigation.navigate(previousRoute) : navigation.goBack(null)
+					}
+				/>
 			</View>
 		)
 	}

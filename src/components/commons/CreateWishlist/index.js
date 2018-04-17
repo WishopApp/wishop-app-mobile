@@ -13,8 +13,7 @@ class CreateWishlist extends React.Component {
 			subcategory: null,
 			properties: null,
 		}
-		console.log('createwishlist')
-		console.log(StyledSelected)
+		console.log(this.props)
 	}
 
 	setCategory = category => {
@@ -37,15 +36,15 @@ class CreateWishlist extends React.Component {
 				</View>
 				<View style={styled.InputContainer}>
 					<Button
-					// backgroundColor={this.state.category ? StyledSelected.background : 'white'}
-					// containerViewStyle={[
-					// 	StyledConstants.MAX_WIDTH_BUTTON,
-					// 	styled.categoryButton,
-					// 	StyledSelected.background,
-					// ]}
-					// textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
-					// onPress={() => this.props.navigation.navigate('Category', this.setCategory)}
-					// title={this.state.category ? this.state.category.name : 'Category'}
+						backgroundColor={this.state.category ? 'black' : 'white'}
+						containerViewStyle={[
+							StyledConstants.MAX_WIDTH_BUTTON,
+							styled.categoryButton,
+							StyledSelected.background,
+						]}
+						textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
+						onPress={() => this.props.navigation.navigate('Category', this.setCategory)}
+						title={this.state.category ? this.state.category.name : 'Category'}
 					/>
 				</View>
 				<View style={styled.InputContainer}>
@@ -63,7 +62,7 @@ class CreateWishlist extends React.Component {
 						large
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-						buttonStyle={styled.createButton}
+						// buttonStyle={styled.createButton}
 						textStyle={styled.textCreateButton}
 					/>
 				</View>

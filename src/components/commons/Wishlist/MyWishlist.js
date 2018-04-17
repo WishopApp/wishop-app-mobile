@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import Header from '@screens/Header'
+import { StyledConstants } from '@constants/Styled'
 
 class MyWishlist extends React.Component {
 	render() {
@@ -8,7 +8,7 @@ class MyWishlist extends React.Component {
 			<View style={styled.wishlistContainer}>
 				<Image style={styled.productImage} source={require('@images/pikachu.png')} />
 				<View style={styled.WishlistProductContainer}>
-					<Text style={styled.WishlistName}>Wishlist Name</Text>
+					<Text style={StyledConstants.FONT_TOPIC}>Wishlist Name</Text>
 					<Text style={styled.WishlistProductName}>Product Name </Text>
 					<Text style={styled.WishlistCategoryAndSubCategory}>Category, Subcatgory</Text>
 				</View>
@@ -37,6 +37,7 @@ const styled = StyleSheet.create({
 	WishlistProductContainer: {
 		width: '80%',
 		padding: '3%',
+		marginLeft: '3%',
 		display: 'flex',
 		flex: 1,
 		flexDirection: 'column',
@@ -47,7 +48,7 @@ const styled = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	WishlistProductName: {
-		fontSize: 14,
+		fontSize: 12,
 	},
 	WishlistCategoryAndSubCategory: {
 		fontSize: 8,

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
-import { StyledConstants, StyleSelected } from '@constants/Styled'
+import { StyledConstants, StyledSelected } from '@constants/Styled'
 
 class CategoryCard extends React.Component {
 	constructor(props) {
@@ -23,7 +23,7 @@ class CategoryCard extends React.Component {
 	selected = () => {
 		let id = this.props.id
 		let data = {
-			name: 'shoes',
+			name: 'Shirt',
 		}
 		this.props.categorySelected(id, data)
 		this.setState({ selected: true })
@@ -33,7 +33,7 @@ class CategoryCard extends React.Component {
 		let hidden = this.props.hidden
 		return (
 			<TouchableOpacity
-				style={[styled.card, this.isSelected() && StyleSelected.background, hidden && styled.hiddenCard]}
+				style={[styled.card, this.isSelected() && StyledSelected.background, hidden && styled.hiddenCard]}
 				onPress={this.selected}
 			>
 				<Image
@@ -44,7 +44,7 @@ class CategoryCard extends React.Component {
 							: require('@images/polo-shirt.png')
 					}
 				/>
-				<Text style={[StyledConstants.FONT_TOPIC, this.isSelected() && StyleSelected.text]}>Shirt</Text>
+				<Text style={[StyledConstants.FONT_TOPIC, this.isSelected() && StyledSelected.text]}>Shirt</Text>
 			</TouchableOpacity>
 		)
 	}
