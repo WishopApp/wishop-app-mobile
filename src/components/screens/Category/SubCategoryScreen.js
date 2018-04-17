@@ -3,39 +3,39 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import Card from '@commons/Category/Card'
 import { StyledConstants } from '@constants/Styled'
 
-class CategoryScreen extends React.Component {
+export default class SubCategoryScreen extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			cardSelected: {
-				type: 'category',
+				type: 'subcategory',
 				selectedId: null,
 			},
 		}
 		console.log(this.props)
 	}
 
-	categorySelected = (id, categoryData) => {
+	subCategorySelected = (id, subCategoryData) => {
 		let setCategory = this.props.navigation.state.params
 		let cardSelected = Object.assign({}, this.state.cardSelected)
 		cardSelected.selectedId = id
 		this.setState({ cardSelected: cardSelected })
 		console.log(categoryData)
 
-		setCategory(categoryData)
+		// setCategory(categoryData)
 	}
 
 	render() {
-		let { type, selectedId } = this.state.cardSelected
+		let { selectedId } = this.state.cardSelected
 		return (
 			<ScrollView>
 				<View style={styled.container}>
 					<View style={styled.cardContainer}>
-						<Card id="1" categorySelected={this.categorySelected} selectedId={selectedId} type={type} />
-						<Card id="2" categorySelected={this.categorySelected} selectedId={selectedId} type={type} />
+						<Card id="1" categorySelected={this.categorySelected} selectedId={selectedId} />
+						<Card id="2" categorySelected={this.categorySelected} selectedId={selectedId} />
 					</View>
 					<View style={styled.cardContainer}>
-						<Card id="3" categorySelected={this.categorySelected} selectedId={selectedId} type={type} />
+						<Card id="3" categorySelected={this.categorySelected} selectedId={selectedId} />
 					</View>
 				</View>
 			</ScrollView>
@@ -56,5 +56,3 @@ const styled = StyleSheet.create({
 		marginTop: '6.75%',
 	},
 })
-
-export default CategoryScreen

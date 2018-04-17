@@ -12,6 +12,7 @@ class CategoryCard extends React.Component {
 	}
 
 	isSelected = () => {
+		console.log(this.props)
 		let id = this.props.id
 		let selectedId = this.props.selectedId
 		if (selectedId != null && id == selectedId) {
