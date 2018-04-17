@@ -5,6 +5,14 @@ export const StyledConstants = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 
+	FONT_DESCRIPTION: {
+		fontSize: 12,
+	},
+
+	FONT_BOLD: {
+		fontWeight: 'bold',
+	},
+
 	MAX_WIDTH_BUTTON: {
 		marginLeft: null,
 		marginRight: null,

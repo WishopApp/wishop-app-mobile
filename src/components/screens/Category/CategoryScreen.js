@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
-import CategoryCard from '@commons/Category/CategoryCard'
+import Card from '@commons/Category/Card'
 import { StyledConstants } from '@constants/Styled'
 
 class CategoryScreen extends React.Component {
@@ -26,20 +26,20 @@ class CategoryScreen extends React.Component {
 
 	render() {
 		let { selectedId } = this.state.cardSelected
+		let lastedAndOdd = true
 		return (
 			<ScrollView>
 				<View style={styled.container}>
 					<View style={styled.cardContainer}>
-						<CategoryCard id="1" categorySelected={this.categorySelected} selectedId={selectedId} />
-						<CategoryCard id="2" categorySelected={this.categorySelected} selectedId={selectedId} />
+						<Card id="1" categorySelected={this.categorySelected} selectedId={selectedId} />
+						<Card id="2" categorySelected={this.categorySelected} selectedId={selectedId} />
 					</View>
 					<View style={styled.cardContainer}>
-						<CategoryCard id="3" categorySelected={this.categorySelected} selectedId={selectedId} />
-						<CategoryCard
-							id="4"
+						<Card
+							id="3"
 							categorySelected={this.categorySelected}
 							selectedId={selectedId}
-							hidden="true"
+							lastedAndOdd={true}
 						/>
 					</View>
 				</View>
@@ -55,11 +55,10 @@ const styled = StyleSheet.create({
 	cardContainer: {
 		height: 150,
 		display: 'flex',
+		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-around',
-		alignItems: 'center',
-		marginTop: '4%',
-		marginBottom: '4%',
+		justifyContent: 'flex-start',
+		marginTop: '6.75%',
 	},
 })
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 
@@ -24,17 +24,17 @@ class CreateWishlist extends React.Component {
 	render() {
 		return (
 			<View style={styled.container}>
-				<View style={styled.InputContainer}>
-					<Text style={styled.textDescription}>Wishlist Name</Text>
+				<View style={styled.inputContainer}>
+					<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Wishlist Name</Text>
 					<TextInput
-						style={[styled.textDescription, styled.textInput]}
+						style={[StyledConstants.FONT_DESCRIPTION, styled.textInput]}
 						underlineColorAndroid="transparent"
 						placeholder="Enter Wishlist Name"
 						onChangeText={text => this.setState({ wishlistName: text })}
 						value={this.state.wishlistName}
 					/>
 				</View>
-				<View style={styled.InputContainer}>
+				<View style={styled.inputContainer}>
 					<Button
 						backgroundColor={this.state.category ? 'black' : 'white'}
 						containerViewStyle={[
@@ -43,14 +43,17 @@ class CreateWishlist extends React.Component {
 							StyledSelected.background,
 						]}
 						textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
-						onPress={() => this.props.navigation.navigate('Category', this.setCategory)}
+						onPress={() => {
+							console.log('press me')
+							this.props.navigation.navigate('Category', this.setCategory)
+						}}
 						title={this.state.category ? this.state.category.name : 'Category'}
 					/>
 				</View>
-				<View style={styled.InputContainer}>
-					<Text style={styled.textDescription}>Product Name</Text>
+				<View style={styled.inputContainer}>
+					<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Product Name</Text>
 					<TextInput
-						style={[styled.textDescription, styled.textInput]}
+						style={[StyledConstants.FONT_DESCRIPTION, styled.textInput]}
 						underlineColorAndroid="transparent"
 						placeholder="Enter Product Name"
 						onChangeText={text => this.setState({ productName: text })}
@@ -62,7 +65,7 @@ class CreateWishlist extends React.Component {
 						large
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-						// buttonStyle={styled.createButton}
+						onPress={() => console.log('press me')}
 						textStyle={styled.textCreateButton}
 					/>
 				</View>
@@ -76,7 +79,7 @@ const styled = StyleSheet.create({
 		height: '100%',
 		width: '100%',
 	},
-	InputContainer: {
+	inputContainer: {
 		height: '15%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -85,10 +88,6 @@ const styled = StyleSheet.create({
 		paddingRight: '5%',
 		borderStyle: 'solid',
 		borderBottomWidth: 1,
-	},
-	textDescription: {
-		fontSize: 18,
-		fontWeight: 'bold',
 	},
 	textInput: {
 		width: '45%',
@@ -107,6 +106,7 @@ const styled = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'flex-end',
 		position: 'absolute',
+		zIndex: -4,
 	},
 	createButton: {
 		paddingLeft: 0,

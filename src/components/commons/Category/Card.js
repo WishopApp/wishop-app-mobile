@@ -33,7 +33,8 @@ class CategoryCard extends React.Component {
 		let hidden = this.props.hidden
 		return (
 			<TouchableOpacity
-				style={[styled.card, this.isSelected() && StyledSelected.background, hidden && styled.hiddenCard]}
+				activeOpacity={1}
+				style={[styled.card, this.isSelected() && StyledSelected.background]}
 				onPress={this.selected}
 			>
 				<Image
@@ -59,13 +60,12 @@ const styled = StyleSheet.create({
 		borderWidth: 3,
 		justifyContent: 'center',
 		alignItems: 'center',
+		opacity: 1,
+		marginLeft: '6.5%',
 	},
 	imageSize: {
-		width: '50%',
+		width: '60%',
 		height: '50%',
-	},
-	hiddenCard: {
-		opacity: 0,
 	},
 })
 

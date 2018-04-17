@@ -24,18 +24,18 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
-			navigationOptions: {
-				tabBarLabel: 'Home',
-			},
-		},
-		// CreateWishlist: {
-		// 	screen: CreateWishlistScreen,
+		// Home: {
+		// 	screen: HomeStack,
 		// 	navigationOptions: {
-		// 		title: 'N E W W I S H L I S T',
+		// 		tabBarLabel: 'Home',
 		// 	},
 		// },
+		CreateWishlist: {
+			screen: CreateWishlistScreen,
+			navigationOptions: {
+				title: 'N E W W I S H L I S T',
+			},
+		},
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {

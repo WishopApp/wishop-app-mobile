@@ -9,7 +9,7 @@ class MyWishlist extends React.Component {
 				<Image style={styled.productImage} source={require('@images/pikachu.png')} />
 				<View style={styled.WishlistProductContainer}>
 					<Text style={StyledConstants.FONT_TOPIC}>Wishlist Name</Text>
-					<Text style={styled.WishlistProductName}>Product Name </Text>
+					<Text style={StyledConstants.FONT_DESCRIPTION}>Product Name </Text>
 					<Text style={styled.WishlistCategoryAndSubCategory}>Category, Subcatgory</Text>
 				</View>
 				<View style={styled.WishlistDeleteContainer}>
@@ -42,10 +42,6 @@ const styled = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
-	},
-	WishlistName: {
-		fontSize: 20,
-		fontWeight: 'bold',
 	},
 	WishlistProductName: {
 		fontSize: 12,
