@@ -1,17 +1,27 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
-import { StyledConstants } from '@constants/Styled'
+import { StyledConstants, StyledSelected } from '@constants/Styled'
 
 class CreateWishlist extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			wishlistName: null,
-			ProductName: null,
+			productName: null,
+			category: null,
+			subcategory: null,
+			properties: null,
 		}
-		console.log(this.state)
+		console.log('createwishlist')
+		console.log(StyledSelected)
 	}
+
+	setCategory = category => {
+		this.setState({ category: category })
+		console.log(category)
+	}
+
 	render() {
 		return (
 			<View style={styled.container}>
@@ -26,13 +36,16 @@ class CreateWishlist extends React.Component {
 					/>
 				</View>
 				<View style={styled.InputContainer}>
-					<Text style={styled.textDescription}>Wishlist Name</Text>
-					<TextInput
-						style={[styled.textDescription, styled.textInput]}
-						underlineColorAndroid="transparent"
-						placeholder="Enter Wishlist Name"
-						onChangeText={text => this.setState({ wishlistName: text })}
-						value={this.state.wishlistName}
+					<Button
+					// backgroundColor={this.state.category ? StyledSelected.background : 'white'}
+					// containerViewStyle={[
+					// 	StyledConstants.MAX_WIDTH_BUTTON,
+					// 	styled.categoryButton,
+					// 	StyledSelected.background,
+					// ]}
+					// textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
+					// onPress={() => this.props.navigation.navigate('Category', this.setCategory)}
+					// title={this.state.category ? this.state.category.name : 'Category'}
 					/>
 				</View>
 				<View style={styled.InputContainer}>
@@ -41,8 +54,8 @@ class CreateWishlist extends React.Component {
 						style={[styled.textDescription, styled.textInput]}
 						underlineColorAndroid="transparent"
 						placeholder="Enter Product Name"
-						onChangeText={text => this.setState({ wishlistName: text })}
-						value={this.state.wishlistName}
+						onChangeText={text => this.setState({ productName: text })}
+						value={this.state.productName}
 					/>
 				</View>
 				<View style={styled.createButtonContainer}>
@@ -82,6 +95,11 @@ const styled = StyleSheet.create({
 		width: '45%',
 		borderBottomWidth: 0,
 		textAlign: 'right',
+	},
+	categoryButton: {
+		borderStyle: 'solid',
+		borderColor: '#000000',
+		borderWidth: 3,
 	},
 	createButtonContainer: {
 		height: '100%',

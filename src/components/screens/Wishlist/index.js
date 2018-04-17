@@ -23,7 +23,7 @@ class Wishlist extends React.Component {
 							backgroundColor="black"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							textStyle={StyledConstants.TEXT_BUTTON_WHITE}
-							onPress={() => this.props.navigation.navigate('CreateWishlistScreen')}
+							onPress={() => this.props.navigation.navigate('CreateWishlist')}
 							title="Create New"
 						/>
 					</View>

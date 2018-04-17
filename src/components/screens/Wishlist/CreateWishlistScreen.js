@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import CreateWishlist from '@commons/Wishlist/CreateWishlist'
+import CreateWishlist from '@commons/CreateWishlist'
 import DismissableModal from '@screens/DismissableModal'
 
 class CreateWishlistScreen extends React.Component {
@@ -16,7 +16,7 @@ class CreateWishlistScreen extends React.Component {
 	render() {
 		return (
 			<View>
-				<CreateWishlist />
+				<CreateWishlist navigation={this.props.navigation} />
 			</View>
 		)
 	}
