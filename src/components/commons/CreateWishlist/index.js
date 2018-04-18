@@ -37,9 +37,9 @@ class CreateWishlist extends React.Component {
 		console.log(wishlist)
 	}
 
-	isRequireField = () => {
+	isRequireData = () => {
 		let { wishlistName, category, subCategory, productName } = this.state
-		if (!wishlistName) return false
+		if (wishlistName) return false
 		if (category) return false
 		if (subCategory) return false
 		if (productName) return false
@@ -78,7 +78,7 @@ class CreateWishlist extends React.Component {
 						title={this.state.category ? this.state.category.name : 'Category'}
 					/>
 				</View>
-				<View style={styled.inputContainer}>
+				<View style={[styled.inputContainer, !this.state.category ? StyledConstants.NONE : '']}>
 					<Button
 						backgroundColor={this.state.category ? 'black' : 'white'}
 						containerViewStyle={[
@@ -108,6 +108,7 @@ class CreateWishlist extends React.Component {
 				<View style={styled.createButtonContainer}>
 					<Button
 						large
+						backgroundColor={this.isRequireData() ? styled.createButtonWithData : 'blue'}
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 						onPress={() => this.createWishlist()}

@@ -29,6 +29,10 @@ export const StyledConstants = StyleSheet.create({
 	TEXT_BUTTON_BLACK: {
 		color: 'black',
 	},
+
+	NONE: {
+		display: 'none',
+	},
 })
 
 export const StyledSelected = {

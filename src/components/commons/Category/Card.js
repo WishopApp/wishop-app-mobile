@@ -35,7 +35,6 @@ class CategoryCard extends React.Component {
 	}
 
 	render() {
-		let hidden = this.props.hidden
 		return (
 			<TouchableOpacity
 				activeOpacity={1}
