@@ -8,9 +8,9 @@ class CreateWishlist extends React.Component {
 		super(props)
 		this.state = {
 			wishlistName: null,
-			productName: null,
 			category: null,
 			subCategory: null,
+			productName: null,
 			properties: null,
 		}
 	}
@@ -24,6 +24,27 @@ class CreateWishlist extends React.Component {
 		this.setState({ subCategory: subcategory })
 		console.log('Subcategory')
 		console.log(subcategory)
+	}
+
+	createWishlist = () => {
+		let wishlist = {
+			wishlistName: this.state.wishlistName,
+			category: this.state.category,
+			subCategory: this.state.subCategory,
+			productName: this.state.productName,
+			properties: this.state.properties,
+		}
+		console.log(wishlist)
+	}
+
+	isRequireField = () => {
+		let { wishlistName, category, subCategory, productName } = this.state
+		if (!wishlistName) return false
+		if (category) return false
+		if (subCategory) return false
+		if (productName) return false
+
+		return true
 	}
 
 	render() {
@@ -89,7 +110,7 @@ class CreateWishlist extends React.Component {
 						large
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-						onPress={() => console.log('press me')}
+						onPress={() => this.createWishlist()}
 						textStyle={styled.textCreateButton}
 					/>
 				</View>
