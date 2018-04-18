@@ -6,13 +6,10 @@ import { StyledConstants, StyledSelected } from '@constants/Styled'
 class CategoryCard extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			selected: false,
-		}
+		console.log(this.props)
 	}
 
 	isSelected = () => {
-		console.log(this.props)
 		let id = this.props.id
 		let selectedId = this.props.selectedId
 		if (selectedId != null && id == selectedId) {
@@ -23,11 +20,15 @@ class CategoryCard extends React.Component {
 
 	selected = () => {
 		let id = this.props.id
+		let type = this.props.type
 		let data = {
 			name: 'Shirt',
 		}
-		this.props.categorySelected(id, data)
-		this.setState({ selected: true })
+		if (type == 'category') {
+			this.props.categorySelected(id, data)
+		} else {
+			this.props.subCategorySelected(id, data)
+		}
 	}
 
 	render() {

@@ -23,6 +23,7 @@ class CategoryScreen extends React.Component {
 		console.log(categoryData)
 
 		setCategory(categoryData)
+		this.props.navigation.navigate('SubCategory')
 	}
 
 	render() {

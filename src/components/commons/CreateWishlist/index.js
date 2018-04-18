@@ -21,6 +21,11 @@ class CreateWishlist extends React.Component {
 		console.log(category)
 	}
 
+	setSubCategory = subcategory => {
+		this.setState({ subcategory: subcategory })
+		console.log(category)
+	}
+
 	render() {
 		return (
 			<View style={styled.container}>
@@ -48,6 +53,22 @@ class CreateWishlist extends React.Component {
 							this.props.navigation.navigate('Category', this.setCategory)
 						}}
 						title={this.state.category ? this.state.category.name : 'Category'}
+					/>
+				</View>
+				<View style={styled.inputContainer}>
+					<Button
+						backgroundColor={this.state.category ? 'black' : 'white'}
+						containerViewStyle={[
+							StyledConstants.MAX_WIDTH_BUTTON,
+							styled.categoryButton,
+							StyledSelected.background,
+						]}
+						textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
+						onPress={() => {
+							console.log('press me')
+							this.props.navigation.navigate('SubCategory', this.setCategory)
+						}}
+						title={this.state.category ? this.state.category.name : 'SubCategory'}
 					/>
 				</View>
 				<View style={styled.inputContainer}>

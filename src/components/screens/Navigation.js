@@ -5,7 +5,7 @@ import Home from '@screens/Home'
 import Wishlist from '@screens/Wishlist'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
-import DismissableModal from '@screens/DismissableModal'
+import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -60,6 +60,12 @@ export const CreateWishlistStack = StackNavigator(
 			screen: CategoryScreen,
 			navigationOptions: {
 				title: 'S E L E C T   C A T E G O R Y',
+			},
+		},
+		SubCategory: {
+			screen: SubCategoryScreen,
+			navigationOptions: {
+				title: 'S E L E C T   S U B C A T E G O R Y',
 			},
 		},
 	},

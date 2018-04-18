@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import Card from '@commons/Category/Card'
 import { StyledConstants } from '@constants/Styled'
 
-export default class SubCategoryScreen extends React.Component {
+class CategoryScreen extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -15,27 +15,43 @@ export default class SubCategoryScreen extends React.Component {
 		console.log(this.props)
 	}
 
-	subCategorySelected = (id, subCategoryData) => {
+	subCategorySelected = (id, categoryData) => {
 		let setCategory = this.props.navigation.state.params
 		let cardSelected = Object.assign({}, this.state.cardSelected)
 		cardSelected.selectedId = id
 		this.setState({ cardSelected: cardSelected })
 		console.log(categoryData)
 
-		// setCategory(categoryData)
+		// setSubCategory(categoryData)
+		this.props.navigation.navigate('CreateWishlist')
 	}
 
 	render() {
-		let { selectedId } = this.state.cardSelected
+		let { type, selectedId } = this.state.cardSelected
 		return (
 			<ScrollView>
 				<View style={styled.container}>
 					<View style={styled.cardContainer}>
-						<Card id="1" categorySelected={this.categorySelected} selectedId={selectedId} />
-						<Card id="2" categorySelected={this.categorySelected} selectedId={selectedId} />
+						<Card
+							id="1"
+							subCategorySelected={this.subCategorySelected}
+							selectedId={selectedId}
+							type={type}
+						/>
+						<Card
+							id="2"
+							subCategorySelected={this.subCategorySelected}
+							selectedId={selectedId}
+							type={type}
+						/>
 					</View>
 					<View style={styled.cardContainer}>
-						<Card id="3" categorySelected={this.categorySelected} selectedId={selectedId} />
+						<Card
+							id="3"
+							subCategorySelected={this.subCategorySelected}
+							selectedId={selectedId}
+							type={type}
+						/>
 					</View>
 				</View>
 			</ScrollView>
@@ -56,3 +72,5 @@ const styled = StyleSheet.create({
 		marginTop: '6.75%',
 	},
 })
+
+export default CategoryScreen
