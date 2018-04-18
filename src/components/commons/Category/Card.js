@@ -27,6 +27,9 @@ class CategoryCard extends React.Component {
 		if (type == 'category') {
 			this.props.categorySelected(id, data)
 		} else {
+			data = {
+				name: 'T-Shirt',
+			}
 			this.props.subCategorySelected(id, data)
 		}
 	}

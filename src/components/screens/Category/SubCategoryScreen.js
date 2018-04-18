@@ -15,15 +15,16 @@ class CategoryScreen extends React.Component {
 		console.log(this.props)
 	}
 
-	subCategorySelected = (id, categoryData) => {
-		let setCategory = this.props.navigation.state.params
+	subCategorySelected = (id, subcategoryData) => {
+		let { _goBack, setSubCategory } = this.props.navigation.state.params
 		let cardSelected = Object.assign({}, this.state.cardSelected)
 		cardSelected.selectedId = id
 		this.setState({ cardSelected: cardSelected })
-		console.log(categoryData)
+		setSubCategory(subcategoryData)
 
-		// setSubCategory(categoryData)
-		this.props.navigation.navigate('CreateWishlist')
+		// Moveto SubcatScreen => CategoryScreen => CreateWishlist
+		if (_goBack !== undefined) _goBack()
+		this.props.navigation.goBack()
 	}
 
 	render() {

@@ -10,10 +10,9 @@ class CreateWishlist extends React.Component {
 			wishlistName: null,
 			productName: null,
 			category: null,
-			subcategory: null,
+			subCategory: null,
 			properties: null,
 		}
-		console.log(this.props)
 	}
 
 	setCategory = category => {
@@ -22,8 +21,9 @@ class CreateWishlist extends React.Component {
 	}
 
 	setSubCategory = subcategory => {
-		this.setState({ subcategory: subcategory })
-		console.log(category)
+		this.setState({ subCategory: subcategory })
+		console.log('Subcategory')
+		console.log(subcategory)
 	}
 
 	render() {
@@ -49,8 +49,10 @@ class CreateWishlist extends React.Component {
 						]}
 						textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
 						onPress={() => {
-							console.log('press me')
-							this.props.navigation.navigate('Category', this.setCategory)
+							this.props.navigation.navigate('Category', {
+								setCategory: this.setCategory,
+								setSubCategory: this.setSubCategory,
+							})
 						}}
 						title={this.state.category ? this.state.category.name : 'Category'}
 					/>
@@ -65,10 +67,11 @@ class CreateWishlist extends React.Component {
 						]}
 						textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
 						onPress={() => {
-							console.log('press me')
-							this.props.navigation.navigate('SubCategory', this.setCategory)
+							this.props.navigation.navigate('SubCategory', {
+								setSubCategory: this.setSubCategory,
+							})
 						}}
-						title={this.state.category ? this.state.category.name : 'SubCategory'}
+						title={this.state.subCategory ? this.state.subCategory.name : 'SubCategory'}
 					/>
 				</View>
 				<View style={styled.inputContainer}>
