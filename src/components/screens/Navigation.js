@@ -45,6 +45,14 @@ export const Tabs = TabNavigator(
 	},
 	{
 		tabBarPosition: 'bottom',
+		animationEnabled: false,
+		transitionConfig: () => ({
+			transitionSpec: {
+				duration: 0,
+				timing: Animated.timing,
+				easing: Easing.step0,
+			},
+		}),
 	}
 )
 
