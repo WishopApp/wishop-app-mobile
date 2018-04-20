@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
+import { SuccessPopup } from '@utils/Popups/CallPopup'
 
 class CreateWishlist extends React.Component {
 	constructor(props) {
@@ -12,6 +13,7 @@ class CreateWishlist extends React.Component {
 			subCategory: null,
 			productName: null,
 			properties: null,
+			successPopup: null,
 		}
 	}
 
@@ -50,6 +52,7 @@ class CreateWishlist extends React.Component {
 	render() {
 		return (
 			<View style={styled.container}>
+				<View style={styled.showPopup}>{this.state.successPopup ? this.state.successPopup : null}</View>
 				<View style={styled.inputContainer}>
 					<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Wishlist Name</Text>
 					<TextInput
@@ -111,7 +114,10 @@ class CreateWishlist extends React.Component {
 						backgroundColor={this.isRequireData() ? styled.createButtonWithData : 'blue'}
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-						onPress={() => this.createWishlist()}
+						onPress={() => {
+							this.createWishlist()
+							this.setState({ successPopup: SuccessPopup() })
+						}}
 						textStyle={styled.textCreateButton}
 					/>
 				</View>
@@ -160,6 +166,9 @@ const styled = StyleSheet.create({
 	},
 	textStyle: {
 		color: 'white',
+	},
+	showPopup: {
+		zIndex: 5,
 	},
 })
 
