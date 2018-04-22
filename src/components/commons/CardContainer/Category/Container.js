@@ -14,11 +14,8 @@ class Categories extends React.Component {
 				type: 'category',
 				selectedId: null,
 			},
-			containerCardStack: [],
 		}
 	}
-
-	componentDidUpdate() {}
 
 	categorySelected = (id, categoryData) => {
 		let { createWishlistKey, setCategory, setSubCategory } = this.props.navigation.state.params
@@ -57,7 +54,6 @@ class Categories extends React.Component {
 	render() {
 		let { type, selectedId } = this.state.cardSelected
 		let { loading, error, categories } = this.props.data
-		console.log(loading)
 		if (loading)
 			return (
 				<View>
@@ -74,9 +70,9 @@ class Categories extends React.Component {
 		return (
 			<ScrollView>
 				<View style={styled.container}>
-					{cardContainerStack.map(categories => {
+					{cardContainerStack.map((categories, index) => {
 						return (
-							<View style={styled.cardContainer}>
+							<View style={styled.cardContainer} key={index}>
 								{categories.map((category, index) => {
 									return (
 										<Card

@@ -19,7 +19,6 @@ class CreateWishlist extends React.Component {
 
 	setCategory = category => {
 		this.setState({ category: category })
-		// console.log(category)
 	}
 
 	setSubCategory = subcategory => {

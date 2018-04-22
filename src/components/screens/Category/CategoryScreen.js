@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoriesContainer from '@commons/CardContainer/Container'
+import CategoriesContainer from '@commons/CardContainer/Category/Container'
 
 class CategoryScreen extends React.Component {
 	render() {

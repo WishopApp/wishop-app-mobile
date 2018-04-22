@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 
-class CategoryCard extends React.Component {
+class SubCategoryCard extends React.Component {
 	constructor(props) {
 		super(props)
 		console.log(this.props)
@@ -22,11 +22,7 @@ class CategoryCard extends React.Component {
 		let id = this.props.id
 		let type = this.props.type
 		let data = this.props.data
-		if (type == 'category') {
-			this.props.categorySelected(id, data)
-		} else {
-			this.props.subCategorySelected(id, data)
-		}
+		this.props.subCategorySelected(id, data)
 	}
 
 	render() {
@@ -69,4 +65,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default CategoryCard
+export default SubCategoryCard

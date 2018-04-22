@@ -9,3 +9,12 @@ export const QueryCategories = gql`
 		}
 	}
 `
+
+export const QuerySubCategories = gql`
+	query SubCategories {
+		subCategories {
+			_id
+			name
+		}
+	}
+`
