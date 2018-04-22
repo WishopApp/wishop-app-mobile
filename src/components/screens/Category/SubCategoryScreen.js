@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
-import Card from '@commons/Category/Card'
+import Card from '@commons/CardContainer/Category/Card'
 import { StyledConstants } from '@constants/Styled'
 
 class CategoryScreen extends React.Component {
@@ -12,7 +12,6 @@ class CategoryScreen extends React.Component {
 				selectedId: null,
 			},
 		}
-		console.log(this.props)
 	}
 
 	subCategorySelected = (id, subcategoryData) => {

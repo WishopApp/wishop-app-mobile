@@ -23,16 +23,16 @@ class Movie extends React.Component {
 	}
 }
 
-/*
 const MovieData = ({ loading, error, data }) => {
+	console.log(data)
 	// Loading
 	if (loading) return <Text>loading...</Text>
 	// Loaded
 	return <Text>Test Apollo movie title: {Movie.title}</Text>
 	// return (this.props = data)
 }
-*/
-const queryMovie = gql`
+
+export const queryMovie = gql`
 	{
 		Movie(id: "cixos5gtq0ogi0126tvekxo27") {
 			id
@@ -43,6 +43,6 @@ const queryMovie = gql`
 		}
 	}
 `
-const MovieWithData = graphql(queryMovie)(Movie)
+const MovieWithData = graphql(queryMovie)(MovieData)
 
 export default MovieWithData

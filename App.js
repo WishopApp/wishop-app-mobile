@@ -6,7 +6,7 @@ import { ApolloProvider } from 'react-apollo'
 import Movie from '@utils/Movie'
 
 const client = new ApolloClient({
-	link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cixos23120m0n0173veiiwrjr' }),
+	link: new HttpLink({ uri: 'https://api-wishopapp.tk/graphql' }),
 	cache: new InMemoryCache(),
 })
 

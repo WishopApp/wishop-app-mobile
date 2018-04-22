@@ -19,13 +19,13 @@ class CreateWishlist extends React.Component {
 
 	setCategory = category => {
 		this.setState({ category: category })
-		console.log(category)
+		// console.log(category)
 	}
 
 	setSubCategory = subcategory => {
 		this.setState({ subCategory: subcategory })
-		console.log('Subcategory')
-		console.log(subcategory)
+		// console.log('Subcategory')
+		// console.log(subcategory)
 	}
 
 	createWishlist = () => {
@@ -36,7 +36,7 @@ class CreateWishlist extends React.Component {
 			productName: this.state.productName,
 			properties: this.state.properties,
 		}
-		console.log(wishlist)
+		// console.log(wishlist)
 	}
 
 	isRequireData = () => {

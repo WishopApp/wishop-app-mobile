@@ -9,8 +9,8 @@ class Home extends React.Component {
 		this.state = {
 			successPopup: null,
 		}
-		console.log(this.props.navigation)
 	}
+
 	static navigationOptions = {
 		headerTitle: <Header title="Home" />,
 	}
