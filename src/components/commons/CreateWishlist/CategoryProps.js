@@ -13,13 +13,13 @@ class CategoryPropsRenderer extends React.Component {
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>
 		return (
-			<View style={styled.container}>
+			<View style={styled.inputContainer}>
 				{categoryProps != undefined
 					? categoryProps.map((property, index) => {
 						return (
 							<TouchableOpacity
 								activeOpacity={1}
-								style={styled.inputContainer}
+								style={[StyledConstants.MAX_WIDTH_BUTTON, styled.categoryProps]}
 								key={index}
 								onPress={() =>
 									this.props.navigation.navigate('CategoryPropsPage', {

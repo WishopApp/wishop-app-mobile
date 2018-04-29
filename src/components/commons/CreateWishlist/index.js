@@ -50,7 +50,6 @@ class CreateWishlist extends React.Component {
 			let index = findCatProps(categoryProps, propsValue._id)
 			this.setCategoryProps(propsValue, index)
 		}
-		console.log(categoryProps)
 	}
 
 	getCategoryPropValue = () => {
@@ -59,13 +58,15 @@ class CreateWishlist extends React.Component {
 
 	isRequireData = () => {
 		let { wishlistName, category, subCategory, productName } = this.state
-		if (wishlistName) return false
-		if (category) return false
-		if (subCategory) return false
-		if (productName) return false
+		if (wishlistName) return true
+		if (category) return true
+		if (subCategory) return true
+		if (productName) return true
 
-		return true
+		return false
 	}
+
+	createWishlist = () => {}
 
 	render() {
 		return (
@@ -137,12 +138,13 @@ class CreateWishlist extends React.Component {
 				<View style={styled.createButtonContainer}>
 					<Button
 						large
-						backgroundColor={this.isRequireData() ? styled.createButtonWithData : 'blue'}
+						backgroundColor={!this.isRequireData() ? styled.createButtonWithData : 'blue'}
 						title="Create"
 						containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 						onPress={() => {
+							console.log('button')
 							this.createWishlist()
-							this.setState({ successPopup: SuccessPopup() })
+							this.setState({ successPopup: SuccessPopup(this.props.navigation) })
 						}}
 						textStyle={styled.textCreateButton}
 					/>
@@ -199,8 +201,8 @@ const styled = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'flex-end',
-		position: 'absolute',
-		zIndex: -4,
+		position: 'relative',
+		zIndex: 3,
 	},
 	createButton: {
 		paddingLeft: 0,
@@ -208,6 +210,13 @@ const styled = StyleSheet.create({
 	},
 	textStyle: {
 		color: 'white',
+	},
+	categoryProps: {
+		zIndex: -5,
+		height: '15%',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
 	},
 	showPopup: {
 		zIndex: 5,
