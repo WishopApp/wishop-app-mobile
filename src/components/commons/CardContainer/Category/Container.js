@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
-import Card from '@commons/CardContainer/Category/Card'
+import Card from '@commons/CardContainer/Card'
 import { StyledConstants } from '@constants/Styled'
 import { QueryCategories } from '@utils/Graphql/Query'
-import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 
 class Categories extends React.Component {
@@ -22,7 +21,6 @@ class Categories extends React.Component {
 		let cardSelected = Object.assign({}, this.state.cardSelected)
 		cardSelected.selectedId = id
 		this.setState({ cardSelected: cardSelected })
-		console.log(this.props.navigation.state)
 		setCategory(categoryData)
 		this.props.navigation.navigate('SubCategory', {
 			setSubCategory: setSubCategory,

@@ -6,7 +6,6 @@ import { StyledConstants, StyledSelected } from '@constants/Styled'
 class CategoryCard extends React.Component {
 	constructor(props) {
 		super(props)
-		console.log(this.props)
 	}
 
 	isSelected = () => {

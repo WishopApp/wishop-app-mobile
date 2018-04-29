@@ -10,6 +10,17 @@ export const QueryCategories = gql`
 	}
 `
 
+export const QueryCategoryProps = gql`
+	query CategoriesProps($categoryId: ID!) {
+		categoryProps(categoryId: $categoryId) {
+			_id
+			categoryId
+			name
+			values
+		}
+	}
+`
+
 export const QuerySubCategories = gql`
 	query SubCategories {
 		subCategories {

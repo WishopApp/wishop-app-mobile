@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
-import Card from '@commons/CardContainer/Category/Card'
+import Card from '@commons/CardContainer/Card'
 import { StyledConstants } from '@constants/Styled'
 import { QuerySubCategories } from '@utils/Graphql/Query'
 import gql from 'graphql-tag'

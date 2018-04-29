@@ -6,6 +6,7 @@ import Wishlist from '@screens/Wishlist'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
 import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
+import CategoryPropsScreen from '@screens/Category/CategoryPropsScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -75,6 +76,9 @@ export const CreateWishlistStack = StackNavigator(
 			navigationOptions: {
 				title: 'S E L E C T   S U B C A T E G O R Y',
 			},
+		},
+		CategoryPropsPage: {
+			screen: CategoryPropsScreen,
 		},
 	},
 	{

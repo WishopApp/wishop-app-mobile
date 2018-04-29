@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { SuccessPopup } from '@utils/Popups/CallPopup'
+import CategoryProps from './CategoryProps'
 
 class CreateWishlist extends React.Component {
 	constructor(props) {
@@ -12,7 +13,12 @@ class CreateWishlist extends React.Component {
 			category: null,
 			subCategory: null,
 			productName: null,
-			properties: null,
+			categoryProps: [],
+			categoryPropValue: {
+				_id: null,
+				value: null,
+			},
+			subCategoryProps: null,
 			successPopup: null,
 		}
 	}
@@ -23,19 +29,32 @@ class CreateWishlist extends React.Component {
 
 	setSubCategory = subcategory => {
 		this.setState({ subCategory: subcategory })
-		// console.log('Subcategory')
-		// console.log(subcategory)
 	}
 
-	createWishlist = () => {
-		let wishlist = {
-			wishlistName: this.state.wishlistName,
-			category: this.state.category,
-			subCategory: this.state.subCategory,
-			productName: this.state.productName,
-			properties: this.state.properties,
+	setCategoryProps = (categoryPropValue, index) => {
+		let propsValue = this.state.categoryProps
+		propsValue[index].value = categoryPropValue.value
+		this.forceUpdate()
+	}
+
+	setCategoryPropValue = (_id, value) => {
+		let categoryProps = this.state.categoryProps
+		let propsValue = {
+			_id: _id,
+			value: value,
 		}
-		// console.log(wishlist)
+		this.setState({ categoryPropValue: propsValue })
+		if (checkRepeatCatProps(categoryProps, propsValue._id)) {
+			categoryProps.push(propsValue)
+		} else {
+			let index = findCatProps(categoryProps, propsValue._id)
+			this.setCategoryProps(propsValue, index)
+		}
+		console.log(categoryProps)
+	}
+
+	getCategoryPropValue = () => {
+		return this.state.categoryPropValue
 	}
 
 	isRequireData = () => {
@@ -107,6 +126,14 @@ class CreateWishlist extends React.Component {
 						value={this.state.productName}
 					/>
 				</View>
+				{this.state.category != null ? (
+					<CategoryProps
+						styled={styled}
+						setCategoryPropValue={this.setCategoryPropValue}
+						getCategoryPropValue={this.getCategoryPropValue}
+						navigation={this.props.navigation}
+					/>
+				) : null}
 				<View style={styled.createButtonContainer}>
 					<Button
 						large
@@ -123,6 +150,22 @@ class CreateWishlist extends React.Component {
 			</View>
 		)
 	}
+}
+
+const checkRepeatCatProps = (catProps, _id) => {
+	let checked = true
+	catProps.map(prop => {
+		if (prop._id == _id) checked = false
+	})
+	return checked
+}
+
+const findCatProps = (catProps, _id) => {
+	let checked = -1
+	catProps.map((prop, index) => {
+		if (prop._id == _id) checked = index
+	})
+	return checked
 }
 
 const styled = StyleSheet.create({
