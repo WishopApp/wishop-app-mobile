@@ -58,12 +58,13 @@ class CreateWishlist extends React.Component {
 
 	isRequireData = () => {
 		let { wishlistName, category, subCategory, productName } = this.state
-		if (wishlistName) return true
-		if (category) return true
-		if (subCategory) return true
-		if (productName) return true
+		let countRequire = 0
+		if (wishlistName) countRequire++
+		if (category) countRequire++
+		if (subCategory) countRequire++
+		if (productName) countRequire++
 
-		return false
+		return countRequire == 0 ? false : true
 	}
 
 	createWishlist = () => {}
