@@ -6,22 +6,6 @@ export const QueryCategories = gql`
 		categories {
 			_id
 			name
-			subCategoryIds
-			catePropIds
-			properties {
-				_id
-				name
-				values
-			}
-			subCategories {
-				_id
-				name
-				subCatePropIds
-				properties {
-					_id
-					name
-				}
-			}
 		}
 	}
 `
