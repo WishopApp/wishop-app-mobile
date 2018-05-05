@@ -4,6 +4,9 @@ import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { SuccessPopup } from '@utils/Popups/CallPopup'
 import CategoryProps from './CategoryProps'
+import CreateWishlistMutation from './store'
+import { MutationCreateWishlist, MutationTest2 } from '@utils/Graphql/Mutation'
+import { graphql } from 'react-apollo'
 
 class CreateWishlist extends React.Component {
 	constructor(props) {
@@ -68,20 +71,60 @@ class CreateWishlist extends React.Component {
 		return this.state.categoryPropValue
 	}
 
-	isRequireData = () => {
-		let { wishlistName, category, subCategory, productName } = this.state
-		let countRequire = 0
-		if (wishlistName) countRequire++
-		if (category) countRequire++
-		if (subCategory) countRequire++
-		if (productName) countRequire++
+	isNotRequireData = () => {
+		let { wishlistName, category, subCategory } = this.state
+		if (wishlistName == null) return false
+		if (category == null) return false
+		if (subCategory == null) return false
 
-		return countRequire == 0 ? false : true
+		return true
 	}
 
-	createWishlist = () => {}
+	createWishlist = async () => {
+		let wishlist = {
+			// name: this.state.wishlistName,
+			// productName: this.state.productName,
+			// categoryId: this.state.category._id,
+			// subcategoryId: this.state.subCategory._id,
+			// categoryProps: this.state.categoryProps,
+			// subCategoryProps: this.state.subCategoryProps,
 
+			wishlistName: 'First wishlist',
+			category: '5ae7361a8cc9ce000fdcd212',
+			subCategory: '5ae736aa8cc9ce000fdcd216',
+			productName: 'Jacket CMD',
+			categoryProps: [
+				{
+					categoryId: '5ae737a88cc9ce000fdcd21d', // _id
+					value: 'M',
+				},
+				{
+					categoryId: '5ae7381c8cc9ce000fdcd21e', //_id
+					value: 'Leather',
+				},
+			],
+			subCategoryProps: [],
+		}
+
+		let userId = '5ae17ff68cc9ce000fdcd211'
+		let name = 'First wishlist'
+		let productName = 'Jacket CMD'
+		let categoryId = '5ae7361a8cc9ce000fdcd212'
+		let subCategoryId = '5ae736aa8cc9ce000fdcd216'
+		let cw = await this.props.mutate({ variables: { userId, name, productName, categoryId, subCategoryId } })
+		// name = 'testsubcat'
+		// let cw = await this.props.mutate({ variables: { categoryId, name } })
+		console.log(cw)
+	}
+	// $userId: ID!
+	// $name: String!
+	// $productName: String!
+	// $categoryId: ID!
+	// $subcategoryId: ID!
 	render() {
+		let { loading, error } = this.props
+		if (loading) return <Text>loading</Text>
+		if (error) return <Text>error</Text>
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.container}>
@@ -154,13 +197,15 @@ class CreateWishlist extends React.Component {
 					<View style={styled.createButtonContainer}>
 						<Button
 							large
-							backgroundColor={!this.isRequireData() ? styled.createButtonWithData : 'blue'}
+							backgroundColor={!this.isNotRequireData() ? styled.createButtonWithData : 'blue'}
 							title="Create"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							onPress={() => {
 								console.log('button')
+								// if (this.isNotRequireData()) {
 								this.createWishlist()
-								this.setState({ successPopup: SuccessPopup(this.props.navigation) })
+								// this.setState({ successPopup: SuccessPopup(this.props.navigation) })
+								// }
 							}}
 							textStyle={styled.textCreateButton}
 						/>
@@ -186,6 +231,8 @@ const findCatProps = (catProps, _id) => {
 	})
 	return checked
 }
+
+const CreateWishlistWithMutation = graphql(MutationCreateWishlist)(CreateWishlist)
 
 const styled = StyleSheet.create({
 	container: {
@@ -240,4 +287,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default CreateWishlist
+export default CreateWishlistWithMutation

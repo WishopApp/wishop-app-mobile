@@ -1,17 +1,27 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-elements'
-import { QueryCategoryProps } from '@utils/Graphql/Query'
-import { StyledConstants } from '@constants/Styled'
 import { graphql } from 'react-apollo'
+import { MutationCreateWishlist } from '@utils/Graphql/Mutation'
 
-const CategoryProps = (component, categoryId) => {
-	return graphql(QueryCategoryProps, {
-		options: {
-			variables: {
-				categoryId: categoryId,
-			},
-		},
-	})(component)
+const CreatedWishlist = ({ loading, error, data }) => {
+	console.log('loading', loading)
+	console.log('error', error)
+	console.log('data', data)
+	if (loading) return loading
+	if (error) return error
+	return data
 }
-export default (component, categoryId) => CategoryProps(component, categoryId)
+
+const CreateWishlistMutation = comp => {
+	graphql(MutationCreateWishlist, {
+		options: props => {
+			return {
+				variables: {
+					userId: '5ae17ff68cc9ce000fdcd211',
+					wishlist: props.wishlist,
+				},
+			}
+		},
+	})(comp)
+}
+
+export default comp => CreateWishlistMutation(comp)
