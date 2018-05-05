@@ -14,11 +14,15 @@ class CreateWishlist extends React.Component {
 			subCategory: null,
 			productName: null,
 			categoryProps: [],
+			subCategoryProps: [],
+
 			categoryPropValue: {
 				_id: null,
+				categoryId: null,
 				value: null,
 			},
-			subCategoryProps: null,
+			eachCategoryPropValues: [],
+
 			successPopup: null,
 		}
 	}
@@ -37,18 +41,26 @@ class CreateWishlist extends React.Component {
 		this.forceUpdate()
 	}
 
-	setCategoryPropValue = (_id, value) => {
+	setEachCategoryProps = (categoryPropValue, index) => {
+		let propsValue = this.state.eachCategoryPropValues
+		propsValue[index].value = categoryPropValue.value
+		this.forceUpdate()
+	}
+
+	setCategoryPropValue = (_id, categoryId, value) => {
 		let categoryProps = this.state.categoryProps
 		let propsValue = {
 			_id: _id,
 			value: value,
 		}
 		this.setState({ categoryPropValue: propsValue })
-		if (checkRepeatCatProps(categoryProps, propsValue._id)) {
+		if (checkNotRepeatCatProps(categoryProps, propsValue._id)) {
 			categoryProps.push(propsValue)
+			this.state.eachCategoryPropValues.push(propsValue)
 		} else {
 			let index = findCatProps(categoryProps, propsValue._id)
 			this.setCategoryProps(propsValue, index)
+			this.setEachCategoryProps(propsValue, index)
 		}
 	}
 
@@ -135,6 +147,7 @@ class CreateWishlist extends React.Component {
 							categoryId={this.state.category._id}
 							setCategoryPropValue={this.setCategoryPropValue}
 							getCategoryPropValue={this.getCategoryPropValue}
+							eachCategoryPropValues={this.state.eachCategoryPropValues}
 							navigation={this.props.navigation}
 						/>
 					) : null}
@@ -158,7 +171,7 @@ class CreateWishlist extends React.Component {
 	}
 }
 
-const checkRepeatCatProps = (catProps, _id) => {
+const checkNotRepeatCatProps = (catProps, _id) => {
 	let checked = true
 	catProps.map(prop => {
 		if (prop._id == _id) checked = false

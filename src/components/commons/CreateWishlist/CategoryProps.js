@@ -5,23 +5,34 @@ import { QueryCategoryProps } from '@utils/Graphql/Query'
 import { StyledConstants } from '@constants/Styled'
 import { graphql } from 'react-apollo'
 
-let categoryId
-
 class CategoryPropsRenderer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.categoryId = this.props.categoryId
 	}
 
-	static propTypes = {
-		// loading: React.PropTypes.bool.isRequired,
-		// error: React.PropTypes.object.isRequired,
-		// data: React.PropTypes.object.isRequired,
+	eachCategoryPropValue = (eachCategoryPropValues, property) => {
+		let propertyName = 'Enter ' + property.name
+		eachCategoryPropValues.map(propValue => {
+			if (propValue._id == property._id) {
+				propertyName = propValue.value
+				return propertyName
+			}
+		})
+		return propertyName
 	}
 
 	render() {
 		let styled = this.props.styled
-		let { loading, error, data, getCategoryPropValue, setCategoryPropValue, categoryId } = this.props
+		let {
+			loading,
+			error,
+			data,
+			getCategoryPropValue,
+			setCategoryPropValue,
+			eachCategoryPropValues,
+			categoryId,
+		} = this.props
 		let categoryProps = data.categoryProps
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>
@@ -39,6 +50,7 @@ class CategoryPropsRenderer extends React.Component {
 											this.props.navigation.navigate('CategoryPropsPage', {
 												categoryId: categoryId,
 												title: property.name,
+												_id: property._id,
 												categoryPropsValue: property.values,
 												setCategoryPropValue: setCategoryPropValue,
 											})
@@ -48,9 +60,7 @@ class CategoryPropsRenderer extends React.Component {
 											{property.name}
 										</Text>
 										<Text style={StyledConstants.FONT_DESCRIPTION}>
-											{getCategoryPropValue().value != null
-												? getCategoryPropValue().value
-												: 'Enter ' + property.name}
+											{this.eachCategoryPropValue(eachCategoryPropValues, property)}
 										</Text>
 									</TouchableOpacity>
 								</View>
@@ -62,16 +72,14 @@ class CategoryPropsRenderer extends React.Component {
 	}
 }
 
-const CategoryProps = categoryId => {
-	return graphql(QueryCategoryProps, {
-		options: props => {
-			return {
-				variables: {
-					categoryId: props.categoryId,
-				},
-			}
-		},
-	})(CategoryPropsRenderer)
-}
+const CategoryProps = graphql(QueryCategoryProps, {
+	options: props => {
+		return {
+			variables: {
+				categoryId: props.categoryId,
+			},
+		}
+	},
+})(CategoryPropsRenderer)
 
-export default CategoryProps(categoryId)
+export default CategoryProps

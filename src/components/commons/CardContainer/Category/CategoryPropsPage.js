@@ -9,7 +9,7 @@ class CategoryPropsPage extends React.Component {
 	}
 
 	render() {
-		let { categoryId, categoryPropsValue, setCategoryPropValue } = this.props.navigation.state.params
+		let { _id, categoryId, categoryPropsValue, setCategoryPropValue } = this.props.navigation.state.params
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.propertyContainer}>
@@ -21,7 +21,7 @@ class CategoryPropsPage extends React.Component {
 									containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON, styled.categoryButton]}
 									textStyle={StyledConstants.TEXT_BUTTON_WHITE}
 									onPress={() => {
-										setCategoryPropValue(categoryId, value)
+										setCategoryPropValue(_id, categoryId, value)
 										this.props.navigation.goBack()
 									}}
 									title={value}
