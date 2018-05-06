@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from '@screens/Home'
-import Wishlist from '@screens/Wishlist'
+import WishlistScreen from '@screens/Wishlist'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
 import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
@@ -16,7 +16,7 @@ export const HomeStack = StackNavigator({
 
 export const MywishlistStack = StackNavigator({
 	Wishlist: {
-		screen: Wishlist,
+		screen: WishlistScreen,
 		navigationOptions: {
 			title: 'W I S H L I S T',
 		},

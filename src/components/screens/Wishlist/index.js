@@ -1,64 +1,24 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
-import { Button } from 'react-native-elements'
-import { StyledConstants } from '@constants/Styled'
+import { View, Text, StyleSheet, Button } from 'react-native'
+import Wishlist from '@commons/Wishlist/Container'
 import Header from '@screens/Header'
-import MyWishlist from '@commons/Wishlist/MyWishlist'
 
-class Wishlist extends React.Component {
-	static navigationOptions = {
-		headerTitle: <Header title="W I S H L I S T" />,
-	}
-
+class WishlistScreen extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
+	static navigationOptions = {
+		headerTitle: <Header title="W I S H L I S T" />,
+	}
+
 	render() {
-		let previous = this.props.navigation.state
 		return (
-			<ScrollView>
-				<View style={styled.container}>
-					<View style={styled.createContainer}>
-						<Button
-							backgroundColor="black"
-							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-							textStyle={StyledConstants.TEXT_BUTTON_WHITE}
-							onPress={() => this.props.navigation.navigate('CreateWishlist', { previous })}
-							title="Create New"
-						/>
-					</View>
-				</View>
-				<View style={styled.MyWishlistContainer}>
-					<MyWishlist />
-					<MyWishlist />
-					<MyWishlist />
-					<MyWishlist />
-					<MyWishlist />
-					<MyWishlist />
-					<MyWishlist />
-				</View>
-			</ScrollView>
+			<View>
+				<Wishlist navigation={this.props.navigation} />
+			</View>
 		)
 	}
 }
 
-const styled = StyleSheet.create({
-	container: {
-		width: '100%',
-	},
-	createContainer: {
-		margin: '5%',
-		borderStyle: 'solid',
-		borderColor: '#000000',
-		borderWidth: 5,
-	},
-	MyWishlistContainer: {
-		display: 'flex',
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-between',
-	},
-})
-
-export default Wishlist
+export default WishlistScreen

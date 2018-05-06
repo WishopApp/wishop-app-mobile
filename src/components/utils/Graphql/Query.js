@@ -29,3 +29,18 @@ export const QuerySubCategories = gql`
 		}
 	}
 `
+
+export const QueryUserWishlists = gql`
+	query UserWishlists($userId: ID!) {
+		user(_id: $userId) {
+			_id
+			email
+			wishlist {
+				name
+				productName
+				categoryId
+				subCategoryId
+			}
+		}
+	}
+`

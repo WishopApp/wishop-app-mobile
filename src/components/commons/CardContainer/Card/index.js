@@ -38,11 +38,7 @@ class CategoryCard extends React.Component {
 			>
 				<Image
 					style={styled.imageSize}
-					source={
-						this.isSelected()
-							? require('@images/polo-shirt-selected.png')
-							: require('@images/polo-shirt.png')
-					}
+					source={this.isSelected() ? require('@images/shirt-selected.png') : require('@images/shirt.png')}
 				/>
 				<Text style={[StyledConstants.FONT_TOPIC, this.isSelected() && StyledSelected.text]}>{name}</Text>
 			</TouchableOpacity>
