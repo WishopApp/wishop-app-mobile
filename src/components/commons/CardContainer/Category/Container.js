@@ -25,6 +25,7 @@ class Categories extends React.Component {
 		this.props.navigation.navigate('SubCategory', {
 			setSubCategory: setSubCategory,
 			_goBack: this._goBack,
+			categoryId: id,
 		})
 	}
 
@@ -97,6 +98,7 @@ const CategoriesContainer = graphql(QueryCategories)(Categories)
 const styled = StyleSheet.create({
 	container: {
 		width: '100%',
+		paddingBottom: '4%',
 	},
 	cardContainer: {
 		height: 150,

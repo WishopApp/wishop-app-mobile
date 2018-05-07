@@ -15,7 +15,9 @@ class MyWishlist extends React.Component {
 				<View style={styled.WishlistProductContainer}>
 					<Text style={StyledConstants.FONT_TOPIC}>{wishlist.name}</Text>
 					<Text style={StyledConstants.FONT_DESCRIPTION}>{wishlist.productName}</Text>
-					<Text style={styled.WishlistCategoryAndSubCategory}>Category, Subcatgory</Text>
+					<Text style={styled.WishlistCategoryAndSubCategory}>
+						{wishlist.category.name}, {wishlist.subCategory.name}
+					</Text>
 				</View>
 				<View style={styled.WishlistDeleteContainer}>
 					<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />

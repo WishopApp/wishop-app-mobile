@@ -14,7 +14,7 @@ class CategoryPropsRenderer extends React.Component {
 	eachCategoryPropValue = (eachCategoryPropValues, property) => {
 		let propertyName = 'Enter ' + property.name
 		eachCategoryPropValues.map(propValue => {
-			if (propValue._id == property._id) {
+			if (propValue.categoryPropId == property._id) {
 				propertyName = propValue.value
 				return propertyName
 			}

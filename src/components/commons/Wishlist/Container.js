@@ -6,11 +6,15 @@ import Header from '@screens/Header'
 import MyWishlist from '@commons/Wishlist/MyWishlist'
 import { graphql } from 'react-apollo'
 import { QueryUserWishlists } from '@utils/Graphql/Query'
-import { userId } from '@constants/Data'
+import { user } from '@constants/Data'
 
 class Wishlist extends React.Component {
 	constructor(props) {
 		super(props)
+	}
+
+	componentDidMount() {
+		this.props.data.refetch()
 	}
 
 	render() {
@@ -20,7 +24,7 @@ class Wishlist extends React.Component {
 
 		let previous = this.props.navigation.state
 		let wishlists = data.user ? data.user.wishlist : undefined
-		console.log(wishlists)
+
 		return (
 			<ScrollView>
 				<View style={styled.container}>
@@ -54,7 +58,8 @@ const UserWishlists = graphql(QueryUserWishlists, {
 	options: props => {
 		return {
 			variables: {
-				userId: userId,
+				userId: user._id,
+				email: user.email,
 			},
 		}
 	},
