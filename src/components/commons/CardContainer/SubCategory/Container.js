@@ -93,11 +93,20 @@ class SubCategories extends React.Component {
 	}
 }
 
-const SubCategoriesContainer = graphql(QuerySubCategories)(SubCategories)
+const SubCategoriesContainer = graphql(QuerySubCategories, {
+	options: props => {
+		return {
+			variables: {
+				categoryId: props.navigation.state.params.categoryId,
+			},
+		}
+	},
+})(SubCategories)
 
 const styled = StyleSheet.create({
 	container: {
 		width: '100%',
+		paddingBottom: '4%',
 	},
 	cardContainer: {
 		height: 150,

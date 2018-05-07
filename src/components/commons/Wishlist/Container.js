@@ -17,10 +17,10 @@ class Wishlist extends React.Component {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
-
+		console.log(data)
 		let previous = this.props.navigation.state
 		let wishlists = data.user ? data.user.wishlist : undefined
-		console.log(wishlists)
+
 		return (
 			<ScrollView>
 				<View style={styled.container}>

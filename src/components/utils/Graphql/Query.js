@@ -22,8 +22,8 @@ export const QueryCategoryProps = gql`
 `
 
 export const QuerySubCategories = gql`
-	query SubCategories {
-		subCategories {
+	query SubCategories($categoryId: ID!) {
+		subCategories(categoryId: $categoryId) {
 			_id
 			name
 		}
@@ -38,8 +38,14 @@ export const QueryUserWishlists = gql`
 			wishlist {
 				name
 				productName
-				categoryId
-				subCategoryId
+				category {
+					_id
+					name
+				}
+				subCategory {
+					_id
+					name
+				}
 			}
 		}
 	}

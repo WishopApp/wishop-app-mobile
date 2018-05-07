@@ -54,15 +54,15 @@ class CreateWishlist extends React.Component {
 	setCategoryPropValue = (_id, categoryId, value) => {
 		let categoryProps = this.state.categoryProps
 		let propsValue = {
-			_id: _id, // must be _id of PropValue ถ้าแก้ในนี้แล้วแก้ในไฟล์ categoryProp บรรทัดที่ 17 ตรง propValue.
+			categoryPropId: _id, // must be _id of PropValue ถ้าแก้ในนี้แล้วแก้ในไฟล์ categoryProp บรรทัดที่ 17 ตรง propValue.
 			value: value,
 		}
 		this.setState({ categoryPropValue: propsValue })
-		if (checkNotRepeatCatProps(categoryProps, propsValue._id)) {
+		if (checkNotRepeatCatProps(categoryProps, propsValue.categoryPropId)) {
 			categoryProps.push(propsValue)
 			this.state.eachCategoryPropValues.push(propsValue)
 		} else {
-			let index = findCatProps(categoryProps, propsValue._id)
+			let index = findCatProps(categoryProps, propsValue.categoryPropId)
 			this.setCategoryProps(propsValue, index)
 			this.setEachCategoryProps(propsValue, index)
 		}
@@ -191,7 +191,7 @@ class CreateWishlist extends React.Component {
 const checkNotRepeatCatProps = (catProps, _id) => {
 	let checked = true
 	catProps.map(prop => {
-		if (prop._id == _id) checked = false
+		if (prop.categoryPropId == _id) checked = false
 	})
 	return checked
 }
@@ -199,7 +199,7 @@ const checkNotRepeatCatProps = (catProps, _id) => {
 const findCatProps = (catProps, _id) => {
 	let checked = -1
 	catProps.map((prop, index) => {
-		if (prop._id == _id) checked = index
+		if (prop.categoryPropId == _id) checked = index
 	})
 	return checked
 }
