@@ -31,8 +31,8 @@ export const QuerySubCategories = gql`
 `
 
 export const QueryUserWishlists = gql`
-	query UserWishlists($userId: ID!) {
-		user(_id: $userId) {
+	query UserWishlists($userId: ID, $email: String!) {
+		user(_id: $userId, email: $email) {
 			_id
 			email
 			wishlist {

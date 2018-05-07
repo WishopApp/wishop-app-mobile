@@ -7,7 +7,7 @@ import CategoryProps from './CategoryProps'
 import CreateWishlistMutation from './store'
 import { MutationCreateWishlist } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
-import { userId } from '@constants/Data'
+import { user } from '@constants/Data'
 
 class CreateWishlist extends React.Component {
 	constructor(props) {
@@ -90,6 +90,7 @@ class CreateWishlist extends React.Component {
 			categoryProps: this.state.categoryProps.length > 0 ? this.state.subCategoryProps : null,
 			subCategoryProps: this.state.subCategoryProps.length > 0 ? this.state.subCategoryProps : null,
 		}
+		let userId = user._id
 		let addWishlist = await this.props.mutate({ variables: { userId, wishlist } })
 	}
 
