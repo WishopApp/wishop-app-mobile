@@ -87,7 +87,7 @@ class CreateWishlist extends React.Component {
 			productName: this.state.productName,
 			categoryId: this.state.category._id,
 			subCategoryId: this.state.subCategory._id,
-			categoryProps: this.state.categoryProps.length > 0 ? this.state.subCategoryProps : null,
+			categoryProps: this.state.categoryProps.length > 0 ? this.state.categoryProps : null,
 			subCategoryProps: this.state.subCategoryProps.length > 0 ? this.state.subCategoryProps : null,
 		}
 		let userId = user._id
