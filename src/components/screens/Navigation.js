@@ -3,6 +3,7 @@ import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from '@screens/Home'
 import WishlistScreen from '@screens/Wishlist'
+import BeaconDetectStoreScreen from '@screens/Store/BeaconDetectStoreScreen'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
 import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
@@ -31,12 +32,12 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Home',
 			},
 		},
-		// CreateWishlist: {
-		// 	screen: CreateWishlistScreen,
-		// 	navigationOptions: {
-		// 		title: 'N E W W I S H L I S T',
-		// 	},
-		// },
+		BeaconDetectStoreScreen: {
+			screen: BeaconDetectStoreScreen,
+			navigationOptions: {
+				tabBarLabel: 'Store',
+			},
+		},
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
