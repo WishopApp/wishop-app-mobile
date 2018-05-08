@@ -23,7 +23,7 @@ class Home extends React.Component {
 				<Button
 					title="Show Dialog"
 					onPress={() => {
-						this.setState({ successPopup: SuccessPopup(true) })
+						this.setState({ successPopup: SuccessPopup(this.props.navigation) })
 					}}
 				/>
 			</View>

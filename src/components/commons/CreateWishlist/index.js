@@ -101,7 +101,7 @@ class CreateWishlist extends React.Component {
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.container}>
-					<View style={styled.showPopup}>{this.state.successPopup ? this.state.successPopup : null}</View>
+					<View>{this.state.successPopup ? this.state.successPopup : null}</View>
 					<View style={styled.inputContainer}>
 						<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Wishlist Name</Text>
 						<TextInput
@@ -174,7 +174,6 @@ class CreateWishlist extends React.Component {
 							title="Create"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							onPress={() => {
-								console.log('button')
 								if (this.isNotRequireData()) {
 									this.createWishlist()
 									this.setState({ successPopup: SuccessPopup(this.props.navigation) })
@@ -254,9 +253,6 @@ const styled = StyleSheet.create({
 	},
 	containerProps: {
 		height: '80%',
-	},
-	showPopup: {
-		zIndex: 5,
 	},
 })
 
