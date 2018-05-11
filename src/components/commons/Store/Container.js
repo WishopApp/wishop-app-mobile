@@ -1,15 +1,24 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
-import BeaconDetectStore from './Android/BeaconDetectStore'
+import AndroidBeaconDetectStore from './Android/BeaconDetectStore'
 
 class StoreContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			detectedBeaconsId: [], //// uuid+minor+major
+			detectedBeacons: [], /// object Beacon
+		}
+	}
+
+	_reRender = () => {
+		this.forceUpdate()
 	}
 
 	render() {
+		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
 				<View style={styled.tabbarContainer}>
@@ -36,7 +45,56 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				<BeaconDetectStore />
+				<ScrollView contentContainerStyle={styled.alignContent}>
+					<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} />
+					<View style={styled.alignContent}>
+						{beacons ? (
+							beacons.map((beacon, index) => {
+								return (
+									<View key={index}>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+										<View>
+											<Text>uuid: </Text>
+											<Text>minor: {beacon.minor}</Text>
+											<Text>major: {beacon.major}</Text>
+										</View>
+									</View>
+								)
+							})
+						) : (
+							<Text> Beacon Detecting </Text>
+						)}
+					</View>
+				</ScrollView>
 			</View>
 		)
 	}
@@ -64,6 +122,10 @@ const styled = StyleSheet.create({
 	tabbarMyStore: {
 		borderBottomRightRadius: 5,
 		borderTopRightRadius: 5,
+	},
+
+	alignContent: {
+		alignItems: 'center',
 	},
 })
 

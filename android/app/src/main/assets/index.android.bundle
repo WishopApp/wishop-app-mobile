@@ -88449,19 +88449,31 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 		function StoreContainer(props) {
 			babelHelpers.classCallCheck(this, StoreContainer);
-			return babelHelpers.possibleConstructorReturn(this, (StoreContainer.__proto__ || Object.getPrototypeOf(StoreContainer)).call(this, props));
+
+			var _this = babelHelpers.possibleConstructorReturn(this, (StoreContainer.__proto__ || Object.getPrototypeOf(StoreContainer)).call(this, props));
+
+			_this._reRender = function () {
+				_this.forceUpdate();
+			};
+
+			_this.state = {
+				detectedBeaconsId: [],
+				detectedBeacons: []
+			};
+			return _this;
 		}
 
 		babelHelpers.createClass(StoreContainer, [{
 			key: "render",
 			value: function render() {
+				var beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined;
 				return _react2.default.createElement(
 					_reactNative.View,
 					{
 						style: styled.container,
 						__source: {
 							fileName: _jsxFileName,
-							lineNumber: 14
+							lineNumber: 23
 						}
 					},
 					_react2.default.createElement(
@@ -88470,7 +88482,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							style: styled.tabbarContainer,
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 15
+								lineNumber: 24
 							}
 						},
 						_react2.default.createElement(
@@ -88479,7 +88491,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.tabbar,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 16
+									lineNumber: 25
 								}
 							},
 							_react2.default.createElement(_reactNativeElements.Button, {
@@ -88492,7 +88504,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								title: "Store Detection",
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 17
+									lineNumber: 26
 								}
 							})
 						),
@@ -88502,7 +88514,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.tabbar,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 27
+									lineNumber: 36
 								}
 							},
 							_react2.default.createElement(_reactNativeElements.Button, {
@@ -88515,17 +88527,347 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								title: "My Store",
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 28
+									lineNumber: 37
 								}
 							})
 						)
 					),
-					_react2.default.createElement(_BeaconDetectStore2.default, {
-						__source: {
-							fileName: _jsxFileName,
-							lineNumber: 39
-						}
-					})
+					_react2.default.createElement(
+						_reactNative.ScrollView,
+						{
+							contentContainerStyle: styled.alignContent,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 48
+							}
+						},
+						_react2.default.createElement(_BeaconDetectStore2.default, {
+							_reRender: this._reRender,
+							stateParams: this.state,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 49
+							}
+						}),
+						_react2.default.createElement(
+							_reactNative.View,
+							{
+								style: styled.alignContent,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 50
+								}
+							},
+							beacons ? beacons.map(function (beacon, index) {
+								return _react2.default.createElement(
+									_reactNative.View,
+									{
+										key: index,
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 54
+										}
+									},
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 55
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 56
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 57
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 58
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 60
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 61
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 62
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 63
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 65
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 66
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 67
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 68
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 70
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 71
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 72
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 73
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 75
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 76
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 77
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 78
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 80
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 81
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 82
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 83
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									),
+									_react2.default.createElement(
+										_reactNative.View,
+										{
+											__source: {
+												fileName: _jsxFileName,
+												lineNumber: 85
+											}
+										},
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 86
+												}
+											},
+											"uuid: "
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 87
+												}
+											},
+											"minor: ",
+											beacon.minor
+										),
+										_react2.default.createElement(
+											_reactNative.Text,
+											{
+												__source: {
+													fileName: _jsxFileName,
+													lineNumber: 88
+												}
+											},
+											"major: ",
+											beacon.major
+										)
+									)
+								);
+							}) : _react2.default.createElement(
+								_reactNative.Text,
+								{
+									__source: {
+										fileName: _jsxFileName,
+										lineNumber: 94
+									}
+								},
+								" Beacon Detecting "
+							)
+						)
+					)
 				);
 			}
 		}]);
@@ -88554,6 +88896,9 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		tabbarMyStore: {
 			borderBottomRightRadius: 5,
 			borderTopRightRadius: 5
+		},
+		alignContent: {
+			alignItems: 'center'
 		}
 	});
 
@@ -88575,15 +88920,15 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 	var _reactNativeBeaconsManager2 = babelHelpers.interopRequireDefault(_reactNativeBeaconsManager);
 
-	var BeaconDetectStore = function (_React$Component) {
-		babelHelpers.inherits(BeaconDetectStore, _React$Component);
+	var AndroidBeaconDetectStore = function (_React$Component) {
+		babelHelpers.inherits(AndroidBeaconDetectStore, _React$Component);
 
-		function BeaconDetectStore(props) {
+		function AndroidBeaconDetectStore(props) {
 			var _this2 = this;
 
-			babelHelpers.classCallCheck(this, BeaconDetectStore);
+			babelHelpers.classCallCheck(this, AndroidBeaconDetectStore);
 
-			var _this = babelHelpers.possibleConstructorReturn(this, (BeaconDetectStore.__proto__ || Object.getPrototypeOf(BeaconDetectStore)).call(this, props));
+			var _this = babelHelpers.possibleConstructorReturn(this, (AndroidBeaconDetectStore.__proto__ || Object.getPrototypeOf(AndroidBeaconDetectStore)).call(this, props));
 
 			_this.initBeacon = function _callee() {
 				return regeneratorRuntime.async(function _callee$(_context) {
@@ -88614,13 +88959,16 @@ __d(function (global, require, module, exports, _dependencyMap) {
 									if (beacons.length > 0) {
 										beacons.forEach(function (beacon) {
 											var beaconId = beacon.uuid + beacon.minor + beacon.major;
+											var detectedBeaconsId = _this.props.stateParams.detectedBeaconsId;
+											var detectedBeacons = _this.props.stateParams.detectedBeacons;
 
-											if (isBeaconNotRepeat(_this.state.detectedBeaconsId, beaconId)) {
-												_this.state.detectedBeaconsId.push(beaconId);
+											if (isBeaconNotRepeat(detectedBeaconsId, beaconId)) {
+												detectedBeaconsId.push(beaconId);
+												detectedBeacons.push(beacon);
 
-												_this.state.detectedBeacons.push(beacon);
-
-												_this.forceUpdate();
+												if (_this.props._reRender != undefined) {
+													_this.props._reRender();
+												}
 											}
 										});
 									}
@@ -88634,14 +88982,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				}, null, _this2, [[1, 7]]);
 			};
 
-			_this.state = {
-				detectedBeaconsId: [],
-				detectedBeacons: []
-			};
 			return _this;
 		}
 
-		babelHelpers.createClass(BeaconDetectStore, [{
+		babelHelpers.createClass(AndroidBeaconDetectStore, [{
 			key: "componentWillMount",
 			value: function componentWillMount() {
 				this.initBeacon();
@@ -88649,103 +88993,22 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}, {
 			key: "render",
 			value: function render() {
-				var beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined;
-				return _react2.default.createElement(
-					_reactNative.View,
-					{
-						style: styled.container,
-						__source: {
-							fileName: _jsxFileName,
-							lineNumber: 70
-						}
-					},
-					_react2.default.createElement(
-						_reactNative.ScrollView,
-						{
-							contentContainerStyle: styled.alignContent,
-							__source: {
-								fileName: _jsxFileName,
-								lineNumber: 71
-							}
-						},
-						beacons ? beacons.map(function (beacon, index) {
-							return _react2.default.createElement(
-								_reactNative.View,
-								{
-									key: index,
-									__source: {
-										fileName: _jsxFileName,
-										lineNumber: 75
-									}
-								},
-								_react2.default.createElement(
-									_reactNative.Text,
-									{
-										__source: {
-											fileName: _jsxFileName,
-											lineNumber: 76
-										}
-									},
-									"uuid: ",
-									beacon.uuid
-								),
-								_react2.default.createElement(
-									_reactNative.Text,
-									{
-										__source: {
-											fileName: _jsxFileName,
-											lineNumber: 77
-										}
-									},
-									"minor: ",
-									beacon.minor
-								),
-								_react2.default.createElement(
-									_reactNative.Text,
-									{
-										__source: {
-											fileName: _jsxFileName,
-											lineNumber: 78
-										}
-									},
-									"major: ",
-									beacon.major
-								)
-							);
-						}) : _react2.default.createElement(
-							_reactNative.Text,
-							{
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 83
-								}
-							},
-							" Beacon Detecting "
-						)
-					)
-				);
+				return _react2.default.createElement(_reactNative.View, {
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 68
+					}
+				});
 			}
 		}]);
-		return BeaconDetectStore;
+		return AndroidBeaconDetectStore;
 	}(_react2.default.Component);
 
 	var isBeaconNotRepeat = function isBeaconNotRepeat(beacons, beaconId) {
 		return beacons.indexOf(beaconId) == -1 ? true : false;
 	};
 
-	var styled = _reactNative.StyleSheet.create({
-		container: {
-			width: '100%',
-			height: '100%'
-		},
-		alignContent: {
-			flex: 1,
-			alignItems: 'center',
-			justifyContent: 'center'
-		}
-	});
-
-	exports.default = BeaconDetectStore;
+	exports.default = AndroidBeaconDetectStore;
 },684,[108,12,685],"wishop-app-mobile/src/components/commons/Store/Android/BeaconDetectStore.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {

@@ -2,13 +2,9 @@ import React from 'react'
 import { View, Text, StyleSheet, ScrollView, DeviceEventEmitter } from 'react-native'
 import Beacons from 'react-native-beacons-manager'
 
-class BeaconDetectStore extends React.Component {
+class AndroidBeaconDetectStore extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			detectedBeaconsId: [], //// uuid+minor+major
-			detectedBeacons: [], /// object Beacon
-		}
 	}
 
 	initBeacon = async () => {
@@ -30,11 +26,15 @@ class BeaconDetectStore extends React.Component {
 			if (beacons.length > 0) {
 				beacons.forEach(beacon => {
 					let beaconId = beacon.uuid + beacon.minor + beacon.major
+					let detectedBeaconsId = this.props.stateParams.detectedBeaconsId
+					let detectedBeacons = this.props.stateParams.detectedBeacons
 					// find not beacon Repeat
-					if (isBeaconNotRepeat(this.state.detectedBeaconsId, beaconId)) {
-						this.state.detectedBeaconsId.push(beaconId)
-						this.state.detectedBeacons.push(beacon)
-						this.forceUpdate()
+					if (isBeaconNotRepeat(detectedBeaconsId, beaconId)) {
+						detectedBeaconsId.push(beaconId)
+						detectedBeacons.push(beacon)
+						if (this.props._reRender != undefined) {
+							this.props._reRender()
+						}
 					}
 					// repeat
 				})
@@ -65,26 +65,7 @@ class BeaconDetectStore extends React.Component {
 	}
 
 	render() {
-		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined
-		return (
-			<View style={styled.container}>
-				<ScrollView contentContainerStyle={styled.alignContent}>
-					{beacons ? (
-						beacons.map((beacon, index) => {
-							return (
-								<View key={index}>
-									<Text>uuid: {beacon.uuid}</Text>
-									<Text>minor: {beacon.minor}</Text>
-									<Text>major: {beacon.major}</Text>
-								</View>
-							)
-						})
-					) : (
-						<Text> Beacon Detecting </Text>
-					)}
-				</ScrollView>
-			</View>
-		)
+		return <View />
 	}
 }
 
@@ -92,16 +73,4 @@ const isBeaconNotRepeat = (beacons, beaconId) => {
 	return beacons.indexOf(beaconId) == -1 ? true : false
 }
 
-const styled = StyleSheet.create({
-	container: {
-		width: '100%',
-		height: '100%',
-	},
-	alignContent: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-})
-
-export default BeaconDetectStore
+export default AndroidBeaconDetectStore
