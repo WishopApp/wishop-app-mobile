@@ -5,6 +5,10 @@ import Beacons from 'react-native-beacons-manager'
 class BeaconDetectStore extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			detectedBeaconsId: [], //// uuid+minor+major
+			detectedBeacons: []		/// object Beacon
+		}
 	}
 
 	initBeacon = async () => {
@@ -22,6 +26,18 @@ class BeaconDetectStore extends React.Component {
 		// Print a log of the detected iBeacons (1 per second)
 		DeviceEventEmitter.addListener('beaconsDidRange', data => {
 			console.log('Found beacons!', data)
+			let beacons = data.beacons
+			if(beacons.length > 0){
+				beacons.forEach( (beacon) {
+					let beaconId = beacon.uuid + beacon.minor + beacon.major
+					// find not beacon Repeat
+					if (isBeaconNotRepeat(this.state.detectedBeacons, beaconId)){
+						this.state.detectedBeacons.push(beaconId)
+						this.state.detectedBeacons.push(beacon)
+					}
+					// repeat
+				});
+			}
 			/* data = {
 		        beacons: [{
 		            proximity: 'immediate'
@@ -29,7 +45,7 @@ class BeaconDetectStore extends React.Component {
 		            rssi: -75
 		            minor: 47965,
 		            major: 63317,
-		            uuid
+		            uuid:
 		        }],
 		        uuid,
 		        identifier: 'Region'
@@ -48,17 +64,32 @@ class BeaconDetectStore extends React.Component {
 	}
 
 	render() {
+		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : null
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.alignContent}>
-					<Text> Beacon Store </Text>
-					<Text> Beacon Store </Text>
-					<Text> Beacon Store </Text>
-					<Text> Beacon Store </Text>
+					
+					{
+						beacons ? beacons.map( (beacon,index) => {
+							return (
+								<View key={index}>
+									<Text>uuid:  {beacon.uuid}</Text>
+									<Text>minor: {beacon.minor}</Text>
+									<Text>major: {beacon.major}</Text>
+								</View>
+							)
+						})
+						: <Text> Beacon Detecting </Text>
+					}
+					<Text> </Text>
 				</ScrollView>
 			</View>
 		)
 	}
+}
+
+const isBeaconNotRepeat = (beacons, beaconId) => {
+	return beacons.indexOf(beaconId) == -1 ? true : false 
 }
 
 const styled = StyleSheet.create({
