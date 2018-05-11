@@ -52641,12 +52641,12 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = App;
-},333,[108,12,334,703,654],"wishop-app-mobile/App.js");
+},333,[108,12,334,704,654],"wishop-app-mobile/App.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.Root = exports.ModalScreen = exports.CreateWishlistStack = exports.Tabs = exports.MywishlistStack = exports.HomeStack = undefined;
+	exports.Root = exports.ModalScreen = exports.CreateWishlistStack = exports.Tabs = exports.MywishlistStack = exports.StoreStack = exports.HomeStack = undefined;
 
 	var _react = require(_dependencyMap[0], "react");
 
@@ -52689,6 +52689,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			screen: _Home2.default
 		}
 	});
+	var StoreStack = exports.StoreStack = (0, _reactNavigation.StackNavigator)({
+		BeaconDetectStore: {
+			screen: _BeaconDetectStoreScreen2.default
+		}
+	});
 	var MywishlistStack = exports.MywishlistStack = (0, _reactNavigation.StackNavigator)({
 		Wishlist: {
 			screen: _Wishlist2.default,
@@ -52704,8 +52709,8 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				tabBarLabel: 'Home'
 			}
 		},
-		BeaconDetectStoreScreen: {
-			screen: _BeaconDetectStoreScreen2.default,
+		Store: {
+			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store'
 			}
@@ -52768,7 +52773,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		mode: 'modal',
 		headerMode: 'none'
 	});
-},334,[108,335,557,632,648,682,688,694,699,701],"wishop-app-mobile/src/components/screens/Navigation.js");
+},334,[108,335,557,632,648,682,689,695,700,702],"wishop-app-mobile/src/components/screens/Navigation.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -81034,6 +81039,9 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		BACKGROUND_BLACK: {
 			backgroundColor: 'black'
 		},
+		BACKGROUND_WHITE: {
+			backgroundColor: 'white'
+		},
 		TEXT_BUTTON_WHITE: {
 			color: 'white'
 		},
@@ -81047,6 +81055,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 	var StyledSelected = exports.StyledSelected = {
 		background: StyledConstants.BACKGROUND_BLACK,
+		defaultBackground: StyledConstants.BACKGROUND_WHITE,
 		text: StyledConstants.TEXT_BUTTON_WHITE
 	};
 },650,[12],"wishop-app-mobile/src/constants/Styled.js");
@@ -88370,9 +88379,9 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 	var _Header2 = babelHelpers.interopRequireDefault(_Header);
 
-	var _BeaconDetectStore = require(_dependencyMap[3], "../../commons/Store/BeaconDetectStore");
+	var _Container = require(_dependencyMap[3], "../../commons/Store/Container");
 
-	var _BeaconDetectStore2 = babelHelpers.interopRequireDefault(_BeaconDetectStore);
+	var _Container2 = babelHelpers.interopRequireDefault(_Container);
 
 	var BeaconDetectStoreScreen = (_temp = _class = function (_React$Component) {
 		babelHelpers.inherits(BeaconDetectStoreScreen, _React$Component);
@@ -88393,7 +88402,8 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							lineNumber: 17
 						}
 					},
-					_react2.default.createElement(_BeaconDetectStore2.default, {
+					_react2.default.createElement(_Container2.default, {
+						navigation: this.navigation,
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 18
@@ -88418,7 +88428,142 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	var _jsxFileName = "E:\\wishop\\wishopappmobile\\src\\components\\commons\\Store\\BeaconDetectStore.js";
+	var _jsxFileName = "E:\\wishop\\wishopappmobile\\src\\components\\commons\\Store\\Container.js";
+
+	var _react = require(_dependencyMap[0], "react");
+
+	var _react2 = babelHelpers.interopRequireDefault(_react);
+
+	var _reactNative = require(_dependencyMap[1], "react-native");
+
+	var _reactNativeElements = require(_dependencyMap[2], "react-native-elements");
+
+	var _Styled = require(_dependencyMap[3], "../../../constants/Styled");
+
+	var _BeaconDetectStore = require(_dependencyMap[4], "./Android/BeaconDetectStore");
+
+	var _BeaconDetectStore2 = babelHelpers.interopRequireDefault(_BeaconDetectStore);
+
+	var StoreContainer = function (_React$Component) {
+		babelHelpers.inherits(StoreContainer, _React$Component);
+
+		function StoreContainer(props) {
+			babelHelpers.classCallCheck(this, StoreContainer);
+			return babelHelpers.possibleConstructorReturn(this, (StoreContainer.__proto__ || Object.getPrototypeOf(StoreContainer)).call(this, props));
+		}
+
+		babelHelpers.createClass(StoreContainer, [{
+			key: "render",
+			value: function render() {
+				return _react2.default.createElement(
+					_reactNative.View,
+					{
+						style: styled.container,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 14
+						}
+					},
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							style: styled.tabbarContainer,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 15
+							}
+						},
+						_react2.default.createElement(
+							_reactNative.View,
+							{
+								style: styled.tabbar,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 16
+								}
+							},
+							_react2.default.createElement(_reactNativeElements.Button, {
+								containerViewStyle: [_Styled.StyledConstants.MAX_WIDTH_BUTTON],
+								buttonStyle: [_Styled.StyledSelected.background, styled.tabbarStoreDetection],
+								textStyle: [_Styled.StyledSelected.text, _Styled.StyledConstants.FONT_DESCRIPTION],
+								onPress: function onPress() {
+									console.log('store Detection');
+								},
+								title: "Store Detection",
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 17
+								}
+							})
+						),
+						_react2.default.createElement(
+							_reactNative.View,
+							{
+								style: styled.tabbar,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 27
+								}
+							},
+							_react2.default.createElement(_reactNativeElements.Button, {
+								containerViewStyle: [_Styled.StyledConstants.MAX_WIDTH_BUTTON],
+								buttonStyle: [_Styled.StyledSelected.defaultBackground, styled.tabbarMyStore],
+								textStyle: [_Styled.StyledConstants.TEXT_BUTTON_BLACK, _Styled.StyledConstants.FONT_DESCRIPTION],
+								onPress: function onPress() {
+									console.log('My Store');
+								},
+								title: "My Store",
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 28
+								}
+							})
+						)
+					),
+					_react2.default.createElement(_BeaconDetectStore2.default, {
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 39
+						}
+					})
+				);
+			}
+		}]);
+		return StoreContainer;
+	}(_react2.default.Component);
+
+	var styled = _reactNative.StyleSheet.create({
+		container: {
+			width: '100%',
+			height: '100%'
+		},
+		tabbarContainer: {
+			marginTop: '4%',
+			height: '10%',
+			flexDirection: 'row',
+			alignItems: 'center',
+			justifyContent: 'center'
+		},
+		tabbar: {
+			width: '40%'
+		},
+		tabbarStoreDetection: {
+			borderBottomLeftRadius: 5,
+			borderTopLeftRadius: 5
+		},
+		tabbarMyStore: {
+			borderBottomRightRadius: 5,
+			borderTopRightRadius: 5
+		}
+	});
+
+	exports.default = StoreContainer;
+},683,[108,12,335,650,684],"wishop-app-mobile/src/components/commons/Store/Container.js");
+__d(function (global, require, module, exports, _dependencyMap) {
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var _jsxFileName = "E:\\wishop\\wishopappmobile\\src\\components\\commons\\Store\\Android\\BeaconDetectStore.js";
 
 	var _react = require(_dependencyMap[0], "react");
 
@@ -88462,8 +88607,23 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								console.log("Beacons ranging not started, error: " + error);
 
 							case 10:
-								_reactNative.DeviceEventEmitter.addListener('regionDidEnter', function (region) {
-									console.log('Entered new beacons region!', region);
+								_reactNative.DeviceEventEmitter.addListener('beaconsDidRange', function (data) {
+									console.log('Found beacons!', data);
+									var beacons = data.beacons;
+
+									if (beacons.length > 0) {
+										beacons.forEach(function (beacon) {
+											var beaconId = beacon.uuid + beacon.minor + beacon.major;
+
+											if (isBeaconNotRepeat(_this.state.detectedBeaconsId, beaconId)) {
+												_this.state.detectedBeaconsId.push(beaconId);
+
+												_this.state.detectedBeacons.push(beacon);
+
+												_this.forceUpdate();
+											}
+										});
+									}
 								});
 
 							case 11:
@@ -88474,6 +88634,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				}, null, _this2, [[1, 7]]);
 			};
 
+			_this.state = {
+				detectedBeaconsId: [],
+				detectedBeacons: []
+			};
 			return _this;
 		}
 
@@ -88485,13 +88649,14 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}, {
 			key: "render",
 			value: function render() {
+				var beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined;
 				return _react2.default.createElement(
 					_reactNative.View,
 					{
 						style: styled.container,
 						__source: {
 							fileName: _jsxFileName,
-							lineNumber: 51
+							lineNumber: 70
 						}
 					},
 					_react2.default.createElement(
@@ -88500,48 +88665,62 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							contentContainerStyle: styled.alignContent,
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 52
+								lineNumber: 71
 							}
 						},
-						_react2.default.createElement(
+						beacons ? beacons.map(function (beacon, index) {
+							return _react2.default.createElement(
+								_reactNative.View,
+								{
+									key: index,
+									__source: {
+										fileName: _jsxFileName,
+										lineNumber: 75
+									}
+								},
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 76
+										}
+									},
+									"uuid: ",
+									beacon.uuid
+								),
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 77
+										}
+									},
+									"minor: ",
+									beacon.minor
+								),
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 78
+										}
+									},
+									"major: ",
+									beacon.major
+								)
+							);
+						}) : _react2.default.createElement(
 							_reactNative.Text,
 							{
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 53
+									lineNumber: 83
 								}
 							},
-							" Beacon Store "
-						),
-						_react2.default.createElement(
-							_reactNative.Text,
-							{
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 54
-								}
-							},
-							" Beacon Store "
-						),
-						_react2.default.createElement(
-							_reactNative.Text,
-							{
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 55
-								}
-							},
-							" Beacon Store "
-						),
-						_react2.default.createElement(
-							_reactNative.Text,
-							{
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 56
-								}
-							},
-							" Beacon Store "
+							" Beacon Detecting "
 						)
 					)
 				);
@@ -88549,6 +88728,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}]);
 		return BeaconDetectStore;
 	}(_react2.default.Component);
+
+	var isBeaconNotRepeat = function isBeaconNotRepeat(beacons, beaconId) {
+		return beacons.indexOf(beaconId) == -1 ? true : false;
+	};
 
 	var styled = _reactNative.StyleSheet.create({
 		container: {
@@ -88563,7 +88746,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = BeaconDetectStore;
-},683,[108,12,684],"wishop-app-mobile/src/components/commons/Store/BeaconDetectStore.js");
+},684,[108,12,685],"wishop-app-mobile/src/components/commons/Store/Android/BeaconDetectStore.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -88581,7 +88764,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   })();
 
   exports.default = RNiBeaconsModule;
-},684,[12,685,686],"react-native-beacons-manager/index.js");
+},685,[12,686,687],"react-native-beacons-manager/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   var RN = require(_dependencyMap[0], 'react-native');
 
@@ -88667,7 +88850,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     stopMonitoringForRegion: stopMonitoringForRegion,
     stopRangingBeaconsInRegion: stopRangingBeaconsInRegion
   };
-},685,[12],"react-native-beacons-manager/lib/next/new.module.ios.js");
+},686,[12],"react-native-beacons-manager/lib/next/new.module.ios.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   var _module = require(_dependencyMap[0], "./module.types");
 
@@ -88804,7 +88987,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     stopMonitoringForRegion: stopMonitoringForRegion,
     stopRangingBeaconsInRegion: stopRangingBeaconsInRegion
   };
-},686,[687,12],"react-native-beacons-manager/lib/next/new.module.android.js");
+},687,[688,12],"react-native-beacons-manager/lib/next/new.module.android.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -88816,7 +88999,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   var EDDYSTONE_UID = exports.EDDYSTONE_UID = 's:0-1=feaa,m:2-2=00,p:3-3:-41,i:4-13,i:14-19';
   var EDDYSTONE_URL = exports.EDDYSTONE_URL = 's:0-1=feaa,m:2-2=10,p:3-3:-41,i:4-20v';
   var transmissionSupport = exports.transmissionSupport = ['SUPPORTED', 'NOT_SUPPORTED_MIN_SDK', 'NOT_SUPPORTED_BLE', 'DEPRECATED_NOT_SUPPORTED_MULTIPLE_ADVERTISEMENTS', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER', 'NOT_SUPPORTED_CANNOT_GET_ADVERTISER_MULTIPLE_ADVERTISEMENTS'];
-},687,[],"react-native-beacons-manager/lib/next/module.types.js");
+},688,[],"react-native-beacons-manager/lib/next/module.types.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -88884,7 +89067,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		};
 	}, _temp);
 	exports.default = CreateWishlistScreen;
-},688,[108,12,689,693],"wishop-app-mobile/src/components/screens/Wishlist/CreateWishlistScreen.js");
+},689,[108,12,690,694],"wishop-app-mobile/src/components/screens/Wishlist/CreateWishlistScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89341,7 +89524,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CreateWishlistWithMutation;
-},689,[108,12,335,650,634,690,691,692,654,681],"wishop-app-mobile/src/components/commons/CreateWishlist/index.js");
+},690,[108,12,335,650,634,691,692,693,654,681],"wishop-app-mobile/src/components/commons/CreateWishlist/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89501,7 +89684,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}
 	})(CategoryPropsRenderer);
 	exports.default = CategoryProps;
-},690,[108,12,335,680,650,654],"wishop-app-mobile/src/components/commons/CreateWishlist/CategoryProps.js");
+},691,[108,12,335,680,650,654],"wishop-app-mobile/src/components/commons/CreateWishlist/CategoryProps.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89543,7 +89726,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	exports.default = function (comp) {
 		return CreateWishlistMutation(comp);
 	};
-},691,[108,654,692],"wishop-app-mobile/src/components/commons/CreateWishlist/store.js");
+},692,[108,654,693],"wishop-app-mobile/src/components/commons/CreateWishlist/store.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89756,7 +89939,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			}
 		}
 	};
-},692,[108],"wishop-app-mobile/src/components/utils/Graphql/Mutation.js");
+},693,[108],"wishop-app-mobile/src/components/utils/Graphql/Mutation.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89814,7 +89997,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = DismissableModal;
-},693,[108,12,335],"wishop-app-mobile/src/components/screens/DismissableModal.js");
+},694,[108,12,335],"wishop-app-mobile/src/components/screens/DismissableModal.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89853,7 +90036,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = CategoryScreen;
-},694,[108,695],"wishop-app-mobile/src/components/screens/Category/CategoryScreen.js");
+},695,[108,696],"wishop-app-mobile/src/components/screens/Category/CategoryScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90058,7 +90241,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoriesContainer;
-},695,[108,12,696,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/Category/Container.js");
+},696,[108,12,697,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/Category/Container.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90168,7 +90351,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoryCard;
-},696,[108,12,335,650,697,698],"wishop-app-mobile/src/components/commons/CardContainer/Card/index.js");
+},697,[108,12,335,650,698,699],"wishop-app-mobile/src/components/commons/CardContainer/Card/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -90180,7 +90363,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     "name": "shirt-selected",
     "type": "png"
   });
-},697,[161],"assets\\images\\shirt-selected.png");
+},698,[161],"assets\\images\\shirt-selected.png");
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -90192,7 +90375,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     "name": "shirt",
     "type": "png"
   });
-},698,[161],"assets\\images\\shirt.png");
+},699,[161],"assets\\images\\shirt.png");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90231,7 +90414,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = SubCategoryContainer;
-},699,[108,700],"wishop-app-mobile/src/components/screens/Category/SubCategoryScreen.js");
+},700,[108,701],"wishop-app-mobile/src/components/screens/Category/SubCategoryScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90440,7 +90623,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = SubCategoriesContainer;
-},700,[108,12,696,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/SubCategory/Container.js");
+},701,[108,12,697,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/SubCategory/Container.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90486,7 +90669,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		};
 	}, _temp);
 	exports.default = CategoryPropsScreen;
-},701,[108,702],"wishop-app-mobile/src/components/screens/Category/CategoryPropsScreen.js");
+},702,[108,703],"wishop-app-mobile/src/components/screens/Category/CategoryPropsScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90598,7 +90781,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoryPropsPage;
-},702,[108,12,335,650],"wishop-app-mobile/src/components/commons/CardContainer/Category/CategoryPropsPage.js");
+},703,[108,12,335,650],"wishop-app-mobile/src/components/commons/CardContainer/Category/CategoryPropsPage.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -90676,7 +90859,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }(apollo_client_1.default);
 
     exports.default = DefaultClient;
-},703,[655,656,704,706,709],"apollo-client-preset/lib/index.js");
+},704,[655,656,705,707,710],"apollo-client-preset/lib/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-link'), require(_dependencyMap[1], 'apollo-link-http-common')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-link', 'apollo-link-http-common'], factory) : factory((global.apolloLink = global.apolloLink || {}, global.apolloLink.http = {}), global.apolloLink.core, global.apolloLink.httpCommon);
@@ -90891,7 +91074,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},704,[656,705],"apollo-link-http/lib/bundle.umd.js");
+},705,[656,706],"apollo-link-http/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'graphql/language/printer')) : typeof define === 'function' && define.amd ? define(['exports', 'graphql/language/printer'], factory) : factory((global.apolloLink = global.apolloLink || {}, global.apolloLink.httpCommon = {}), global.printer);
@@ -91059,7 +91242,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},705,[661],"apollo-link-http-common/lib/bundle.umd.js");
+},706,[661],"apollo-link-http-common/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities'), require(_dependencyMap[1], 'graphql/language/printer'), require(_dependencyMap[2], 'graphql-anywhere'), require(_dependencyMap[3], 'apollo-cache')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities', 'graphql/language/printer', 'graphql-anywhere', 'apollo-cache'], factory) : factory((global.apollo = global.apollo || {}, global.apollo.cache = global.apollo.cache || {}, global.apollo.cache.inmemory = {}), global.apollo.utilities, global.printer, global.graphqlAnywhere, global.apolloCache.core);
@@ -92154,7 +92337,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},706,[657,661,707,708],"apollo-cache-inmemory/lib/bundle.umd.js");
+},707,[657,661,708,709],"apollo-cache-inmemory/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities'], factory) : factory(global.graphqlAnywhere = {}, global.apollo.utilities);
@@ -92384,7 +92567,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},707,[657],"graphql-anywhere/lib/bundle.umd.js");
+},708,[657],"graphql-anywhere/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities'], factory) : factory((global.apollo = global.apollo || {}, global.apollo.cache = global.apollo.cache || {}, global.apollo.cache.core = {}), global.apollo.utilities);
@@ -92599,7 +92782,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},708,[657],"apollo-cache/lib/bundle.umd.js");
+},709,[657],"apollo-cache/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory() : typeof define === 'function' && define.amd ? define(factory) : factory();
@@ -92750,7 +92933,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     gql.disableFragmentWarnings = disableFragmentWarnings;
     module.exports = gql;
   });
-},709,[710],"graphql-tag/lib/graphql-tag.umd.js");
+},710,[711],"graphql-tag/lib/graphql-tag.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -93816,7 +93999,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return nodes;
   }
-},710,[711,713,720,722,723],"graphql/language/parser.js");
+},711,[712,714,721,723,724],"graphql/language/parser.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -93853,7 +94036,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     !(this.locationOffset.line > 0) ? (0, _invariant2.default)(0, 'line in locationOffset is 1-indexed and must be positive') : void 0;
     !(this.locationOffset.column > 0) ? (0, _invariant2.default)(0, 'column in locationOffset is 1-indexed and must be positive') : void 0;
   };
-},711,[712],"graphql/language/source.js");
+},712,[713],"graphql/language/source.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -93867,7 +94050,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       throw new Error(message);
     }
   }
-},712,[],"graphql/jsutils/invariant.js");
+},713,[],"graphql/jsutils/invariant.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -93919,7 +94102,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       return _formatError.formatError;
     }
   });
-},713,[714,717,718,715,719],"graphql/error/index.js");
+},714,[715,718,719,716,720],"graphql/error/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94035,7 +94218,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       }
     }
   });
-},714,[715,716],"graphql/error/GraphQLError.js");
+},715,[716,717],"graphql/error/GraphQLError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94092,7 +94275,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function lpad(len, str) {
     return whitespace(len - str.length) + str;
   }
-},715,[716],"graphql/error/printError.js");
+},716,[717],"graphql/error/printError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94117,7 +94300,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       column: column
     };
   }
-},716,[],"graphql/language/location.js");
+},717,[],"graphql/language/location.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94131,7 +94314,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function syntaxError(source, position, description) {
     return new _GraphQLError.GraphQLError('Syntax Error: ' + description, undefined, source, [position]);
   }
-},717,[714],"graphql/error/syntaxError.js");
+},718,[715],"graphql/error/syntaxError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94149,7 +94332,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return new _GraphQLError.GraphQLError(originalError && originalError.message, originalError && originalError.nodes || nodes, originalError && originalError.source, originalError && originalError.positions, path, originalError);
   }
-},718,[714],"graphql/error/locatedError.js");
+},719,[715],"graphql/error/locatedError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94191,7 +94374,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       path: error.path
     });
   }
-},719,[712],"graphql/error/formatError.js");
+},720,[713],"graphql/error/formatError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94687,7 +94870,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return new Tok(TokenKind.NAME, start, position, line, col, prev, slice.call(body, start, position));
   }
-},720,[713,721],"graphql/language/lexer.js");
+},721,[714,722],"graphql/language/lexer.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94743,7 +94926,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function isBlank(str) {
     return leadingWhitespace(str) === str.length;
   }
-},721,[],"graphql/language/blockStringValue.js");
+},722,[],"graphql/language/blockStringValue.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94794,7 +94977,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     INPUT_OBJECT_TYPE_EXTENSION: 'InputObjectTypeExtension',
     DIRECTIVE_DEFINITION: 'DirectiveDefinition'
   });
-},722,[],"graphql/language/kinds.js");
+},723,[],"graphql/language/kinds.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94821,6 +95004,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
     INPUT_OBJECT: 'INPUT_OBJECT',
     INPUT_FIELD_DEFINITION: 'INPUT_FIELD_DEFINITION'
   });
-},723,[],"graphql/language/directiveLocation.js");
+},724,[],"graphql/language/directiveLocation.js");
 require(23);
 require(11);

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import Header from '@screens/Header'
-import BeaconDetectStore from '@commons/Store/BeaconDetectStore'
+import StoreContainer from '@commons/Store/Container'
 
 class BeaconDetectStoreScreen extends React.Component {
 	constructor(props) {
@@ -15,7 +15,7 @@ class BeaconDetectStoreScreen extends React.Component {
 	render() {
 		return (
 			<View>
-				<BeaconDetectStore />
+				<StoreContainer navigation={this.navigation} />
 			</View>
 		)
 	}

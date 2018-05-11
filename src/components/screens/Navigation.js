@@ -15,6 +15,12 @@ export const HomeStack = StackNavigator({
 	},
 })
 
+export const StoreStack = StackNavigator({
+	BeaconDetectStore: {
+		screen: BeaconDetectStoreScreen,
+	},
+})
+
 export const MywishlistStack = StackNavigator({
 	Wishlist: {
 		screen: WishlistScreen,
@@ -32,8 +38,8 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Home',
 			},
 		},
-		BeaconDetectStoreScreen: {
-			screen: BeaconDetectStoreScreen,
+		Store: {
+			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store',
 			},

@@ -7,7 +7,7 @@ class BeaconDetectStore extends React.Component {
 		super(props)
 		this.state = {
 			detectedBeaconsId: [], //// uuid+minor+major
-			detectedBeacons: []		/// object Beacon
+			detectedBeacons: [], /// object Beacon
 		}
 	}
 
@@ -27,16 +27,17 @@ class BeaconDetectStore extends React.Component {
 		DeviceEventEmitter.addListener('beaconsDidRange', data => {
 			console.log('Found beacons!', data)
 			let beacons = data.beacons
-			if(beacons.length > 0){
-				beacons.forEach( (beacon) {
+			if (beacons.length > 0) {
+				beacons.forEach(beacon => {
 					let beaconId = beacon.uuid + beacon.minor + beacon.major
 					// find not beacon Repeat
-					if (isBeaconNotRepeat(this.state.detectedBeacons, beaconId)){
-						this.state.detectedBeacons.push(beaconId)
+					if (isBeaconNotRepeat(this.state.detectedBeaconsId, beaconId)) {
+						this.state.detectedBeaconsId.push(beaconId)
 						this.state.detectedBeacons.push(beacon)
+						this.forceUpdate()
 					}
 					// repeat
-				});
+				})
 			}
 			/* data = {
 		        beacons: [{
@@ -64,24 +65,23 @@ class BeaconDetectStore extends React.Component {
 	}
 
 	render() {
-		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : null
+		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.alignContent}>
-					
-					{
-						beacons ? beacons.map( (beacon,index) => {
+					{beacons ? (
+						beacons.map((beacon, index) => {
 							return (
 								<View key={index}>
-									<Text>uuid:  {beacon.uuid}</Text>
+									<Text>uuid: {beacon.uuid}</Text>
 									<Text>minor: {beacon.minor}</Text>
 									<Text>major: {beacon.major}</Text>
 								</View>
 							)
 						})
-						: <Text> Beacon Detecting </Text>
-					}
-					<Text> </Text>
+					) : (
+						<Text> Beacon Detecting </Text>
+					)}
 				</ScrollView>
 			</View>
 		)
@@ -89,7 +89,7 @@ class BeaconDetectStore extends React.Component {
 }
 
 const isBeaconNotRepeat = (beacons, beaconId) => {
-	return beacons.indexOf(beaconId) == -1 ? true : false 
+	return beacons.indexOf(beaconId) == -1 ? true : false
 }
 
 const styled = StyleSheet.create({
