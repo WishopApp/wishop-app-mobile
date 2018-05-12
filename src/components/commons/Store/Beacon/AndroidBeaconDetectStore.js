@@ -7,6 +7,21 @@ class AndroidBeaconDetectStore extends React.Component {
 		super(props)
 	}
 
+	// Print a log of the detected iBeacons (1 per second)
+	/* data = {
+		        beacons: [{
+		            proximity: 'immediate'
+		            distance: 0.2222,
+		            rssi: -75
+		            minor: 47965,
+		            major: 63317,
+		            uuid:
+		        }],
+		        uuid,
+		        identifier: 'Region'
+		    }
+	*/
+
 	initBeacon = async () => {
 		// Tells the library to detect iBeacons
 		Beacons.detectEstimotes()
@@ -18,8 +33,13 @@ class AndroidBeaconDetectStore extends React.Component {
 		} catch (err) {
 			console.log(`Beacons ranging not started, error: ${error}`)
 		}
+	}
 
-		// Print a log of the detected iBeacons (1 per second)
+	stopRangingBeacons = async () => {
+		await Beacons.stopRangingBeaconsInRegion('REGION1')
+	}
+
+	rangingListenter = () => {
 		DeviceEventEmitter.addListener('beaconsDidRange', data => {
 			console.log('Found beacons!', data)
 			let beacons = data.beacons
@@ -36,32 +56,21 @@ class AndroidBeaconDetectStore extends React.Component {
 							this.props._reRender()
 						}
 					}
-					// repeat
 				})
 			}
-			/* data = {
-		        beacons: [{
-		            proximity: 'immediate'
-		            distance: 0.2222,
-		            rssi: -75
-		            minor: 47965,
-		            major: 63317,
-		            uuid:
-		        }],
-		        uuid,
-		        identifier: 'Region'
-		    }
-		    */
 		})
-
-		// DeviceEventEmitter.addListener('regionDidEnter', region => {
-		//
-		// 	console.log('Entered new beacons region!', region) // Result of monitoring
-		// })
 	}
 
 	componentWillMount() {
-		this.initBeacon()
+		this.rangingListenter()
+	}
+
+	componentWillReceiveProps(props) {
+		if (props.enabled) {
+			this.initBeacon()
+		} else {
+			this.stopRangingBeacons()
+		}
 	}
 
 	render() {

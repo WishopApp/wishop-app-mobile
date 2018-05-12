@@ -19,6 +19,7 @@ class StoreContainer extends React.Component {
 	}
 
 	render() {
+		let { isFocused } = this.props
 		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
@@ -46,7 +47,7 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} />
+				<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} enabled={isFocused} />
 				{beacons ? beaconDetected(beacons) : beaconDetecting()}
 			</View>
 		)
