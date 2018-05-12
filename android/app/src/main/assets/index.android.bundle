@@ -52641,7 +52641,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = App;
-},333,[108,12,334,705,654],"wishop-app-mobile/App.js");
+},333,[108,12,334,708,654],"wishop-app-mobile/App.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -52773,7 +52773,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		mode: 'modal',
 		headerMode: 'none'
 	});
-},334,[108,335,557,632,648,682,690,696,701,703],"wishop-app-mobile/src/components/screens/Navigation.js");
+},334,[108,335,557,632,648,682,693,699,704,706],"wishop-app-mobile/src/components/screens/Navigation.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -79096,8 +79096,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		babelHelpers.createClass(Home, [{
 			key: "render",
 			value: function render() {
-				var _this2 = this;
-
 				return _react2.default.createElement(
 					_reactNative.View,
 					{
@@ -79126,19 +79124,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							}
 						},
 						"Home Screen"
-					),
-					_react2.default.createElement(_reactNative.Button, {
-						title: "Show Dialog",
-						onPress: function onPress() {
-							_this2.setState({
-								successPopup: (0, _CallPopup.SuccessPopup)(_this2.props.navigation)
-							});
-						},
-						__source: {
-							fileName: _jsxFileName,
-							lineNumber: 23
-						}
-					})
+					)
 				);
 			}
 		}]);
@@ -88388,10 +88374,34 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 		function BeaconDetectStoreScreen(props) {
 			babelHelpers.classCallCheck(this, BeaconDetectStoreScreen);
-			return babelHelpers.possibleConstructorReturn(this, (BeaconDetectStoreScreen.__proto__ || Object.getPrototypeOf(BeaconDetectStoreScreen)).call(this, props));
+
+			var _this = babelHelpers.possibleConstructorReturn(this, (BeaconDetectStoreScreen.__proto__ || Object.getPrototypeOf(BeaconDetectStoreScreen)).call(this, props));
+
+			_this._onFocus = function () {
+				_this.setState({
+					isFocused: true
+				});
+			};
+
+			_this._onBlur = function () {
+				_this.setState({
+					isFocused: false
+				});
+			};
+
+			_this.state = {
+				isFocused: false
+			};
+			return _this;
 		}
 
 		babelHelpers.createClass(BeaconDetectStoreScreen, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.props.navigation.addListener('didFocus', this._onFocus);
+				this.props.navigation.addListener('willBlur', this._onBlur);
+			}
+		}, {
 			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
@@ -88399,14 +88409,15 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					{
 						__source: {
 							fileName: _jsxFileName,
-							lineNumber: 17
+							lineNumber: 33
 						}
 					},
 					_react2.default.createElement(_Container2.default, {
 						navigation: this.navigation,
+						isFocused: this.state.isFocused,
 						__source: {
 							fileName: _jsxFileName,
-							lineNumber: 18
+							lineNumber: 34
 						}
 					})
 				);
@@ -88418,7 +88429,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			title: "S T O R E",
 			__source: {
 				fileName: _jsxFileName,
-				lineNumber: 12
+				lineNumber: 15
 			}
 		})
 	}, _temp);
@@ -88470,6 +88481,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		babelHelpers.createClass(StoreContainer, [{
 			key: "render",
 			value: function render() {
+				var isFocused = this.props.isFocused;
 				var beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined;
 				return _react2.default.createElement(
 					_reactNative.View,
@@ -88477,7 +88489,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 						style: styled.container,
 						__source: {
 							fileName: _jsxFileName,
-							lineNumber: 24
+							lineNumber: 25
 						}
 					},
 					_react2.default.createElement(
@@ -88486,7 +88498,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							style: styled.tabbarContainer,
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 25
+								lineNumber: 26
 							}
 						},
 						_react2.default.createElement(
@@ -88495,7 +88507,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.tabbar,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 26
+									lineNumber: 27
 								}
 							},
 							_react2.default.createElement(_reactNativeElements.Button, {
@@ -88508,7 +88520,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								title: "Store Detection",
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 27
+									lineNumber: 28
 								}
 							})
 						),
@@ -88518,7 +88530,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.tabbar,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 37
+									lineNumber: 38
 								}
 							},
 							_react2.default.createElement(_reactNativeElements.Button, {
@@ -88531,71 +88543,273 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								title: "My Store",
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 38
+									lineNumber: 39
 								}
 							})
 						)
 					),
-					_react2.default.createElement(
-						_reactNative.ScrollView,
-						{
-							contentContainerStyle: styled.alignContent,
-							__source: {
-								fileName: _jsxFileName,
-								lineNumber: 49
-							}
-						},
-						_react2.default.createElement(_AndroidBeaconDetectStore2.default, {
-							_reRender: this._reRender,
-							stateParams: this.state,
-							__source: {
-								fileName: _jsxFileName,
-								lineNumber: 50
-							}
-						}),
-						beacons ? beacons.map(function (beacon, index) {
-							return _react2.default.createElement(
-								_reactNative.View,
-								{
-									key: index,
-									style: styled.StoreDetectListContainer,
-									__source: {
-										fileName: _jsxFileName,
-										lineNumber: 54
-									}
-								},
-								_react2.default.createElement(
-									_reactNative.View,
-									{
-										__source: {
-											fileName: _jsxFileName,
-											lineNumber: 55
-										}
-									},
-									_react2.default.createElement(_StoreList2.default, {
-										__source: {
-											fileName: _jsxFileName,
-											lineNumber: 56
-										}
-									})
-								)
-							);
-						}) : _react2.default.createElement(
-							_reactNative.Text,
-							{
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 62
-								}
-							},
-							" Beacon Detecting "
-						)
-					)
+					_react2.default.createElement(_AndroidBeaconDetectStore2.default, {
+						_reRender: this._reRender,
+						stateParams: this.state,
+						enabled: isFocused,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 50
+						}
+					}),
+					beacons ? beaconDetected(beacons) : beaconDetecting()
 				);
 			}
 		}]);
 		return StoreContainer;
 	}(_react2.default.Component);
+
+	var beaconDetected = function beaconDetected(beacons) {
+		return _react2.default.createElement(
+			_reactNative.View,
+			{
+				__source: {
+					fileName: _jsxFileName,
+					lineNumber: 59
+				}
+			},
+			_react2.default.createElement(
+				_reactNative.View,
+				{
+					style: [styled.topDescription],
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 60
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.Text,
+					{
+						style: _Styled.StyledConstants.FONT_TOPIC,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 61
+						}
+					},
+					"DETECTED STORE"
+				),
+				_react2.default.createElement(
+					_reactNative.Text,
+					{
+						style: _Styled.StyledConstants.FONT_DESCRIPTION,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 62
+						}
+					},
+					"Store with color is meaning some products"
+				),
+				_react2.default.createElement(
+					_reactNative.Text,
+					{
+						style: _Styled.StyledConstants.FONT_DESCRIPTION,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 63
+						}
+					},
+					" of store might matched your wishlist"
+				)
+			),
+			_react2.default.createElement(
+				_reactNative.View,
+				{
+					style: styled.scrollStore,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 65
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.ScrollView,
+					{
+						contentContainerStyle: styled.alignContent,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 66
+						}
+					},
+					beacons.map(function (beacon, index) {
+						return _react2.default.createElement(
+							_reactNative.View,
+							{
+								key: index,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 69
+								}
+							},
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 70
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 71
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 72
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 73
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 74
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 75
+								}
+							})
+						);
+					})
+				)
+			),
+			_react2.default.createElement(
+				_reactNative.View,
+				{
+					style: styled.bottomContainer,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 81
+					}
+				},
+				_react2.default.createElement(
+					_reactNative.View,
+					{
+						style: styled.bottomDescription,
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 82
+						}
+					},
+					_react2.default.createElement(_reactNative.Image, {
+						style: styled.signalImage,
+						source: require(_dependencyMap[6], "../../../../assets/icons/signal.png"),
+						__source: {
+							fileName: _jsxFileName,
+							lineNumber: 83
+						}
+					}),
+					_react2.default.createElement(
+						_reactNative.Text,
+						{
+							style: _Styled.StyledConstants.FONT_DESCRIPTION,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 84
+							}
+						},
+						"We still detecting store in the background"
+					)
+				)
+			)
+		);
+	};
+
+	var beaconDetecting = function beaconDetecting() {
+		return _react2.default.createElement(
+			_reactNative.View,
+			{
+				style: styled.beaconDetecting,
+				__source: {
+					fileName: _jsxFileName,
+					lineNumber: 93
+				}
+			},
+			_react2.default.createElement(_reactNative.Image, {
+				style: styled.signalDetectingImage,
+				source: require(_dependencyMap[6], "../../../../assets/icons/signal.png"),
+				__source: {
+					fileName: _jsxFileName,
+					lineNumber: 94
+				}
+			}),
+			_react2.default.createElement(
+				_reactNative.Text,
+				{
+					style: _Styled.StyledConstants.FONT_TOPIC,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 95
+					}
+				},
+				"D E T E C T I N G ... ",
+				'\n'
+			),
+			_react2.default.createElement(
+				_reactNative.Text,
+				{
+					style: _Styled.StyledConstants.FONT_DESCIPTION,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 96
+					}
+				},
+				"If we can detect store near you"
+			),
+			_react2.default.createElement(
+				_reactNative.Text,
+				{
+					style: _Styled.StyledConstants.FONT_DESCIPTION,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 97
+					}
+				},
+				"we will let you know ",
+				'\n',
+				'\n'
+			),
+			_react2.default.createElement(
+				_reactNative.Text,
+				{
+					style: _Styled.StyledConstants.FONT_DESCIPTION,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 101
+					}
+				},
+				"Please don't close this page while"
+			),
+			_react2.default.createElement(
+				_reactNative.Text,
+				{
+					style: _Styled.StyledConstants.FONT_DESCIPTION,
+					__source: {
+						fileName: _jsxFileName,
+						lineNumber: 102
+					}
+				},
+				"you want us detecting for you"
+			)
+		);
+	};
 
 	var styled = _reactNative.StyleSheet.create({
 		container: {
@@ -88603,7 +88817,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			height: '100%'
 		},
 		tabbarContainer: {
-			marginTop: '4%',
+			marginTop: '2%',
 			height: '10%',
 			flexDirection: 'row',
 			alignItems: 'center',
@@ -88621,16 +88835,51 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			borderTopRightRadius: 5
 		},
 		alignContent: {
-			alignItems: 'center',
-			backgroundColor: 'purple'
+			alignContent: 'center'
 		},
-		StoreDetectListContainer: {
-			backgroundColor: 'skyblue'
+		topDescription: {
+			flex: 1,
+			flexDirection: 'column',
+			height: '10%',
+			justifyContent: 'space-between',
+			alignItems: 'center',
+			paddingTop: '1%',
+			paddingBottom: '10%'
+		},
+		scrollStore: {
+			height: '75%'
+		},
+		bottomContainer: {
+			padding: '4%',
+			height: '10%',
+			flex: 1
+		},
+		bottomDescription: {
+			flex: 1,
+			flexDirection: 'row',
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		signalImage: {
+			width: 40,
+			height: 40,
+			marginRight: '2%'
+		},
+		beaconDetecting: {
+			flex: 1,
+			flexDirection: 'column',
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		signalDetectingImage: {
+			width: 175,
+			height: 175,
+			top: '-5%'
 		}
 	});
 
 	exports.default = StoreContainer;
-},683,[108,12,335,650,684,689],"wishop-app-mobile/src/components/commons/Store/Container.js");
+},683,[108,12,335,650,684,689,692],"wishop-app-mobile/src/components/commons/Store/Container.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -88679,34 +88928,51 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								console.log("Beacons ranging not started, error: " + error);
 
 							case 10:
-								_reactNative.DeviceEventEmitter.addListener('beaconsDidRange', function (data) {
-									console.log('Found beacons!', data);
-									var beacons = data.beacons;
-
-									if (beacons.length > 0) {
-										beacons.forEach(function (beacon) {
-											var beaconId = beacon.uuid + beacon.minor + beacon.major;
-											var detectedBeaconsId = _this.props.stateParams.detectedBeaconsId;
-											var detectedBeacons = _this.props.stateParams.detectedBeacons;
-
-											if (isBeaconNotRepeat(detectedBeaconsId, beaconId)) {
-												detectedBeaconsId.push(beaconId);
-												detectedBeacons.push(beacon);
-
-												if (_this.props._reRender != undefined) {
-													_this.props._reRender();
-												}
-											}
-										});
-									}
-								});
-
-							case 11:
 							case "end":
 								return _context.stop();
 						}
 					}
 				}, null, _this2, [[1, 7]]);
+			};
+
+			_this.stopRangingBeacons = function _callee2() {
+				return regeneratorRuntime.async(function _callee2$(_context2) {
+					while (1) {
+						switch (_context2.prev = _context2.next) {
+							case 0:
+								_context2.next = 2;
+								return regeneratorRuntime.awrap(_reactNativeBeaconsManager2.default.stopRangingBeaconsInRegion('REGION1'));
+
+							case 2:
+							case "end":
+								return _context2.stop();
+						}
+					}
+				}, null, _this2);
+			};
+
+			_this.rangingListenter = function () {
+				_reactNative.DeviceEventEmitter.addListener('beaconsDidRange', function (data) {
+					console.log('Found beacons!', data);
+					var beacons = data.beacons;
+
+					if (beacons.length > 0) {
+						beacons.forEach(function (beacon) {
+							var beaconId = beacon.uuid + beacon.minor + beacon.major;
+							var detectedBeaconsId = _this.props.stateParams.detectedBeaconsId;
+							var detectedBeacons = _this.props.stateParams.detectedBeacons;
+
+							if (isBeaconNotRepeat(detectedBeaconsId, beaconId)) {
+								detectedBeaconsId.push(beaconId);
+								detectedBeacons.push(beacon);
+
+								if (_this.props._reRender != undefined) {
+									_this.props._reRender();
+								}
+							}
+						});
+					}
+				});
 			};
 
 			return _this;
@@ -88715,7 +88981,16 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		babelHelpers.createClass(AndroidBeaconDetectStore, [{
 			key: "componentWillMount",
 			value: function componentWillMount() {
-				this.initBeacon();
+				this.rangingListenter();
+			}
+		}, {
+			key: "componentWillReceiveProps",
+			value: function componentWillReceiveProps(props) {
+				if (props.enabled) {
+					this.initBeacon();
+				} else {
+					this.stopRangingBeacons();
+				}
 			}
 		}, {
 			key: "render",
@@ -88723,7 +88998,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				return _react2.default.createElement(_reactNative.View, {
 					__source: {
 						fileName: _jsxFileName,
-						lineNumber: 68
+						lineNumber: 77
 					}
 				});
 			}
@@ -89015,31 +89290,43 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		babelHelpers.createClass(StoreList, [{
 			key: "render",
 			value: function render() {
-				var wishlist = this.props.wishlist;
+				var _props = this.props,
+				    store = _props.store,
+				    showChecklisted = _props.showChecklisted;
 				return _react2.default.createElement(
 					_reactNative.View,
 					{
-						style: styled.storeContainer,
+						style: [styled.storeContainer, showChecklisted && styled.wishlistChecklist],
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 13
 						}
 					},
-					_react2.default.createElement(_reactNative.Image, {
-						style: styled.storeImage,
-						source: require(_dependencyMap[3], "../../../../assets/images/pikachu.png"),
-						__source: {
-							fileName: _jsxFileName,
-							lineNumber: 14
-						}
-					}),
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							style: styled.storeImageContainer,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 14
+							}
+						},
+						_react2.default.createElement(_reactNative.Image, {
+							style: styled.storeImage,
+							source: require(_dependencyMap[3], "../../../../assets/images/store_default.png"),
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 15
+							}
+						})
+					),
 					_react2.default.createElement(
 						_reactNative.View,
 						{
 							style: styled.storeCardContainer,
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 15
+								lineNumber: 17
 							}
 						},
 						_react2.default.createElement(
@@ -89048,7 +89335,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: _Styled.StyledConstants.FONT_TOPIC,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 16
+									lineNumber: 18
 								}
 							},
 							"STORE NAME"
@@ -89059,7 +89346,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: _Styled.StyledConstants.FONT_DESCRIPTION,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 17
+									lineNumber: 19
 								}
 							},
 							"Store detail for instruction"
@@ -89070,7 +89357,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.storeRange,
 								__source: {
 									fileName: _jsxFileName,
-									lineNumber: 18
+									lineNumber: 20
 								}
 							},
 							"3.4 km"
@@ -89082,17 +89369,28 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							style: styled.storeImageMappingWishlistContainer,
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 20
+								lineNumber: 22
 							}
 						},
 						_react2.default.createElement(_reactNative.Image, {
 							style: styled.checkListIcon,
-							source: require(_dependencyMap[4], "../../../../assets/icons/cancel.png"),
+							source: require(_dependencyMap[4], "../../../../assets/icons/wishlist_hover_icon.png"),
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 21
+								lineNumber: 23
 							}
-						})
+						}),
+						_react2.default.createElement(
+							_reactNative.Text,
+							{
+								style: _Styled.StyledConstants.FONT_DESCRIPTION,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 24
+								}
+							},
+							" Let's check!"
+						)
 					)
 				);
 			}
@@ -89102,17 +89400,26 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 	var styled = _reactNative.StyleSheet.create({
 		storeContainer: {
-			margin: '5%',
+			paddingLeft: '5%',
+			paddingRight: '5%',
+			paddingTop: '1%',
+			paddingBottom: '1%',
 			display: 'flex',
 			flex: 1,
 			flexDirection: 'row',
-			borderWidth: 1,
-			borderStyle: 'solid',
 			height: 100
 		},
+		storeImageContainer: {
+			width: '25%',
+			height: '100%',
+			alignItems: 'center',
+			justifyContent: 'center'
+		},
 		storeImage: {
-			width: '30%',
-			height: '100%'
+			width: 80,
+			height: 80,
+			alignItems: 'center',
+			justifyContent: 'center'
 		},
 		storeCardContainer: {
 			width: '80%',
@@ -89127,7 +89434,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			fontSize: 8
 		},
 		storeImageMappingWishlistContainer: {
-			width: '15%',
+			width: '20%',
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center'
@@ -89135,11 +89442,50 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		checkListIcon: {
 			width: 50,
 			height: 50
+		},
+		wishlistChecklist: {
+			backgroundColor: 'skyblue'
 		}
 	});
 
 	exports.default = StoreList;
-},689,[108,12,650,652,653],"wishop-app-mobile/src/components/commons/Store/StoreList.js");
+},689,[108,12,650,690,691],"wishop-app-mobile/src/components/commons/Store/StoreList.js");
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/assets/images",
+    "width": 512,
+    "height": 512,
+    "scales": [1],
+    "hash": "6277be02cd00b7a2f2d9853eaf6773df",
+    "name": "store_default",
+    "type": "png"
+  });
+},690,[161],"assets\\images\\store_default.png");
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/assets/icons",
+    "width": 512,
+    "height": 512,
+    "scales": [1],
+    "hash": "26f266d18338642650573cf1c48a0f61",
+    "name": "wishlist_hover_icon",
+    "type": "png"
+  });
+},691,[161],"assets\\icons\\wishlist_hover_icon.png");
+__d(function (global, require, module, exports, _dependencyMap) {
+  module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
+    "__packager_asset": true,
+    "httpServerLocation": "/assets/assets/icons",
+    "width": 512,
+    "height": 512,
+    "scales": [1],
+    "hash": "8d7553cc51125b06e56a80a8840b2653",
+    "name": "signal",
+    "type": "png"
+  });
+},692,[161],"assets\\icons\\signal.png");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89207,7 +89553,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		};
 	}, _temp);
 	exports.default = CreateWishlistScreen;
-},690,[108,12,691,695],"wishop-app-mobile/src/components/screens/Wishlist/CreateWishlistScreen.js");
+},693,[108,12,694,698],"wishop-app-mobile/src/components/screens/Wishlist/CreateWishlistScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89664,7 +90010,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CreateWishlistWithMutation;
-},691,[108,12,335,650,634,692,693,694,654,681],"wishop-app-mobile/src/components/commons/CreateWishlist/index.js");
+},694,[108,12,335,650,634,695,696,697,654,681],"wishop-app-mobile/src/components/commons/CreateWishlist/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89824,7 +90170,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}
 	})(CategoryPropsRenderer);
 	exports.default = CategoryProps;
-},692,[108,12,335,680,650,654],"wishop-app-mobile/src/components/commons/CreateWishlist/CategoryProps.js");
+},695,[108,12,335,680,650,654],"wishop-app-mobile/src/components/commons/CreateWishlist/CategoryProps.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -89866,7 +90212,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	exports.default = function (comp) {
 		return CreateWishlistMutation(comp);
 	};
-},693,[108,654,694],"wishop-app-mobile/src/components/commons/CreateWishlist/store.js");
+},696,[108,654,697],"wishop-app-mobile/src/components/commons/CreateWishlist/store.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90079,7 +90425,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			}
 		}
 	};
-},694,[108],"wishop-app-mobile/src/components/utils/Graphql/Mutation.js");
+},697,[108],"wishop-app-mobile/src/components/utils/Graphql/Mutation.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90137,7 +90483,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = DismissableModal;
-},695,[108,12,335],"wishop-app-mobile/src/components/screens/DismissableModal.js");
+},698,[108,12,335],"wishop-app-mobile/src/components/screens/DismissableModal.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90176,7 +90522,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = CategoryScreen;
-},696,[108,697],"wishop-app-mobile/src/components/screens/Category/CategoryScreen.js");
+},699,[108,700],"wishop-app-mobile/src/components/screens/Category/CategoryScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90381,7 +90727,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoriesContainer;
-},697,[108,12,698,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/Category/Container.js");
+},700,[108,12,701,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/Category/Container.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90491,7 +90837,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoryCard;
-},698,[108,12,335,650,699,700],"wishop-app-mobile/src/components/commons/CardContainer/Card/index.js");
+},701,[108,12,335,650,702,703],"wishop-app-mobile/src/components/commons/CardContainer/Card/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -90503,7 +90849,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     "name": "shirt-selected",
     "type": "png"
   });
-},699,[161],"assets\\images\\shirt-selected.png");
+},702,[161],"assets\\images\\shirt-selected.png");
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
@@ -90515,7 +90861,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     "name": "shirt",
     "type": "png"
   });
-},700,[161],"assets\\images\\shirt.png");
+},703,[161],"assets\\images\\shirt.png");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90554,7 +90900,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	}(_react2.default.Component);
 
 	exports.default = SubCategoryContainer;
-},701,[108,702],"wishop-app-mobile/src/components/screens/Category/SubCategoryScreen.js");
+},704,[108,705],"wishop-app-mobile/src/components/screens/Category/SubCategoryScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90763,7 +91109,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = SubCategoriesContainer;
-},702,[108,12,698,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/SubCategory/Container.js");
+},705,[108,12,701,650,680,654],"wishop-app-mobile/src/components/commons/CardContainer/SubCategory/Container.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90809,7 +91155,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		};
 	}, _temp);
 	exports.default = CategoryPropsScreen;
-},703,[108,704],"wishop-app-mobile/src/components/screens/Category/CategoryPropsScreen.js");
+},706,[108,707],"wishop-app-mobile/src/components/screens/Category/CategoryPropsScreen.js");
 __d(function (global, require, module, exports, _dependencyMap) {
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -90921,7 +91267,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 	});
 
 	exports.default = CategoryPropsPage;
-},704,[108,12,335,650],"wishop-app-mobile/src/components/commons/CardContainer/Category/CategoryPropsPage.js");
+},707,[108,12,335,650],"wishop-app-mobile/src/components/commons/CardContainer/Category/CategoryPropsPage.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     "use strict";
 
@@ -90999,7 +91345,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     }(apollo_client_1.default);
 
     exports.default = DefaultClient;
-},705,[655,656,706,708,711],"apollo-client-preset/lib/index.js");
+},708,[655,656,709,711,714],"apollo-client-preset/lib/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-link'), require(_dependencyMap[1], 'apollo-link-http-common')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-link', 'apollo-link-http-common'], factory) : factory((global.apolloLink = global.apolloLink || {}, global.apolloLink.http = {}), global.apolloLink.core, global.apolloLink.httpCommon);
@@ -91214,7 +91560,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},706,[656,707],"apollo-link-http/lib/bundle.umd.js");
+},709,[656,710],"apollo-link-http/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'graphql/language/printer')) : typeof define === 'function' && define.amd ? define(['exports', 'graphql/language/printer'], factory) : factory((global.apolloLink = global.apolloLink || {}, global.apolloLink.httpCommon = {}), global.printer);
@@ -91382,7 +91728,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},707,[661],"apollo-link-http-common/lib/bundle.umd.js");
+},710,[661],"apollo-link-http-common/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities'), require(_dependencyMap[1], 'graphql/language/printer'), require(_dependencyMap[2], 'graphql-anywhere'), require(_dependencyMap[3], 'apollo-cache')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities', 'graphql/language/printer', 'graphql-anywhere', 'apollo-cache'], factory) : factory((global.apollo = global.apollo || {}, global.apollo.cache = global.apollo.cache || {}, global.apollo.cache.inmemory = {}), global.apollo.utilities, global.printer, global.graphqlAnywhere, global.apolloCache.core);
@@ -92477,7 +92823,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},708,[657,661,709,710],"apollo-cache-inmemory/lib/bundle.umd.js");
+},711,[657,661,712,713],"apollo-cache-inmemory/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities'], factory) : factory(global.graphqlAnywhere = {}, global.apollo.utilities);
@@ -92707,7 +93053,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},709,[657],"graphql-anywhere/lib/bundle.umd.js");
+},712,[657],"graphql-anywhere/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require(_dependencyMap[0], 'apollo-utilities')) : typeof define === 'function' && define.amd ? define(['exports', 'apollo-utilities'], factory) : factory((global.apollo = global.apollo || {}, global.apollo.cache = global.apollo.cache || {}, global.apollo.cache.core = {}), global.apollo.utilities);
@@ -92922,7 +93268,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
             value: true
         });
     });
-},710,[657],"apollo-cache/lib/bundle.umd.js");
+},713,[657],"apollo-cache/lib/bundle.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory() : typeof define === 'function' && define.amd ? define(factory) : factory();
@@ -93073,7 +93419,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     gql.disableFragmentWarnings = disableFragmentWarnings;
     module.exports = gql;
   });
-},711,[712],"graphql-tag/lib/graphql-tag.umd.js");
+},714,[715],"graphql-tag/lib/graphql-tag.umd.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94139,7 +94485,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return nodes;
   }
-},712,[713,715,722,724,725],"graphql/language/parser.js");
+},715,[716,718,725,727,728],"graphql/language/parser.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94176,7 +94522,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     !(this.locationOffset.line > 0) ? (0, _invariant2.default)(0, 'line in locationOffset is 1-indexed and must be positive') : void 0;
     !(this.locationOffset.column > 0) ? (0, _invariant2.default)(0, 'column in locationOffset is 1-indexed and must be positive') : void 0;
   };
-},713,[714],"graphql/language/source.js");
+},716,[717],"graphql/language/source.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   "use strict";
 
@@ -94190,7 +94536,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       throw new Error(message);
     }
   }
-},714,[],"graphql/jsutils/invariant.js");
+},717,[],"graphql/jsutils/invariant.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94242,7 +94588,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       return _formatError.formatError;
     }
   });
-},715,[716,719,720,717,721],"graphql/error/index.js");
+},718,[719,722,723,720,724],"graphql/error/index.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94358,7 +94704,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       }
     }
   });
-},716,[717,718],"graphql/error/GraphQLError.js");
+},719,[720,721],"graphql/error/GraphQLError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94415,7 +94761,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function lpad(len, str) {
     return whitespace(len - str.length) + str;
   }
-},717,[718],"graphql/error/printError.js");
+},720,[721],"graphql/error/printError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94440,7 +94786,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       column: column
     };
   }
-},718,[],"graphql/language/location.js");
+},721,[],"graphql/language/location.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94454,7 +94800,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function syntaxError(source, position, description) {
     return new _GraphQLError.GraphQLError('Syntax Error: ' + description, undefined, source, [position]);
   }
-},719,[716],"graphql/error/syntaxError.js");
+},722,[719],"graphql/error/syntaxError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94472,7 +94818,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return new _GraphQLError.GraphQLError(originalError && originalError.message, originalError && originalError.nodes || nodes, originalError && originalError.source, originalError && originalError.positions, path, originalError);
   }
-},720,[716],"graphql/error/locatedError.js");
+},723,[719],"graphql/error/locatedError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -94514,7 +94860,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
       path: error.path
     });
   }
-},721,[714],"graphql/error/formatError.js");
+},724,[717],"graphql/error/formatError.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -95010,7 +95356,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
     return new Tok(TokenKind.NAME, start, position, line, col, prev, slice.call(body, start, position));
   }
-},722,[715,723],"graphql/language/lexer.js");
+},725,[718,726],"graphql/language/lexer.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -95066,7 +95412,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
   function isBlank(str) {
     return leadingWhitespace(str) === str.length;
   }
-},723,[],"graphql/language/blockStringValue.js");
+},726,[],"graphql/language/blockStringValue.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -95117,7 +95463,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
     INPUT_OBJECT_TYPE_EXTENSION: 'InputObjectTypeExtension',
     DIRECTIVE_DEFINITION: 'DirectiveDefinition'
   });
-},724,[],"graphql/language/kinds.js");
+},727,[],"graphql/language/kinds.js");
 __d(function (global, require, module, exports, _dependencyMap) {
   'use strict';
 
@@ -95144,6 +95490,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
     INPUT_OBJECT: 'INPUT_OBJECT',
     INPUT_FIELD_DEFINITION: 'INPUT_FIELD_DEFINITION'
   });
-},725,[],"graphql/language/directiveLocation.js");
+},728,[],"graphql/language/directiveLocation.js");
 require(23);
 require(11);
