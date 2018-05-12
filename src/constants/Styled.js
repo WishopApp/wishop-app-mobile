@@ -23,6 +23,10 @@ export const StyledConstants = StyleSheet.create({
 		backgroundColor: 'black',
 	},
 
+	BACKGROUND_WHITE: {
+		backgroundColor: 'white',
+	},
+
 	TEXT_BUTTON_WHITE: {
 		color: 'white',
 	},
@@ -37,5 +41,6 @@ export const StyledConstants = StyleSheet.create({
 
 export const StyledSelected = {
 	background: StyledConstants.BACKGROUND_BLACK,
+	defaultBackground: StyledConstants.BACKGROUND_WHITE,
 	text: StyledConstants.TEXT_BUTTON_WHITE,
 }

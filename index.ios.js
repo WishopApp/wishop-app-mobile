@@ -2,10 +2,8 @@ import React from 'react'
 import { AppRegistry } from 'react-native'
 import App from './App'
 
-const app = props => ( <App /> )
+const app = () => <App />
 
-AppRegistry.registerComponent('App', () => app);
+AppRegistry.registerComponent('wishopappmobile', () => app)
 
-export default app;
-
-
+export default app
