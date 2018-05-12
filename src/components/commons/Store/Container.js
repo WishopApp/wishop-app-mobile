@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
-import AndroidBeaconDetectStore from './Android/BeaconDetectStore'
+import AndroidBeaconDetectStore from './Beacon/AndroidBeaconDetectStore'
+import StoreList from './StoreList'
 
 class StoreContainer extends React.Component {
 	constructor(props) {
@@ -45,59 +46,61 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				<ScrollView contentContainerStyle={styled.alignContent}>
-					<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} />
-					<View style={styled.alignContent}>
-						{beacons ? (
-							beacons.map((beacon, index) => {
-								return (
-									<View key={index}>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-										<View>
-											<Text>uuid: </Text>
-											<Text>minor: {beacon.minor}</Text>
-											<Text>major: {beacon.major}</Text>
-										</View>
-									</View>
-								)
-							})
-						) : (
-							<Text> Beacon Detecting </Text>
-						)}
-					</View>
-				</ScrollView>
+				<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} />
+				{beacons ? beaconDetected(beacons) : beaconDetecting()}
 			</View>
 		)
 	}
+}
+
+const beaconDetected = beacons => {
+	return (
+		<View>
+			<View style={[styled.topDescription]}>
+				<Text style={StyledConstants.FONT_TOPIC}>DETECTED STORE</Text>
+				<Text style={StyledConstants.FONT_DESCRIPTION}>Store with color is meaning some products</Text>
+				<Text style={StyledConstants.FONT_DESCRIPTION}> of store might matched your wishlist</Text>
+			</View>
+			<View style={styled.scrollStore}>
+				<ScrollView contentContainerStyle={styled.alignContent}>
+					{beacons.map((beacon, index) => {
+						return (
+							<View key={index}>
+								<StoreList showChecklisted={true} />
+								<StoreList showChecklisted={true} />
+								<StoreList showChecklisted={false} />
+								<StoreList showChecklisted={false} />
+								<StoreList showChecklisted={true} />
+								<StoreList showChecklisted={false} />
+							</View>
+						)
+					})}
+				</ScrollView>
+			</View>
+			<View style={styled.bottomContainer}>
+				<View style={styled.bottomDescription}>
+					<Image style={styled.signalImage} source={require('@icons/signal.png')} />
+					<Text style={StyledConstants.FONT_DESCRIPTION}>We still detecting store in the background</Text>
+				</View>
+			</View>
+		</View>
+	)
+}
+
+const beaconDetecting = () => {
+	return (
+		<View style={styled.beaconDetecting}>
+			<Image style={styled.signalDetectingImage} source={require('@icons/signal.png')} />
+			<Text style={StyledConstants.FONT_TOPIC}>D E T E C T I N G ... {'\n'}</Text>
+			<Text style={StyledConstants.FONT_DESCIPTION}>If we can detect store near you</Text>
+			<Text style={StyledConstants.FONT_DESCIPTION}>
+				we will let you know {'\n'}
+				{'\n'}
+			</Text>
+			<Text style={StyledConstants.FONT_DESCIPTION}>Please don't close this page while</Text>
+			<Text style={StyledConstants.FONT_DESCIPTION}>you want us detecting for you</Text>
+		</View>
+	)
 }
 
 const styled = StyleSheet.create({
@@ -106,7 +109,7 @@ const styled = StyleSheet.create({
 		height: '100%',
 	},
 	tabbarContainer: {
-		marginTop: '4%',
+		marginTop: '2%',
 		height: '10%',
 		flexDirection: 'row',
 		alignItems: 'center',
@@ -125,7 +128,52 @@ const styled = StyleSheet.create({
 	},
 
 	alignContent: {
+		alignContent: 'center',
+	},
+
+	topDescription: {
+		flex: 1,
+		flexDirection: 'column',
+		height: '10%',
+		justifyContent: 'space-between',
 		alignItems: 'center',
+		paddingTop: '1%',
+		paddingBottom: '10%',
+	},
+
+	scrollStore: {
+		height: '75%',
+	},
+
+	bottomContainer: {
+		padding: '4%',
+		height: '10%',
+		flex: 1,
+	},
+
+	bottomDescription: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+
+	signalImage: {
+		width: 40,
+		height: 40,
+		marginRight: '2%',
+	},
+
+	beaconDetecting: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	signalDetectingImage: {
+		width: 175,
+		height: 175,
+		top: '-5%',
 	},
 })
 
