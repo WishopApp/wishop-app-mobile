@@ -45,7 +45,7 @@ class AndroidBeaconDetectStore extends React.Component {
 			let beacons = data.beacons
 			if (beacons.length > 0) {
 				beacons.forEach(beacon => {
-					let beaconId = beacon.uuid + beacon.minor + beacon.major
+					let beaconId = beacon.uuid + "-" + beacon.minor + "-" + beacon.major
 					let detectedBeaconsId = this.props.stateParams.detectedBeaconsId
 					let detectedBeacons = this.props.stateParams.detectedBeacons
 					// find not beacon Repeat

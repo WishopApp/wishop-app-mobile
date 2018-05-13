@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
-import { StyledConstants } from '@constants/Styled'
+import { StyledConstants, StyledSelected } from '@constants/Styled'
 
 class MyWishlist extends React.Component {
 	/* proptypes
@@ -11,7 +11,9 @@ class MyWishlist extends React.Component {
 
 		return (
 			<View style={styled.wishlistContainer}>
-				<Image style={styled.productImage} source={require('@images/pikachu.png')} />
+				<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+					<Image style={styled.productImage} source={require('@images/shoe.png')} />
+				</View>
 				<View style={styled.WishlistProductContainer}>
 					<Text style={StyledConstants.FONT_TOPIC}>{wishlist.name}</Text>
 					<Text style={StyledConstants.FONT_DESCRIPTION}>{wishlist.productName}</Text>
@@ -33,12 +35,15 @@ const styled = StyleSheet.create({
 		display: 'flex',
 		flex: 1,
 		flexDirection: 'row',
-		borderWidth: 1,
-		borderStyle: 'solid',
 		height: 100,
 	},
-	productImage: {
+	wishlistImageContainer: {
 		width: '30%',
+		height: '100%',
+		alignItems: 'center',
+	},
+	productImage: {
+		width: '100%',
 		height: '100%',
 	},
 	WishlistProductContainer: {

@@ -50,3 +50,19 @@ export const QueryUserWishlists = gql`
 		}
 	}
 `
+
+export const QueryStoreByBeaconToken = gql`
+	query StoresBranchesByBeaconToken($beaconToken: ID!) {
+		storeBranch(beaconToken: $beaconToken) {
+			_id
+			store {
+				_id
+				coverUrl
+				description
+			}
+			telNo
+			name
+			shouldCheck
+		}
+	}
+`
