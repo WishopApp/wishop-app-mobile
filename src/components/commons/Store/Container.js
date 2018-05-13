@@ -3,13 +3,13 @@ import { View, Text, StyleSheet, TouchableHighlight, ScrollView, Image } from 'r
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import AndroidBeaconDetectStore from './Beacon/AndroidBeaconDetectStore'
-import StoreList from './StoreList'
+import StoreListByBeacon from './StoreList'
 
 class StoreContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			detectedBeaconsId: [], //// uuid+minor+major
+			detectedBeaconsId: [], //// uuid+minor+major alias (beaconToken) (beaconId)
 			detectedBeacons: [], /// object Beacon
 		}
 	}
@@ -56,23 +56,19 @@ class StoreContainer extends React.Component {
 
 const beaconDetected = beacons => {
 	return (
-		<View>
+		<View style={styled.storeListContainer}>
 			<View style={[styled.topDescription]}>
-				<Text style={StyledConstants.FONT_TOPIC}>DETECTED STORE</Text>
-				<Text style={StyledConstants.FONT_DESCRIPTION}>Store with color is meaning some products</Text>
-				<Text style={StyledConstants.FONT_DESCRIPTION}> of store might matched your wishlist</Text>
+				<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>DETECTED STORE</Text>
+				<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Store with color is meaning some products</Text>
+				<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}> of store might matched your wishlist</Text>
 			</View>
 			<View style={styled.scrollStore}>
 				<ScrollView contentContainerStyle={styled.alignContent}>
 					{beacons.map((beacon, index) => {
+						let beaconToken = beacon.uuid + '-' + beacon.minor + '-' + beacon.major
 						return (
 							<View key={index}>
-								<StoreList showChecklisted={true} />
-								<StoreList showChecklisted={true} />
-								<StoreList showChecklisted={false} />
-								<StoreList showChecklisted={false} />
-								<StoreList showChecklisted={true} />
-								<StoreList showChecklisted={false} />
+								<StoreListByBeacon beaconToken={beaconToken} showChecklisted={true} />
 							</View>
 						)
 					})}
@@ -132,6 +128,11 @@ const styled = StyleSheet.create({
 		alignContent: 'center',
 	},
 
+	storeListContainer: {
+		flex: 1,
+		flexDirection: 'column',
+	},
+
 	topDescription: {
 		flex: 1,
 		flexDirection: 'column',
@@ -139,11 +140,12 @@ const styled = StyleSheet.create({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		paddingTop: '1%',
-		paddingBottom: '10%',
+		// paddingBottom: '10%',
 	},
 
 	scrollStore: {
 		height: '75%',
+		top: '5%',
 	},
 
 	bottomContainer: {
