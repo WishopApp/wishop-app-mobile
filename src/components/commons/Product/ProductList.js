@@ -26,16 +26,20 @@ class ProductList extends React.Component {
 		return (
 			<View style={styled.wishlistContainer}>
 				{products ? (
-					<TouchableOpacity activeOpacity={1} style={styled.wishlistContainer}>
-						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-							<Image style={styled.productImage} source={require('@images/shoe.png')} />
-						</View>
-						<View style={styled.WishlistProductContainer}>
-							<Text style={StyledConstants.FONT_TOPIC}>{products[0].name}</Text>
-							<Text style={StyledConstants.FONT_DESCRIPTION}>Store Name</Text>
-							<Text style={styled.WishlistCategoryAndSubCategory}>category, subcategory</Text>
-						</View>
-					</TouchableOpacity>
+					products.map((product, index) => {
+						return (
+							<TouchableOpacity activeOpacity={1} style={styled.wishlistContainer} key={index}>
+								<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+									<Image style={styled.productImage} source={require('@images/shoe.png')} />
+								</View>
+								<View style={styled.WishlistProductContainer}>
+									<Text style={StyledConstants.FONT_TOPIC}>{products.name}</Text>
+									<Text style={StyledConstants.FONT_DESCRIPTION}>Store Name</Text>
+									<Text style={styled.WishlistCategoryAndSubCategory}>category, subcategory</Text>
+								</View>
+							</TouchableOpacity>
+						)
+					})
 				) : (
 					<Text>Not Matched</Text>
 				)}
