@@ -1,24 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { View, StyleSheet, Text } from 'react-native'
+import { Tabs, Root } from '@screens/Navigation'
+import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
+import { ApolloProvider } from 'react-apollo'
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Text>Test React-native application2</Text>
-      </View>
-    );
-  }2
+const client = new ApolloClient({
+	link: new HttpLink({ uri: 'https://api-wishopapp.tk/graphql' }),
+	cache: new InMemoryCache(),
+})
+
+class App extends React.Component {
+	render() {
+		return (
+			<ApolloProvider client={client}>
+				<Root />
+			</ApolloProvider>
+		)
+	}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styled = StyleSheet.create({
+	container: {
+		backgroundColor: '#FFF',
+	},
+})
+
+export default App
