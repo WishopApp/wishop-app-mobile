@@ -9,14 +9,14 @@ class StoreList extends React.Component {
 		StoreList: object
 	*/
 	render() {
-		let { loading, error, data, showChecklisted } = this.props
+		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
 		let storeBranch = data ? data.storeBranch : undefined
 		return (
 			<View>
 				{storeBranch ? (
-					<View style={[styled.storeContainer, showChecklisted && styled.wishlistChecklist]}>
+					<View style={[styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist]}>
 						<View style={styled.storeImageContainer}>
 							<Image style={styled.storeImage} source={require('@images/store_default.png')} />
 						</View>

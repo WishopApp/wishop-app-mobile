@@ -68,7 +68,7 @@ const beaconDetected = beacons => {
 						let beaconToken = beacon.uuid + '-' + beacon.minor + '-' + beacon.major
 						return (
 							<View key={index}>
-								<StoreListByBeacon beaconToken={beaconToken} showChecklisted={true} />
+								<StoreListByBeacon beaconToken={beaconToken} />
 							</View>
 						)
 					})}
