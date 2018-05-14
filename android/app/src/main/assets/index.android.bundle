@@ -81184,7 +81184,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			alignItems: 'center'
 		},
 		productImage: {
-			width: '85%',
+			width: '100%',
 			height: '100%'
 		},
 		WishlistProductContainer: {
@@ -88805,7 +88805,6 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							},
 							_react2.default.createElement(_StoreList2.default, {
 								beaconToken: beaconToken,
-								showChecklisted: true,
 								__source: {
 									fileName: _jsxFileName,
 									lineNumber: 71
@@ -89426,8 +89425,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				var _props = this.props,
 				    loading = _props.loading,
 				    error = _props.error,
-				    data = _props.data,
-				    showChecklisted = _props.showChecklisted;
+				    data = _props.data;
 				if (loading) return _react2.default.createElement(
 					_reactNative.Text,
 					{
@@ -89460,7 +89458,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					storeBranch ? _react2.default.createElement(
 						_reactNative.View,
 						{
-							style: [styled.storeContainer, showChecklisted && styled.wishlistChecklist],
+							style: [styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist],
 							__source: {
 								fileName: _jsxFileName,
 								lineNumber: 19
