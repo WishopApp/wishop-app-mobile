@@ -88725,7 +88725,10 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		return _react2.default.createElement(
 			_reactNative.View,
 			{
+<<<<<<< HEAD
 				style: styled.storeListContainer,
+=======
+>>>>>>> search
 				__source: {
 					fileName: _jsxFileName,
 					lineNumber: 59
@@ -88743,7 +88746,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				_react2.default.createElement(
 					_reactNative.Text,
 					{
+<<<<<<< HEAD
 						style: [_Styled.StyledConstants.FONT_DESCRIPTION, _Styled.StyledConstants.FONT_BOLD],
+=======
+						style: _Styled.StyledConstants.FONT_TOPIC,
+>>>>>>> search
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 61
@@ -88754,7 +88761,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				_react2.default.createElement(
 					_reactNative.Text,
 					{
+<<<<<<< HEAD
 						style: _Styled.StyledConstants.FONT_DESCRIPTION_SMALL,
+=======
+						style: _Styled.StyledConstants.FONT_DESCRIPTION,
+>>>>>>> search
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 62
@@ -88765,7 +88776,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				_react2.default.createElement(
 					_reactNative.Text,
 					{
+<<<<<<< HEAD
 						style: _Styled.StyledConstants.FONT_DESCRIPTION_SMALL,
+=======
+						style: _Styled.StyledConstants.FONT_DESCRIPTION,
+>>>>>>> search
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 63
@@ -88793,22 +88808,71 @@ __d(function (global, require, module, exports, _dependencyMap) {
 						}
 					},
 					beacons.map(function (beacon, index) {
+<<<<<<< HEAD
 						var beaconToken = beacon.uuid + '-' + beacon.minor + '-' + beacon.major;
+=======
+>>>>>>> search
 						return _react2.default.createElement(
 							_reactNative.View,
 							{
 								key: index,
 								__source: {
 									fileName: _jsxFileName,
+<<<<<<< HEAD
 									lineNumber: 70
 								}
 							},
 							_react2.default.createElement(_StoreList2.default, {
 								beaconToken: beaconToken,
+=======
+									lineNumber: 69
+								}
+							},
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 70
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+>>>>>>> search
 								__source: {
 									fileName: _jsxFileName,
 									lineNumber: 71
 								}
+<<<<<<< HEAD
+=======
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 72
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 73
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: true,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 74
+								}
+							}),
+							_react2.default.createElement(_StoreList2.default, {
+								showChecklisted: false,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 75
+								}
+>>>>>>> search
 							})
 						);
 					})
@@ -88820,7 +88884,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: styled.bottomContainer,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 77
+=======
+						lineNumber: 81
+>>>>>>> search
 					}
 				},
 				_react2.default.createElement(
@@ -88829,7 +88897,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 						style: styled.bottomDescription,
 						__source: {
 							fileName: _jsxFileName,
+<<<<<<< HEAD
 							lineNumber: 78
+=======
+							lineNumber: 82
+>>>>>>> search
 						}
 					},
 					_react2.default.createElement(_reactNative.Image, {
@@ -88837,7 +88909,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 						source: require(_dependencyMap[6], "../../../../assets/icons/signal.png"),
 						__source: {
 							fileName: _jsxFileName,
+<<<<<<< HEAD
 							lineNumber: 79
+=======
+							lineNumber: 83
+>>>>>>> search
 						}
 					}),
 					_react2.default.createElement(
@@ -88846,7 +88922,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							style: _Styled.StyledConstants.FONT_DESCRIPTION,
 							__source: {
 								fileName: _jsxFileName,
+<<<<<<< HEAD
 								lineNumber: 80
+=======
+								lineNumber: 84
+>>>>>>> search
 							}
 						},
 						"We still detecting store in the background"
@@ -88863,7 +88943,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				style: styled.beaconDetecting,
 				__source: {
 					fileName: _jsxFileName,
+<<<<<<< HEAD
 					lineNumber: 89
+=======
+					lineNumber: 93
+>>>>>>> search
 				}
 			},
 			_react2.default.createElement(_reactNative.Image, {
@@ -88871,7 +88955,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 				source: require(_dependencyMap[6], "../../../../assets/icons/signal.png"),
 				__source: {
 					fileName: _jsxFileName,
+<<<<<<< HEAD
 					lineNumber: 90
+=======
+					lineNumber: 94
+>>>>>>> search
 				}
 			}),
 			_react2.default.createElement(
@@ -88880,7 +88968,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: _Styled.StyledConstants.FONT_TOPIC,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 91
+=======
+						lineNumber: 95
+>>>>>>> search
 					}
 				},
 				"D E T E C T I N G ... ",
@@ -88892,7 +88984,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: _Styled.StyledConstants.FONT_DESCIPTION,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 92
+=======
+						lineNumber: 96
+>>>>>>> search
 					}
 				},
 				"If we can detect store near you"
@@ -88903,7 +88999,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: _Styled.StyledConstants.FONT_DESCIPTION,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 93
+=======
+						lineNumber: 97
+>>>>>>> search
 					}
 				},
 				"we will let you know ",
@@ -88916,7 +89016,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: _Styled.StyledConstants.FONT_DESCIPTION,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 97
+=======
+						lineNumber: 101
+>>>>>>> search
 					}
 				},
 				"Please don't close this page while"
@@ -88927,7 +89031,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 					style: _Styled.StyledConstants.FONT_DESCIPTION,
 					__source: {
 						fileName: _jsxFileName,
+<<<<<<< HEAD
 						lineNumber: 98
+=======
+						lineNumber: 102
+>>>>>>> search
 					}
 				},
 				"you want us detecting for you"
@@ -88961,21 +89069,32 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		alignContent: {
 			alignContent: 'center'
 		},
+<<<<<<< HEAD
 		storeListContainer: {
 			flex: 1,
 			flexDirection: 'column'
 		},
+=======
+>>>>>>> search
 		topDescription: {
 			flex: 1,
 			flexDirection: 'column',
 			height: '10%',
 			justifyContent: 'space-between',
 			alignItems: 'center',
+<<<<<<< HEAD
 			paddingTop: '1%'
 		},
 		scrollStore: {
 			height: '75%',
 			top: '5%'
+=======
+			paddingTop: '1%',
+			paddingBottom: '10%'
+		},
+		scrollStore: {
+			height: '75%'
+>>>>>>> search
 		},
 		bottomContainer: {
 			padding: '4%',
@@ -89086,7 +89205,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 
 					if (beacons.length > 0) {
 						beacons.forEach(function (beacon) {
+<<<<<<< HEAD
 							var beaconId = beacon.uuid + "-" + beacon.minor + "-" + beacon.major;
+=======
+							var beaconId = beacon.uuid + beacon.minor + beacon.major;
+>>>>>>> search
 							var detectedBeaconsId = _this.props.stateParams.detectedBeaconsId;
 							var detectedBeacons = _this.props.stateParams.detectedBeacons;
 
@@ -89423,17 +89546,27 @@ __d(function (global, require, module, exports, _dependencyMap) {
 			key: "render",
 			value: function render() {
 				var _props = this.props,
+<<<<<<< HEAD
 				    loading = _props.loading,
 				    error = _props.error,
 				    data = _props.data;
 				if (loading) return _react2.default.createElement(
 					_reactNative.Text,
 					{
+=======
+				    store = _props.store,
+				    showChecklisted = _props.showChecklisted;
+				return _react2.default.createElement(
+					_reactNative.View,
+					{
+						style: [styled.storeContainer, showChecklisted && styled.wishlistChecklist],
+>>>>>>> search
 						__source: {
 							fileName: _jsxFileName,
 							lineNumber: 13
 						}
 					},
+<<<<<<< HEAD
 					"loading"
 				);
 				if (error) return _react2.default.createElement(
@@ -89459,9 +89592,33 @@ __d(function (global, require, module, exports, _dependencyMap) {
 						_reactNative.View,
 						{
 							style: [styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist],
+=======
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							style: styled.storeImageContainer,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 14
+							}
+						},
+						_react2.default.createElement(_reactNative.Image, {
+							style: styled.storeImage,
+							source: require(_dependencyMap[3], "../../../../assets/images/store_default.png"),
+>>>>>>> search
 							__source: {
 								fileName: _jsxFileName,
 								lineNumber: 19
+							}
+						})
+					),
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							style: styled.storeCardContainer,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 17
 							}
 						},
 						_react2.default.createElement(
@@ -89470,7 +89627,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.storeImageContainer,
 								__source: {
 									fileName: _jsxFileName,
+<<<<<<< HEAD
 									lineNumber: 20
+=======
+									lineNumber: 18
+>>>>>>> search
 								}
 							},
 							_react2.default.createElement(_reactNative.Image, {
@@ -89488,7 +89649,11 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.storeCardContainer,
 								__source: {
 									fileName: _jsxFileName,
+<<<<<<< HEAD
 									lineNumber: 23
+=======
+									lineNumber: 19
+>>>>>>> search
 								}
 							},
 							_react2.default.createElement(
@@ -89531,6 +89696,7 @@ __d(function (global, require, module, exports, _dependencyMap) {
 								style: styled.storeImageMappingWishlistContainer,
 								__source: {
 									fileName: _jsxFileName,
+<<<<<<< HEAD
 									lineNumber: 29
 								}
 							},
@@ -89555,6 +89721,43 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							)
 						) : null
 					) : null
+=======
+									lineNumber: 20
+								}
+							},
+							"3.4 km"
+						)
+					),
+					_react2.default.createElement(
+						_reactNative.View,
+						{
+							style: styled.storeImageMappingWishlistContainer,
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 22
+							}
+						},
+						_react2.default.createElement(_reactNative.Image, {
+							style: styled.checkListIcon,
+							source: require(_dependencyMap[4], "../../../../assets/icons/wishlist_hover_icon.png"),
+							__source: {
+								fileName: _jsxFileName,
+								lineNumber: 23
+							}
+						}),
+						_react2.default.createElement(
+							_reactNative.Text,
+							{
+								style: _Styled.StyledConstants.FONT_DESCRIPTION,
+								__source: {
+									fileName: _jsxFileName,
+									lineNumber: 24
+								}
+							},
+							" Let's check!"
+						)
+					)
+>>>>>>> search
 				);
 			}
 		}]);
@@ -89629,8 +89832,13 @@ __d(function (global, require, module, exports, _dependencyMap) {
 		}
 	});
 
+<<<<<<< HEAD
 	exports.default = StoreListByBeacon;
 },689,[108,12,650,680,654,690,691],"wishop-app-mobile/src/components/commons/Store/StoreList.js");
+=======
+	exports.default = StoreList;
+},689,[108,12,650,690,691],"wishop-app-mobile/src/components/commons/Store/StoreList.js");
+>>>>>>> search
 __d(function (global, require, module, exports, _dependencyMap) {
   module.exports = require(_dependencyMap[0], "react-native/Libraries/Image/AssetRegistry").registerAsset({
     "__packager_asset": true,
