@@ -47,4 +47,5 @@ export const StyledSelected = {
 	background: StyledConstants.BACKGROUND_BLACK,
 	defaultBackground: StyledConstants.BACKGROUND_WHITE,
 	text: StyledConstants.TEXT_BUTTON_WHITE,
+	defaultText: StyledConstants.TEXT_BUTTON_BLACK,
 }
