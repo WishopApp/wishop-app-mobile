@@ -43,7 +43,7 @@ class Wishlist extends React.Component {
 						? wishlists.map((wishlist, index) => {
 							return (
 								<View key={index}>
-									<MyWishlist wishlist={wishlist} />
+									<MyWishlist wishlist={wishlist} navigation={this.props.navigation} />
 								</View>
 							)
 						  })

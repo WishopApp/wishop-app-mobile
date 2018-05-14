@@ -2,7 +2,9 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Home from '@screens/Home'
+import SearchScreen from '@screens/Search/SearchScreen'
 import WishlistScreen from '@screens/Wishlist'
+import WishlistDetailScreen from '@screens/Wishlist/WishlistDetailScreen'
 import BeaconDetectStoreScreen from '@screens/Store/BeaconDetectStoreScreen'
 import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
@@ -12,6 +14,12 @@ import CategoryPropsScreen from '@screens/Category/CategoryPropsScreen'
 export const HomeStack = StackNavigator({
 	Home: {
 		screen: Home,
+	},
+})
+
+export const SearchStack = StackNavigator({
+	Search: {
+		screen: SearchScreen,
 	},
 })
 
@@ -28,14 +36,26 @@ export const MywishlistStack = StackNavigator({
 			title: 'W I S H L I S T',
 		},
 	},
+	WishlistDetail: {
+		screen: WishlistDetailScreen,
+		navigationOptions: {
+			title: ' W I S H L I S T   D E T A I L',
+		},
+	},
 })
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		// 	},
+		// },
+		Search: {
+			screen: SearchStack,
 			navigationOptions: {
-				tabBarLabel: 'Home',
+				tabBarLabel: 'Search',
 			},
 		},
 		Store: {
