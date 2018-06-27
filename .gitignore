@@ -81,7 +81,6 @@ package-lock.json
 .gradle
 local.properties
 *.iml
-/android/
 
 # Generated files
 bin/

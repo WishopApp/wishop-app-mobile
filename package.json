@@ -2,28 +2,29 @@
 	"name": "wishop-app-mobile",
 	"version": "0.1.0",
 	"private": true,
-	"main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
 	"scripts": {
-		"start": "react-native-scripts start",
-		"eject": "react-native-scripts eject",
-		"android": "react-native-scripts android",
-		"ios": "react-native-scripts ios",
-		"test": "node node_modules/jest/bin/jest.js"
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"start-android": "npm run build && npm run android",
+		"android": "react-native run-android",
+		"build":
+			"react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+		"debug-android": "react-native log-android",
+		"test": "jest"
 	},
 	"jest": {
-		"preset": "jest-expo"
+		"preset": "react-native"
 	},
 	"dependencies": {
 		"apollo-client-preset": "^1.0.8",
 		"babel-plugin-graphql-tag": "^1.5.0",
 		"babel-plugin-module-alias": "^1.6.0",
-		"expo": "^25.0.0",
 		"graphql": "^0.13.2",
 		"graphql-tag": "^2.8.0",
 		"react": "16.2.0",
 		"react-apollo": "^2.1.1",
 		"react-native": "0.52.0",
 		"react-native-awesome-alerts": "^1.0.7",
+		"react-native-beacons-manager": "^1.0.7",
 		"react-native-elements": "^0.19.1",
 		"react-native-gesture-handler": "1.0.0-alpha.39",
 		"react-native-popup-dialog": "^0.11.46",
@@ -34,16 +35,16 @@
 	},
 	"devDependencies": {
 		"babel-eslint": "^8.2.2",
+		"babel-preset-react-native-stage-0": "^1.0.1",
 		"eslint": "^4.19.1",
 		"eslint-config-react-native": "^2.0.0",
 		"eslint-plugin-import": "^2.9.0",
 		"eslint-plugin-jsx-a11y": "^6.0.3",
 		"eslint-plugin-react": "^7.7.0",
 		"eslint-plugin-react-native": "^3.2.1",
-		"jest-expo": "^25.1.0",
+		"jest-react-native": "^18.0.0",
 		"prettier-eslint": "^8.8.1",
 		"react-native-maps": "^0.20.1",
-		"react-native-scripts": "^1.11.1",
 		"react-test-renderer": "^16.2.0"
 	},
 	"peerDependencies": {

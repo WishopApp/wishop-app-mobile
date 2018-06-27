@@ -1,23 +1,48 @@
 {
-	"presets": ["babel-preset-expo"],
-	"env": {
-		"development": {
-			"plugins": ["transform-react-jsx-source"]
-		}
-	},
-	"plugins": [
-		"graphql-tag",
-		[
-			"module-alias",
-			[
-				{ "src": "./", "expose": "@apps" },
-				{ "src": "./src/components/commons", "expose": "@commons" },
-				{ "src": "./src/components/utils", "expose": "@utils" },
-				{ "src": "./src/components/screens", "expose": "@screens" },
-				{ "src": "./src/constants", "expose": "@constants" },
-				{ "src": "./assets/icons", "expose": "@icons" },
-				{ "src": "./assets/images", "expose": "@images" }
-			]
-		]
-	]
+  "presets": [
+    "babel-preset-react-native-stage-0/decorator-support"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-react-jsx-source"
+      ]
+    }
+  },
+  "plugins": [
+    "graphql-tag",
+    [
+      "module-alias",
+      [
+        {
+          "src": "./",
+          "expose": "@apps"
+        },
+        {
+          "src": "./src/components/commons",
+          "expose": "@commons"
+        },
+        {
+          "src": "./src/components/utils",
+          "expose": "@utils"
+        },
+        {
+          "src": "./src/components/screens",
+          "expose": "@screens"
+        },
+        {
+          "src": "./src/constants",
+          "expose": "@constants"
+        },
+        {
+          "src": "./assets/icons",
+          "expose": "@icons"
+        },
+        {
+          "src": "./assets/images",
+          "expose": "@images"
+        }
+      ]
+    ]
+  ]
 }

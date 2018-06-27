@@ -3,7 +3,7 @@ import PopupDialog from 'react-native-popup-dialog'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 
-class SuccessPopup extends React.Component {
+class SuccessfulPopup extends React.Component {
 	constructor(props) {
 		super(props)
 		this.dissmissPopup = this.dissmissPopup.bind(this)
@@ -23,6 +23,8 @@ class SuccessPopup extends React.Component {
 		if (this.props.navigation != undefined) {
 			let previousRoute = this.props.navigation.state.params.previous.routeName
 			if (previousRoute == 'Wishlist') {
+				console.log('dismiss')
+
 				this.props.navigation.navigate(previousRoute)
 			}
 		}
@@ -60,4 +62,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default SuccessPopup
+export default SuccessfulPopup

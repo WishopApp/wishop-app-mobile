@@ -36,6 +36,7 @@ export const QueryUserWishlists = gql`
 			_id
 			email
 			wishlist {
+				_id
 				name
 				productName
 				category {
@@ -47,6 +48,53 @@ export const QueryUserWishlists = gql`
 					name
 				}
 			}
+		}
+	}
+`
+
+export const QueryStoreByBeaconToken = gql`
+	query StoresBranchesByBeaconToken($beaconToken: ID!) {
+		storeBranch(beaconToken: $beaconToken) {
+			_id
+			store {
+				_id
+				coverUrl
+				description
+			}
+			telNo
+			name
+			shouldCheck
+		}
+	}
+`
+
+export const QuerySearchProductByWishlist = gql`
+	query SearchProductByWishlist($wishlist: WishlistInput!) {
+		searchByWishlist(wishlist: $wishlist) {
+			store {
+				name
+			}
+			name
+			category {
+				_id
+				name
+			}
+			subCategory {
+				_id
+				name
+			}
+			categoryProps {
+				_id
+				propId
+				value
+			}
+			subCategoryProps {
+				_id
+				propId
+				value
+			}
+			matchedPercentage
+			recommended
 		}
 	}
 `
