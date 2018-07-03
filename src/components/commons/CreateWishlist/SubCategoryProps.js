@@ -1,20 +1,18 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { Button } from 'react-native-elements'
-import { QueryCategoryProps } from '@utils/Graphql/Query'
 import { StyledConstants } from '@constants/Styled'
+import { QuerySubCategoryProps } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
 
-class CategoryPropsRenderer extends React.Component {
+class SubCategoryPropsRenderer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.categoryId = this.props.categoryId
 	}
 
-	eachCategoryPropValue = (eachCategoryPropValues, property) => {
+	eachSubCategoryPropValue = (eachSubCategoryPropValues, property) => {
 		let propertyName = 'Enter ' + property.name
-		eachCategoryPropValues.map(propValue => {
-			if (propValue.categoryPropId == property._id) {
+		eachSubCategoryPropValues.map(propValue => {
+			if (propValue.subCategoryPropId == property._id) {
 				propertyName = propValue.value
 				return propertyName
 			}
@@ -28,18 +26,18 @@ class CategoryPropsRenderer extends React.Component {
 			loading,
 			error,
 			data,
-			getCategoryPropValue,
-			setCategoryPropValue,
-			eachCategoryPropValues,
-			categoryId,
+			getSubCategoryPropValue,
+			setSubCategoryPropValue,
+			eachSubCategoryPropValues,
+			subCategoryId,
 		} = this.props
-		let categoryProps = data.categoryProps
+		let subCategoryProps = data.subCategoryProps
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>
 		return (
 			<View>
-				{categoryProps != undefined
-					? categoryProps.map((property, index) => {
+				{subCategoryProps != undefined
+					? subCategoryProps.map((property, index) => {
 							return (
 								<View style={[styled.inputContainer, styled.inputPropsContainer]} key={index}>
 									<TouchableOpacity
@@ -47,12 +45,12 @@ class CategoryPropsRenderer extends React.Component {
 										style={[StyledConstants.MAX_WIDTH_BUTTON, styled.categoryProps]}
 										key={index}
 										onPress={() =>
-											this.props.navigation.navigate('CategoryPropsPage', {
-												categoryId: categoryId,
+											this.props.navigation.navigate('SubCategoryPropsPage', {
+												subCategoryId: subCategoryId,
 												title: property.name,
 												_id: property._id,
-												categoryPropsValue: property.values,
-												setCategoryPropValue: setCategoryPropValue,
+												subCategoryPropsValue: property.values,
+												setSubCategoryPropValue: setSubCategoryPropValue,
 											})
 										}
 									>
@@ -60,7 +58,7 @@ class CategoryPropsRenderer extends React.Component {
 											{property.name}
 										</Text>
 										<Text style={StyledConstants.FONT_DESCRIPTION}>
-											{this.eachCategoryPropValue(eachCategoryPropValues, property)}
+											{this.eachSubCategoryPropValue(eachSubCategoryPropValues, property)}
 										</Text>
 									</TouchableOpacity>
 								</View>
@@ -72,14 +70,14 @@ class CategoryPropsRenderer extends React.Component {
 	}
 }
 
-const CategoryProps = graphql(QueryCategoryProps, {
+const SubCategoryProps = graphql(QuerySubCategoryProps, {
 	options: props => {
 		return {
 			variables: {
-				categoryId: props.categoryId,
+				subCategoryId: props.subCategoryId,
 			},
 		}
 	},
-})(CategoryPropsRenderer)
+})(SubCategoryPropsRenderer)
 
-export default CategoryProps
+export default SubCategoryProps

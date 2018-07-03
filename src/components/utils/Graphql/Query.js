@@ -30,6 +30,17 @@ export const QuerySubCategories = gql`
 	}
 `
 
+export const QuerySubCategoryProps = gql`
+	query SubcategoryProps($subCategoryId: ID!) {
+		subCategoryProps(subCategoryId: $subCategoryId) {
+			_id
+			name
+			subCategoryId
+			values
+		}
+	}
+`
+
 export const QueryUserWishlists = gql`
 	query UserWishlists($userId: ID, $email: String!) {
 		user(_id: $userId, email: $email) {

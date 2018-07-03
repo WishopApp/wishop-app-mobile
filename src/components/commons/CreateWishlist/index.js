@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { SuccessPopup } from '@utils/Popups/CallPopup'
 import CategoryProps from './CategoryProps'
-import CreateWishlistMutation from './store'
+import SubCategoryProps from './SubCategoryProps'
 import { MutationCreateWishlist } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
 import { user } from '@constants/Data'
@@ -27,6 +27,13 @@ class CreateWishlist extends React.Component {
 			},
 			eachCategoryPropValues: [],
 
+			subCategoryPropValue: {
+				_id: null,
+				categoryId: null,
+				value: null,
+			},
+			eachSubCategoryPropValues: [],
+
 			successPopup: null,
 		}
 	}
@@ -45,9 +52,21 @@ class CreateWishlist extends React.Component {
 		this.forceUpdate()
 	}
 
+	setSubCategoryProps = (subCategoryPropValue, index) => {
+		let propsValue = this.state.subCategoryProps
+		propsValue[index].value = subCategoryPropValue.value
+		this.forceUpdate()
+	}
+
 	setEachCategoryProps = (categoryPropValue, index) => {
 		let propsValue = this.state.eachCategoryPropValues
 		propsValue[index].value = categoryPropValue.value
+		this.forceUpdate()
+	}
+
+	setEachSubCategoryProps = (subCategoryPropValue, index) => {
+		let propsValue = this.state.eachSubCategoryPropValues
+		propsValue[index].value = subCategoryPropValue.value
 		this.forceUpdate()
 	}
 
@@ -65,6 +84,23 @@ class CreateWishlist extends React.Component {
 			let index = findCatProps(categoryProps, propsValue.categoryPropId)
 			this.setCategoryProps(propsValue, index)
 			this.setEachCategoryProps(propsValue, index)
+		}
+	}
+
+	setSubCategoryPropValue = (_id, subCategoryId, value) => {
+		let subCategoryProps = this.state.subCategoryProps
+		let propsValue = {
+			subCategoryPropId: _id, // must be _id of PropValue ถ้าแก้ในนี้แล้วแก้ในไฟล์ categoryProp บรรทัดที่ 17 ตรง propValue.
+			value: value,
+		}
+		this.setState({ subCategoryPropValue: propsValue })
+		if (checkNotRepeatSubCatProps(subCategoryProps, propsValue.subCategoryPropId)) {
+			subCategoryProps.push(propsValue)
+			this.state.eachSubCategoryPropValues.push(propsValue)
+		} else {
+			let index = findSubCatProps(subCategoryProps, propsValue.subCategoryPropId)
+			this.setSubCategoryProps(propsValue, index)
+			this.setEachSubCategoryProps(propsValue, index)
 		}
 	}
 
@@ -141,6 +177,7 @@ class CreateWishlist extends React.Component {
 							textStyle={this.state.category ? StyledSelected.text : StyledConstants.TEXT_BUTTON_BLACK}
 							onPress={() => {
 								this.props.navigation.navigate('SubCategory', {
+									categoryId: this.state.category._id,
 									setSubCategory: this.setSubCategory,
 								})
 							}}
@@ -157,16 +194,29 @@ class CreateWishlist extends React.Component {
 							value={this.state.productName}
 						/>
 					</View>
-					{this.state.category != null ? (
-						<CategoryProps
-							styled={styled}
-							categoryId={this.state.category._id}
-							setCategoryPropValue={this.setCategoryPropValue}
-							getCategoryPropValue={this.getCategoryPropValue}
-							eachCategoryPropValues={this.state.eachCategoryPropValues}
-							navigation={this.props.navigation}
-						/>
-					) : null}
+					<View style={styled.PropContainer}>
+						{this.state.category != null ? (
+							<CategoryProps
+								styled={styled}
+								categoryId={this.state.category._id}
+								setCategoryPropValue={this.setCategoryPropValue}
+								getCategoryPropValue={this.getCategoryPropValue}
+								eachCategoryPropValues={this.state.eachCategoryPropValues}
+								navigation={this.props.navigation}
+							/>
+						) : null}
+
+						{this.state.subCategory != null ? (
+							<SubCategoryProps
+								styled={styled}
+								subCategoryId={this.state.subCategory._id}
+								setSubCategoryPropValue={this.setSubCategoryPropValue}
+								getSubCategoryPropValue={this.getSubCategoryPropValue}
+								eachSubCategoryPropValues={this.state.eachSubCategoryPropValues}
+								navigation={this.props.navigation}
+							/>
+						) : null}
+					</View>
 					<View style={styled.createButtonContainer}>
 						<Button
 							large
@@ -196,10 +246,26 @@ const checkNotRepeatCatProps = (catProps, _id) => {
 	return checked
 }
 
+const checkNotRepeatSubCatProps = (catProps, _id) => {
+	let checked = true
+	catProps.map(prop => {
+		if (prop.subCategoryPropId == _id) checked = false
+	})
+	return checked
+}
+
 const findCatProps = (catProps, _id) => {
 	let checked = -1
 	catProps.map((prop, index) => {
 		if (prop.categoryPropId == _id) checked = index
+	})
+	return checked
+}
+
+const findSubCatProps = (catProps, _id) => {
+	let checked = -1
+	catProps.map((prop, index) => {
+		if (prop.subCategoryPropId == _id) checked = index
 	})
 	return checked
 }
@@ -246,13 +312,21 @@ const styled = StyleSheet.create({
 	},
 	categoryProps: {
 		zIndex: -5,
-		height: '15%',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
-	containerProps: {
-		height: '80%',
+
+	inputPropsContainer: {
+		height: '0%',
+		paddingTop: '6%',
+		paddingBottom: '6%',
+	},
+
+	PropContainer: {
+		flex: 1,
+		flexDirection: 'column',
+		position: 'relative',
 	},
 })
 
