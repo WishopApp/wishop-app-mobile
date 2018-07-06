@@ -5,7 +5,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset'
 import { ApolloProvider } from 'react-apollo'
 
 const client = new ApolloClient({
-	link: new HttpLink({ uri: 'https://api-wishopapp.tk/graphql' }),
+	link: new HttpLink({ uri: 'http://54.169.236.178:3000/graphql' }),
 	cache: new InMemoryCache(),
 })
 

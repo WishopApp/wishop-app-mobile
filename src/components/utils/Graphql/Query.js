@@ -58,6 +58,16 @@ export const QueryUserWishlists = gql`
 					_id
 					name
 				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
 			}
 		}
 	}

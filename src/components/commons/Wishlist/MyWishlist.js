@@ -19,9 +19,11 @@ class MyWishlist extends React.Component {
 					<Image style={styled.productImage} source={require('@images/shoe.png')} />
 				</View>
 				<View style={styled.WishlistProductContainer}>
-					<Text style={StyledConstants.FONT_TOPIC}>{wishlist.name}</Text>
-					<Text style={StyledConstants.FONT_DESCRIPTION}>{wishlist.productName}</Text>
-					<Text style={styled.WishlistCategoryAndSubCategory}>
+					<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{wishlist.name}</Text>
+					<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+						{wishlist.productName}
+					</Text>
+					<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
 						{wishlist.category.name}, {wishlist.subCategory.name}
 					</Text>
 				</View>
@@ -58,12 +60,6 @@ const styled = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
-	},
-	WishlistProductName: {
-		fontSize: 12,
-	},
-	WishlistCategoryAndSubCategory: {
-		fontSize: 8,
 	},
 	WishlistDeleteContainer: {
 		width: '15%',

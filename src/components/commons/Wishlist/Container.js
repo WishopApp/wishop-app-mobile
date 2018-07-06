@@ -1,8 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
-import { StyledConstants } from '@constants/Styled'
-import Header from '@screens/Header'
+import { StyledConstants, StyledSelected } from '@constants/Styled'
 import MyWishlist from '@commons/Wishlist/MyWishlist'
 import { graphql } from 'react-apollo'
 import { QueryUserWishlists } from '@utils/Graphql/Query'
@@ -30,9 +29,9 @@ class Wishlist extends React.Component {
 				<View style={styled.container}>
 					<View style={styled.createContainer}>
 						<Button
-							backgroundColor="black"
+							backgroundColor="white"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-							textStyle={StyledConstants.TEXT_BUTTON_WHITE}
+							textStyle={StyledSelected.defaultText}
 							onPress={() => this.props.navigation.navigate('CreateWishlist', { previous })}
 							title="Create New"
 						/>
@@ -73,7 +72,7 @@ const styled = StyleSheet.create({
 		margin: '5%',
 		borderStyle: 'solid',
 		borderColor: '#000000',
-		borderWidth: 5,
+		borderWidth: 2,
 	},
 	MyWishlistContainer: {
 		display: 'flex',
