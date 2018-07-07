@@ -23,7 +23,6 @@ class WishlistDetailContainer extends React.Component {
 	render() {
 		let { wishlist } = this.props.navigation.state.params
 		let status = this.state.status
-		console.log(wishlist)
 		return (
 			<View style={styled.container}>
 				<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
@@ -32,7 +31,12 @@ class WishlistDetailContainer extends React.Component {
 							backgroundColor="white"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							textStyle={StyledSelected.defaultText}
-							onPress={() => this.props.navigation.navigate('CreateWishlist', { previous })}
+							onPress={() =>
+								this.props.navigation.navigate('CreateWishlist', {
+									wishlist: wishlist,
+									type: 'Update',
+								})
+							}
 							title="Edit"
 						/>
 					</View>

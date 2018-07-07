@@ -85,53 +85,38 @@ export const Tabs = TabNavigator(
 	}
 )
 
-export const CreateWishlistStack = StackNavigator(
-	{
-		CreateWishlist: {
-			screen: CreateWishlistScreen,
-			navigationOptions: {
-				title: 'N E W W I S H L I S T',
-			},
-		},
-		Category: {
-			screen: CategoryScreen,
-			navigationOptions: {
-				title: 'S E L E C T   C A T E G O R Y',
-			},
-		},
-		SubCategory: {
-			screen: SubCategoryScreen,
-			navigationOptions: {
-				title: 'S E L E C T   S U B C A T E G O R Y',
-			},
-		},
-		CategoryPropsPage: {
-			screen: CategoryPropsScreen,
-		},
-		SubCategoryPropsPage: {
-			screen: SubCategoryPropsScreen,
+export const CreateWishlistStack = StackNavigator({
+	CreateWishlist: {
+		screen: CreateWishlistScreen,
+		navigationOptions: {
+			title: 'N E W W I S H L I S T',
 		},
 	},
-	{
-		mode: 'card',
-	}
-)
-
-export const ModalScreen = StackNavigator(
-	{
-		CreateWishlist: {
-			screen: CreateWishlistStack,
+	Category: {
+		screen: CategoryScreen,
+		navigationOptions: {
+			title: 'S E L E C T   C A T E G O R Y',
 		},
 	},
-	{
-		headerMode: 'none',
-	}
-)
+	SubCategory: {
+		screen: SubCategoryScreen,
+		navigationOptions: {
+			title: 'S E L E C T   S U B C A T E G O R Y',
+		},
+	},
+	CategoryPropsPage: {
+		screen: CategoryPropsScreen,
+	},
+	SubCategoryPropsPage: {
+		screen: SubCategoryPropsScreen,
+	},
+})
 
 export const Root = StackNavigator(
 	{
-		Tabs: Tabs,
-		Modal: ModalScreen,
+		Main: Tabs,
+		// Modal Stack
+		CreateWishlist: CreateWishlistStack,
 	},
 	{
 		mode: 'modal',

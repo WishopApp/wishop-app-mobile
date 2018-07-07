@@ -21,12 +21,7 @@ class SuccessfulPopup extends React.Component {
 	dissmissPopup() {
 		this.popupDialog.dismiss()
 		if (this.props.navigation != undefined) {
-			let previousRoute = this.props.navigation.state.params.previous.routeName
-			if (previousRoute == 'Wishlist') {
-				console.log('dismiss')
-
-				this.props.navigation.navigate(previousRoute)
-			}
+			this.props.navigation.goBack(null)
 		}
 	}
 

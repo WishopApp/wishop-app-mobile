@@ -36,6 +36,55 @@ class CreateWishlist extends React.Component {
 
 			successPopup: null,
 		}
+		if (this.props.type === 'Update') {
+			if (props.navigation.state.params.wishlist) this.setDefaultValue(props)
+		}
+	}
+
+	setDefaultValue = props => {
+		console.log('has params wishlist')
+		let wishlist = props.navigation.state.params.wishlist
+		let state = this.state
+
+		//  mock data เพราะ API return ค่า _id props เป้น null
+
+		// let catProps = [
+		// 	{
+		// 		_id: '5b3b9139835b5e000f8aafb9',
+		// 		value: wishlist.categoryProps[0].value,
+		// 		__typename: 'WishlistCategoryProp',
+		// 	},
+		// ]
+		// let subCatProps = [
+		// 	{
+		// 		_id: '5b3baa5f835b5e000f8aafc2',
+		// 		value: wishlist.subCategoryProps[0].value,
+		// 		__typename: 'WishlistSubCategoryProp',
+		// 	},
+		// ]
+
+		state.wishlistName = wishlist.name
+		state.productName = wishlist.productName
+		state.category = {
+			_id: wishlist.category._id,
+			name: wishlist.category.name,
+		}
+		state.subCategory = {
+			_id: wishlist.subCategory._id,
+			name: wishlist.subCategory.name,
+		}
+		if (wishlist.categoryProps) {
+			// state.categoryProps = wishlist.categoryProps
+			// state.eachCategoryPropValues = wishlist.categoryProps
+			// state.categoryProps = catProps
+			// state.eachCategoryPropValues = catProps
+		}
+		if (wishlist.subCategoryProps) {
+			// state.subCategoryProps = wishlist.subCategoryProps
+			// state.eachSubCategoryPropValues = wishlist.subCategoryProps
+			// state.categoryProps = subCatProps
+			// state.eachSubCategoryPropValues = subCatProps
+		}
 	}
 
 	setCategory = category => {
@@ -73,15 +122,15 @@ class CreateWishlist extends React.Component {
 	setCategoryPropValue = (_id, categoryId, value) => {
 		let categoryProps = this.state.categoryProps
 		let propsValue = {
-			categoryPropId: _id, // must be _id of PropValue ถ้าแก้ในนี้แล้วแก้ในไฟล์ categoryProp บรรทัดที่ 17 ตรง propValue.
+			categoryPropId: _id,
 			value: value,
 		}
 		this.setState({ categoryPropValue: propsValue })
-		if (checkNotRepeatCatProps(categoryProps, propsValue.categoryPropId)) {
+		if (checkNotRepeatCatProps(categoryProps, propsValue.categoryId)) {
 			categoryProps.push(propsValue)
 			this.state.eachCategoryPropValues.push(propsValue)
 		} else {
-			let index = findCatProps(categoryProps, propsValue.categoryPropId)
+			let index = findCatProps(categoryProps, propsValue.categoryId)
 			this.setCategoryProps(propsValue, index)
 			this.setEachCategoryProps(propsValue, index)
 		}
@@ -90,7 +139,7 @@ class CreateWishlist extends React.Component {
 	setSubCategoryPropValue = (_id, subCategoryId, value) => {
 		let subCategoryProps = this.state.subCategoryProps
 		let propsValue = {
-			subCategoryPropId: _id, // must be _id of PropValue ถ้าแก้ในนี้แล้วแก้ในไฟล์ categoryProp บรรทัดที่ 17 ตรง propValue.
+			subCategoryPropId: _id,
 			value: value,
 		}
 		this.setState({ subCategoryPropValue: propsValue })
@@ -221,12 +270,13 @@ class CreateWishlist extends React.Component {
 						<Button
 							large
 							backgroundColor={!this.isNotRequireData() ? styled.createButtonWithData : 'blue'}
-							title="Create"
+							title={this.props.type}
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-							onPress={() => {
+							onPress={async () => {
 								if (this.isNotRequireData()) {
-									this.createWishlist()
+									await this.createWishlist()
 									this.setState({ successPopup: SuccessPopup(this.props.navigation) })
+									this.props.navigation.state.params.refetchWishlist()
 								}
 							}}
 							textStyle={styled.textCreateButton}

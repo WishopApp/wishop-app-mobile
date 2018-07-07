@@ -12,7 +12,7 @@ class Wishlist extends React.Component {
 		super(props)
 	}
 
-	componentDidMount() {
+	refetchWishlist = () => {
 		this.props.data.refetch()
 	}
 
@@ -21,7 +21,6 @@ class Wishlist extends React.Component {
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
 
-		let previous = this.props.navigation.state
 		let wishlists = data.user ? data.user.wishlist : undefined
 
 		return (
@@ -32,7 +31,11 @@ class Wishlist extends React.Component {
 							backgroundColor="white"
 							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
 							textStyle={StyledSelected.defaultText}
-							onPress={() => this.props.navigation.navigate('CreateWishlist', { previous })}
+							onPress={() =>
+								this.props.navigation.navigate('CreateWishlist', {
+									refetchWishlist: this.refetchWishlist,
+								})
+							}
 							title="Create New"
 						/>
 					</View>
@@ -40,11 +43,11 @@ class Wishlist extends React.Component {
 				<View style={styled.MyWishlistContainer}>
 					{wishlists != undefined
 						? wishlists.map((wishlist, index) => {
-							return (
-								<View key={index}>
-									<MyWishlist wishlist={wishlist} navigation={this.props.navigation} />
-								</View>
-							)
+								return (
+									<View key={index}>
+										<MyWishlist wishlist={wishlist} navigation={this.props.navigation} />
+									</View>
+								)
 						  })
 						: null}
 				</View>

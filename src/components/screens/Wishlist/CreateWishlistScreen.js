@@ -6,6 +6,19 @@ import DismissableModal from '@screens/DismissableModal'
 class CreateWishlistScreen extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			type: 'Create', // Create, Update
+		}
+	}
+
+	componentDidMount() {
+		if (this.props.navigation.state.params.type) {
+			this.setState({ type: this.props.navigation.state.params.type })
+		}
+	}
+
+	componentWillUnmount() {
+		this.setState({ type: 'Create' })
 	}
 
 	static navigationOptions = ({ navigation }) => {
@@ -18,7 +31,7 @@ class CreateWishlistScreen extends React.Component {
 	render() {
 		return (
 			<View>
-				<CreateWishlist navigation={this.props.navigation} />
+				<CreateWishlist navigation={this.props.navigation} type={this.state.type} />
 			</View>
 		)
 	}
