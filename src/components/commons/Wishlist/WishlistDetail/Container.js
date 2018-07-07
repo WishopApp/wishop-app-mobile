@@ -23,6 +23,7 @@ class WishlistDetailContainer extends React.Component {
 	render() {
 		let { wishlist } = this.props.navigation.state.params
 		let status = this.state.status
+
 		return (
 			<View style={styled.container}>
 				<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>

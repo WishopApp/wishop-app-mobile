@@ -36,7 +36,7 @@ class CreateWishlist extends React.Component {
 
 			successPopup: null,
 		}
-		if (this.props.type === 'Update') {
+		if (props.type === 'Update') {
 			if (props.navigation.state.params.wishlist) this.setDefaultValue(props)
 		}
 	}
@@ -50,14 +50,14 @@ class CreateWishlist extends React.Component {
 
 		// let catProps = [
 		// 	{
-		// 		_id: '5b3b9139835b5e000f8aafb9',
+		// 		categoryPropId: '5b3b9139835b5e000f8aafb9',
 		// 		value: wishlist.categoryProps[0].value,
 		// 		__typename: 'WishlistCategoryProp',
 		// 	},
 		// ]
 		// let subCatProps = [
 		// 	{
-		// 		_id: '5b3baa5f835b5e000f8aafc2',
+		// 		subCategoryPropId: '5b3baa5f835b5e000f8aafc2',
 		// 		value: wishlist.subCategoryProps[0].value,
 		// 		__typename: 'WishlistSubCategoryProp',
 		// 	},

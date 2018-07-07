@@ -11,7 +11,7 @@ class CreateWishlistScreen extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		if (this.props.navigation.state.params.type) {
 			this.setState({ type: this.props.navigation.state.params.type })
 		}
