@@ -24,15 +24,7 @@ class CategoryPropsRenderer extends React.Component {
 
 	render() {
 		let styled = this.props.styled
-		let {
-			loading,
-			error,
-			data,
-			getCategoryPropValue,
-			setCategoryPropValue,
-			eachCategoryPropValues,
-			categoryId,
-		} = this.props
+		let { loading, error, data, setCategoryPropValue, eachCategoryPropValues, categoryId } = this.props
 		let categoryProps = data.categoryProps
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>

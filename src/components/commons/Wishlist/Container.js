@@ -12,10 +12,6 @@ class Wishlist extends React.Component {
 		super(props)
 	}
 
-	refetchWishlist = () => {
-		this.props.data.refetch()
-	}
-
 	render() {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
@@ -43,11 +39,11 @@ class Wishlist extends React.Component {
 				<View style={styled.MyWishlistContainer}>
 					{wishlists != undefined
 						? wishlists.map((wishlist, index) => {
-								return (
-									<View key={index}>
-										<MyWishlist wishlist={wishlist} navigation={this.props.navigation} />
-									</View>
-								)
+							return (
+								<View key={index}>
+									<MyWishlist wishlist={wishlist} navigation={this.props.navigation} />
+								</View>
+							)
 						  })
 						: null}
 				</View>
@@ -75,7 +71,7 @@ const styled = StyleSheet.create({
 		margin: '5%',
 		borderStyle: 'solid',
 		borderColor: '#000000',
-		borderWidth: 2,
+		borderWidth: 3,
 	},
 	MyWishlistContainer: {
 		display: 'flex',

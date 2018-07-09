@@ -9,6 +9,32 @@ export const MutationCreateWishlist = gql`
 	}
 `
 
+export const MutationUpdateWishlist = gql`
+	mutation UpdateWishlist($userId: ID!, $wishlistId: ID!, $wishlist: UpdateWishlist!) {
+		updateWishlist(userId: $userId, wishlistId: $wishlistId, wishlist: $wishlist) {
+			wishlist {
+				_id
+				name
+				productName
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
+			}
+		}
+	}
+`
+
 export const MutationTest = gql`
 	mutation CreateWishlist($name: String!) {
 		createCategory(name: $name) {

@@ -22,15 +22,7 @@ class SubCategoryPropsRenderer extends React.Component {
 
 	render() {
 		let styled = this.props.styled
-		let {
-			loading,
-			error,
-			data,
-			getSubCategoryPropValue,
-			setSubCategoryPropValue,
-			eachSubCategoryPropValues,
-			subCategoryId,
-		} = this.props
+		let { loading, error, data, setSubCategoryPropValue, eachSubCategoryPropValues, subCategoryId } = this.props
 		let subCategoryProps = data.subCategoryProps
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>
