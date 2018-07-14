@@ -1,6 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { graphql } from 'react-apollo'
+import CreateWishlist from '@commons/CreateWishlist'
 import { MutationUpdateWishlist } from '@utils/Graphql/Mutation'
 
 class UpdateWishlist extends React.Component {
@@ -8,12 +9,15 @@ class UpdateWishlist extends React.Component {
 		super(props)
 	}
 
-	componentDidMount() {
-		this.props.upsertWishlist(this.props.updateWishlist)
-	}
-
 	render() {
-		return <View />
+		let { params } = this.props.navigation.state
+		return (
+			<CreateWishlist
+				navigation={this.props.navigation}
+				type={params.type}
+				updateWishlist={this.props.updateWishlist}
+			/>
+		)
 	}
 }
 

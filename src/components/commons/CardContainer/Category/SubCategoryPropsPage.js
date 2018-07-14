@@ -9,7 +9,7 @@ class SubCategoryPropsPage extends React.Component {
 	}
 
 	render() {
-		let { _id, subCategoryId, subCategoryPropsValue, setSubCategoryPropValue } = this.props.navigation.state.params
+		let { _id, subCategoryPropsValue, setSubCategoryPropValue } = this.props.navigation.state.params
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.propertyContainer}>
@@ -21,7 +21,7 @@ class SubCategoryPropsPage extends React.Component {
 									containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON, styled.subCategoryButton]}
 									textStyle={StyledConstants.TEXT_BUTTON_WHITE}
 									onPress={() => {
-										setSubCategoryPropValue(_id, subCategoryId, value)
+										setSubCategoryPropValue(_id, value)
 										this.props.navigation.goBack()
 									}}
 									title={value}

@@ -5,7 +5,6 @@ import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { SuccessPopup } from '@utils/Popups/CallPopup'
 import CategoryProps from './CategoryProps'
 import SubCategoryProps from './SubCategoryProps'
-import UpdateWishlistWithMutation from './UpdateWishlist'
 import { MutationCreateWishlist } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
 import { user } from '@constants/Data'
@@ -55,21 +54,18 @@ class CreateWishlist extends React.Component {
 			subCategoryProps: [],
 
 			categoryPropValue: {
-				_id: null,
-				categoryId: null,
+				categoryPropId: null,
 				value: null,
 			},
 			eachCategoryPropValues: [],
 
 			subCategoryPropValue: {
-				_id: null,
-				categoryId: null,
+				subCategoryPropId: null,
 				value: null,
 			},
 			eachSubCategoryPropValues: [],
 
 			successPopup: null,
-			updateWishlist: false,
 		}
 		if (props.type === 'Update') {
 			if (props.navigation.state.params.wishlist) this.setDefaultValue(props)
@@ -94,22 +90,32 @@ class CreateWishlist extends React.Component {
 		}
 
 		if (wishlist.categoryProps) {
+			let tmpEachCategoryProps = []
 			wishlist.categoryProps.forEach(object => {
-				let tmp = Object.assign({}, object)
-				delete tmp['__typename']
+				let tmp = {
+					categoryPropId: object._id,
+					value: object.value,
+				}
 				tmpCategoryProps.push(tmp)
+				tmpEachCategoryProps.push(tmp)
 			})
+
 			state.categoryProps = tmpCategoryProps
-			state.eachCategoryPropValues = tmpCategoryProps
+			state.eachCategoryPropValues = tmpEachCategoryProps
 		}
 		if (wishlist.subCategoryProps) {
+			let tmpEachSubCategoryProps = []
 			wishlist.subCategoryProps.forEach(object => {
-				let tmp = Object.assign({}, object)
-				delete tmp['__typename']
+				let tmp = {
+					subCategoryPropId: object._id,
+					value: object.value,
+				}
 				tmpSubCategoryProps.push(tmp)
+				tmpEachSubCategoryProps.push(tmp)
 			})
+
 			state.subCategoryProps = tmpSubCategoryProps
-			state.eachSubCategoryPropValues = tmpSubCategoryProps
+			state.eachSubCategoryPropValues = tmpEachSubCategoryProps
 		}
 	}
 
@@ -145,24 +151,24 @@ class CreateWishlist extends React.Component {
 		this.forceUpdate()
 	}
 
-	setCategoryPropValue = (_id, categoryId, value) => {
+	setCategoryPropValue = (_id, value) => {
 		let categoryProps = this.state.categoryProps
 		let propsValue = {
 			categoryPropId: _id,
 			value: value,
 		}
 		this.setState({ categoryPropValue: propsValue })
-		if (checkNotRepeatCatProps(categoryProps, propsValue.categoryId)) {
-			categoryProps.push(propsValue)
+		if (checkNotRepeatCatProps(categoryProps, propsValue.categoryPropId)) {
+			this.state.categoryProps.push(propsValue)
 			this.state.eachCategoryPropValues.push(propsValue)
 		} else {
-			let index = findCatProps(categoryProps, propsValue.categoryId)
+			let index = findCatProps(categoryProps, propsValue.categoryPropId)
 			this.setCategoryProps(propsValue, index)
 			this.setEachCategoryProps(propsValue, index)
 		}
 	}
 
-	setSubCategoryPropValue = (_id, subCategoryId, value) => {
+	setSubCategoryPropValue = (_id, value) => {
 		let subCategoryProps = this.state.subCategoryProps
 		let propsValue = {
 			subCategoryPropId: _id,
@@ -170,7 +176,7 @@ class CreateWishlist extends React.Component {
 		}
 		this.setState({ subCategoryPropValue: propsValue })
 		if (checkNotRepeatSubCatProps(subCategoryProps, propsValue.subCategoryPropId)) {
-			subCategoryProps.push(propsValue)
+			this.state.subCategoryProps.push(propsValue)
 			this.state.eachSubCategoryPropValues.push(propsValue)
 		} else {
 			let index = findSubCatProps(subCategoryProps, propsValue.subCategoryPropId)
@@ -305,7 +311,7 @@ class CreateWishlist extends React.Component {
 							onPress={async () => {
 								if (this.isNotRequireData()) {
 									if (this.props.type === 'Update') {
-										this.setState({ updateWishlist: true })
+										await this.upsertWishlist(this.props.updateWishlist)
 									} else {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
@@ -314,9 +320,6 @@ class CreateWishlist extends React.Component {
 							}}
 							textStyle={styled.textCreateButton}
 						/>
-						{this.state.updateWishlist ? (
-							<UpdateWishlistWithMutation upsertWishlist={this.upsertWishlist} />
-						) : null}
 					</View>
 				</ScrollView>
 			</View>
@@ -327,7 +330,6 @@ class CreateWishlist extends React.Component {
 const CreateWishlistWithMutation = graphql(MutationCreateWishlist, {
 	props: ({ mutate }) => ({
 		createWishlist: (userId, wishlist) => mutate({ variables: { userId, wishlist } }),
-		createCategory: name => mutate({ variables: { name } }),
 	}),
 })(CreateWishlist)
 
