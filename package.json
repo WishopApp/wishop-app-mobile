@@ -32,7 +32,8 @@
 		"react-native-router-flux": "^4.0.0-beta.28",
 		"react-native-svg-uri": "^1.2.3",
 		"react-native-vector-icons": "^4.6.0",
-		"react-navigation": "^1.5.9"
+		"react-navigation": "^1.5.9",
+		"underscore": "^1.9.1"
 	},
 	"devDependencies": {
 		"babel-eslint": "^8.2.2",

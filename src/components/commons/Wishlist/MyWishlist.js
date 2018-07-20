@@ -6,31 +6,47 @@ class MyWishlist extends React.Component {
 	/* proptypes
 		wishlist: object
 	*/
-	render() {
-		let { wishlist } = this.props
+	constructor(props) {
+		super(props)
+	}
 
+	render() {
+		let { wishlist, remove } = this.props
 		return (
-			<TouchableOpacity
-				activeOpacity={1}
-				style={styled.wishlistContainer}
-				onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
-			>
-				<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-					<Image style={styled.productImage} source={require('@images/shoe.png')} />
-				</View>
-				<View style={styled.WishlistProductContainer}>
-					<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{wishlist.name}</Text>
-					<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-						{wishlist.productName}
-					</Text>
-					<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
-						{wishlist.category.name}, {wishlist.subCategory.name}
-					</Text>
-				</View>
-				<View style={styled.WishlistDeleteContainer}>
-					<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />
-				</View>
-			</TouchableOpacity>
+			<View>
+				{wishlist != null ? (
+					<TouchableOpacity
+						activeOpacity={1}
+						style={styled.wishlistContainer}
+						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
+					>
+						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+							<Image style={styled.productImage} source={require('@images/shoe.png')} />
+						</View>
+
+						<View style={styled.WishlistProductContainer}>
+							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{wishlist.name}</Text>
+							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+								{wishlist.productName}
+							</Text>
+							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+								{wishlist.category.name}, {wishlist.subCategory.name}
+							</Text>
+						</View>
+						<TouchableOpacity
+							activeOpacity={1}
+							style={styled.WishlistDeleteContainer}
+							onPress={() => {
+								remove(wishlist._id)
+							}}
+						>
+							<View>
+								<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />
+							</View>
+						</TouchableOpacity>
+					</TouchableOpacity>
+				) : null}
+			</View>
 		)
 	}
 }
