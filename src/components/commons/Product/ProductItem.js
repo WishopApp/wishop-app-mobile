@@ -3,61 +3,30 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QuerySearchProductByWishlist } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
-import ProductItem from './ProductItem'
 
-class ProductList extends React.Component {
+class ProductItem extends React.Component {
 	/* proptypes
 		wishlist: object
     */
 
 	render() {
-		let { loading, error, data } = this.props
-		let products = undefined
-		if (loading)
-			return (
-				<View>
-					<SearchByWishlist />
-				</View>
-			)
-		if (data.searchByWishlist) {
-			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
-		}
-
+		let product = this.props
 		return (
 			<View style={styled.wishlistContainer}>
-				{products ? (
-					products.map((product, index) => {
-						return (
-							<View key={index}>
-								<ProductItem product={product} />
-							</View>
-						)
-					})
-				) : (
-					<Text>Not Matched</Text>
-				)}
+				<TouchableOpacity activeOpacity={1} style={styled.wishlistContainer}>
+					<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+						<Image style={styled.productImage} source={require('@images/shoe.png')} />
+					</View>
+					<View style={styled.WishlistProductContainer}>
+						<Text style={StyledConstants.FONT_TOPIC}>{product.name}</Text>
+						<Text style={StyledConstants.FONT_DESCRIPTION}>Store Name</Text>
+						<Text style={styled.WishlistCategoryAndSubCategory}>category, subcategory</Text>
+					</View>
+				</TouchableOpacity>
 			</View>
 		)
 	}
 }
-
-const ProductListByWishlist = graphql(QuerySearchProductByWishlist, {
-	options: props => {
-		let wishlist = {
-			name: props.wishlist.name,
-			productName: props.wishlist.productName,
-			categoryId: props.wishlist.category._id,
-			subCategoryId: props.wishlist.subCategory._id,
-			categoryProps: props.wishlist.categoryProps,
-			subCategoryProps: props.wishlist.subCategoryProps,
-		}
-		return {
-			variables: {
-				wishlist: wishlist,
-			},
-		}
-	},
-})(ProductList)
 
 const styled = StyleSheet.create({
 	wishlistContainer: {
@@ -103,4 +72,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default ProductListByWishlist
+export default ProductItem

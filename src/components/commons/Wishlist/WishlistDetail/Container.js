@@ -26,96 +26,102 @@ class WishlistDetailContainer extends React.Component {
 
 		return (
 			<View style={styled.container}>
-				<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
-					<View style={styled.editContainer}>
-						<Button
-							backgroundColor="white"
-							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-							textStyle={StyledSelected.defaultText}
-							onPress={() =>
-								this.props.navigation.navigate('CreateWishlist', {
-									wishlist: wishlist,
-									type: 'Update',
-									refetchWishlist: this.props.refetchWishlist,
-								})
-							}
-							title="Edit"
-						/>
-					</View>
-					<View style={styled.wishlistDetail}>
-						<View style={styled.imageContainer}>
-							<Image style={styled.image} source={require('@images/shoe.png')} />
-						</View>
-						<View style={styled.WishlistProductContainer}>
-							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-								{wishlist.name} {'\n'}
-							</Text>
-							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-								{wishlist.productName}
-							</Text>
-							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
-								{wishlist.category.name}, {wishlist.subCategory.name}
-							</Text>
-						</View>
-					</View>
-
-					<View style={styled.PropContainer}>
-						{wishlist.categoryProps != null
-							? wishlist.categoryProps.map((property, index) => {
-									return (
-										<View key={index}>
-											<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-												<Text
-													style={[
-														StyledConstants.FONT_BOLD,
-														StyledConstants.FONT_DESCRIPTION,
-													]}
-												>
-													{property.name}
-												</Text>
-												<Text style={StyledConstants.FONT_DESCRIPTION}>{property.value}</Text>
-											</View>
-										</View>
-									)
-							  })
-							: null}
-
-						{wishlist.subCategoryProps != null
-							? wishlist.subCategoryProps.map((property, index) => {
-									return (
-										<View key={index}>
-											<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-												<Text
-													style={[
-														StyledConstants.FONT_BOLD,
-														StyledConstants.FONT_DESCRIPTION,
-													]}
-												>
-													{property.name}
-												</Text>
-												<Text style={StyledConstants.FONT_DESCRIPTION}>{property.value}</Text>
-											</View>
-										</View>
-									)
-							  })
-							: null}
-					</View>
-				</ScrollView>
 				{status === 'Default' && (
-					<View style={styled.SearchContainer}>
-						<Button
-							large
-							backgroundColor="blue"
-							title="Start Search"
-							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-							onPress={() => {
-								this.setStatus('Searching')
-							}}
-						/>
+					<View>
+						<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
+							<View style={styled.editContainer}>
+								<Button
+									backgroundColor="white"
+									containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
+									textStyle={StyledSelected.defaultText}
+									onPress={() =>
+										this.props.navigation.navigate('CreateWishlist', {
+											wishlist: wishlist,
+											type: 'Update',
+											refetchWishlist: this.props.refetchWishlist,
+										})
+									}
+									title="Edit"
+								/>
+							</View>
+							<View style={styled.wishlistDetail}>
+								<View style={styled.imageContainer}>
+									<Image style={styled.image} source={require('@images/shoe.png')} />
+								</View>
+								<View style={styled.WishlistProductContainer}>
+									<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+										{wishlist.name} {'\n'}
+									</Text>
+									<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+										{wishlist.productName}
+									</Text>
+									<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+										{wishlist.category.name}, {wishlist.subCategory.name}
+									</Text>
+								</View>
+							</View>
+
+							<View style={styled.PropContainer}>
+								{wishlist.categoryProps != null
+									? wishlist.categoryProps.map((property, index) => {
+											return (
+												<View key={index}>
+													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+														<Text
+															style={[
+																StyledConstants.FONT_BOLD,
+																StyledConstants.FONT_DESCRIPTION,
+															]}
+														>
+															{property.name}
+														</Text>
+														<Text style={StyledConstants.FONT_DESCRIPTION}>
+															{property.value}
+														</Text>
+													</View>
+												</View>
+											)
+									  })
+									: null}
+
+								{wishlist.subCategoryProps != null
+									? wishlist.subCategoryProps.map((property, index) => {
+											return (
+												<View key={index}>
+													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+														<Text
+															style={[
+																StyledConstants.FONT_BOLD,
+																StyledConstants.FONT_DESCRIPTION,
+															]}
+														>
+															{property.name}
+														</Text>
+														<Text style={StyledConstants.FONT_DESCRIPTION}>
+															{property.value}
+														</Text>
+													</View>
+												</View>
+											)
+									  })
+									: null}
+							</View>
+						</ScrollView>
+
+						<View style={styled.SearchContainer}>
+							<Button
+								large
+								backgroundColor="blue"
+								title="Start Search"
+								containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
+								onPress={() => {
+									this.setStatus('Searching')
+								}}
+							/>
+						</View>
 					</View>
 				)}
-				{status === 'Searching' && <SearchByWishlist setStatus={this.setStatus} />}
-				{status === 'Product' && <ProductList navigation={this.props.navigation} wishlist={wishlist} />}
+				{status === 'Searching' && <ProductList navigation={this.props.navigation} wishlist={wishlist} />}
 			</View>
 		)
 	}
