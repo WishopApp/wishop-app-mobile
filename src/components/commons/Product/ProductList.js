@@ -24,7 +24,7 @@ class ProductList extends React.Component {
 		}
 
 		return (
-			<View style={styled.wishlistContainer}>
+			<View>
 				{products ? (
 					products.map((product, index) => {
 						return (
@@ -58,49 +58,5 @@ const ProductListByWishlist = graphql(QuerySearchProductByWishlist, {
 		}
 	},
 })(ProductList)
-
-const styled = StyleSheet.create({
-	wishlistContainer: {
-		margin: '5%',
-		display: 'flex',
-		flex: 1,
-		flexDirection: 'row',
-		height: 100,
-	},
-	wishlistImageContainer: {
-		width: '30%',
-		height: '100%',
-		alignItems: 'center',
-	},
-	productImage: {
-		width: '100%',
-		height: '100%',
-	},
-	WishlistProductContainer: {
-		width: '80%',
-		padding: '3%',
-		marginLeft: '3%',
-		display: 'flex',
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-around',
-	},
-	WishlistProductName: {
-		fontSize: 12,
-	},
-	WishlistCategoryAndSubCategory: {
-		fontSize: 8,
-	},
-	WishlistDeleteContainer: {
-		width: '15%',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	wishlistDeleteIcon: {
-		width: 25,
-		height: 25,
-	},
-})
 
 export default ProductListByWishlist

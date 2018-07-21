@@ -60,13 +60,14 @@ const styled = StyleSheet.create({
 		height: 100,
 	},
 	wishlistImageContainer: {
-		width: '30%',
-		height: '100%',
+		width: 100,
+		height: 100,
 		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	productImage: {
-		width: '100%',
-		height: '100%',
+		width: 75,
+		height: 75,
 	},
 	WishlistProductContainer: {
 		width: '80%',

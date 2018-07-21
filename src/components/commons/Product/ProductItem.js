@@ -18,9 +18,9 @@ class ProductItem extends React.Component {
 						<Image style={styled.productImage} source={require('@images/shoe.png')} />
 					</View>
 					<View style={styled.WishlistProductContainer}>
-						<Text style={StyledConstants.FONT_TOPIC}>{product.name}</Text>
-						<Text style={StyledConstants.FONT_DESCRIPTION}>Store Name</Text>
-						<Text style={styled.WishlistCategoryAndSubCategory}>category, subcategory</Text>
+						<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{product.name}</Text>
+						<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>Store Name</Text>
+						<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>category, subcategory</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
@@ -37,13 +37,14 @@ const styled = StyleSheet.create({
 		height: 100,
 	},
 	wishlistImageContainer: {
-		width: '30%',
-		height: '100%',
+		width: 100,
+		height: 100,
 		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	productImage: {
-		width: '100%',
-		height: '100%',
+		width: 75,
+		height: 75,
 	},
 	WishlistProductContainer: {
 		width: '80%',
@@ -53,22 +54,6 @@ const styled = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
-	},
-	WishlistProductName: {
-		fontSize: 12,
-	},
-	WishlistCategoryAndSubCategory: {
-		fontSize: 8,
-	},
-	WishlistDeleteContainer: {
-		width: '15%',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	wishlistDeleteIcon: {
-		width: 25,
-		height: 25,
 	},
 })
 

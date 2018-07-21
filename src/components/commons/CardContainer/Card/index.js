@@ -40,7 +40,7 @@ class CategoryCard extends React.Component {
 					style={styled.imageSize}
 					source={this.isSelected() ? require('@images/shirt-selected.png') : require('@images/shirt.png')}
 				/>
-				<Text style={[StyledConstants.FONT_TOPIC, this.isSelected() && StyledSelected.text]}>{name}</Text>
+				<Text style={[StyledConstants.FONT_DESCRIPTION, this.isSelected() && StyledSelected.text]}>{name}</Text>
 			</TouchableOpacity>
 		)
 	}
@@ -48,8 +48,8 @@ class CategoryCard extends React.Component {
 
 const styled = StyleSheet.create({
 	card: {
-		width: '40%',
-		height: '100%',
+		width: 165,
+		height: 165,
 		borderStyle: 'solid',
 		borderColor: '#000000',
 		borderWidth: 3,
@@ -59,8 +59,9 @@ const styled = StyleSheet.create({
 		marginLeft: '6.5%',
 	},
 	imageSize: {
-		width: '60%',
-		height: '50%',
+		width: 70,
+		height: 70,
+		marginBottom: 15,
 	},
 })
 
