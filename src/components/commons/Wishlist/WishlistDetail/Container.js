@@ -36,6 +36,7 @@ class WishlistDetailContainer extends React.Component {
 								this.props.navigation.navigate('CreateWishlist', {
 									wishlist: wishlist,
 									type: 'Update',
+									refetchWishlist: this.props.refetchWishlist,
 								})
 							}
 							title="Edit"

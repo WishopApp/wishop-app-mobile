@@ -315,6 +315,7 @@ class CreateWishlist extends React.Component {
 									} else {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
+									this.props.navigation.state.params.refetchWishlist()
 									this.setState({ successPopup: SuccessPopup(this.props.navigation) })
 								}
 							}}

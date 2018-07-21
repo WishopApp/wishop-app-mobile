@@ -19,6 +19,10 @@ class Wishlist extends React.Component {
 		await this.props.removeWishlist(userId, wishlistId)
 	}
 
+	refetchWishlist = async () => {
+		await this.props.data.refetch()
+	}
+
 	render() {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
@@ -52,6 +56,7 @@ class Wishlist extends React.Component {
 											wishlist={wishlist}
 											remove={this.remove}
 											navigation={this.props.navigation}
+											refetchWishlist={this.refetchWishlist}
 										/>
 									</View>
 								)
