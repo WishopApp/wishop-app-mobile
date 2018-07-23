@@ -3,50 +3,59 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QuerySearchProductByWishlist } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
+import { InputWishlistProps } from '@constants/Data'
+import ProductItem from './ProductItem'
 
 class ProductList extends React.Component {
-	/* proptypes
-		wishlist: object
-    */
+	constructor(props) {
+		super(props)
+	}
 
 	render() {
 		let { loading, error, data } = this.props
 		let products = undefined
+		// console.log(this.props)
 		if (loading)
 			return (
 				<View>
-					<Text>loading</Text>
+					<SearchByWishlist />
 				</View>
 			)
-		console.log(data)
 		if (data.searchByWishlist) {
 			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
 		}
-
 		return (
-			<View style={styled.wishlistContainer}>
+			<View>
 				{products ? (
-					products.map((product, index) => {
-						return (
-							<TouchableOpacity activeOpacity={1} style={styled.wishlistContainer} key={index}>
-								<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-									<Image style={styled.productImage} source={require('@images/shoe.png')} />
+					<View style={styled.container}>
+						{products.map((product, index) => {
+							return (
+								<View style={styled.productContainer} key={index}>
+									<ProductItem product={product} />
 								</View>
-								<View style={styled.WishlistProductContainer}>
-									<Text style={StyledConstants.FONT_TOPIC}>{products.name}</Text>
-									<Text style={StyledConstants.FONT_DESCRIPTION}>Store Name</Text>
-									<Text style={styled.WishlistCategoryAndSubCategory}>category, subcategory</Text>
-								</View>
-							</TouchableOpacity>
-						)
-					})
+							)
+						})}
+					</View>
 				) : (
-					<Text>Not Matched</Text>
+					<Text style={[styled.center, StyledConstants.Description]}>Not Matched</Text>
 				)}
 			</View>
 		)
 	}
 }
+// <ProductItem product={product} />
+const styled = StyleSheet.create({
+	container: {
+		margin: '5%',
+	},
+	productContainer: {
+		marginTop: '5%',
+	},
+	center: {
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+})
 
 const ProductListByWishlist = graphql(QuerySearchProductByWishlist, {
 	options: props => {
@@ -55,8 +64,8 @@ const ProductListByWishlist = graphql(QuerySearchProductByWishlist, {
 			productName: props.wishlist.productName,
 			categoryId: props.wishlist.category._id,
 			subCategoryId: props.wishlist.subCategory._id,
-			categoryProps: props.wishlist.categoryProps,
-			subCategoryProps: props.wishlist.subCategoryProps,
+			categoryProps: InputWishlistProps(props.wishlist.categoryProps, 'Category'),
+			subCategoryProps: InputWishlistProps(props.wishlist.subCategoryProps, 'Subcategory'),
 		}
 		return {
 			variables: {
@@ -65,49 +74,5 @@ const ProductListByWishlist = graphql(QuerySearchProductByWishlist, {
 		}
 	},
 })(ProductList)
-
-const styled = StyleSheet.create({
-	wishlistContainer: {
-		margin: '5%',
-		display: 'flex',
-		flex: 1,
-		flexDirection: 'row',
-		height: 100,
-	},
-	wishlistImageContainer: {
-		width: '30%',
-		height: '100%',
-		alignItems: 'center',
-	},
-	productImage: {
-		width: '100%',
-		height: '100%',
-	},
-	WishlistProductContainer: {
-		width: '80%',
-		padding: '3%',
-		marginLeft: '3%',
-		display: 'flex',
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-around',
-	},
-	WishlistProductName: {
-		fontSize: 12,
-	},
-	WishlistCategoryAndSubCategory: {
-		fontSize: 8,
-	},
-	WishlistDeleteContainer: {
-		width: '15%',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	wishlistDeleteIcon: {
-		width: 25,
-		height: 25,
-	},
-})
 
 export default ProductListByWishlist
