@@ -3,25 +3,25 @@ import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'rea
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 
-class CategoryPropsPage extends React.Component {
+class SubCategoryPropsPage extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
 	render() {
-		let { _id, categoryPropsValue, setCategoryPropValue } = this.props.navigation.state.params
+		let { _id, subCategoryPropsValue, setSubCategoryPropValue } = this.props.navigation.state.params
 		return (
 			<View style={styled.container}>
 				<ScrollView contentContainerStyle={styled.propertyContainer}>
-					{categoryPropsValue.map((value, index) => {
+					{subCategoryPropsValue.map((value, index) => {
 						return (
 							<View style={styled.containerButton} key={index}>
 								<Button
 									backgroundColor="black"
-									containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON, styled.categoryButton]}
+									containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON, styled.subCategoryButton]}
 									textStyle={StyledConstants.TEXT_BUTTON_WHITE}
 									onPress={() => {
-										setCategoryPropValue(_id, value)
+										setSubCategoryPropValue(_id, value)
 										this.props.navigation.goBack()
 									}}
 									title={value}
@@ -61,4 +61,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default CategoryPropsPage
+export default SubCategoryPropsPage

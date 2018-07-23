@@ -89363,83 +89363,86 @@ __d(function (global, require, module, exports, _dependencyMap) {
 							lineNumber: 27
 						}
 					},
-					products ? _react2.default.createElement(
-						_reactNative.TouchableOpacity,
-						{
-							activeOpacity: 1,
-							style: styled.wishlistContainer,
-							__source: {
-								fileName: _jsxFileName,
-								lineNumber: 29
-							}
-						},
-						_react2.default.createElement(
-							_reactNative.View,
+					products ? products.map(function (product, index) {
+						return _react2.default.createElement(
+							_reactNative.TouchableOpacity,
 							{
-								style: [styled.wishlistImageContainer, _Styled.StyledSelected.background],
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 30
-								}
-							},
-							_react2.default.createElement(_reactNative.Image, {
-								style: styled.productImage,
-								source: require(_dependencyMap[5], "../../../../assets/images/shoe.png"),
+								activeOpacity: 1,
+								style: styled.wishlistContainer,
+								key: index,
 								__source: {
 									fileName: _jsxFileName,
 									lineNumber: 31
 								}
-							})
-						),
-						_react2.default.createElement(
-							_reactNative.View,
-							{
-								style: styled.WishlistProductContainer,
-								__source: {
-									fileName: _jsxFileName,
-									lineNumber: 33
-								}
 							},
 							_react2.default.createElement(
-								_reactNative.Text,
+								_reactNative.View,
 								{
-									style: _Styled.StyledConstants.FONT_TOPIC,
+									style: [styled.wishlistImageContainer, _Styled.StyledSelected.background],
 									__source: {
 										fileName: _jsxFileName,
-										lineNumber: 34
+										lineNumber: 32
 									}
 								},
-								products[0].name
+								_react2.default.createElement(_reactNative.Image, {
+									style: styled.productImage,
+									source: require(_dependencyMap[5], "../../../../assets/images/shoe.png"),
+									__source: {
+										fileName: _jsxFileName,
+										lineNumber: 33
+									}
+								})
 							),
 							_react2.default.createElement(
-								_reactNative.Text,
+								_reactNative.View,
 								{
-									style: _Styled.StyledConstants.FONT_DESCRIPTION,
+									style: styled.WishlistProductContainer,
 									__source: {
 										fileName: _jsxFileName,
 										lineNumber: 35
 									}
 								},
-								"Store Name"
-							),
-							_react2.default.createElement(
-								_reactNative.Text,
-								{
-									style: styled.WishlistCategoryAndSubCategory,
-									__source: {
-										fileName: _jsxFileName,
-										lineNumber: 36
-									}
-								},
-								"category, subcategory"
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										style: _Styled.StyledConstants.FONT_TOPIC,
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 36
+										}
+									},
+									products.name
+								),
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										style: _Styled.StyledConstants.FONT_DESCRIPTION,
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 37
+										}
+									},
+									"Store Name"
+								),
+								_react2.default.createElement(
+									_reactNative.Text,
+									{
+										style: styled.WishlistCategoryAndSubCategory,
+										__source: {
+											fileName: _jsxFileName,
+											lineNumber: 38
+										}
+									},
+									"category, subcategory"
+								)
 							)
-						)
-					) : _react2.default.createElement(
+						);
+					}) : _react2.default.createElement(
 						_reactNative.Text,
 						{
 							__source: {
 								fileName: _jsxFileName,
-								lineNumber: 40
+								lineNumber: 44
 							}
 						},
 						"Not Matched"

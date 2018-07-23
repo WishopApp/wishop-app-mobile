@@ -101,11 +101,10 @@ const styled = StyleSheet.create({
 		paddingBottom: '4%',
 	},
 	cardContainer: {
-		height: 150,
 		display: 'flex',
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
+		justifyContent: 'space-around',
 		marginTop: '6.75%',
 	},
 })

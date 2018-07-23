@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native'
 export const StyledConstants = StyleSheet.create({
 	FONT_TOPIC: {
-		fontSize: 12,
+		fontSize: 22,
 		fontWeight: 'bold',
 	},
 
 	FONT_DESCRIPTION: {
-		fontSize: 10,
+		fontSize: 16,
 	},
 
 	FONT_DESCRIPTION_SMALL: {
-		fontSize: 8,
+		fontSize: 12,
 	},
 
 	FONT_BOLD: {

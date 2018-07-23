@@ -8,16 +8,6 @@ class SearchByWishlistContainer extends React.Component {
 		super(props)
 	}
 
-	componentDidMount() {
-		this.setStatus()
-	}
-
-	setStatus = () => {
-		setTimeout(() => {
-			this.props.setStatus('Product')
-		}, 1000)
-	}
-
 	render() {
 		return (
 			<View style={styled.container}>
