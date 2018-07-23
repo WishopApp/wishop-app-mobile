@@ -7,7 +7,7 @@ import CategoryProps from './CategoryProps'
 import SubCategoryProps from './SubCategoryProps'
 import { MutationCreateWishlist } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
-import { user } from '@constants/Data'
+import { user, InputWishlistProps } from '@constants/Data'
 
 const checkNotRepeatCatProps = (catProps, _id) => {
 	let checked = true
@@ -90,32 +90,14 @@ class CreateWishlist extends React.Component {
 		}
 
 		if (wishlist.categoryProps) {
-			let tmpEachCategoryProps = []
-			wishlist.categoryProps.forEach(object => {
-				let tmp = {
-					categoryPropId: object._id,
-					value: object.value,
-				}
-				tmpCategoryProps.push(tmp)
-				tmpEachCategoryProps.push(tmp)
-			})
-
-			state.categoryProps = tmpCategoryProps
-			state.eachCategoryPropValues = tmpEachCategoryProps
+			let categoryProps = InputWishlistProps(wishlist.categoryProps, 'Category')
+			state.categoryProps = categoryProps
+			state.eachCategoryPropValues = categoryProps
 		}
 		if (wishlist.subCategoryProps) {
-			let tmpEachSubCategoryProps = []
-			wishlist.subCategoryProps.forEach(object => {
-				let tmp = {
-					subCategoryPropId: object._id,
-					value: object.value,
-				}
-				tmpSubCategoryProps.push(tmp)
-				tmpEachSubCategoryProps.push(tmp)
-			})
-
-			state.subCategoryProps = tmpSubCategoryProps
-			state.eachSubCategoryPropValues = tmpEachSubCategoryProps
+			let subCategoryProps = InputWishlistProps(wishlist.categoryProps, 'Subcategory')
+			state.subCategoryProps = subCategoryProps
+			state.eachSubCategoryPropValues = subCategoryProps
 		}
 	}
 

@@ -10,17 +10,30 @@ class ProductItem extends React.Component {
     */
 
 	render() {
-		let product = this.props
+		let { product } = this.props
 		return (
-			<View style={styled.wishlistContainer}>
-				<TouchableOpacity activeOpacity={1} style={styled.wishlistContainer}>
-					<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+			<View>
+				<TouchableOpacity activeOpacity={1} style={styled.productContainer}>
+					<View style={[styled.productImageContainer, StyledSelected.background]}>
 						<Image style={styled.productImage} source={require('@images/shoe.png')} />
 					</View>
-					<View style={styled.WishlistProductContainer}>
-						<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{product.name}</Text>
-						<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>Store Name</Text>
-						<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>category, subcategory</Text>
+					<View style={styled.productDetailContainer}>
+						<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+							{product.name}
+						</Text>
+						<Text
+							style={[
+								styled.descriptionText,
+								StyledConstants.FONT_DESCRIPTION,
+								StyledConstants.FONT_BOLD,
+							]}
+						>
+							{product.store && product.store.name}
+						</Text>
+						<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+							{product.category && product.category.name},{' '}
+							{product.subCategory && product.subCategory.name}
+						</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
@@ -29,14 +42,11 @@ class ProductItem extends React.Component {
 }
 
 const styled = StyleSheet.create({
-	wishlistContainer: {
-		margin: '5%',
+	productContainer: {
 		display: 'flex',
-		flex: 1,
 		flexDirection: 'row',
-		height: 100,
 	},
-	wishlistImageContainer: {
+	productImageContainer: {
 		width: 100,
 		height: 100,
 		alignItems: 'center',
@@ -46,7 +56,7 @@ const styled = StyleSheet.create({
 		width: 75,
 		height: 75,
 	},
-	WishlistProductContainer: {
+	productDetailContainer: {
 		width: '80%',
 		padding: '3%',
 		marginLeft: '3%',
@@ -54,6 +64,12 @@ const styled = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
+	},
+	topicText: {
+		top: -10,
+	},
+	descriptionText: {
+		top: -5,
 	},
 })
 

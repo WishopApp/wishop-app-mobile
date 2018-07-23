@@ -25,8 +25,16 @@ class MyWishlist extends React.Component {
 						</View>
 
 						<View style={styled.WishlistProductContainer}>
-							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>{wishlist.name}</Text>
-							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+							<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+								{wishlist.name}
+							</Text>
+							<Text
+								style={[
+									styled.descriptionText,
+									StyledConstants.FONT_DESCRIPTION,
+									StyledConstants.FONT_BOLD,
+								]}
+							>
 								{wishlist.productName}
 							</Text>
 							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
@@ -87,6 +95,12 @@ const styled = StyleSheet.create({
 	wishlistDeleteIcon: {
 		width: 25,
 		height: 25,
+	},
+	topicText: {
+		top: -10,
+	},
+	descriptionText: {
+		top: -5,
 	},
 })
 

@@ -121,7 +121,11 @@ class WishlistDetailContainer extends React.Component {
 						</View>
 					</View>
 				)}
-				{status === 'Searching' && <ProductList navigation={this.props.navigation} wishlist={wishlist} />}
+				{status === 'Searching' && (
+					<ScrollView>
+						<ProductList navigation={this.props.navigation} wishlist={wishlist} />
+					</ScrollView>
+				)}
 			</View>
 		)
 	}
