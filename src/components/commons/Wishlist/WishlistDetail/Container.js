@@ -2,8 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
-import SearchByWishlist from '@commons/Search/SearchByWishlist/Container'
-import ProductList from '@commons/Product/ProductList'
+import SearchProductListByWishlist from '@commons/Search/SearchByWishlist/SearchProductList'
 
 class WishlistDetailContainer extends React.Component {
 	constructor(props) {
@@ -123,7 +122,7 @@ class WishlistDetailContainer extends React.Component {
 				)}
 				{status === 'Searching' && (
 					<ScrollView>
-						<ProductList navigation={this.props.navigation} wishlist={wishlist} />
+						<SearchProductListByWishlist navigation={this.props.navigation} wishlist={wishlist} />
 					</ScrollView>
 				)}
 			</View>
