@@ -83,12 +83,31 @@ class ProductDetailContainer extends React.Component {
 						<View style={styled.wishlistDetail}>
 							<View style={styled.WishlistProductContainer}>
 								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-									Product Name {'\n'}
+									PRODUCT NAME
 								</Text>
 								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-									Sell By Store name
+									Sell By Store Name
 								</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Categort, Subcat</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Shoes, Sneaker</Text>
+								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+									{'\n'} 6900 Baht
+								</Text>
+							</View>
+						</View>
+						<View style={styled.PropContainer}>
+							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Color</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION}>Blue</Text>
+							</View>
+							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Size</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION}>42 USA</Text>
+							</View>
+							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>
+									Material
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION}>Leather</Text>
 							</View>
 						</View>
 					</ScrollView>
@@ -103,35 +122,12 @@ const styled = StyleSheet.create({
 		width: '100%',
 		height: '100%',
 	},
-	editContainer: {
-		margin: '5%',
-		borderStyle: 'solid',
-		borderColor: '#000000',
-		borderWidth: 3,
-	},
 	wishlistDetail: {
-		height: 235,
+		height: 150,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
 		marginBottom: '5%',
-	},
-	imageContainer: {
-		width: 125,
-		height: 135,
-		backgroundColor: 'black',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	image: {
-		width: 75,
-		height: 75,
-	},
-	SearchContainer: {
-		width: '100%',
-		position: 'absolute',
-		bottom: 0,
-		zIndex: 3,
 	},
 	WishlistProductContainer: {
 		display: 'flex',
@@ -164,7 +160,7 @@ const styled = StyleSheet.create({
 	},
 
 	imageSlideContainer: {
-		paddingVertical: 30,
+		paddingVertical: 20,
 	},
 
 	sliderItem: {
@@ -173,7 +169,6 @@ const styled = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		backgroundColor: 'lightgrey',
-		marginBottom: 30,
 	},
 	imageItem: {
 		width: '80%',
