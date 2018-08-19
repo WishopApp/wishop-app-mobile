@@ -10,10 +10,18 @@ class ProductItem extends React.Component {
     */
 
 	render() {
-		let { product } = this.props
+		let { product, navigation } = this.props
 		return (
 			<View>
-				<TouchableOpacity activeOpacity={1} style={styled.productContainer}>
+				<TouchableOpacity
+					activeOpacity={1}
+					style={styled.productContainer}
+					onPress={() =>
+						navigation.navigate('ProductDetail', {
+							product: product,
+						})
+					}
+				>
 					<View style={[styled.productImageContainer, StyledSelected.background]}>
 						<Image style={styled.productImage} source={require('@images/shoe.png')} />
 					</View>

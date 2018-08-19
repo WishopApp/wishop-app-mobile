@@ -11,6 +11,7 @@ import CategoryScreen from '@screens/Category/CategoryScreen'
 import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
 import CategoryPropsScreen from '@screens/Category/CategoryPropsScreen'
 import SubCategoryPropsScreen from '@screens/Category/SubCategoryPropsScreen'
+import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -112,14 +113,21 @@ export const CreateWishlistStack = StackNavigator({
 	},
 })
 
+export const ETCStack = StackNavigator({
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
+})
+
 export const Root = StackNavigator(
 	{
 		Main: Tabs,
+		ETC: ETCStack,
 		// Modal Stack
 		CreateWishlist: CreateWishlistStack,
 	},
 	{
-		mode: 'modal',
+		mode: 'card',
 		headerMode: 'none',
 	}
 )

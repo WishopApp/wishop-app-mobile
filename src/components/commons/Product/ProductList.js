@@ -9,7 +9,7 @@ class ProductList extends React.Component {
 	}
 
 	render() {
-		let { products } = this.props
+		let { products, navigation } = this.props
 		return (
 			<View>
 				{products ? (
@@ -17,7 +17,7 @@ class ProductList extends React.Component {
 						{products.map((product, index) => {
 							return (
 								<View style={styled.productContainer} key={index}>
-									<ProductItem product={product} />
+									<ProductItem navigation={navigation} product={product} />
 								</View>
 							)
 						})}
