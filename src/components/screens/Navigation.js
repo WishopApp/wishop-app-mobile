@@ -12,6 +12,7 @@ import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
 import CategoryPropsScreen from '@screens/Category/CategoryPropsScreen'
 import SubCategoryPropsScreen from '@screens/Category/SubCategoryPropsScreen'
 import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
+import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -26,8 +27,11 @@ export const SearchStack = StackNavigator({
 })
 
 export const StoreStack = StackNavigator({
-	BeaconDetectStore: {
-		screen: BeaconDetectStoreScreen,
+	// BeaconDetectStore: {
+	// 	screen: BeaconDetectStoreScreen,
+	// },
+	StoreDetail: {
+		screen: StoreDetailScreen,
 	},
 })
 
@@ -54,6 +58,12 @@ export const Tabs = TabNavigator(
 		// 		tabBarLabel: 'Home',
 		// 	},
 		// },
+		StoreDetail: {
+			screen: StoreStack,
+			navigationOptions: {
+				tabBarLabel: 'Store',
+			},
+		},
 		Search: {
 			screen: SearchStack,
 			navigationOptions: {

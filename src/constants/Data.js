@@ -1,4 +1,17 @@
 import React from 'react'
+import { Dimensions } from 'react-native'
+
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
+
+export const Percentage = (percentage, ...size) => {
+	const value = percentage * size / 100
+	return Math.round(value)
+}
+
+export const Viewport = {
+	width: viewportWidth,
+	height: viewportHeight,
+}
 
 export const user = {
 	_id: '5b3fd3dd835b5e000f8aafd7',

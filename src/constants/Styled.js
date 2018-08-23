@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+
 export const StyledConstants = StyleSheet.create({
 	FONT_TOPIC: {
 		fontSize: 22,
@@ -40,6 +41,10 @@ export const StyledConstants = StyleSheet.create({
 
 	NONE: {
 		display: 'none',
+	},
+
+	TEXT_WHITE: {
+		color: 'white',
 	},
 })
 
