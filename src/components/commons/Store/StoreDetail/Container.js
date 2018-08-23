@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants, LinearGradientStyle, SvgTextStyle } from '@constants/Styled'
-import Svg, { Rect, Text as SVGText } from 'react-native-svg'
+import Svg, { Rect, Text as SvgText } from 'react-native-svg'
 import CustomLinearGradient from '@commons/Custom/LinearGradient'
 import CustomSvgText from '@commons/Custom/SvgText'
 import RenderSvg from '@commons/Custom/RenderSvg'
@@ -23,9 +23,25 @@ class StoreDetailContainer extends React.Component {
 		let renderLinearShape = (
 			<Rect width={svgWidth} height={svgHeight} fill="url(#gradient)" key="rect-match-product" />
 		)
-		let matchProductTopic = CustomSvgText('MATCHED PRODUCT', SvgTextStyle(null, MatchProductHeight / 2))
-		let matchProductDescription = CustomSvgText('asd \t asdas', SvgTextStyle(null, MatchProductHeight / 4))
-		let renderSvg = [renderLinear, renderLinearShape, matchProductTopic, matchProductDescription]
+		let matchProductTopic = CustomSvgText(
+			'MATCHED PRODUCT',
+			SvgTextStyle(null, Percentage(15, MatchProductHeight), 'white')
+		)
+		let matchProductDescriptionLine1 = CustomSvgText(
+			'The store has about 3 products',
+			SvgTextStyle(null, Percentage(55, MatchProductHeight), 'white', null, 16)
+		)
+		let matchProductDescriptionLine2 = CustomSvgText(
+			'that might matched your wishlist.',
+			SvgTextStyle(null, Percentage(75, MatchProductHeight), 'white', null, 16)
+		)
+		let renderSvg = [
+			renderLinear,
+			renderLinearShape,
+			matchProductTopic,
+			matchProductDescriptionLine1,
+			matchProductDescriptionLine2,
+		]
 		return RenderSvg(svgWidth, svgHeight, renderSvg)
 	}
 

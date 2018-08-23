@@ -77,7 +77,7 @@ export const LinearGradientStyle = (offset1, stopColor1, stopOpacity1, offset2, 
 	}
 }
 
-export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor) => {
+export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor, letterSpacing) => {
 	if (!x) x = Percentage(50, Viewport.width)
 	if (!y) y = 0
 	if (!color) color = '#000000'
@@ -85,6 +85,7 @@ export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor) 
 	if (!fontSize) fontSize = 22
 	if (!fontWeight) fontWeight = 'bold'
 	if (!anchor) anchor = 'middle'
+	if (!letterSpacing) letterSpacing = 3
 	return {
 		setting: {
 			x: x,
@@ -94,6 +95,7 @@ export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor) 
 			fontSize: fontSize,
 			fontWeight: fontWeight,
 			anchor: anchor,
+			letterSpacing: letterSpacing,
 		},
 	}
 }
