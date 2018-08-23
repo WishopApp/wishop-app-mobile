@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
+import { Viewport, Percentage } from '@constants/Data'
 
 export const StyledConstants = StyleSheet.create({
 	FONT_TOPIC: {
@@ -53,4 +54,46 @@ export const StyledSelected = {
 	defaultBackground: StyledConstants.BACKGROUND_WHITE,
 	text: StyledConstants.TEXT_BUTTON_WHITE,
 	defaultText: StyledConstants.TEXT_BUTTON_BLACK,
+}
+
+export const LinearGradientStyle = (offset1, stopColor1, stopOpacity1, offset2, stopColor2, stopOpacity2) => {
+	if (!offset1) offset1 = '0%'
+	if (!stopColor1) stopColor1 = '#582FFF'
+	if (!stopOpacity1) stopOpacity1 = 1
+	if (!offset2) offset2 = '100%'
+	if (!stopColor2) stopColor2 = '#00A9FF'
+	if (!stopOpacity2) stopOpacity2 = 1
+	return {
+		stop1: {
+			offset: offset1,
+			stopColor: stopColor1,
+			stopOpacity: stopOpacity1,
+		},
+		stop2: {
+			offset: offset2,
+			stopColor: stopColor2,
+			stopOpacity: stopOpacity2,
+		},
+	}
+}
+
+export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor) => {
+	if (!x) x = Percentage(50, Viewport.width)
+	if (!y) y = 0
+	if (!color) color = '#000000'
+	if (!stroke) stroke = 'none'
+	if (!fontSize) fontSize = 22
+	if (!fontWeight) fontWeight = 'bold'
+	if (!anchor) anchor = 'middle'
+	return {
+		setting: {
+			x: x,
+			y: y,
+			color: color,
+			stroke: stroke,
+			fontSize: fontSize,
+			fontWeight: fontWeight,
+			anchor: anchor,
+		},
+	}
 }

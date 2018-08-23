@@ -1,11 +1,32 @@
 import React from 'react'
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
-import { StyledConstants } from '@constants/Styled'
+import { StyledConstants, LinearGradientStyle, SvgTextStyle } from '@constants/Styled'
+import Svg, { Rect, Text as SVGText } from 'react-native-svg'
+import CustomLinearGradient from '@commons/Custom/LinearGradient'
+import CustomSvgText from '@commons/Custom/SvgText'
+import RenderSvg from '@commons/Custom/RenderSvg'
+
+const MatchProductWidth = Viewport.width
+const MatchProductHeight = Percentage(15, Viewport.height)
 
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
 		super(props)
+	}
+
+	MatchProduct() {
+		let svgWidth = MatchProductWidth
+		let svgHeight = MatchProductHeight
+		let stopColor = LinearGradientStyle()
+		let renderLinear = CustomLinearGradient(svgWidth, svgHeight, stopColor)
+		let renderLinearShape = (
+			<Rect width={svgWidth} height={svgHeight} fill="url(#gradient)" key="rect-match-product" />
+		)
+		let matchProductTopic = CustomSvgText('MATCHED PRODUCT', SvgTextStyle(null, MatchProductHeight / 2))
+		let matchProductDescription = CustomSvgText('asd \t asdas', SvgTextStyle(null, MatchProductHeight / 4))
+		let renderSvg = [renderLinear, renderLinearShape, matchProductTopic, matchProductDescription]
+		return RenderSvg(svgWidth, svgHeight, renderSvg)
 	}
 
 	render() {
@@ -50,6 +71,7 @@ class StoreDetailContainer extends React.Component {
 						</View>
 					</View>
 				</View>
+				<View style={styled.matchProductContainer}>{this.MatchProduct()}</View>
 			</ScrollView>
 		)
 	}
@@ -111,6 +133,12 @@ const styled = StyleSheet.create({
 		marginLeft: '5%',
 		width: '100%',
 		textAlign: 'center',
+	},
+	matchProductContainer: {
+		width: MatchProductWidth,
+		height: MatchProductHeight,
+		// alignItems: 'center',
+		// justifyContent: 'center',
 	},
 })
 
