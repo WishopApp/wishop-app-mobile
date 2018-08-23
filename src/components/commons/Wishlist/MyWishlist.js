@@ -1,29 +1,59 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 
 class MyWishlist extends React.Component {
 	/* proptypes
 		wishlist: object
 	*/
-	render() {
-		let { wishlist } = this.props
+	constructor(props) {
+		super(props)
+	}
 
+	render() {
+		let { wishlist, remove } = this.props
 		return (
-			<View style={styled.wishlistContainer}>
-				<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-					<Image style={styled.productImage} source={require('@images/shoe.png')} />
-				</View>
-				<View style={styled.WishlistProductContainer}>
-					<Text style={StyledConstants.FONT_TOPIC}>{wishlist.name}</Text>
-					<Text style={StyledConstants.FONT_DESCRIPTION}>{wishlist.productName}</Text>
-					<Text style={styled.WishlistCategoryAndSubCategory}>
-						{wishlist.category.name}, {wishlist.subCategory.name}
-					</Text>
-				</View>
-				<View style={styled.WishlistDeleteContainer}>
-					<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />
-				</View>
+			<View>
+				{wishlist != null ? (
+					<TouchableOpacity
+						activeOpacity={1}
+						style={styled.wishlistContainer}
+						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
+					>
+						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
+							<Image style={styled.productImage} source={require('@images/shoe.png')} />
+						</View>
+
+						<View style={styled.WishlistProductContainer}>
+							<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+								{wishlist.name}
+							</Text>
+							<Text
+								style={[
+									styled.descriptionText,
+									StyledConstants.FONT_DESCRIPTION,
+									StyledConstants.FONT_BOLD,
+								]}
+							>
+								{wishlist.productName}
+							</Text>
+							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+								{wishlist.category.name}, {wishlist.subCategory.name}
+							</Text>
+						</View>
+						<TouchableOpacity
+							activeOpacity={1}
+							style={styled.WishlistDeleteContainer}
+							onPress={() => {
+								remove(wishlist._id)
+							}}
+						>
+							<View>
+								<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />
+							</View>
+						</TouchableOpacity>
+					</TouchableOpacity>
+				) : null}
 			</View>
 		)
 	}
@@ -38,13 +68,14 @@ const styled = StyleSheet.create({
 		height: 100,
 	},
 	wishlistImageContainer: {
-		width: '30%',
-		height: '100%',
+		width: 100,
+		height: 100,
 		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	productImage: {
-		width: '100%',
-		height: '100%',
+		width: 75,
+		height: 75,
 	},
 	WishlistProductContainer: {
 		width: '80%',
@@ -55,12 +86,6 @@ const styled = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 	},
-	WishlistProductName: {
-		fontSize: 12,
-	},
-	WishlistCategoryAndSubCategory: {
-		fontSize: 8,
-	},
 	WishlistDeleteContainer: {
 		width: '15%',
 		flexDirection: 'column',
@@ -70,6 +95,12 @@ const styled = StyleSheet.create({
 	wishlistDeleteIcon: {
 		width: 25,
 		height: 25,
+	},
+	topicText: {
+		top: -10,
+	},
+	descriptionText: {
+		top: -5,
 	},
 })
 
