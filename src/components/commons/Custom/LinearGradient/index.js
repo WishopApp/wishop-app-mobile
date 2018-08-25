@@ -1,13 +1,31 @@
 import React from 'react'
-import Svg, { LinearGradient, Defs, Stop, Text } from 'react-native-svg'
+import LinearGradient from 'react-native-linear-gradient'
+import { LinearGradientStyle } from '@constants/Styled'
 
-export default (svgWidth, svgHeight, { stop1, stop2 }) => {
-	return (
-		<Defs key="CustomLinearGradient">
-			<LinearGradient id="gradient" x1="0" y1="0" x2={svgWidth} y2="0">
-				<Stop offset={stop1.offset} stopColor={stop1.stopColor} stopOpacity={stop1.stopOpacity} />
-				<Stop offset={stop2.offset} stopColor={stop2.stopColor} stopOpacity={stop2.stopOpacity} />
+class CustomLinearGradient extends React.Component {
+	// colors => []      color must more than 2
+	// start => { x, y } offset gradient start
+	// end => { x, y }   offset gradient end
+
+	constructor(props) {
+		super(props)
+	}
+
+	render() {
+		console.log(React)
+		return (
+			<LinearGradient
+				colors={this.props.colors ? this.props.colors : LinearGradientStyle().colors}
+				start={this.props.start ? this.props.start : LinearGradientStyle().horizontal.start}
+				end={this.props.end ? this.props.end : LinearGradientStyle().horizontal.end}
+				style={this.props.style ? this.props.style : null}
+			>
+				{this.props.children.map(comp => {
+					return comp
+				})}
 			</LinearGradient>
-		</Defs>
-	)
+		)
+	}
 }
+
+export default CustomLinearGradient

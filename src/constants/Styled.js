@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 
 export const StyledConstants = StyleSheet.create({
@@ -56,7 +56,19 @@ export const StyledSelected = {
 	defaultText: StyledConstants.TEXT_BUTTON_BLACK,
 }
 
-export const LinearGradientStyle = (offset1, stopColor1, stopOpacity1, offset2, stopColor2, stopOpacity2) => {
+export const LinearGradientStyle = (...colors) => {
+	if (!colors || colors.length == 0) {
+		colors = ['#582FFF', '#00A9FF']
+	}
+	return {
+		colors: colors,
+		horizontal: {
+			start: { x: 0, y: 0 },
+			end: { x: 1, y: 0 },
+		},
+	}
+}
+export const LinearGradientSvgStyle = (offset1, stopColor1, stopOpacity1, offset2, stopColor2, stopOpacity2) => {
 	if (!offset1) offset1 = '0%'
 	if (!stopColor1) stopColor1 = '#582FFF'
 	if (!stopOpacity1) stopOpacity1 = 1
@@ -77,7 +89,7 @@ export const LinearGradientStyle = (offset1, stopColor1, stopOpacity1, offset2, 
 	}
 }
 
-export const SvgTextStyle = (x, y, color, stroke, fontSize, fontWeight, anchor, letterSpacing) => {
+export const TextSvgStyle = (x, y, color, stroke, fontSize, fontWeight, anchor, letterSpacing) => {
 	if (!x) x = Percentage(50, Viewport.width)
 	if (!y) y = 0
 	if (!color) color = '#000000'

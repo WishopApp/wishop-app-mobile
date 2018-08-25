@@ -1,11 +1,8 @@
 import React from 'react'
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
-import { StyledConstants, LinearGradientStyle, SvgTextStyle } from '@constants/Styled'
-import Svg, { Rect, Text as SvgText } from 'react-native-svg'
-import CustomLinearGradient from '@commons/Custom/LinearGradient'
-import CustomSvgText from '@commons/Custom/SvgText'
-import RenderSvg from '@commons/Custom/RenderSvg'
+import { StyledConstants } from '@constants/Styled'
+import CustomLinearGradient from '@custom/LinearGradient'
 
 const MatchProductWidth = Viewport.width
 const MatchProductHeight = Percentage(15, Viewport.height)
@@ -13,36 +10,6 @@ const MatchProductHeight = Percentage(15, Viewport.height)
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
 		super(props)
-	}
-
-	MatchProduct() {
-		let svgWidth = MatchProductWidth
-		let svgHeight = MatchProductHeight
-		let stopColor = LinearGradientStyle()
-		let renderLinear = CustomLinearGradient(svgWidth, svgHeight, stopColor)
-		let renderLinearShape = (
-			<Rect width={svgWidth} height={svgHeight} fill="url(#gradient)" key="rect-match-product" />
-		)
-		let matchProductTopic = CustomSvgText(
-			'MATCHED PRODUCT',
-			SvgTextStyle(null, Percentage(15, MatchProductHeight), 'white')
-		)
-		let matchProductDescriptionLine1 = CustomSvgText(
-			'The store has about 3 products',
-			SvgTextStyle(null, Percentage(55, MatchProductHeight), 'white', null, 16)
-		)
-		let matchProductDescriptionLine2 = CustomSvgText(
-			'that might matched your wishlist.',
-			SvgTextStyle(null, Percentage(75, MatchProductHeight), 'white', null, 16)
-		)
-		let renderSvg = [
-			renderLinear,
-			renderLinearShape,
-			matchProductTopic,
-			matchProductDescriptionLine1,
-			matchProductDescriptionLine2,
-		]
-		return RenderSvg(svgWidth, svgHeight, renderSvg)
 	}
 
 	render() {
@@ -87,7 +54,19 @@ class StoreDetailContainer extends React.Component {
 						</View>
 					</View>
 				</View>
-				<View style={styled.matchProductContainer}>{this.MatchProduct()}</View>
+				<View style={styled.matchProductContainer}>
+					<CustomLinearGradient style={styled.matchProductLinearGradient}>
+						<Text
+							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
+						>
+							{' '}
+							MATCHED PRODUCT
+						</Text>
+						<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.TEXT_WHITE]}>
+							This store has about 3 products {'\n'} That might matched your wishlist.
+						</Text>
+					</CustomLinearGradient>
+				</View>
 			</ScrollView>
 		)
 	}
@@ -153,8 +132,11 @@ const styled = StyleSheet.create({
 	matchProductContainer: {
 		width: MatchProductWidth,
 		height: MatchProductHeight,
-		// alignItems: 'center',
-		// justifyContent: 'center',
+	},
+	matchProductLinearGradient: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'space-around',
 	},
 })
 
