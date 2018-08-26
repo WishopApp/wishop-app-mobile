@@ -7,6 +7,8 @@ import ProductList from '@commons/Product/ProductList'
 
 const MatchProductWidth = Viewport.width
 const MatchProductHeight = Percentage(15, Viewport.height)
+const TopicWidth = Viewport.width
+const TopicHeight = Percentage(10, Viewport.height)
 
 let mockProducts = [
 	{
@@ -93,8 +95,29 @@ class StoreDetailContainer extends React.Component {
 						</Text>
 					</CustomLinearGradient>
 				</View>
-				<View>
+				<View key="MatchedProductList">
 					<ProductList products={mockProducts} />
+				</View>
+				<View key="RecommendedProductContainer">
+					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
+						<Text
+							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
+						>
+							RECOMMENDED PRODUCTS
+						</Text>
+					</CustomLinearGradient>
+					<View style={styled.recommendedProductDetail}>
+						<View style={styled.imageContainer}>
+							<Image style={styled.image} source={require('@images/shoe.png')} />
+						</View>
+						<View style={styled.recommendedProductContainer}>
+							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>Product Name</Text>
+							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+								5,500 Baht
+							</Text>
+							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
+						</View>
+					</View>
 				</View>
 			</ScrollView>
 		)
@@ -102,6 +125,14 @@ class StoreDetailContainer extends React.Component {
 }
 
 const styled = StyleSheet.create({
+	topicHeader: {
+		width: TopicWidth,
+		height: TopicHeight,
+	},
+	center: {
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 	coverStoreContainer: {
 		height: Percentage(25, Viewport.height),
 		alignItems: 'center',
@@ -162,6 +193,32 @@ const styled = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'space-around',
+	},
+	recommendedProductDetail: {
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		marginBottom: '5%',
+		marginTop: '5%',
+	},
+	imageContainer: {
+		width: Percentage(40, Viewport.width),
+		height: Percentage(40, Viewport.width),
+		backgroundColor: 'black',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	recommendedProductContainer: {
+		padding: '3%',
+		display: 'flex',
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+	},
+	image: {
+		width: '80%',
+		height: '80%',
 	},
 })
 

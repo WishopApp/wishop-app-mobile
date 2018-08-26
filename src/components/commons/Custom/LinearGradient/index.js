@@ -12,7 +12,6 @@ class CustomLinearGradient extends React.Component {
 	}
 
 	render() {
-		console.log(React)
 		return (
 			<LinearGradient
 				colors={this.props.colors ? this.props.colors : LinearGradientStyle().colors}
@@ -20,9 +19,11 @@ class CustomLinearGradient extends React.Component {
 				end={this.props.end ? this.props.end : LinearGradientStyle().horizontal.end}
 				style={this.props.style ? this.props.style : null}
 			>
-				{this.props.children.map(comp => {
-					return comp
-				})}
+				{this.props.children.map
+					? this.props.children.map(comp => {
+						return comp
+					  })
+					: this.props.children}
 			</LinearGradient>
 		)
 	}
