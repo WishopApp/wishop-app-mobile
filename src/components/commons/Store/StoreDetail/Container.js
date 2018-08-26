@@ -3,9 +3,35 @@ import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
+import ProductList from '@commons/Product/ProductList'
 
 const MatchProductWidth = Viewport.width
 const MatchProductHeight = Percentage(15, Viewport.height)
+
+let mockProducts = [
+	{
+		name: 'mock product1',
+		wishlist: {
+			name: 'First Wishlist Name',
+		},
+		category: { name: 'Shoes' },
+		subCategory: { name: 'Slipper' },
+	},
+	{
+		name: 'mock product2',
+		wishlist: {
+			name: 'Second Wishlist Name',
+		},
+		category: { name: 'Shoes' },
+		subCategory: { name: 'Slipper' },
+	},
+	{
+		name: 'mock product3',
+		wishlist: { name: 'Third Wishlist Name' },
+		category: { name: 'Shoes' },
+		subCategory: { name: 'Slipper' },
+	},
+]
 
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
@@ -14,7 +40,7 @@ class StoreDetailContainer extends React.Component {
 
 	render() {
 		return (
-			<ScrollView contentContainerStyle={styled.container}>
+			<ScrollView>
 				<View style={styled.coverStoreContainer}>
 					<Image
 						style={styled.coverStoreImage}
@@ -67,16 +93,15 @@ class StoreDetailContainer extends React.Component {
 						</Text>
 					</CustomLinearGradient>
 				</View>
+				<View>
+					<ProductList products={mockProducts} />
+				</View>
 			</ScrollView>
 		)
 	}
 }
 
 const styled = StyleSheet.create({
-	container: {
-		flex: 1,
-		// backgroundColor: 'skyblue',
-	},
 	coverStoreContainer: {
 		height: Percentage(25, Viewport.height),
 		alignItems: 'center',

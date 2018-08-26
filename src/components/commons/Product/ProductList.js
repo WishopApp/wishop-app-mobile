@@ -32,7 +32,9 @@ class ProductList extends React.Component {
 
 const styled = StyleSheet.create({
 	container: {
-		margin: '5%',
+		marginLeft: '5%',
+		marginRight: '5%',
+		marginBottom: '5%',
 	},
 	productContainer: {
 		marginTop: '5%',

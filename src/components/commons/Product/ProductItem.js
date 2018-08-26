@@ -27,7 +27,7 @@ class ProductItem extends React.Component {
 					</View>
 					<View style={styled.productDetailContainer}>
 						<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-							{product.name}
+							{product.name && product.name}
 						</Text>
 						<Text
 							style={[
@@ -37,6 +37,7 @@ class ProductItem extends React.Component {
 							]}
 						>
 							{product.store && product.store.name}
+							{product.wishlist && product.wishlist.name}
 						</Text>
 						<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
 							{product.category && product.category.name},{' '}
