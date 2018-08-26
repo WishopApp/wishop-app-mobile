@@ -16,6 +16,7 @@ let mockProducts = [
 		wishlist: {
 			name: 'First Wishlist Name',
 		},
+		price: 5500,
 		category: { name: 'Shoes' },
 		subCategory: { name: 'Slipper' },
 	},
@@ -24,12 +25,14 @@ let mockProducts = [
 		wishlist: {
 			name: 'Second Wishlist Name',
 		},
+		price: 6500,
 		category: { name: 'Shoes' },
 		subCategory: { name: 'Slipper' },
 	},
 	{
 		name: 'mock product3',
 		wishlist: { name: 'Third Wishlist Name' },
+		price: 7500,
 		category: { name: 'Shoes' },
 		subCategory: { name: 'Slipper' },
 	},
@@ -96,7 +99,11 @@ class StoreDetailContainer extends React.Component {
 					</CustomLinearGradient>
 				</View>
 				<View key="MatchedProductList">
-					<ProductList products={mockProducts} />
+					<ProductList
+						navigation={this.props.navigation}
+						products={mockProducts}
+						detailType="wishlist_name"
+					/>
 				</View>
 				<View key="RecommendedProductContainer">
 					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
@@ -118,6 +125,22 @@ class StoreDetailContainer extends React.Component {
 							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
 						</View>
 					</View>
+				</View>
+				<View key="Store Product">
+					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
+						<Text
+							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
+						>
+							STORE PRODUCTS
+						</Text>
+					</CustomLinearGradient>
+				</View>
+				<View>
+					<ProductList
+						navigation={this.props.navigation}
+						products={mockProducts}
+						detailType="product_price"
+					/>
 				</View>
 			</ScrollView>
 		)

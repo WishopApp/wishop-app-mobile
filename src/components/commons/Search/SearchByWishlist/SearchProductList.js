@@ -24,7 +24,11 @@ class SearchProductList extends React.Component {
 		if (data.searchByWishlist) {
 			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
 		}
-		return <View>{products && <ProductList navigation={navigation} products={products} />}</View>
+		return (
+			<View>
+				{products && <ProductList navigation={navigation} products={products} detailType="store_name" />}
+			</View>
+		)
 	}
 }
 

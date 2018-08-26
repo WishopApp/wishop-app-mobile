@@ -10,7 +10,7 @@ class ProductItem extends React.Component {
     */
 
 	render() {
-		let { product, navigation } = this.props
+		let { product, navigation, detailType } = this.props
 		return (
 			<View>
 				<TouchableOpacity
@@ -36,8 +36,9 @@ class ProductItem extends React.Component {
 								StyledConstants.FONT_BOLD,
 							]}
 						>
-							{product.store && product.store.name}
-							{product.wishlist && product.wishlist.name}
+							{detailType == 'store_name' ? product.store && product.store.name : null}
+							{detailType == 'wishlist_name' ? product.wishlist && product.wishlist.name : null}
+							{detailType == 'product_price' ? product.price && product.price + ' Baht. ' : null}
 						</Text>
 						<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
 							{product.category && product.category.name},{' '}
