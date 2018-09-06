@@ -22,6 +22,12 @@ class AndroidBeaconDetectStore extends React.Component {
 		    }
 	*/
 
+	// beacon = {
+	// minor: 100
+	// major: 100
+	// uuid: e1f54e02-1e23-44e0-9c3d-512eb56adec9
+	// }
+
 	initBeacon = async () => {
 		// Tells the library to detect iBeacons
 		Beacons.detectEstimotes()
@@ -42,10 +48,11 @@ class AndroidBeaconDetectStore extends React.Component {
 	rangingListenter = () => {
 		DeviceEventEmitter.addListener('beaconsDidRange', data => {
 			console.log('Found beacons!', data)
+
 			let beacons = data.beacons
 			if (beacons.length > 0) {
 				beacons.forEach(beacon => {
-					let beaconId = beacon.uuid + "-" + beacon.minor + "-" + beacon.major
+					let beaconId = beacon.uuid + '-' + beacon.minor + '-' + beacon.major
 					let detectedBeaconsId = this.props.stateParams.detectedBeaconsId
 					let detectedBeacons = this.props.stateParams.detectedBeacons
 					// find not beacon Repeat
@@ -71,6 +78,10 @@ class AndroidBeaconDetectStore extends React.Component {
 		} else {
 			this.stopRangingBeacons()
 		}
+	}
+
+	componentUnMount() {
+		this.stopRangingBeacons()
 	}
 
 	render() {

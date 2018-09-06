@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image, Button } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
@@ -46,6 +46,10 @@ class StoreDetailContainer extends React.Component {
 	render() {
 		return (
 			<ScrollView>
+				<Button
+					onPress={() => this.props.navigation.navigate('ProductNavigation')}
+					title="test product navigation button{' '}"
+				/>
 				<View style={styled.coverStoreContainer}>
 					<Image
 						style={styled.coverStoreImage}
