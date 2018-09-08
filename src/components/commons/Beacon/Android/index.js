@@ -10,6 +10,7 @@ export const requestWhenInUseAuthorization = () => {
 export const enableBeacon = () => {
 	requestWhenInUseAuthorization()
 	Beacons.detectEstimotes()
+	Beacons.setRssiFilter(Beacons.RUNNING_AVG_RSSI_FILTER, 20000)
 	console.log('enable')
 }
 
@@ -17,7 +18,7 @@ export const startMonitoringForRegion = region => {
 	Beacons.startMonitoringForRegion(region)
 }
 
-export const startRangingBeaconsInRegion = region => {
+export const startRangingInRegion = region => {
 	Beacons.startRangingBeaconsInRegion(region)
 }
 
@@ -37,7 +38,7 @@ export const addMonitorListener = (listener, callbackFunc) => {
 
 export default {
 	enableBeacon: enableBeacon,
-	startRangingBeaconsInRegion: startRangingBeaconsInRegion,
+	startRangingInRegion: startRangingInRegion,
 	startMonitoringForRegion: startMonitoringForRegion,
 	addRangingListener: addRangingListener,
 	addMonitorListener: addMonitorListener,
