@@ -13,12 +13,10 @@ const region1 = {
 const canvasBeacons = [] // uuid => value
 const BgCanvasColor = 'skyblue'
 const ViewportCanvas = {
-	minWidth: Percentage(0, Viewport.width),
-	middleWidth: Percentage(50, Viewport.width),
-	maxWidth: Percentage(100, Viewport.width),
-	minHeight: Percentage(0, Viewport.height),
-	middleHeight: Percentage(50, Viewport.height),
-	maxHeight: Percentage(80, Viewport.height),
+	minWidth: Percentage(10, Viewport.width),
+	maxWidth: Percentage(90, Viewport.width),
+	minHeight: Percentage(5, Viewport.height),
+	maxHeight: Percentage(75, Viewport.height),
 }
 const data = [
 	{
@@ -86,7 +84,22 @@ const data = [
 		beaconName: 'product A',
 		type: 'sticker',
 		location: {
-			x: 0.3,
+			x: 0,
+			y: 0,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product B',
+		type: 'sticker',
+		location: {
+			x: 0.5,
 			y: 0.5,
 		},
 		region: {
@@ -121,24 +134,31 @@ const setCanvasBeacon = (uuid, locationX, locationY) => {
 }
 
 const canvasLocationScaleX = location => {
-	let canvasLocation = Percentage(Math.abs(location) * 10, Viewport.width)
-	if (location < 0) {
-		return ViewportCanvas.minWidth + canvasLocation
-	} else if (location > 0) {
-		return ViewportCanvas.maxWidth - canvasLocation
-	} else {
-		return Percentage(50, Viewport.width)
+	let canvasLocation = location * (ViewportCanvas.maxWidth - (ViewportCanvas.maxWidth + ViewportCanvas.minWidth) / 2)
+	switch (location) {
+		case -1:
+			return ViewportCanvas.minWidth
+		case 0:
+			return (ViewportCanvas.maxWidth + ViewportCanvas.minWidth) / 2
+		case 1:
+			return ViewportCanvas.maxWidth
+		default:
+			return (ViewportCanvas.maxWidth + ViewportCanvas.minWidth) / 2 + canvasLocation
 	}
 }
 
 const canvasLocationScaleY = location => {
-	let canvasLocation = Percentage(Math.abs(location) * 10, Viewport.height)
-	if (location < 0) {
-		return ViewportCanvas.minHeight + canvasLocation
-	} else if (location > 0) {
-		return ViewportCanvas.maxHeight - canvasLocation
-	} else {
-		return Percentage(50, Viewport.width)
+	let canvasLocation =
+		location * (ViewportCanvas.maxHeight - (ViewportCanvas.maxHeight + ViewportCanvas.minHeight) / 2)
+	switch (location) {
+		case -1:
+			return ViewportCanvas.minHeight
+		case 0:
+			return (ViewportCanvas.maxHeight + ViewportCanvas.minHeight) / 2
+		case 1:
+			return ViewportCanvas.maxHeight
+		default:
+			return (ViewportCanvas.maxHeight + ViewportCanvas.minHeight) / 2 + canvasLocation
 	}
 }
 
@@ -215,7 +235,15 @@ class ProductNavigationContainer extends React.Component {
 				let locationY = canvasLocationScaleY(storeBeacon.location.y)
 				let canvasBeacon = setCanvasBeacon(uuid, locationX, locationY)
 				let type = storeBeacon.type.toLowerCase()
-				type == 'indoor' && canvasBeacons.push(canvasBeacon)
+				if (type == 'indoor') {
+					canvasBeacons.push(canvasBeacon)
+				} else {
+					let posX = canvasLocationScaleX(storeBeacon.location.x)
+					let posY = canvasLocationScaleY(storeBeacon.location.y)
+					BgCanvas.fillStyle = 'red'
+					BgCanvas.fillRect(posX, posY, 5, 5)
+					this.setState({ canvasObj: setCanvas(this.state.canvasObj.canvas, BgCanvas) })
+				}
 			})
 
 			// Create cover Line
