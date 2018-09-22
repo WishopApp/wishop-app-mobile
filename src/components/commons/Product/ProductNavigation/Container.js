@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, DeviceEventEmitter } from 'react-native'
 import CustomBeacon from '@commons/Beacon/Android'
 import Beacons from 'react-native-beacons-manager'
 import Canvas, { Image as CanvasImage, Path2D } from 'react-native-canvas'
@@ -10,6 +10,27 @@ const region1 = {
 	identifier: 'Estimotes',
 	uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
 }
+// สีชมพูอันใหญ่
+const region2 = {
+	identifier: 'Estimotes',
+	uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
+}
+// สีเหลืองอันเล็ก
+const region3 = {
+	identifier: 'Estimotes',
+	uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
+}
+
+// สีชมพูอันเล็ก
+const region4 = {
+	identifier: 'Estimotes',
+	uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
+}
+let phoneStartingPoint = {
+	x: null,
+	y: null,
+}
+
 const canvasBeacons = [] // uuid => value
 const BgCanvasColor = 'skyblue'
 const ViewportCanvas = {
@@ -29,7 +50,7 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec6',
+			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
 			major: 0,
 			minor: 0,
 		},
@@ -44,7 +65,7 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec7',
+			uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
 			major: 0,
 			minor: 0,
 		},
@@ -59,7 +80,7 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec8',
+			uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
 			major: 0,
 			minor: 0,
 		},
@@ -74,26 +95,26 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+			uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
 			major: 0,
 			minor: 0,
 		},
 	},
-	{
-		storeId: null,
-		beaconName: 'product A',
-		type: 'sticker',
-		location: {
-			x: 0,
-			y: 0,
-		},
-		region: {
-			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
-			major: 0,
-			minor: 0,
-		},
-	},
+	// {
+	// 	storeId: null,
+	// 	beaconName: 'product A',
+	// 	type: 'sticker',
+	// 	location: {
+	// 		x: 0,
+	// 		y: 0,
+	// 	},
+	// 	region: {
+	// 		identifier: 'Estimotes',
+	// 		uuid: 'aa1',
+	// 		major: 0,
+	// 		minor: 0,
+	// 	},
+	// },
 	{
 		storeId: null,
 		beaconName: 'product B',
@@ -104,17 +125,57 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+			uuid: 'aa2',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product C',
+		type: 'sticker',
+		location: {
+			x: -0.5,
+			y: 0.5,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa3',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product D',
+		type: 'sticker',
+		location: {
+			x: 0.5,
+			y: -0.5,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa4',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product D',
+		type: 'sticker',
+		location: {
+			x: -0.5,
+			y: -0.5,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa4',
 			major: 0,
 			minor: 0,
 		},
 	},
 ]
-
-const region2 = {
-	identifier: 'Estimotes',
-	uuid: 'b9407f30-f5f8-466e-aff9-25556b57fe6d',
-}
 
 const setCanvas = (canvas, ctx) => {
 	return {
@@ -158,7 +219,7 @@ const canvasLocationScaleY = location => {
 		case 1:
 			return ViewportCanvas.maxHeight
 		default:
-			return (ViewportCanvas.maxHeight + ViewportCanvas.minHeight) / 2 + canvasLocation
+			return (ViewportCanvas.maxHeight + ViewportCanvas.minHeight) / 2 + -1 * canvasLocation
 	}
 }
 
@@ -174,43 +235,59 @@ class ProductNavigationContainer extends React.Component {
 
 		this.state = {
 			beaconIndoorLocation: [],
+			storeBeaconKey: [],
+			identifierBeacon: [],
 			canvasObj: {
 				canvas: null,
 				ctx: null,
 			},
+			phonePosition: null,
 		}
 		this._renderCanvas = this._renderCanvas.bind(this)
+		this.getLocationIdentifierBeacon = this.getLocationIdentifierBeacon.bind(this)
 		// this.foundBeaconLocation = this.foundBeaconLocation.bind(this)
 		if (data.length != 0) {
 			this.state.beaconIndoorLocation = data
+			data.forEach(beacon => {
+				this.state.storeBeaconKey[beacon.region.uuid] = beacon
+			})
 		}
 	}
 
 	componentWillMount() {}
 
 	componentDidMount() {
-		// CustomBeacon.enableBeacon()
-		// // test ranging region
-		// CustomBeacon.startMonitoringForRegion(region1)
-		// CustomBeacon.startRangingInRegion(region1)
-		// CustomBeacon.addRangingListener('beaconsDidRange', data => {
-		// 	this.setState({ didRange: data })
-		// 	if (data.beacons.length > 0) {
-		// 		let rssi = data.beacons[0].rssi
-		// 		let distance = data.beacons[0].distance
-		// 		this.state.rssi.push(rssi)
-		// 		this.state.distance.push(distance)
-		// 	}
-		// 	// console.log('data', data)
-		// })
-		// CustomBeacon.addMonitorListener('regionDidEnter', data => {
-		// 	this.setState({ didEnter: data })
-		// 	console.log('monitor data', data)
-		// })
-		// CustomBeacon.addMonitorListener('regionDidExit', data => {
-		// 	this.setState({ didExit: data })
-		// 	console.log('exit', data)
-		// })
+		this.startingBeaconSignal()
+	}
+
+	startingBeaconSignal = async () => {
+		CustomBeacon.enableBeacon()
+		try {
+			data.forEach(beacon => {
+				let region = {
+					identifier: beacon.region.identifier,
+					uuid: beacon.region.uuid,
+				}
+				// CustomBeacon.startRangingInRegion(region)
+				// CustomBeacon.startMonitoringForRegion(region)
+			})
+		} catch (error) {
+			console.log(`Beacons ranging not started, error: ${error}`)
+		}
+		await CustomBeacon.addMonitoringListener('regionDidEnter', beacon => {
+			console.log('first', beacon)
+			if (beacon) {
+				this.state.identifierBeacon[beacon.uuid] = beacon
+			}
+		})
+	}
+
+	getLocationIdentifierBeacon = identifierBeacon => {
+		identifierBeacon.location = this.state.storeBeaconKey[identifierBeacon.uuid].location
+		let location = identifierBeacon.location
+		// location.x = location.x < 0 ? -1 * canvasLocationScaleX(location.x) : canvasLocationScaleX(location.x)
+		// location.y = location.y < 0 ? -1 * canvasLocationScaleY(location.y) : canvasLocationScaleY(location.y)
+		return identifierBeacon
 	}
 
 	initCanvas = async canvas => {
@@ -241,7 +318,7 @@ class ProductNavigationContainer extends React.Component {
 					let posX = canvasLocationScaleX(storeBeacon.location.x)
 					let posY = canvasLocationScaleY(storeBeacon.location.y)
 					BgCanvas.fillStyle = 'red'
-					BgCanvas.fillRect(posX, posY, 5, 5)
+					BgCanvas.fillRect(posX, posY, 10, 10)
 					this.setState({ canvasObj: setCanvas(this.state.canvasObj.canvas, BgCanvas) })
 				}
 			})
@@ -281,14 +358,128 @@ class ProductNavigationContainer extends React.Component {
 				}
 			})
 
+			// Mock Distance
+			// let identifier1 = {
+			// 	uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+			// 	rssi: -90,
+			// 	distance: 100,
+			// }
+			let identifier2 = {
+				uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
+				rssi: -90,
+				location: {
+					x: 1,
+					y: -1,
+				},
+				distance: 1,
+			}
+			let identifier3 = {
+				uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
+				rssi: -90,
+				location: {
+					x: -1,
+					y: -1,
+				},
+				distance: 1,
+			}
+			let identifier4 = {
+				uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
+				rssi: -90,
+				location: {
+					x: 1,
+					y: 1,
+				},
+				distance: 1,
+			}
+
+			// this.state.identifierBeacon[identifier1.uuid] = identifier1
+			this.state.identifierBeacon[identifier2.uuid] = identifier2
+			this.state.identifierBeacon[identifier3.uuid] = identifier3
+			this.state.identifierBeacon[identifier4.uuid] = identifier4
+
+			// Beacon Node that identifier
+			let beacon1 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['90727b70-9754-4b10-bba0-5a9219dcc7a8']
+			)
+			let beacon2 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['41bc5e48-65f8-40e3-874c-786ce4013d50']
+			)
+			let beacon3 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['56f6ffff-00a7-446d-af84-55859d7a5bf8']
+			)
+
 			resolve(true)
 		})
 			.then(canvasBeacons => {
 				console.log('create map success')
+				this.count(0, 0, 0)
 			})
 			.catch(reject => {
-				console.log('create map fail')
+				console.log('create map fail:', reject)
 			})
+	}
+
+	count = (distance1, distance2, distance3) => {
+		setTimeout(() => {
+			let beacon1 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['90727b70-9754-4b10-bba0-5a9219dcc7a8']
+			)
+			let beacon2 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['41bc5e48-65f8-40e3-874c-786ce4013d50']
+			)
+			let beacon3 = this.getLocationIdentifierBeacon(
+				this.state.identifierBeacon['56f6ffff-00a7-446d-af84-55859d7a5bf8']
+			)
+
+			console.log('distance1', distance1)
+			console.log('distance2', distance2)
+			console.log('distance3', distance3)
+			let rangeFromStartingPoint = 40 // Range max 200
+			let radius1 = distance1 / 100 * rangeFromStartingPoint
+			let radius2 = distance2 / 100 * rangeFromStartingPoint
+			let radius3 = distance3 / 100 * rangeFromStartingPoint
+			let p1x = beacon1.location.x
+			let p1y = beacon1.location.y
+			let p2x = beacon2.location.x
+			let p2y = beacon2.location.y
+			let p3x = beacon3.location.x
+			let p3y = beacon3.location.y
+			let d = Math.sqrt(Math.pow(p2x - p1x, 2) + Math.pow(p2y - p1y, 2))
+			console.log('d', d)
+			let i = p3x - p1x
+			let j = p3y - p1y
+			console.log('i', i)
+			console.log('j', j)
+
+			let x = (Math.pow(radius1, 2) - Math.pow(radius2, 2) + Math.pow(d, 2)) / (2 * d)
+
+			let y =
+				(Math.pow(radius1, 2) - Math.pow(radius3, 2) + Math.pow(i, 2) + Math.pow(j, 2)) / (2 * j) - i / j * x
+
+			// let PhoneLocationX = x < 0 ? x + canvasLocationScaleX(1) : x
+			// let PhoneLocationY = y < 0 ? y + canvasLocationScaleY(1) : y
+			x = x - 1
+			y = y - 1
+			console.log('x', x)
+			console.log('y', y)
+			let PhoneLocationX = canvasLocationScaleX(x)
+			let PhoneLocationY = canvasLocationScaleY(y)
+			const Phone = this.state.canvasObj.ctx
+			let previousPhonePosition = this.state.phonePosition && this.state.phonePosition
+			if (previousPhonePosition) {
+				Phone.fillStyle = BgCanvasColor
+				Phone.fillRect(previousPhonePosition.x, previousPhonePosition.y, 5, 5)
+			}
+
+			Phone.fillStyle = 'purple'
+			Phone.fillRect(PhoneLocationX, PhoneLocationY, 5, 5) //(offsetX,offSetY,sizeX,sizeY)
+			this.setState({ phonePosition: { x: PhoneLocationX, y: PhoneLocationY } })
+			distance1 = distance1 + 1
+			distance2 = distance2 - 0
+			distance3 = distance3 + 1
+
+			this.count(distance1, distance2, distance3)
+		}, 1000)
 	}
 
 	render() {

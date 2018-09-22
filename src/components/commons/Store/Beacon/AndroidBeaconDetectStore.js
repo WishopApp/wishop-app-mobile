@@ -36,7 +36,7 @@ class AndroidBeaconDetectStore extends React.Component {
 		try {
 			await Beacons.startRangingBeaconsInRegion('REGION1')
 			console.log(`Beacons ranging started succesfully!`)
-		} catch (err) {
+		} catch (error) {
 			console.log(`Beacons ranging not started, error: ${error}`)
 		}
 	}
