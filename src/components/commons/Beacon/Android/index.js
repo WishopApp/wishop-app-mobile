@@ -17,27 +17,45 @@ export const enableBeacon = () => {
 	console.log('enable')
 }
 
-export const startMonitoringForRegion = region => {
+export const startMonitoringInRegion = region => {
+	console.log(region)
 	Beacons.startMonitoringForRegion(region)
-	monitoringEventListenerList[region.uuid] = region
+	let type = typeof region
+	if (type.toLowerCase() !== 'object' && monitoringEventListenerList.length > 0) {
+		monitoringEventListenerList[region.uuid] = region
+	} else {
+		monitoringEventListenerList[region] = region
+	}
 }
 
 export const startRangingInRegion = region => {
+	console.log(region)
 	Beacons.startRangingBeaconsInRegion(region)
-	rangingEventListenerList[region.uuid] = region
+	let type = typeof region
+	if (type.toLowerCase() !== 'object' && rangingEventListenerList.length > 0) {
+		rangingEventListenerList[region.uuid] = region
+	} else {
+		rangingEventListenerList[region] = region
+	}
 }
 
-export const stopMonitoringForRegion = region => {
+export const stopMonitoringInRegion = region => {
 	Beacons.stopMonitoringForRegion(region)
-	if (monitoringEventListenerList.length > 0) {
+	let type = typeof region
+	if (type.toLowerCase() !== 'object' && monitoringEventListenerList.length > 0) {
 		delete monitoringEventListenerList[region.uuid]
+	} else {
+		delete monitoringEventListenerList[region]
 	}
 }
 
 export const stopRangingInRegion = region => {
 	Beacons.stopRangingBeaconsInRegion(region)
-	if (rangingEventListenerList.length > 0) {
+	let type = typeof region
+	if (type.toLowerCase() !== 'object' && rangingEventListenerList.length > 0) {
 		delete rangingEventListenerList[region.uuid]
+	} else {
+		delete rangingEventListenerList[region]
 	}
 }
 
@@ -55,12 +73,28 @@ export const addMonitoringListener = (listener, callbackFunc) => {
 	console.log('listener')
 }
 
+export const clearAllListener = () => {
+	if (rangingEventListenerList.length > 0) {
+		while (rangingEventListenerList.length > 0) {
+			let region = rangingEventListenerList.pop()
+			stopRangingInRegion(region)
+		}
+	}
+	if (monitoringEventListenerList.length > 0) {
+		while (monitoringEventListenerList.length > 0) {
+			let region = monitoringEventListenerList.pop()
+			stopMonitoringInRegion(region)
+		}
+	}
+}
+
 export default {
 	enableBeacon: enableBeacon,
 	startRangingInRegion: startRangingInRegion,
-	startMonitoringForRegion: startMonitoringForRegion,
+	startMonitoringInRegion: startMonitoringInRegion,
 	addRangingListener: addRangingListener,
 	addMonitoringListener: addMonitoringListener,
 	stopRangingInRegion: stopRangingInRegion,
-	stopMonitoringForRegion: stopMonitoringForRegion,
+	stopMonitoringInRegion: stopMonitoringInRegion,
+	clearAllListener: clearAllListener,
 }

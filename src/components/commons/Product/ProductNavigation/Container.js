@@ -6,9 +6,10 @@ import Canvas, { Image as CanvasImage, Path2D } from 'react-native-canvas'
 import RNFS from 'react-native-fs'
 import { Viewport, Percentage } from '@constants/Data'
 
+// สีขาวอันใหญ่
 const region1 = {
 	identifier: 'Estimotes',
-	uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+	uuid: '300faf4f-992d-4e31-97d5-0e70cf1ee135',
 }
 // สีชมพูอันใหญ่
 const region2 = {
@@ -50,7 +51,7 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: 'e1f54e02-1e23-44e0-9c3d-512eb56adec9',
+			uuid: '300faf4f-992d-4e31-97d5-0e70cf1ee135',
 			major: 0,
 			minor: 0,
 		},
@@ -234,8 +235,8 @@ class ProductNavigationContainer extends React.Component {
 		super(props)
 
 		this.state = {
-			beaconIndoorLocation: [],
-			storeBeaconKey: [],
+			beaconIndoorLocation: [], // ตัว type indoor and sticker  สุดท้ายค่าจะเท่ากับตัว identifier beacon
+			storeBeaconByKey: [],
 			identifierBeacon: [],
 			canvasObj: {
 				canvas: null,
@@ -245,11 +246,12 @@ class ProductNavigationContainer extends React.Component {
 		}
 		this._renderCanvas = this._renderCanvas.bind(this)
 		this.getLocationIdentifierBeacon = this.getLocationIdentifierBeacon.bind(this)
+		this.storeCompleteRegistrationBeacon = this.storeCompleteRegistrationBeacon.bind(this)
 		// this.foundBeaconLocation = this.foundBeaconLocation.bind(this)
 		if (data.length != 0) {
 			this.state.beaconIndoorLocation = data
 			data.forEach(beacon => {
-				this.state.storeBeaconKey[beacon.region.uuid] = beacon
+				this.state.storeBeaconByKey[beacon.region.uuid] = beacon
 			})
 		}
 	}
@@ -262,32 +264,47 @@ class ProductNavigationContainer extends React.Component {
 
 	startingBeaconSignal = async () => {
 		CustomBeacon.enableBeacon()
+		// await CustomBeacon.clearAllListener()
+		CustomBeacon.stopRangingInRegion('ProductNavigation')
 		try {
-			data.forEach(beacon => {
-				let region = {
-					identifier: beacon.region.identifier,
-					uuid: beacon.region.uuid,
+			let region = 'ProductNavigation'
+			// CustomBeacon.addMonitoringListener('regionDidEnter', beacon => {
+			// 	console.log('first', beacon)
+			// 	if (beacon) {
+			// 		this.state.identifierBeacon[beacon.uuid] = beacon
+			// 	}
+			// })
+
+			CustomBeacon.startRangingInRegion(region)
+			CustomBeacon.addRangingListener('beaconsDidRange', data => {
+				if (data.beacons.length > 0) {
+					data.beacons.forEach(beacon => {
+						let uuid = beacon.uuid
+						let rssi = beacon.rssi
+						// beacon ที่อยู่ในร้าน
+						if (this.storeCompleteRegistrationBeacon(beacon.uuid)) {
+							// if (rssi < -80) {
+							this.state.identifierBeacon[beacon.uuid] = beacon
+							console.log(this.state.identifierBeacon['300faf4f-992d-4e31-97d5-0e70cf1ee135'])
+							// }
+						}
+					})
 				}
-				// CustomBeacon.startRangingInRegion(region)
-				// CustomBeacon.startMonitoringForRegion(region)
 			})
 		} catch (error) {
 			console.log(`Beacons ranging not started, error: ${error}`)
 		}
-		await CustomBeacon.addMonitoringListener('regionDidEnter', beacon => {
-			console.log('first', beacon)
-			if (beacon) {
-				this.state.identifierBeacon[beacon.uuid] = beacon
-			}
-		})
 	}
 
 	getLocationIdentifierBeacon = identifierBeacon => {
-		identifierBeacon.location = this.state.storeBeaconKey[identifierBeacon.uuid].location
+		identifierBeacon.location = this.state.storeBeaconByKey[identifierBeacon.uuid].location
 		let location = identifierBeacon.location
-		// location.x = location.x < 0 ? -1 * canvasLocationScaleX(location.x) : canvasLocationScaleX(location.x)
-		// location.y = location.y < 0 ? -1 * canvasLocationScaleY(location.y) : canvasLocationScaleY(location.y)
 		return identifierBeacon
+	}
+
+	storeCompleteRegistrationBeacon = UUIDBeaconIdentifier => {
+		let beacon = this.state.storeBeaconByKey[UUIDBeaconIdentifier]
+		return beacon ? true : false
 	}
 
 	initCanvas = async canvas => {
@@ -364,80 +381,36 @@ class ProductNavigationContainer extends React.Component {
 			// 	rssi: -90,
 			// 	distance: 100,
 			// }
-			let identifier2 = {
-				uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
-				rssi: -90,
-				location: {
-					x: 1,
-					y: -1,
-				},
-				distance: 1,
-			}
-			let identifier3 = {
-				uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
-				rssi: -90,
-				location: {
-					x: -1,
-					y: -1,
-				},
-				distance: 1,
-			}
-			let identifier4 = {
-				uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
-				rssi: -90,
-				location: {
-					x: 1,
-					y: 1,
-				},
-				distance: 1,
-			}
-
-			// this.state.identifierBeacon[identifier1.uuid] = identifier1
-			this.state.identifierBeacon[identifier2.uuid] = identifier2
-			this.state.identifierBeacon[identifier3.uuid] = identifier3
-			this.state.identifierBeacon[identifier4.uuid] = identifier4
-
-			// Beacon Node that identifier
-			let beacon1 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['90727b70-9754-4b10-bba0-5a9219dcc7a8']
-			)
-			let beacon2 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['41bc5e48-65f8-40e3-874c-786ce4013d50']
-			)
-			let beacon3 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['56f6ffff-00a7-446d-af84-55859d7a5bf8']
-			)
-
 			resolve(true)
 		})
 			.then(canvasBeacons => {
 				console.log('create map success')
-				this.count(0, 0, 0)
+				// this.count(0, 0, 0)
 			})
 			.catch(reject => {
 				console.log('create map fail:', reject)
 			})
 	}
 
-	count = (distance1, distance2, distance3) => {
+	count = (beacon1, beacon2, beacon3) => {
 		setTimeout(() => {
-			let beacon1 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['90727b70-9754-4b10-bba0-5a9219dcc7a8']
-			)
-			let beacon2 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['41bc5e48-65f8-40e3-874c-786ce4013d50']
-			)
-			let beacon3 = this.getLocationIdentifierBeacon(
-				this.state.identifierBeacon['56f6ffff-00a7-446d-af84-55859d7a5bf8']
-			)
+			// let beacon1 = this.getLocationIdentifierBeacon(
+			// 	this.state.identifierBeacon['90727b70-9754-4b10-bba0-5a9219dcc7a8']
+			// )
+			// let beacon2 = this.getLocationIdentifierBeacon(
+			// 	this.state.identifierBeacon['41bc5e48-65f8-40e3-874c-786ce4013d50']
+			// )
+			// let beacon3 = this.getLocationIdentifierBeacon(
+			// 	this.state.identifierBeacon['56f6ffff-00a7-446d-af84-55859d7a5bf8']
+			// )
 
-			console.log('distance1', distance1)
-			console.log('distance2', distance2)
-			console.log('distance3', distance3)
-			let rangeFromStartingPoint = 40 // Range max 200
-			let radius1 = distance1 / 100 * rangeFromStartingPoint
-			let radius2 = distance2 / 100 * rangeFromStartingPoint
-			let radius3 = distance3 / 100 * rangeFromStartingPoint
+			console.log('distance1', beacon1.distance)
+			console.log('distance2', beacon2.distance)
+			console.log('distance3', beacon3.distance)
+			let rangeFromStartingPoint = 40 // Range max 200 => now 200/40 = 5 meter
+			let radius1 = beacon1.distance / 100 * rangeFromStartingPoint
+			let radius2 = beacon2.distance / 100 * rangeFromStartingPoint
+			let radius3 = beacon3.distance / 100 * rangeFromStartingPoint
 			let p1x = beacon1.location.x
 			let p1y = beacon1.location.y
 			let p2x = beacon2.location.x
@@ -474,11 +447,6 @@ class ProductNavigationContainer extends React.Component {
 			Phone.fillStyle = 'purple'
 			Phone.fillRect(PhoneLocationX, PhoneLocationY, 5, 5) //(offsetX,offSetY,sizeX,sizeY)
 			this.setState({ phonePosition: { x: PhoneLocationX, y: PhoneLocationY } })
-			distance1 = distance1 + 1
-			distance2 = distance2 - 0
-			distance3 = distance3 + 1
-
-			this.count(distance1, distance2, distance3)
 		}, 1000)
 	}
 
