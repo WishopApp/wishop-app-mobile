@@ -49,6 +49,12 @@ export const MywishlistStack = StackNavigator({
 			title: ' W I S H L I S T   D E T A I L',
 		},
 	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
+	ProductNavigation: {
+		screen: ProductNavigationScreen,
+	},
 })
 
 export const Tabs = TabNavigator(
@@ -124,19 +130,9 @@ export const CreateWishlistStack = StackNavigator({
 	},
 })
 
-export const ETCStack = StackNavigator({
-	ProductDetail: {
-		screen: ProductDetailScreen,
-	},
-	ProductNavigation: {
-		screen: ProductNavigationScreen,
-	},
-})
-
 export const Root = StackNavigator(
 	{
 		Main: Tabs,
-		ETC: ETCStack,
 		// Modal Stack
 		CreateWishlist: CreateWishlistStack,
 	},

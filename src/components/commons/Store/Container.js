@@ -93,13 +93,13 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				{beacons ? beaconDetected(beacons) : beaconDetecting()}
+				{beacons ? beaconDetected(beacons, this.props, this.isDetected) : beaconDetecting()}
 			</View>
 		)
 	}
 }
 
-const beaconDetected = beacons => {
+const beaconDetected = (beacons, props, isDetected) => {
 	return (
 		<View style={styled.storeListContainer}>
 			<View style={[styled.topDescription]}>
@@ -112,7 +112,11 @@ const beaconDetected = beacons => {
 					{beacons.map(beaconToken => {
 						return (
 							<View key={index}>
-								<StoreListByBeacon beaconToken={beaconToken} uuidUsed={this.isDetected(beaconToken)} />
+								<StoreListByBeacon
+									beaconToken={beaconToken}
+									uuidUsed={isDetected(beaconToken)}
+									navigation={props.navigation}
+								/>
 							</View>
 						)
 					})}

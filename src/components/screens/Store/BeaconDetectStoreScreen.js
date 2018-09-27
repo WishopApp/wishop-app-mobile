@@ -32,7 +32,7 @@ class BeaconDetectStoreScreen extends React.Component {
 	render() {
 		return (
 			<View>
-				<StoreContainer navigation={this.navigation} isFocused={this.state.isFocused} />
+				<StoreContainer navigation={this.props.navigation} isFocused={this.state.isFocused} />
 			</View>
 		)
 	}
