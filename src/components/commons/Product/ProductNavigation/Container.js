@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Button, DeviceEventEmitter } from 'react-native'
-import CustomBeacon from '@commons/Beacon/Android'
+import CustomBeacon from '@custom/Beacon/Android'
 import Beacons from 'react-native-beacons-manager'
 import Canvas, { Image as CanvasImage, Path2D } from 'react-native-canvas'
 import RNFS from 'react-native-fs'

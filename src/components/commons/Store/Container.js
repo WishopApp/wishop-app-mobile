@@ -3,14 +3,24 @@ import { View, Text, StyleSheet, TouchableHighlight, ScrollView, Image } from 'r
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import CustomImage from '@custom/Image'
-import AndroidBeaconDetectStore from './Beacon/AndroidBeaconDetectStore'
+import CustomBeacon from '@custom/Beacon/Android'
 import StoreListByBeacon from './StoreList'
+
+let region = 'DetectAllBeacon'
+
+const lengthOfKeyValue = arrayKeyValue => {
+	let num = 0
+	for (let key in arrayKeyValue) {
+		num++
+	}
+	return num
+}
 
 class StoreContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			detectedBeaconsId: [], //// uuid+minor+major alias (beaconToken) (beaconId)
+			uuidUsed: [], // ever detected on this store
 			detectedBeacons: [], /// object Beacon
 		}
 	}
@@ -19,9 +29,44 @@ class StoreContainer extends React.Component {
 		this.forceUpdate()
 	}
 
+	componentWillReceiveProps(props) {
+		if (props.isFocused) {
+			this.initFindBeacon()
+		} else {
+			CustomBeacon.stopRangingInRegion(region)
+		}
+	}
+
+	initFindBeacon() {
+		CustomBeacon.enableBeacon()
+		CustomBeacon.startRangingInRegion(region)
+		CustomBeacon.addRangingListener('beaconsDidRange', data => {
+			let beacons = data.beacons
+			if (beacons.length > 0) {
+				beacons.forEach(beacon => {
+					let uuid = beacon.uuid
+					// find not beacon Repeat
+					this.state.detectedBeacons[uuid] = beacon
+
+					if (!this.isDetected(uuid)) {
+						this.state.uuidUsed[uuid] = beacon
+						this._reRender()
+					}
+				})
+			}
+		})
+	}
+
+	isDetected = uuid => {
+		if (this.state.uuidUsed[uuid]) {
+			return true
+		}
+		return false
+	}
+
 	render() {
 		let { isFocused } = this.props
-		let beacons = this.state.detectedBeacons.length > 0 ? this.state.detectedBeacons : undefined
+		let beacons = lengthOfKeyValue(this.state.detectedBeacons) > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
 				<View style={styled.tabbarContainer}>
@@ -48,7 +93,6 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				<AndroidBeaconDetectStore _reRender={this._reRender} stateParams={this.state} enabled={isFocused} />
 				{beacons ? beaconDetected(beacons) : beaconDetecting()}
 			</View>
 		)
@@ -65,11 +109,10 @@ const beaconDetected = beacons => {
 			</View>
 			<View style={styled.scrollStore}>
 				<ScrollView contentContainerStyle={styled.alignContent}>
-					{beacons.map((beacon, index) => {
-						let beaconToken = beacon.uuid + '-' + beacon.minor + '-' + beacon.major
+					{beacons.map(beaconToken => {
 						return (
 							<View key={index}>
-								<StoreListByBeacon beaconToken={beaconToken} />
+								<StoreListByBeacon beaconToken={beaconToken} uuidUsed={this.isDetected(beaconToken)} />
 							</View>
 						)
 					})}
@@ -88,7 +131,7 @@ const beaconDetected = beacons => {
 const beaconDetecting = () => {
 	return (
 		<View style={styled.beaconDetecting}>
-			<Image style={styled.signalDetectingImage} source={require('@icons/signal.png')} />
+			<CustomImage style={styled.signalDetectingImage} title="beacon-icon" />
 			<Text style={StyledConstants.FONT_TOPIC}>D E T E C T I N G ... {'\n'}</Text>
 			<Text style={StyledConstants.FONT_DESCIPTION}>If we can detect store near you</Text>
 			<Text style={StyledConstants.FONT_DESCIPTION}>

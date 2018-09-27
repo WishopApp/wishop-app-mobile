@@ -25,6 +25,7 @@ class BeaconDetectStoreScreen extends React.Component {
 	}
 
 	_onBlur = () => {
+		console.log('test')
 		this.setState({ isFocused: false })
 	}
 

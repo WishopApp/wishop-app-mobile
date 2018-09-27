@@ -14,10 +14,11 @@ class StoreList extends React.Component {
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
 		let storeBranch = data ? data.storeBranch : undefined
+		let shouldCheck = this.props.uuidUsed
 		return (
 			<View>
 				{storeBranch ? (
-					<View style={[styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist]}>
+					<View style={[styled.storeContainer, shouldCheck && styled.wishlistChecklist]}>
 						<View style={styled.storeImageContainer}>
 							<CustomImage style={styled.storeImage} title="store-icon" />
 						</View>
@@ -26,7 +27,7 @@ class StoreList extends React.Component {
 							<Text style={StyledConstants.FONT_DESCRIPTION}>{storeBranch.store.description}</Text>
 							<Text style={styled.storeRange}>3.4 km</Text>
 						</View>
-						{storeBranch.shouldCheck ? (
+						{shouldCheck ? (
 							<View style={styled.storeImageMappingWishlistContainer}>
 								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
 								<Text style={StyledConstants.FONT_DESCRIPTION}> Let's check!</Text>
