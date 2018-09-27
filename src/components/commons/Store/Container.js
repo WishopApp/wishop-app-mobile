@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableHighlight, ScrollView, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
+import CustomImage from '@custom/Image'
 import AndroidBeaconDetectStore from './Beacon/AndroidBeaconDetectStore'
 import StoreListByBeacon from './StoreList'
 
@@ -76,7 +77,7 @@ const beaconDetected = beacons => {
 			</View>
 			<View style={styled.bottomContainer}>
 				<View style={styled.bottomDescription}>
-					<Image style={styled.signalImage} source={require('@icons/signal.png')} />
+					<CustomImage style={styled.signalImage} title="beacon-icon" />
 					<Text style={StyledConstants.FONT_DESCRIPTION}>We still detecting store in the background</Text>
 				</View>
 			</View>

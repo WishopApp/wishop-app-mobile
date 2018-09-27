@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import Carousel from 'react-native-snap-carousel'
+import CustomImage from '@custom/Image'
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
 
@@ -48,10 +49,9 @@ class ProductDetailContainer extends React.Component {
 
 	_renderItem({ item, index }) {
 		console.log('index', item, ':', index)
-		let source = require('@images/pikachu.png')
 		return (
 			<View style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}>
-				<Image style={styled.imageItem} source={source} />
+				<CustomImage style={styled.imageItem} title="pikachu" />
 			</View>
 		)
 	}

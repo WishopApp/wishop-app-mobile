@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
+import CustomImage from '@custom/Image'
 
 class MyWishlist extends React.Component {
 	/* proptypes
@@ -21,7 +22,7 @@ class MyWishlist extends React.Component {
 						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
 					>
 						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-							<Image style={styled.productImage} source={require('@images/shoe.png')} />
+							<CustomImage style={styled.productImage} title="shoes" />
 						</View>
 
 						<View style={styled.WishlistProductContainer}>
@@ -49,7 +50,7 @@ class MyWishlist extends React.Component {
 							}}
 						>
 							<View>
-								<Image style={styled.wishlistDeleteIcon} source={require('@icons/cancel.png')} />
+								<CustomImage style={styled.wishlistDeleteIcon} title="cancel-icon"/>
 							</View>
 						</TouchableOpacity>
 					</TouchableOpacity>

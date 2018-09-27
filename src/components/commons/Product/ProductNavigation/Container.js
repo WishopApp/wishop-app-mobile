@@ -423,7 +423,7 @@ class ProductNavigationContainer extends React.Component {
 					})
 					let tmpBeacon1 = identifierToArray.shift()
 					let tmpBeacon2 = identifierToArray.shift()
-					let tmpBeacon3 = identifierToArray.shift()
+					let tmpBeacon3 = identifierToArray.pop()
 					let yAxisEqualZero = true
 					do {
 						console.log('yAxis', tmpBeacon3.location.y - tmpBeacon1.location.y)
@@ -431,7 +431,7 @@ class ProductNavigationContainer extends React.Component {
 							yAxisEqualZero = false
 						} else {
 							if (identifierToArray.length > 0) {
-								tmpBeacon3 = identifierToArray.shift()
+								tmpBeacon3 = identifierToArray.pop()
 							} else {
 								let tmpBeacon = tmpBeacon3
 								tmpBeacon3 = tmpBeacon2
@@ -504,6 +504,8 @@ class ProductNavigationContainer extends React.Component {
 			console.log('After x', x)
 		} else {
 			// x = x - 1
+			if (x < 0) x = 1 - Math.abs(x)
+			else if (x > 0) x - 1
 			console.log('After x', x)
 		}
 		if (y < -1) {

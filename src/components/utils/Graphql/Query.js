@@ -35,7 +35,6 @@ export const QuerySubCategoryProps = gql`
 		subCategoryProps(subCategoryId: $subCategoryId) {
 			_id
 			name
-			subCategoryId
 			values
 		}
 	}

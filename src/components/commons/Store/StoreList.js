@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import { StyledConstants } from '@constants/Styled'
 import { QueryStoreByBeaconToken } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
+import CustomImage from '@custom/Image'
 
 class StoreList extends React.Component {
 	/* proptypes
@@ -18,7 +19,7 @@ class StoreList extends React.Component {
 				{storeBranch ? (
 					<View style={[styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist]}>
 						<View style={styled.storeImageContainer}>
-							<Image style={styled.storeImage} source={require('@images/store_default.png')} />
+							<CustomImage style={styled.storeImage} title="store-icon" />
 						</View>
 						<View style={styled.storeCardContainer}>
 							<Text style={StyledConstants.FONT_TOPIC}>{storeBranch.name}</Text>
@@ -27,10 +28,7 @@ class StoreList extends React.Component {
 						</View>
 						{storeBranch.shouldCheck ? (
 							<View style={styled.storeImageMappingWishlistContainer}>
-								<Image
-									style={styled.checkListIcon}
-									source={require('@icons/wishlist_hover_icon.png')}
-								/>
+								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
 								<Text style={StyledConstants.FONT_DESCRIPTION}> Let's check!</Text>
 							</View>
 						) : null}

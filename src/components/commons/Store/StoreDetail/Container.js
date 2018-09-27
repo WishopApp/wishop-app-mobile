@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Image, Button } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
+import CustomImage from '@custom/Image'
 import ProductList from '@commons/Product/ProductList'
 
 const MatchProductWidth = Viewport.width
@@ -119,7 +120,7 @@ class StoreDetailContainer extends React.Component {
 					</CustomLinearGradient>
 					<View style={styled.recommendedProductDetail}>
 						<View style={styled.imageContainer}>
-							<Image style={styled.image} source={require('@images/shoe.png')} />
+							<CustomImage style={styled.image} title={'shoes'} />
 						</View>
 						<View style={styled.recommendedProductContainer}>
 							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>Product Name</Text>

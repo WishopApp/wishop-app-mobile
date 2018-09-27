@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QuerySearchProductByWishlist } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
+import CustomImage from '@custom/Image'
 
 class ProductItem extends React.Component {
 	/* proptypes
@@ -23,7 +24,7 @@ class ProductItem extends React.Component {
 					}
 				>
 					<View style={[styled.productImageContainer, StyledSelected.background]}>
-						<Image style={styled.productImage} source={require('@images/shoe.png')} />
+						<CustomImage style={styled.productImage} title="shoes" />
 					</View>
 					<View style={styled.productDetailContainer}>
 						<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
