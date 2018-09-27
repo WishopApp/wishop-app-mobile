@@ -1,11 +1,14 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import { StyledConstants } from '@constants/Styled'
-import { QueryStoreByBeaconToken } from '@utils/Graphql/Query'
+import { QueryStoreByBeaconUUID } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
 import CustomImage from '@custom/Image'
 
 class StoreList extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	/* proptypes
 		StoreList: object
 	*/
@@ -13,11 +16,11 @@ class StoreList extends React.Component {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
-		let storeBranch = data ? data.storeBranch : undefined
-		let shouldCheck = this.props.uuidUsed
+		let storeBranch = data ? data.searchStoreBranchFromBeacon : undefined
+		let shouldCheck = this.props.uuidUsed // compare with wishlist
 		return (
 			<View>
-				{storeBranch ? (
+				{storeBranch && (
 					<View style={[styled.storeContainer, shouldCheck && styled.wishlistChecklist]}>
 						<View style={styled.storeImageContainer}>
 							<CustomImage style={styled.storeImage} title="store-icon" />
@@ -34,13 +37,13 @@ class StoreList extends React.Component {
 							</View>
 						) : null}
 					</View>
-				) : null}
+				)}
 			</View>
 		)
 	}
 }
 
-const StoreListByBeacon = graphql(QueryStoreByBeaconToken, {
+const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
 	options: props => {
 		if (props._id) {
 			return {
@@ -49,9 +52,10 @@ const StoreListByBeacon = graphql(QueryStoreByBeaconToken, {
 				},
 			}
 		}
+		console.log(props.uuid)
 		return {
 			variables: {
-				beaconToken: props.beaconToken,
+				uuid: props.uuid,
 			},
 		}
 	},

@@ -237,7 +237,6 @@ class ProductNavigationContainer extends React.Component {
 			beaconIndoorLocation: [], // ตัว type indoor and sticker  สุดท้ายค่าจะเท่ากับตัว identifier beacon
 			storeBeaconByKey: [],
 			identifierBeacon: [],
-			checkUpdateItentifierBeacon: [],
 			canvasObj: {
 				canvas: null,
 				ctx: null,
@@ -292,12 +291,11 @@ class ProductNavigationContainer extends React.Component {
 					data.beacons.forEach(beacon => {
 						let uuid = beacon.uuid
 						let rssi = beacon.rssi
-						// console.log('ranging', beacon.uuid, '=>', rssi)
+						// console.log('ranging', beacon.uuid, '=>', rssi, '=>', beacon.distance)
 						// beacon ที่อยู่ในร้าน ตรงกับ beacon ที่ร้านลงทะเบียน
 						if (this.storeCompleteRegistrationBeacon(beacon.uuid)) {
-							if (rssi < -80) {
+							if (rssi < -70)
 								this.state.identifierBeacon[beacon.uuid] = this.setDataEqualsIdentifierBeacon(beacon)
-							}
 						}
 					})
 					if (lengthOfKeyValue(this.state.identifierBeacon) >= 3) {
@@ -406,7 +404,15 @@ class ProductNavigationContainer extends React.Component {
 
 	interValCalculatePhonePosition = () => {
 		setTimeout(async () => {
-			if (this.state.enablePhonePosition) {
+			if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
+				beacon1 = this.state.identifierBeacon[beacon1.uuid]
+				beacon2 = this.state.identifierBeacon[beacon2.uuid]
+				beacon3 = this.state.identifierBeacon[beacon3.uuid]
+				console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
+				console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
+				console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
+				this.calculatePosition(beacon1, beacon2, beacon3)
+			} else if (this.state.enablePhonePosition) {
 				console.log('interval calulate')
 				let length = lengthOfKeyValue(this.state.identifierBeacon)
 				let identifierToArray = []
@@ -443,22 +449,21 @@ class ProductNavigationContainer extends React.Component {
 					beacon1 = tmpBeacon1
 					beacon2 = tmpBeacon2
 					beacon3 = tmpBeacon3
-					this.setState({ checkUpdateItentifierBeacon: this.state.identifierBeacon })
 					this.calculatePosition(beacon1, beacon2, beacon3)
 				}
-				this.state.enablePhonePosition && this.interValCalculatePhonePosition()
 			}
+			this.state.enablePhonePosition && this.interValCalculatePhonePosition()
 		}, 5000)
 	}
 
 	calculatePosition = (beacon1, beacon2, beacon3) => {
-		let rangeFromStartingPoint = 50 // Range max 200 => now 200/100 = each side 2 meter
-		// let radius1 = beacon1.distance.toFixed(2) / 100 * rangeFromStartingPoint
-		// let radius2 = beacon2.distance.toFixed(2) / 100 * rangeFromStartingPoint
-		// let radius3 = beacon3.distance.toFixed(2) / 100 * rangeFromStartingPoint
-		let radius1 = beacon1.distance.toFixed(2)
-		let radius2 = beacon2.distance.toFixed(2)
-		let radius3 = beacon3.distance.toFixed(2)
+		let rangeFromStartingPoint = 50 // Range max 200 => now 200/50 = each side 4 meter
+		let radius1 = beacon1.distance / 100 * rangeFromStartingPoint
+		let radius2 = beacon2.distance / 100 * rangeFromStartingPoint
+		let radius3 = beacon3.distance / 100 * rangeFromStartingPoint
+		// let radius1 = beacon1.distance.toFixed(2)
+		// let radius2 = beacon2.distance.toFixed(2)
+		// let radius3 = beacon3.distance.toFixed(2)
 		let p1x = beacon1.location.x
 		let p1y = beacon1.location.y
 		let p2x = beacon2.location.x
@@ -488,35 +493,37 @@ class ProductNavigationContainer extends React.Component {
 		// x = x * -1
 		// y = y * -1
 
-		if (x > -1 && x < 1) x = x - 1
-		if (y > -1 && y < 1) y = y - 0.8
+		// if (x > -1 && x < 1) x = x - 1
+		// if (y > -1 && y < 1) y = y - 0.8
+
 		console.log('x', x)
 		console.log('y', y)
+
 		if (x < -1) {
-			let R = Math.ceil(x)
+			let R = Math.round(x)
 			console.log('RX', R)
 			x = Math.abs(x - R)
 			console.log('After x', x)
 		} else if (x > 1) {
-			let R = Math.round(x)
+			let R = Math.ceil(x)
 			console.log('RX', R)
-			x = (x - R) * -1
+			x = x - R
 			console.log('After x', x)
 		} else {
 			// x = x - 1
-			if (x < 0) x = 1 - Math.abs(x)
-			else if (x > 0) x - 1
+			// if (x < 0) x = 1 - Math.abs(x)
+			// else if (x > 0) x - 1
 			console.log('After x', x)
 		}
 		if (y < -1) {
-			let R = Math.ceil(y)
+			let R = Math.round(y)
 			console.log('RY', R)
 			y = Math.abs(y - R)
 			console.log('After y', y)
 		} else if (y > 1) {
-			let R = Math.round(y)
+			let R = Math.ceil(y)
 			console.log('RY', R)
-			y = (y - R) * -1
+			y = y - R
 			console.log('After y', y)
 		} else {
 			// y = y - 0.8
@@ -529,13 +536,18 @@ class ProductNavigationContainer extends React.Component {
 			const Phone = this.state.canvasObj.ctx
 			let previousPhonePosition = this.state.phonePosition && this.state.phonePosition
 			if (previousPhonePosition) {
+				console.log('previous (' + previousPhonePosition.x + ',' + previousPhonePosition.y + ')')
+				console.log('larstest (' + x + ',' + y + ')')
+				console.log('between (' + (x - previousPhonePosition.x) + ',' + (y - previousPhonePosition.y) + ')')
+				let PreviousLocationX = canvasLocationScaleX(previousPhonePosition.x)
+				let PreviousLocationY = canvasLocationScaleY(previousPhonePosition.y)
 				Phone.fillStyle = BgCanvasColor
-				Phone.fillRect(previousPhonePosition.x, previousPhonePosition.y, 20, 20)
+				Phone.fillRect(PreviousLocationX, PreviousLocationY, 20, 20)
 			}
 
 			Phone.fillStyle = 'purple'
 			Phone.fillRect(PhoneLocationX, PhoneLocationY, 20, 20) //(offsetX,offSetY,sizeX,sizeY)
-			this.setState({ phonePosition: { x: PhoneLocationX, y: PhoneLocationY } })
+			this.setState({ phonePosition: { x: x, y: y } })
 		}
 	}
 

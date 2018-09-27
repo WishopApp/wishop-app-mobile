@@ -28,9 +28,9 @@ export const SearchStack = StackNavigator({
 })
 
 export const StoreStack = StackNavigator({
-	BeaconDetectStore: {
-		screen: BeaconDetectStoreScreen,
-	},
+	// BeaconDetectStore: {
+	// 	screen: BeaconDetectStoreScreen,
+	// },
 	StoreDetail: {
 		screen: StoreDetailScreen,
 	},

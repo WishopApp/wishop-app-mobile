@@ -16,6 +16,14 @@ const lengthOfKeyValue = arrayKeyValue => {
 	return num
 }
 
+const mapKeytoArray = keyValue => {
+	let array = []
+	for (let key in keyValue) {
+		array.push(keyValue[key])
+	}
+	return array
+}
+
 class StoreContainer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -45,11 +53,10 @@ class StoreContainer extends React.Component {
 			if (beacons.length > 0) {
 				beacons.forEach(beacon => {
 					let uuid = beacon.uuid
+					// console.log(uuid, '=>', beacon.major, '=>', beacon.minor)
 					// find not beacon Repeat
 					this.state.detectedBeacons[uuid] = beacon
-
 					if (!this.isDetected(uuid)) {
-						this.state.uuidUsed[uuid] = beacon
 						this._reRender()
 					}
 				})
@@ -93,13 +100,15 @@ class StoreContainer extends React.Component {
 						/>
 					</View>
 				</View>
-				{beacons ? beaconDetected(beacons, this.props, this.isDetected) : beaconDetecting()}
+				{beacons
+					? beaconDetected(mapKeytoArray(beacons), this.state.uuidUsed, this.props, this.isDetected)
+					: beaconDetecting()}
 			</View>
 		)
 	}
 }
 
-const beaconDetected = (beacons, props, isDetected) => {
+const beaconDetected = (beacons, uuidUsed, props, isDetected) => {
 	return (
 		<View style={styled.storeListContainer}>
 			<View style={[styled.topDescription]}>
@@ -109,14 +118,19 @@ const beaconDetected = (beacons, props, isDetected) => {
 			</View>
 			<View style={styled.scrollStore}>
 				<ScrollView contentContainerStyle={styled.alignContent}>
-					{beacons.map(beaconToken => {
+					{beacons.map((beacon, index) => {
+						let neverUsedUUID = !isDetected(beacon.uuid)
+						if (neverUsedUUID) uuidUsed[beacon.uuid] = beacon
+
 						return (
 							<View key={index}>
-								<StoreListByBeacon
-									beaconToken={beaconToken}
-									uuidUsed={isDetected(beaconToken)}
-									navigation={props.navigation}
-								/>
+								{neverUsedUUID && (
+									<StoreListByBeacon
+										uuid={beacon.uuid}
+										uuidUsed={neverUsedUUID}
+										navigation={props.navigation}
+									/>
+								)}
 							</View>
 						)
 					})}
