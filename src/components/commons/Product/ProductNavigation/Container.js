@@ -404,15 +404,17 @@ class ProductNavigationContainer extends React.Component {
 
 	interValCalculatePhonePosition = () => {
 		setTimeout(async () => {
-			if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
-				beacon1 = this.state.identifierBeacon[beacon1.uuid]
-				beacon2 = this.state.identifierBeacon[beacon2.uuid]
-				beacon3 = this.state.identifierBeacon[beacon3.uuid]
-				console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
-				console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
-				console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
-				this.calculatePosition(beacon1, beacon2, beacon3)
-			} else if (this.state.enablePhonePosition) {
+			// if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
+			// 	beacon1 = this.state.identifierBeacon[beacon1.uuid]
+			// 	beacon2 = this.state.identifierBeacon[beacon2.uuid]
+			// 	beacon3 = this.state.identifierBeacon[beacon3.uuid]
+			// 	console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
+			// 	console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
+			// 	console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
+
+			// 	this.calculatePosition(beacon1, beacon2, beacon3)
+			// } else
+			if (this.state.enablePhonePosition) {
 				console.log('interval calulate')
 				let length = lengthOfKeyValue(this.state.identifierBeacon)
 				let identifierToArray = []
@@ -458,12 +460,12 @@ class ProductNavigationContainer extends React.Component {
 
 	calculatePosition = (beacon1, beacon2, beacon3) => {
 		let rangeFromStartingPoint = 50 // Range max 200 => now 200/50 = each side 4 meter
-		let radius1 = beacon1.distance / 100 * rangeFromStartingPoint
-		let radius2 = beacon2.distance / 100 * rangeFromStartingPoint
-		let radius3 = beacon3.distance / 100 * rangeFromStartingPoint
-		// let radius1 = beacon1.distance.toFixed(2)
-		// let radius2 = beacon2.distance.toFixed(2)
-		// let radius3 = beacon3.distance.toFixed(2)
+		// let radius1 = beacon1.distance / 100 * rangeFromStartingPoint
+		// let radius2 = beacon2.distance / 100 * rangeFromStartingPoint
+		// let radius3 = beacon3.distance / 100 * rangeFromStartingPoint
+		let radius1 = beacon1.distance
+		let radius2 = beacon2.distance
+		let radius3 = beacon3.distance
 		let p1x = beacon1.location.x
 		let p1y = beacon1.location.y
 		let p2x = beacon2.location.x
@@ -498,38 +500,47 @@ class ProductNavigationContainer extends React.Component {
 
 		console.log('x', x)
 		console.log('y', y)
-
 		if (x < -1) {
-			let R = Math.round(x)
-			console.log('RX', R)
-			x = Math.abs(x - R)
-			console.log('After x', x)
+			if (Math.ceil(x) % 2 == 0) {
+				let R = Math.ceil(x)
+				x = x - R
+			} else {
+				let R = Math.round(x)
+				console.log('RX', R)
+				x = Math.abs(x - R)
+			}
 		} else if (x > 1) {
+			if (Math.floor(x) % 2 == 0) {
+				let R = Math.floor(x)
+				x = x - R
+			}
 			let R = Math.ceil(x)
 			console.log('RX', R)
 			x = x - R
-			console.log('After x', x)
-		} else {
-			// x = x - 1
-			// if (x < 0) x = 1 - Math.abs(x)
-			// else if (x > 0) x - 1
-			console.log('After x', x)
-		}
-		if (y < -1) {
-			let R = Math.round(y)
-			console.log('RY', R)
-			y = Math.abs(y - R)
-			console.log('After y', y)
-		} else if (y > 1) {
-			let R = Math.ceil(y)
-			console.log('RY', R)
-			y = y - R
-			console.log('After y', y)
-		} else {
-			// y = y - 0.8
-			console.log('After y', y)
 		}
 
+		if (y < -1) {
+			if (Math.ceil(y) % 2 == 0) {
+				let R = Math.ceil(y)
+				y = y - R
+			} else {
+				let R = Math.round(y)
+				console.log('RY', R)
+				y = Math.abs(y - R)
+			}
+		} else if (y > 1) {
+			if (Math.floor(y) % 2 == 0) {
+				let R = Math.floor(y)
+				y = y - R
+			} else {
+				let R = Math.ceil(y)
+				console.log('RY', R)
+				y = y - R
+			}
+		} else {
+		}
+		console.log('After x', x)
+		console.log('After y', y)
 		if (Number.isFinite(y) && (x >= -1 && x <= 1) && (y >= -1 && y <= 1)) {
 			let PhoneLocationX = canvasLocationScaleX(x)
 			let PhoneLocationY = canvasLocationScaleY(y)

@@ -7,17 +7,72 @@ export default class CustomImage extends React.Component {
 	}
 
 	loadImage = title => {
+		title = title && title.toLowerCase()
 		switch (title) {
-			case 'shoes':
-				return require('@images/shoes.png')
+			// Category
+			case 'men shirt':
+				return require('@icons/men shirt/men shirt.png')
+			case 'men shoes':
+				return require('@icons/men shoes/men shoes.png')
+			case 'men trousers':
+				return require('@icons/men trousers/men trousers.png')
+			case 'mobile tablet':
+				return require('@icons/mobile tablet/mobile tablet.png')
+			case 'women shoes':
+				return require('@icons/women shoes/women shoes.png')
+
+			//Subcategory
+
+			// Men shirt
+			case 'jacket':
+				return require('@icons/men shirt/jacket/jacket.png')
 			case 'shirt':
-				return require('@images/shirt.png')
-			case 'shirt-selected':
-				return require('@images/shirt-selected.png')
-			case 'pikachu':
-				return require('@images/pikachu.png')
-			case 'store-icon':
-				return require('@images/store_default.png')
+				return require('@icons/men shirt/shirt/shirt.png')
+			case 'suit':
+				return require('@icons/men shirt/suit/suit.png')
+			case 't-shirt':
+				return require('@icons/men shirt/t-shirt/t-shirt.png')
+			case 'under shirt':
+				return require('@icons/men shirt/under shirt/under shirt.png')
+
+			// Men shoes
+			case 'leather shoes':
+				return require('@icons/men shoes/leather shoes/leather shoes.png')
+			case 'slipper':
+				return require('@icons/men shoes/slipper/slipper.png')
+			case 'sneakers':
+				return require('@icons/men shoes/sneakers/sneakers.png')
+			case 'slipper':
+				return require('@icons/men shoes/sport/sport.png')
+
+			//men trousers
+			case 'underpants':
+				return require('@icons/men trousers/long trousers/long trousers.png')
+			case 'underpants':
+				return require('@icons/men trousers/short trousers/short trousers.png')
+			case 'underpants':
+				return require('@icons/men trousers/underpants/underpants.png')
+
+			// Mobile Tablet
+			case 'smart phone':
+				return require('@icons/mobile tablet/smart phone/smart phone.png')
+			case 'tablet':
+				return require('@icons/mobile tablet/tablet/tablet.png')
+
+			// women shoes
+
+			case 'high heels':
+				return require('@icons/women shoes/high heels/high heels.png')
+			case 'leather shoes':
+				return require('@icons/women shoes/leather shoes/leather shoes.png')
+			case 'slipper':
+				return require('@icons/women shoes/slipper/slipper.png')
+			case 'sneakers':
+				return require('@icons/women shoes/sneakers/sneakers.png')
+			case 'sport':
+				return require('@icons/women shoes/sport/sport.png')
+
+			// Other Icon
 			case 'beacon-icon':
 				return require('@icons/signal.png')
 			case 'wishlist-hover-icon':
@@ -26,6 +81,10 @@ export default class CustomImage extends React.Component {
 				return require('@icons/cancel.png')
 			case 'search-large-icon':
 				return require('@icons/search_large.png')
+			case 'pikachu':
+				return require('@images/pikachu.png')
+			case 'store-icon':
+				return require('@images/store_default.png')
 		}
 	}
 

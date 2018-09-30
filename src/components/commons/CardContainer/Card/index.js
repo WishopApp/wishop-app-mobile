@@ -37,13 +37,14 @@ class CategoryCard extends React.Component {
 				style={[styled.card, this.isSelected() && StyledSelected.background]}
 				onPress={this.selected}
 			>
-				<CustomImage style={styled.imageSize} title={this.isSelected() ? 'shirt-selected' : 'shirt'} />
+				<CustomImage style={styled.imageSize} title={this.isSelected() ? name : name} />
 				<Text style={[StyledConstants.FONT_DESCRIPTION, this.isSelected() && StyledSelected.text]}>{name}</Text>
 			</TouchableOpacity>
 		)
 	}
 }
-
+// <CustomImage style={styled.imageSize} title={this.isSelected() ? name + '-active' : name} />
+// <CustomImage style={styled.imageSize} title={this.isSelected() ? 'shirt-active' : 'shirt'} />
 const styled = StyleSheet.create({
 	card: {
 		width: 165,

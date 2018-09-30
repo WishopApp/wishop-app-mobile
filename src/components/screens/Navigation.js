@@ -28,9 +28,9 @@ export const SearchStack = StackNavigator({
 })
 
 export const StoreStack = StackNavigator({
-	// BeaconDetectStore: {
-	// 	screen: BeaconDetectStoreScreen,
-	// },
+	BeaconDetectStore: {
+		screen: BeaconDetectStoreScreen,
+	},
 	StoreDetail: {
 		screen: StoreDetailScreen,
 	},
@@ -59,18 +59,18 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
-			navigationOptions: {
-				tabBarLabel: 'Home',
-			},
-		},
-		StoreDetail: {
-			screen: StoreStack,
-			navigationOptions: {
-				tabBarLabel: 'Store',
-			},
-		},		
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		// 	},
+		// },
+		// StoreDetail: {
+		// 	screen: MywishlistStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Store',
+		// 	},
+		// },
 		Search: {
 			screen: SearchStack,
 			navigationOptions: {
