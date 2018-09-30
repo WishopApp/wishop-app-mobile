@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavigationActions } from 'react-navigation'
 import ProductNavigationContainer from '@commons/Product/ProductNavigation/Container'
+// import ProductNavigationContainer from '@commons/Product/ProductNavigation/Container_phone_center'
 
 class ProductNavigationContainerScreen extends React.Component {
 	constructor(props) {

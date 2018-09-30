@@ -53,20 +53,13 @@ class Categories extends React.Component {
 	render() {
 		let { type, selectedId } = this.state.cardSelected
 		let { loading, error, categories } = this.props.data
-		console.log(this.props.data)
-		// if (loading) {
-		// 	return (
-		// 		<View>
-		// 			<Text>Loading</Text>
-		// 		</View>
-		// 	)
-		// }
-		if (error) {
+		if (loading) {
 			return (
 				<View>
-					<Text>{JSON.stringify(error)}</Text>
+					<Text>Loading</Text>
 				</View>
 			)
+		}
 		if (error)
 			return (
 				<View>
@@ -101,26 +94,6 @@ class Categories extends React.Component {
 	}
 }
 
-// <View style={styled.container}>
-// {cardContainerStack.map((categories, index) => {
-// 	return (
-// 		<View style={styled.cardContainer} key={index}>
-// 			{categories.map((category, index) => {
-// 				return (
-// 					<Card
-// 						key={`Category-${category.name}-${index}`}
-// 						id={category._id}
-// 						categorySelected={this.categorySelected}
-// 						selectedId={selectedId}
-// 						type={type}
-// 						data={category}
-// 					/>
-// 				)
-// 			})}
-// 		</View>
-// 	)
-// })}
-// </View>
 const CategoriesContainer = graphql(QueryCategories)(Categories)
 
 const styled = StyleSheet.create({

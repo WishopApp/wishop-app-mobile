@@ -47,10 +47,6 @@ class StoreDetailContainer extends React.Component {
 	render() {
 		return (
 			<ScrollView>
-				<Button
-					onPress={() => this.props.navigation.navigate('ProductNavigation')}
-					title="test product navigation button{' '}"
-				/>
 				<View style={styled.coverStoreContainer}>
 					<Image
 						style={styled.coverStoreImage}

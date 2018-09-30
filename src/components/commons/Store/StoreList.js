@@ -16,6 +16,7 @@ class StoreList extends React.Component {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
+		console.log(this.props)
 		let storeBranch = data ? data.searchStoreBranchFromBeacon : undefined
 		let shouldCheck = this.props.uuidUsed // compare with wishlist
 		return (
