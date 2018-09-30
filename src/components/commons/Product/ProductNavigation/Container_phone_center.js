@@ -24,141 +24,156 @@ let beacon1 = null
 let beacon2 = null
 let beacon3 = null
 const data = [
+	// {
+	// 	storeId: '1',
+	// 	beaconName: 'apollo5',
+	// 	type: 'indoor',
+	// 	location: {
+	// 		x: -1,
+	// 		y: 1,
+	// 	},
+	// 	region: {
+	// 		identifier: 'Estimotes',
+	// 		uuid: '300faf4f-992d-4e31-97d5-0e70cf1ee135',
+	// 		major: 0,
+	// 		minor: 0,
+	// 	},
+	// },
+	// {
+	// 	storeId: '1',
+	// 	beaconName: 'apollo6',
+	// 	type: 'indoor',
+	// 	location: {
+	// 		x: 1,
+	// 		y: 1,
+	// 	},
+	// 	region: {
+	// 		identifier: 'Estimotes',
+	// 		uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
+	// 		major: 0,
+	// 		minor: 0,
+	// 	},
+	// },
+	// {
+	// 	storeId: '1',
+	// 	beaconName: 'apollo7',
+	// 	type: 'indoor',
+	// 	location: {
+	// 		x: -1,
+	// 		y: -1,
+	// 	},
+	// 	region: {
+	// 		identifier: 'Estimotes',
+	// 		uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
+	// 		major: 0,
+	// 		minor: 0,
+	// 	},
+	// },
+	// {
+	// 	storeId: null,
+	// 	beaconName: null,
+	// 	type: 'indoor',
+	// 	location: {
+	// 		x: 1,
+	// 		y: -1,
+	// 	},
+	// 	region: {
+	// 		identifier: 'Estimotes',
+	// 		uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
+	// 		major: 0,
+	// 		minor: 0,
+	// 	},
+	// },
 	{
-		storeId: '1',
-		beaconName: 'apollo5',
-		type: 'indoor',
+		storeId: null,
+		beaconName: 'product B',
+		type: 'sticker',
 		location: {
-			x: -1,
-			y: 1,
+			x: 0.2,
+			y: 0.1,
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: '300faf4f-992d-4e31-97d5-0e70cf1ee135',
-			major: 0,
-			minor: 0,
-		},
-	},
-	{
-		storeId: '1',
-		beaconName: 'apollo6',
-		type: 'indoor',
-		location: {
-			x: 1,
-			y: 1,
-		},
-		region: {
-			identifier: 'Estimotes',
-			uuid: '56f6ffff-00a7-446d-af84-55859d7a5bf8',
-			major: 0,
-			minor: 0,
-		},
-	},
-	{
-		storeId: '1',
-		beaconName: 'apollo7',
-		type: 'indoor',
-		location: {
-			x: -1,
-			y: -1,
-		},
-		region: {
-			identifier: 'Estimotes',
-			uuid: '41bc5e48-65f8-40e3-874c-786ce4013d50',
+			uuid: 'aa1',
 			major: 0,
 			minor: 0,
 		},
 	},
 	{
 		storeId: null,
-		beaconName: null,
-		type: 'indoor',
+		beaconName: 'product B',
+		type: 'sticker',
 		location: {
-			x: 1,
-			y: -1,
+			x: 0.7,
+			y: 0.5,
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
+			uuid: 'aa2',
 			major: 0,
 			minor: 0,
 		},
 	},
-	// {
-	// 	storeId: null,
-	// 	beaconName: 'product B',
-	// 	type: 'sticker',
-	// 	location: {
-	// 		x: 0,
-	// 		y: 0,
-	// 	},
-	// 	region: {
-	// 		identifier: 'Estimotes',
-	// 		uuid: 'aa2',
-	// 		major: 0,
-	// 		minor: 0,
-	// 	},
-	// },
-	// {
-	// 	storeId: null,
-	// 	beaconName: 'product B',
-	// 	type: 'sticker',
-	// 	location: {
-	// 		x: 0.5,
-	// 		y: 0.5,
-	// 	},
-	// 	region: {
-	// 		identifier: 'Estimotes',
-	// 		uuid: 'aa2',
-	// 		major: 0,
-	// 		minor: 0,
-	// 	},
-	// },
-	// {
-	// 	storeId: null,
-	// 	beaconName: 'product C',
-	// 	type: 'sticker',
-	// 	location: {
-	// 		x: -0.5,
-	// 		y: 0.5,
-	// 	},
-	// 	region: {
-	// 		identifier: 'Estimotes',
-	// 		uuid: 'aa3',
-	// 		major: 0,
-	// 		minor: 0,
-	// 	},
-	// },
-	// {
-	// 	storeId: null,
-	// 	beaconName: 'product D',
-	// 	type: 'sticker',
-	// 	location: {
-	// 		x: 0.5,
-	// 		y: -0.5,
-	// 	},
-	// 	region: {
-	// 		identifier: 'Estimotes',
-	// 		uuid: 'aa4',
-	// 		major: 0,
-	// 		minor: 0,
-	// 	},
-	// },
-	// {
-	// 	storeId: null,
-	// 	beaconName: 'product D',
-	// 	type: 'sticker',
-	// 	location: {
-	// 		x: -0.5,
-	// 		y: -0.5,
-	// 	},
-	// 	region: {
-	// 		identifier: 'Estimotes',
-	// 		uuid: 'aa4',
-	// 		major: 0,
-	// 		minor: 0,
-	// 	},
-	// },
+	{
+		storeId: null,
+		beaconName: 'product C',
+		type: 'sticker',
+		location: {
+			x: -0.5,
+			y: -0.5,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa3',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product D',
+		type: 'sticker',
+		location: {
+			x: 0.2,
+			y: -0.8,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa4',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product D',
+		type: 'sticker',
+		location: {
+			x: -0.6,
+			y: -0.9,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa5',
+			major: 0,
+			minor: 0,
+		},
+	},
+	{
+		storeId: null,
+		beaconName: 'product D',
+		type: 'sticker',
+		location: {
+			x: -0.5,
+			y: 0.9,
+		},
+		region: {
+			identifier: 'Estimotes',
+			uuid: 'aa6',
+			major: 0,
+			minor: 0,
+		},
+	},
 ]
 
 const setCanvas = (canvas, ctx) => {
@@ -237,6 +252,7 @@ class ProductNavigationContainer extends React.Component {
 			beaconIndoorLocation: [], // ตัว type indoor and sticker  สุดท้ายค่าจะเท่ากับตัว identifier beacon
 			storeBeaconByKey: [],
 			identifierBeacon: [],
+			previousBeacon: [],
 			canvasObj: {
 				canvas: null,
 				ctx: null,
@@ -245,9 +261,9 @@ class ProductNavigationContainer extends React.Component {
 			enablePhonePosition: false,
 		}
 		this._renderCanvas = this._renderCanvas.bind(this)
-		this.setDataEqualsIdentifierBeacon = this.setDataEqualsIdentifierBeacon.bind(this)
-		this.storeCompleteRegistrationBeacon = this.storeCompleteRegistrationBeacon.bind(this)
-		this.calculatePosition = this.calculatePosition.bind(this)
+		// this.setDataEqualsIdentifierBeacon = this.setDataEqualsIdentifierBeacon.bind(this)
+		// this.storeCompleteRegistrationBeacon = this.storeCompleteRegistrationBeacon.bind(this)
+		// this.calculatePosition = this.calculatePosition.bind(this)
 		// this.foundBeaconLocation = this.foundBeaconLocation.bind(this)
 		if (data.length != 0) {
 			this.state.beaconIndoorLocation = data
@@ -260,9 +276,9 @@ class ProductNavigationContainer extends React.Component {
 	componentWillMount() {}
 
 	componentDidMount() {
-		this.startingBeaconSignal()
+		// this.startingBeaconSignal()
 	}
-
+	/*
 	startingBeaconSignal = async () => {
 		CustomBeacon.enableBeacon()
 		CustomBeacon.stopRangingInRegion('ProductNavigation')
@@ -291,7 +307,7 @@ class ProductNavigationContainer extends React.Component {
 					data.beacons.forEach(beacon => {
 						let uuid = beacon.uuid
 						let rssi = beacon.rssi
-						console.log('ranging', beacon.uuid, '=>', rssi, '=>', beacon.distance)
+						// console.log('ranging', beacon.uuid, '=>', rssi, '=>', beacon.distance)
 						// beacon ที่อยู่ในร้าน ตรงกับ beacon ที่ร้านลงทะเบียน
 						if (this.storeCompleteRegistrationBeacon(beacon.uuid)) {
 							if (rssi < -70)
@@ -310,7 +326,8 @@ class ProductNavigationContainer extends React.Component {
 			console.log(`Beacons ranging not started, error: ${error}`)
 		}
 	}
-
+*/
+	/*	
 	setDataEqualsIdentifierBeacon = identifierBeacon => {
 		identifierBeacon.location = this.state.storeBeaconByKey[identifierBeacon.uuid].location
 		identifierBeacon.type = this.state.storeBeaconByKey[identifierBeacon.uuid].type
@@ -323,12 +340,24 @@ class ProductNavigationContainer extends React.Component {
 		let beacon = this.state.storeBeaconByKey[UUIDBeaconIdentifier]
 		return beacon ? true : false
 	}
-
+*/
 	initCanvas = async canvas => {
 		const ctx = canvas.getContext('2d')
 		canvas.width = Viewport.width
 		canvas.height = Viewport.height
 		await this.setState({ canvasObj: setCanvas(canvas, ctx) })
+	}
+
+	mockDistance = stickerBeacon => {
+		// ซ้ายสุด ถึงขวาสุด 20 เมตร
+		let x1 = 0
+		let y1 = 0
+		let x2 = stickerBeacon.location.x
+		let y2 = stickerBeacon.location.y
+		let d = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) * 10
+		let scaleCanvasDistancePerBeacon = d * 5 / 100
+		stickerBeacon.distance = d
+		stickerBeacon.scaleCanvasDistance = scaleCanvasDistancePerBeacon
 	}
 
 	_renderCanvas = async canvas => {
@@ -354,8 +383,17 @@ class ProductNavigationContainer extends React.Component {
 					BgCanvas.fillStyle = 'red'
 					BgCanvas.fillRect(posX, posY, 10, 10)
 					this.setState({ canvasObj: setCanvas(this.state.canvasObj.canvas, BgCanvas) })
+					// mock instead detect
+					// this.identifierBeacon[uuid] = storeBeacon
+					BgCanvas.fillStyle = 'purple'
+					BgCanvas.fillRect(canvasLocationScaleX(0), canvasLocationScaleY(0), 20, 20)
+					this.setState({ phonePosition: { x: 0, y: 0 } })
+					this.state.previousBeacon[uuid] = storeBeacon
+					this.mockDistance(storeBeacon)
 				}
 			})
+
+			console.log(this.state.previousBeacon)
 
 			// Create cover Line
 			let beaconsLine = canvasBeacons // value node beacon => slope ที่ขนานกับ node อื่นๆ
@@ -395,6 +433,7 @@ class ProductNavigationContainer extends React.Component {
 			resolve(true)
 		})
 			.then(canvasBeacons => {
+				this.calculateInterval()
 				console.log('create map success')
 			})
 			.catch(reject => {
@@ -402,153 +441,18 @@ class ProductNavigationContainer extends React.Component {
 			})
 	}
 
-	interValCalculatePhonePosition = () => {
-		setTimeout(async () => {
-			if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
-				beacon1 = this.state.identifierBeacon[beacon1.uuid]
-				beacon2 = this.state.identifierBeacon[beacon2.uuid]
-				beacon3 = this.state.identifierBeacon[beacon3.uuid]
-				console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
-				console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
-				console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
-				this.calculatePosition(beacon1, beacon2, beacon3)
-			} else if (this.state.enablePhonePosition) {
-				console.log('interval calulate')
-				let length = lengthOfKeyValue(this.state.identifierBeacon)
-				let identifierToArray = []
-				for (let key in this.state.identifierBeacon) {
-					let beacon = this.state.identifierBeacon[key]
-					if (beacon.type.toLowerCase() === 'indoor') {
-						identifierToArray.push(beacon)
-					}
-				}
-				if (identifierToArray.length >= 3) {
-					await identifierToArray.sort(compare)
-					identifierToArray.forEach(item => {
-						console.log(item.uuid, '=>', item.distance)
-					})
-					let tmpBeacon1 = identifierToArray.shift()
-					let tmpBeacon2 = identifierToArray.shift()
-					let tmpBeacon3 = identifierToArray.pop()
-					let yAxisEqualZero = true
-					do {
-						console.log('yAxis', tmpBeacon3.location.y - tmpBeacon1.location.y)
-						if (tmpBeacon3.location.y - tmpBeacon1.location.y != 0) {
-							yAxisEqualZero = false
-						} else {
-							if (identifierToArray.length > 0) {
-								tmpBeacon3 = identifierToArray.pop()
-							} else {
-								let tmpBeacon = tmpBeacon3
-								tmpBeacon3 = tmpBeacon2
-								tmpBeacon2 = tmpBeacon
-							}
-							yAxisEqualZero = false
-						}
-					} while (yAxisEqualZero)
-					beacon1 = tmpBeacon1
-					beacon2 = tmpBeacon2
-					beacon3 = tmpBeacon3
-					this.calculatePosition(beacon1, beacon2, beacon3)
-				}
-			}
-			this.state.enablePhonePosition && this.interValCalculatePhonePosition()
-		}, 5000)
-	}
-
-	calculatePosition = (beacon1, beacon2, beacon3) => {
-		let rangeFromStartingPoint = 50 // Range max 200 => now 200/50 = each side 4 meter
-		let radius1 = beacon1.distance / 100 * rangeFromStartingPoint
-		let radius2 = beacon2.distance / 100 * rangeFromStartingPoint
-		let radius3 = beacon3.distance / 100 * rangeFromStartingPoint
-		// let radius1 = beacon1.distance.toFixed(2)
-		// let radius2 = beacon2.distance.toFixed(2)
-		// let radius3 = beacon3.distance.toFixed(2)
-		let p1x = beacon1.location.x
-		let p1y = beacon1.location.y
-		let p2x = beacon2.location.x
-		let p2y = beacon2.location.y
-		let p3x = beacon3.location.x
-		let p3y = beacon3.location.y
-
-		console.log('distance1', beacon1.distance, '=>', radius1, '=>', beacon1.uuid)
-		console.log('distance2', beacon2.distance, '=>', radius2, '=>', beacon2.uuid)
-		console.log('distance3', beacon3.distance, '=>', radius3, '=>', beacon3.uuid)
-
-		/// d คือ ระยะห่างระหว่าง beacon ตัวที่ 1 กับ บีคอนตัวที่ 2
-		let d = Math.sqrt(Math.pow(p2x - p1x, 2) + Math.pow(p2y - p1y, 2))
-		console.log('d', d)
-
-		//  i,j คือ ระยะห่างจุดพิกัด (x,y) ของบีคอนตัวที่ 3 กับตัวที่ 1
-		let i = p3x - p1x
-		let j = p3y - p1y
-		console.log('i', i)
-		console.log('j', j)
-
-		// x , y ของมือถือ
-		let x = (Math.pow(radius1, 2) - Math.pow(radius2, 2) + Math.pow(d, 2)) / (2 * d)
-
-		let y = (Math.pow(radius1, 2) - Math.pow(radius3, 2) + Math.pow(i, 2) + Math.pow(j, 2)) / (2 * j) - i / j * x
-
-		// x = x * -1
-		// y = y * -1
-
-		// if (x > -1 && x < 1) x = x - 1
-		// if (y > -1 && y < 1) y = y - 0.8
-
-		console.log('x', x)
-		console.log('y', y)
-
-		if (x < -1) {
-			let R = Math.round(x)
-			console.log('RX', R)
-			x = Math.abs(x - R)
-			console.log('After x', x)
-		} else if (x > 1) {
-			let R = Math.ceil(x)
-			console.log('RX', R)
-			x = x - R
-			console.log('After x', x)
-		} else {
-			// x = x - 1
-			// if (x < 0) x = 1 - Math.abs(x)
-			// else if (x > 0) x - 1
-			console.log('After x', x)
-		}
-		if (y < -1) {
-			let R = Math.round(y)
-			console.log('RY', R)
-			y = Math.abs(y - R)
-			console.log('After y', y)
-		} else if (y > 1) {
-			let R = Math.ceil(y)
-			console.log('RY', R)
-			y = y - R
-			console.log('After y', y)
-		} else {
-			// y = y - 0.8
-			console.log('After y', y)
-		}
-
-		if (Number.isFinite(y) && (x >= -1 && x <= 1) && (y >= -1 && y <= 1)) {
-			let PhoneLocationX = canvasLocationScaleX(x)
-			let PhoneLocationY = canvasLocationScaleY(y)
-			const Phone = this.state.canvasObj.ctx
-			let previousPhonePosition = this.state.phonePosition && this.state.phonePosition
-			if (previousPhonePosition) {
-				console.log('previous (' + previousPhonePosition.x + ',' + previousPhonePosition.y + ')')
-				console.log('larstest (' + x + ',' + y + ')')
-				console.log('between (' + (x - previousPhonePosition.x) + ',' + (y - previousPhonePosition.y) + ')')
-				let PreviousLocationX = canvasLocationScaleX(previousPhonePosition.x)
-				let PreviousLocationY = canvasLocationScaleY(previousPhonePosition.y)
-				Phone.fillStyle = BgCanvasColor
-				Phone.fillRect(PreviousLocationX, PreviousLocationY, 20, 20)
-			}
-
-			Phone.fillStyle = 'purple'
-			Phone.fillRect(PhoneLocationX, PhoneLocationY, 20, 20) //(offsetX,offSetY,sizeX,sizeY)
-			this.setState({ phonePosition: { x: x, y: y } })
-		}
+	calculateInterval = () => {
+		let mockKeyAboveGraphX = ['aa1', 'aa2', 'aa6']
+		let mockKeyUnderGraphX = ['aa3', 'aa4', 'aa5']
+		mockKeyAboveGraphX.forEach(item => {
+			let d = item.distance - item.scaleCanvasDistance
+			let x = item.location.x
+			let y = item.location.y
+			let NewX = Math.sqrt(Math.pow(d, 2)) // y = 0
+		})
+		mockKeyAboveGraphX.forEach(item => {
+			item.distance = item.distance - item.scaleCanvasDistance
+		})
 	}
 
 	render() {

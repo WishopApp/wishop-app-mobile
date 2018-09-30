@@ -37,21 +37,21 @@ export const StoreStack = StackNavigator({
 })
 
 export const MywishlistStack = StackNavigator({
-	Wishlist: {
-		screen: WishlistScreen,
-		navigationOptions: {
-			title: 'W I S H L I S T',
-		},
-	},
-	WishlistDetail: {
-		screen: WishlistDetailScreen,
-		navigationOptions: {
-			title: ' W I S H L I S T   D E T A I L',
-		},
-	},
-	ProductDetail: {
-		screen: ProductDetailScreen,
-	},
+	// Wishlist: {
+	// 	screen: WishlistScreen,
+	// 	navigationOptions: {
+	// 		title: 'W I S H L I S T',
+	// 	},
+	// },
+	// WishlistDetail: {
+	// 	screen: WishlistDetailScreen,
+	// 	navigationOptions: {
+	// 		title: ' W I S H L I S T   D E T A I L',
+	// 	},
+	// },
+	// ProductDetail: {
+	// 	screen: ProductDetailScreen,
+	// },
 	ProductNavigation: {
 		screen: ProductNavigationScreen,
 	},
@@ -59,36 +59,42 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
+		Home: {
+			screen: HomeStack,
+			navigationOptions: {
+				tabBarLabel: 'Home',
+			},
+		},
+		// StoreDetail: {
+		// 	screen: StoreStack,
 		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
+		// 		tabBarLabel: 'Store',
 		// 	},
-		// },
-		StoreDetail: {
-			screen: StoreStack,
-			navigationOptions: {
-				tabBarLabel: 'Store',
-			},
-		},
-		Search: {
-			screen: SearchStack,
-			navigationOptions: {
-				tabBarLabel: 'Search',
-			},
-		},
-		Store: {
-			screen: StoreStack,
-			navigationOptions: {
-				tabBarLabel: 'Store',
-			},
-		},
-		Wishlist: {
+		// },		/
+		ProductNavigation: {
 			screen: MywishlistStack,
 			navigationOptions: {
-				tabBarLabel: 'Wishlist',
+				tabBarLabel: 'Navigation',
 			},
 		},
+		// Search: {
+		// 	screen: SearchStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Search',
+		// 	},
+		// },
+		// Store: {
+		// 	screen: StoreStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Store',
+		// 	},
+		// },
+		// Wishlist: {
+		// 	screen: MywishlistStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Wishlist',
+		// 	},
+		// },
 	},
 	{
 		tabBarPosition: 'bottom',

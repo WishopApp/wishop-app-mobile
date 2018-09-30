@@ -62,7 +62,7 @@ class Categories extends React.Component {
 		if (error)
 			return (
 				<View>
-					<Text>Error</Text>
+					<Text>{JSON.stringify(error)}</Text>
 				</View>
 			)
 		let cardContainerStack = this.InitialCardStack(categories)
