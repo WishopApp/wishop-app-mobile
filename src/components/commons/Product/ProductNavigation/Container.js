@@ -265,7 +265,7 @@ class ProductNavigationContainer extends React.Component {
 
 	startingBeaconSignal = async () => {
 		CustomBeacon.enableBeacon()
-		CustomBeacon.stopRangingInRegion('ProductNavigation')
+		// CustomBeacon.stopRangingInRegion('ProductNavigation')
 		try {
 			let region = 'ProductNavigation'
 			// Monitoring Sticker

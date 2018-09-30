@@ -37,21 +37,21 @@ export const StoreStack = StackNavigator({
 })
 
 export const MywishlistStack = StackNavigator({
-	// Wishlist: {
-	// 	screen: WishlistScreen,
-	// 	navigationOptions: {
-	// 		title: 'W I S H L I S T',
-	// 	},
-	// },
-	// WishlistDetail: {
-	// 	screen: WishlistDetailScreen,
-	// 	navigationOptions: {
-	// 		title: ' W I S H L I S T   D E T A I L',
-	// 	},
-	// },
-	// ProductDetail: {
-	// 	screen: ProductDetailScreen,
-	// },
+	Wishlist: {
+		screen: WishlistScreen,
+		navigationOptions: {
+			title: 'W I S H L I S T',
+		},
+	},
+	WishlistDetail: {
+		screen: WishlistDetailScreen,
+		navigationOptions: {
+			title: ' W I S H L I S T   D E T A I L',
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
 	ProductNavigation: {
 		screen: ProductNavigationScreen,
 	},
@@ -65,36 +65,24 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Home',
 			},
 		},
-		// StoreDetail: {
-		// 	screen: StoreStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Store',
-		// 	},
-		// },		/
-		ProductNavigation: {
-			screen: MywishlistStack,
+		StoreDetail: {
+			screen: StoreStack,
 			navigationOptions: {
-				tabBarLabel: 'Navigation',
+				tabBarLabel: 'Store',
+			},
+		},		
+		Search: {
+			screen: SearchStack,
+			navigationOptions: {
+				tabBarLabel: 'Search',
 			},
 		},
-		// Search: {
-		// 	screen: SearchStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Search',
-		// 	},
-		// },
-		// Store: {
-		// 	screen: StoreStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Store',
-		// 	},
-		// },
-		// Wishlist: {
-		// 	screen: MywishlistStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Wishlist',
-		// 	},
-		// },
+		Wishlist: {
+			screen: MywishlistStack,
+			navigationOptions: {
+				tabBarLabel: 'Wishlist',
+			},
+		},
 	},
 	{
 		tabBarPosition: 'bottom',

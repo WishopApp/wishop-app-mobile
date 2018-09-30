@@ -3,7 +3,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const client = new ApolloClient({
-	link: new HttpLink({ uri: 'https://api.graph.cool/simple/v1/cixos23120m0n0173veiiwrjr' }),
+	link: new HttpLink({ uri: 'https://dev-api-wishopapp.tk/graphql' }),
 	cache: new InMemoryCache(),
 })
 
