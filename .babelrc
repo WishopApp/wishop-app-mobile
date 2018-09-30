@@ -1,48 +1,20 @@
 {
-  "presets": [
-    "babel-preset-react-native-stage-0/decorator-support"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        "transform-react-jsx-source"
-      ]
-    }
-  },
-  "plugins": [
-    "graphql-tag",
-    [
-      "module-alias",
-      [
-        {
-          "src": "./",
-          "expose": "@apps"
-        },
-        {
-          "src": "./src/components/commons",
-          "expose": "@commons"
-        },
-        {
-          "src": "./src/components/utils",
-          "expose": "@utils"
-        },
-        {
-          "src": "./src/components/screens",
-          "expose": "@screens"
-        },
-        {
-          "src": "./src/constants",
-          "expose": "@constants"
-        },
-        {
-          "src": "./assets/icons",
-          "expose": "@icons"
-        },
-        {
-          "src": "./assets/images",
-          "expose": "@images"
-        }
-      ]
-    ]
-  ]
+	"presets": ["react-native", "babel-preset-react-native-stage-0/decorator-support"],
+	"plugins": [
+		"graphql-tag",
+		"transform-react-jsx-source",
+		[
+			"babel-plugin-module-alias",
+			[
+				{ "src": "./src/ApolloClient", "expose": "@apollo-client" },
+				{ "src": "./src/components/commons", "expose": "@commons" },
+				{ "src": "./src/components/commons/Custom", "expose": "@custom" },
+				{ "src": "./src/components/utils", "expose": "@utils" },
+				{ "src": "./src/components/screens", "expose": "@screens" },
+				{ "src": "./src/constants", "expose": "@constants" },
+				{ "src": "./assets/icons", "expose": "@icons" },
+				{ "src": "./assets/images", "expose": "@images" }
+			]
+		]
+	]
 }

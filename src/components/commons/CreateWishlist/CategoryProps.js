@@ -24,24 +24,16 @@ class CategoryPropsRenderer extends React.Component {
 
 	render() {
 		let styled = this.props.styled
-		let {
-			loading,
-			error,
-			data,
-			getCategoryPropValue,
-			setCategoryPropValue,
-			eachCategoryPropValues,
-			categoryId,
-		} = this.props
+		let { loading, error, data, setCategoryPropValue, eachCategoryPropValues, categoryId } = this.props
 		let categoryProps = data.categoryProps
 		if (loading) return <Text>Loading</Text>
 		if (error) return <Text>Error</Text>
 		return (
-			<View style={styled.containerProps}>
+			<View>
 				{categoryProps != undefined
 					? categoryProps.map((property, index) => {
 							return (
-								<View style={styled.inputContainer} key={index}>
+								<View style={[styled.inputContainer, styled.inputPropsContainer]} key={index}>
 									<TouchableOpacity
 										activeOpacity={1}
 										style={[StyledConstants.MAX_WIDTH_BUTTON, styled.categoryProps]}

@@ -2,27 +2,18 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, ScrollView } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { Button } from 'react-native-elements'
+import CustomImage from '@custom/Image'
 
 class SearchByWishlistContainer extends React.Component {
 	constructor(props) {
 		super(props)
 	}
 
-	componentDidMount() {
-		this.setStatus()
-	}
-
-	setStatus = () => {
-		setTimeout(() => {
-			this.props.setStatus('Product')
-		}, 1000)
-	}
-
 	render() {
 		return (
 			<View style={styled.container}>
 				<View style={styled.searching}>
-					<Image style={styled.searchingImage} source={require('@icons/search_large.png')} />
+					<CustomImage style={styled.searchingImage} title="search-large-icon" />
 					<Text style={StyledConstants.FONT_TOPIC}>S E A R C H I N G . . . {'\n'}</Text>
 					<Text style={StyledConstants.FONT_DESCIPTION}>We looking for your product</Text>
 					<Text style={StyledConstants.FONT_DESCIPTION}>

@@ -53,16 +53,17 @@ class Categories extends React.Component {
 	render() {
 		let { type, selectedId } = this.state.cardSelected
 		let { loading, error, categories } = this.props.data
-		if (loading)
+		if (loading) {
 			return (
 				<View>
 					<Text>Loading</Text>
 				</View>
 			)
+		}
 		if (error)
 			return (
 				<View>
-					<Text>Error</Text>
+					<Text>{JSON.stringify(error)}</Text>
 				</View>
 			)
 		let cardContainerStack = this.InitialCardStack(categories)
@@ -101,11 +102,10 @@ const styled = StyleSheet.create({
 		paddingBottom: '4%',
 	},
 	cardContainer: {
-		height: 150,
 		display: 'flex',
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'flex-start',
+		justifyContent: 'space-around',
 		marginTop: '6.75%',
 	},
 })

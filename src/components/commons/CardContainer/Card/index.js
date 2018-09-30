@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
+import CustomImage from '@custom/Image'
 
 class CategoryCard extends React.Component {
 	constructor(props) {
@@ -36,31 +37,29 @@ class CategoryCard extends React.Component {
 				style={[styled.card, this.isSelected() && StyledSelected.background]}
 				onPress={this.selected}
 			>
-				<Image
-					style={styled.imageSize}
-					source={this.isSelected() ? require('@images/shirt-selected.png') : require('@images/shirt.png')}
-				/>
-				<Text style={[StyledConstants.FONT_TOPIC, this.isSelected() && StyledSelected.text]}>{name}</Text>
+				<CustomImage style={styled.imageSize} title={this.isSelected() ? name : name} />
+				<Text style={[StyledConstants.FONT_DESCRIPTION, this.isSelected() && StyledSelected.text]}>{name}</Text>
 			</TouchableOpacity>
 		)
 	}
 }
-
+// <CustomImage style={styled.imageSize} title={this.isSelected() ? name + '-active' : name} />
+// <CustomImage style={styled.imageSize} title={this.isSelected() ? 'shirt-active' : 'shirt'} />
 const styled = StyleSheet.create({
 	card: {
-		width: '40%',
-		height: '100%',
+		width: 165,
+		height: 165,
 		borderStyle: 'solid',
 		borderColor: '#000000',
 		borderWidth: 3,
 		justifyContent: 'center',
 		alignItems: 'center',
 		opacity: 1,
-		marginLeft: '6.5%',
 	},
 	imageSize: {
-		width: '60%',
-		height: '50%',
+		width: 70,
+		height: 70,
+		marginBottom: 15,
 	},
 })
 

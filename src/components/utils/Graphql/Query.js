@@ -30,11 +30,19 @@ export const QuerySubCategories = gql`
 	}
 `
 
+export const QuerySubCategoryProps = gql`
+	query SubcategoryProps($subCategoryId: ID!) {
+		subCategoryProps(subCategoryId: $subCategoryId) {
+			_id
+			name
+			values
+		}
+	}
+`
+
 export const QueryUserWishlists = gql`
 	query UserWishlists($userId: ID, $email: String!) {
 		user(_id: $userId, email: $email) {
-			_id
-			email
 			wishlist {
 				_id
 				name
@@ -47,23 +55,36 @@ export const QueryUserWishlists = gql`
 					_id
 					name
 				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
 			}
 		}
 	}
 `
 
-export const QueryStoreByBeaconToken = gql`
-	query StoresBranchesByBeaconToken($beaconToken: ID!) {
-		storeBranch(beaconToken: $beaconToken) {
+export const QueryStoreByBeaconUUID = gql`
+	query SearchStoreBranchFromBeaconByUUID($uuid: String!) {
+		searchStoreBranchFromBeacon(uuid: $uuid) {
 			_id
+			name
+			telNo
+			status
 			store {
 				_id
+				ownerId
+				name
+				avatarUrl
 				coverUrl
 				description
 			}
-			telNo
-			name
-			shouldCheck
 		}
 	}
 `
@@ -71,15 +92,29 @@ export const QueryStoreByBeaconToken = gql`
 export const QuerySearchProductByWishlist = gql`
 	query SearchProductByWishlist($wishlist: WishlistInput!) {
 		searchByWishlist(wishlist: $wishlist) {
-			store {
-				name
-			}
 			name
+			matchedPercentage
+			recommended
 			category {
 				_id
 				name
 			}
 			subCategory {
+				_id
+				name
+			}
+			store {
+				_id
+				name
+				owner {
+					_id
+					profile {
+						name
+						telNo
+					}
+				}
+			}
+			storeBranch {
 				_id
 				name
 			}
@@ -93,8 +128,6 @@ export const QuerySearchProductByWishlist = gql`
 				propId
 				value
 			}
-			matchedPercentage
-			recommended
 		}
 	}
 `

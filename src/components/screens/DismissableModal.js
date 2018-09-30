@@ -8,19 +8,9 @@ class DismissableModal extends React.Component {
 	}
 
 	render() {
-		let navigation = this.props.navigation
-		let previousRoute = null
-		if (this.props.navigation.state.params) {
-			previousRoute = this.props.navigation.state.params.previous.routeName
-		}
 		return (
 			<View>
-				<Button
-					title="Close"
-					onPress={() =>
-						previousRoute != null ? navigation.navigate(previousRoute) : navigation.goBack(null)
-					}
-				/>
+				<Button title="Close" onPress={() => this.props.navigation.goBack(null)} />
 			</View>
 		)
 	}

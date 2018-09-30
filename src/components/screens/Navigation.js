@@ -10,6 +10,10 @@ import CreateWishlistScreen from '@screens/Wishlist/CreateWishlistScreen'
 import CategoryScreen from '@screens/Category/CategoryScreen'
 import SubCategoryScreen from '@screens/Category/SubCategoryScreen'
 import CategoryPropsScreen from '@screens/Category/CategoryPropsScreen'
+import SubCategoryPropsScreen from '@screens/Category/SubCategoryPropsScreen'
+import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
+import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
+import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -27,35 +31,38 @@ export const StoreStack = StackNavigator({
 	BeaconDetectStore: {
 		screen: BeaconDetectStoreScreen,
 	},
+	StoreDetail: {
+		screen: StoreDetailScreen,
+	},
 })
 
 export const MywishlistStack = StackNavigator({
-	Wishlist: {
-		screen: WishlistScreen,
-		navigationOptions: {
-			title: 'W I S H L I S T',
-		},
-	},
-	WishlistDetail: {
-		screen: WishlistDetailScreen,
-		navigationOptions: {
-			title: ' W I S H L I S T   D E T A I L',
-		},
+	// Wishlist: {
+	// 	screen: WishlistScreen,
+	// 	navigationOptions: {
+	// 		title: 'W I S H L I S T',
+	// 	},
+	// },
+	// WishlistDetail: {
+	// 	screen: WishlistDetailScreen,
+	// 	navigationOptions: {
+	// 		title: ' W I S H L I S T   D E T A I L',
+	// 	},
+	// },
+	// ProductDetail: {
+	// 	screen: ProductDetailScreen,
+	// },
+	ProductNavigation: {
+		screen: ProductNavigationScreen,
 	},
 })
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
-		// 	},
-		// },
-		Search: {
-			screen: SearchStack,
+		Home: {
+			screen: HomeStack,
 			navigationOptions: {
-				tabBarLabel: 'Search',
+				tabBarLabel: 'Home',
 			},
 		},
 		Store: {
@@ -64,10 +71,22 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Store',
 			},
 		},
-		Wishlist: {
+		// Search: {
+		// 	screen: SearchStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Search',
+		// 	},
+		// },
+		// Wishlist: {
+		// 	screen: MywishlistStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Wishlist',
+		// 	},
+		// },
+		ProductNavigation: {
 			screen: MywishlistStack,
 			navigationOptions: {
-				tabBarLabel: 'Wishlist',
+				tabBarLabel: 'Navigation',
 			},
 		},
 	},
@@ -84,53 +103,41 @@ export const Tabs = TabNavigator(
 	}
 )
 
-export const CreateWishlistStack = StackNavigator(
-	{
-		CreateWishlist: {
-			screen: CreateWishlistScreen,
-			navigationOptions: {
-				title: 'N E W W I S H L I S T',
-			},
-		},
-		Category: {
-			screen: CategoryScreen,
-			navigationOptions: {
-				title: 'S E L E C T   C A T E G O R Y',
-			},
-		},
-		SubCategory: {
-			screen: SubCategoryScreen,
-			navigationOptions: {
-				title: 'S E L E C T   S U B C A T E G O R Y',
-			},
-		},
-		CategoryPropsPage: {
-			screen: CategoryPropsScreen,
+export const CreateWishlistStack = StackNavigator({
+	CreateWishlist: {
+		screen: CreateWishlistScreen,
+		navigationOptions: {
+			title: 'N E W W I S H L I S T',
 		},
 	},
-	{
-		mode: 'card',
-	}
-)
-
-export const ModalScreen = StackNavigator(
-	{
-		CreateWishlist: {
-			screen: CreateWishlistStack,
+	Category: {
+		screen: CategoryScreen,
+		navigationOptions: {
+			title: 'S E L E C T   C A T E G O R Y',
 		},
 	},
-	{
-		headerMode: 'none',
-	}
-)
+	SubCategory: {
+		screen: SubCategoryScreen,
+		navigationOptions: {
+			title: 'S E L E C T   S U B C A T E G O R Y',
+		},
+	},
+	CategoryPropsPage: {
+		screen: CategoryPropsScreen,
+	},
+	SubCategoryPropsPage: {
+		screen: SubCategoryPropsScreen,
+	},
+})
 
 export const Root = StackNavigator(
 	{
-		Tabs: Tabs,
-		Modal: ModalScreen,
+		Main: Tabs,
+		// Modal Stack
+		CreateWishlist: CreateWishlistStack,
 	},
 	{
-		mode: 'modal',
+		mode: 'card',
 		headerMode: 'none',
 	}
 )
