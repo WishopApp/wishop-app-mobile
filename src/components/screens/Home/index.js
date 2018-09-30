@@ -15,11 +15,12 @@ class Home extends React.Component {
 		headerTitle: <Header title="Home" />,
 	}
 
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<View>{this.state.successPopup ? this.state.successPopup : null}</View>
-				<Text>Home Screen</Text>
+				<Text>Home Screen :</Text>
 			</View>
 		)
 	}

@@ -2,8 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
 import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
-import SearchByWishlist from '@commons/Search/SearchByWishlist/Container'
-import ProductList from '@commons/Product/ProductList'
+import SearchProductListByWishlist from '@commons/Search/SearchByWishlist/SearchProductList'
+import CustomImage from '@custom/Image'
 
 class WishlistDetailContainer extends React.Component {
 	constructor(props) {
@@ -46,7 +46,7 @@ class WishlistDetailContainer extends React.Component {
 							</View>
 							<View style={styled.wishlistDetail}>
 								<View style={styled.imageContainer}>
-									<Image style={styled.image} source={require('@images/shoe.png')} />
+									<CustomImage style={styled.image} title="shoes" />
 								</View>
 								<View style={styled.WishlistProductContainer}>
 									<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
@@ -123,7 +123,7 @@ class WishlistDetailContainer extends React.Component {
 				)}
 				{status === 'Searching' && (
 					<ScrollView>
-						<ProductList navigation={this.props.navigation} wishlist={wishlist} />
+						<SearchProductListByWishlist navigation={this.props.navigation} wishlist={wishlist} />
 					</ScrollView>
 				)}
 			</View>

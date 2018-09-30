@@ -1,10 +1,14 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants } from '@constants/Styled'
-import { QueryStoreByBeaconToken } from '@utils/Graphql/Query'
+import { QueryStoreByBeaconUUID } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
+import CustomImage from '@custom/Image'
 
 class StoreList extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	/* proptypes
 		StoreList: object
 	*/
@@ -12,36 +16,45 @@ class StoreList extends React.Component {
 		let { loading, error, data } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
-		let storeBranch = data ? data.storeBranch : undefined
+		console.log(this.props)
+		let storeBranch = data ? data.searchStoreBranchFromBeacon : undefined
+		console.log(storeBranch)
 		return (
 			<View>
 				{storeBranch ? (
-					<View style={[styled.storeContainer, storeBranch.shouldCheck && styled.wishlistChecklist]}>
-						<View style={styled.storeImageContainer}>
-							<Image style={styled.storeImage} source={require('@images/store_default.png')} />
-						</View>
-						<View style={styled.storeCardContainer}>
-							<Text style={StyledConstants.FONT_TOPIC}>{storeBranch.name}</Text>
-							<Text style={StyledConstants.FONT_DESCRIPTION}>{storeBranch.store.description}</Text>
-							<Text style={styled.storeRange}>3.4 km</Text>
-						</View>
-						{storeBranch.shouldCheck ? (
-							<View style={styled.storeImageMappingWishlistContainer}>
-								<Image
-									style={styled.checkListIcon}
-									source={require('@icons/wishlist_hover_icon.png')}
-								/>
-								<Text style={StyledConstants.FONT_DESCRIPTION}> Let's check!</Text>
+					<View>
+						<TouchableOpacity
+							style={[styled.storeContainer, styled.wishlistChecklist]}
+							onPress={() => this.props.navigation.navigate('StoreDetail')}
+							activeOpacity={1}
+						>
+							<View style={styled.storeImageContainer}>
+								<CustomImage style={styled.storeImage} title="store-icon" />
 							</View>
-						) : null}
+							<View style={styled.storeCardContainer}>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+									{storeBranch.name}
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+									{storeBranch.store.description}
+								</Text>
+								<Text style={styled.storeRange}>3.4 km</Text>
+							</View>
+							<View style={styled.storeImageMappingWishlistContainer}>
+								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Let's check!</Text>
+							</View>
+						</TouchableOpacity>
 					</View>
-				) : null}
+				) : (
+					<Text> Finding Stroe From Server</Text>
+				)}
 			</View>
 		)
 	}
 }
 
-const StoreListByBeacon = graphql(QueryStoreByBeaconToken, {
+const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
 	options: props => {
 		if (props._id) {
 			return {
@@ -52,7 +65,7 @@ const StoreListByBeacon = graphql(QueryStoreByBeaconToken, {
 		}
 		return {
 			variables: {
-				beaconToken: props.beaconToken,
+				uuid: props.uuid,
 			},
 		}
 	},
@@ -100,8 +113,8 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	checkListIcon: {
-		width: 50,
-		height: 50,
+		width: 40,
+		height: 40,
 	},
 
 	wishlistChecklist: {

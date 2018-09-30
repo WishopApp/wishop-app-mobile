@@ -13,6 +13,13 @@ class App extends React.Component {
 		)
 	}
 }
+//  <Text> tset babel </Text>
+
+/*
+ <ApolloProvider client={client}>
+ 	<Root />
+ </ApolloProvider>
+*/
 
 const styled = StyleSheet.create({
 	container: {

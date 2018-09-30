@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, ScrollView } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { Button } from 'react-native-elements'
+import CustomImage from '@custom/Image'
 
 class SearchContainer extends React.Component {
 	constructor(props) {
@@ -12,7 +13,7 @@ class SearchContainer extends React.Component {
 		return (
 			<View style={styled.container}>
 				<View style={styled.searching}>
-					<Image style={styled.searchingImage} source={require('@icons/search_large.png')} />
+					<CustomImage style={styled.searchingImage} title="search-large-icon" />
 					<Text style={StyledConstants.FONT_TOPIC}>S E A R C H {'\n'}</Text>
 					<Text style={StyledConstants.FONT_DESCIPTION}>you can search by keywords</Text>
 					<Text style={StyledConstants.FONT_DESCIPTION}>
