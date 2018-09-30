@@ -120,16 +120,14 @@ const beaconDetected = (beacons, uuidUsed, props, isDetected) => {
 				<ScrollView contentContainerStyle={styled.alignContent}>
 					{beacons.map((beacon, index) => {
 						let neverUsedUUID = !isDetected(beacon.uuid)
-						if (neverUsedUUID) uuidUsed[beacon.uuid] = beacon
+						if (neverUsedUUID) {
+							uuidUsed[beacon.uuid] = beacon
+						}
 
 						return (
 							<View key={index}>
 								{neverUsedUUID && (
-									<StoreListByBeacon
-										uuid={beacon.uuid}
-										uuidUsed={neverUsedUUID}
-										navigation={props.navigation}
-									/>
+									<StoreListByBeacon uuid={beacon.uuid} navigation={props.navigation} />
 								)}
 							</View>
 						)

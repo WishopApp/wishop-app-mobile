@@ -65,7 +65,7 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Home',
 			},
 		},
-		StoreDetail: {
+		Store: {
 			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store',
