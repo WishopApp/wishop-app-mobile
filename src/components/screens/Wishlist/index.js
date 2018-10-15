@@ -8,8 +8,10 @@ class WishlistScreen extends React.Component {
 		super(props)
 	}
 
-	static navigationOptions = {
-		headerTitle: <Header title="W I S H L I S T" />,
+	static navigationOptions = ({ navigation }) => {
+		return {
+			header: <Header />,
+		}
 	}
 
 	render() {

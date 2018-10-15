@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import SvgUri from 'react-native-svg-uri'
+import Header from '@screens/Header'
 import Home from '@screens/Home'
 import SearchScreen from '@screens/Search/SearchScreen'
 import WishlistScreen from '@screens/Wishlist'
@@ -37,6 +38,35 @@ export const StoreStack = StackNavigator({
 	},
 })
 
+export const CreateWishlistStack = StackNavigator(
+	{
+		CreateWishlist: {
+			screen: CreateWishlistScreen,
+			navigationOptions: {
+				title: 'N E W W I S H L I S T',
+			},
+		},
+		Category: {
+			screen: CategoryScreen,
+		},
+		SubCategory: {
+			screen: SubCategoryScreen,
+		},
+		CategoryPropsPage: {
+			screen: CategoryPropsScreen,
+		},
+		SubCategoryPropsPage: {
+			screen: SubCategoryPropsScreen,
+		},
+	},
+	{
+		headerMode: 'none',
+		navigationOptions: {
+			tabBarVisible: false,
+		},
+	}
+)
+
 export const MywishlistStack = StackNavigator({
 	Wishlist: {
 		screen: WishlistScreen,
@@ -56,6 +86,10 @@ export const MywishlistStack = StackNavigator({
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,
 	// },
+
+	CreateWishlist: {
+		screen: CreateWishlistStack,
+	},
 })
 
 export const Tabs = TabNavigator(
@@ -74,7 +108,6 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Search',
 				tabBarIcon: ({ focused }) => {
-					console.log(focused)
 					return (
 						<SvgUri
 							width={25}
@@ -147,38 +180,11 @@ export const Tabs = TabNavigator(
 	}
 )
 
-export const CreateWishlistStack = StackNavigator({
-	CreateWishlist: {
-		screen: CreateWishlistScreen,
-		navigationOptions: {
-			title: 'N E W W I S H L I S T',
-		},
-	},
-	Category: {
-		screen: CategoryScreen,
-		navigationOptions: {
-			title: 'S E L E C T   C A T E G O R Y',
-		},
-	},
-	SubCategory: {
-		screen: SubCategoryScreen,
-		navigationOptions: {
-			title: 'S E L E C T   S U B C A T E G O R Y',
-		},
-	},
-	CategoryPropsPage: {
-		screen: CategoryPropsScreen,
-	},
-	SubCategoryPropsPage: {
-		screen: SubCategoryPropsScreen,
-	},
-})
-
 export const Root = StackNavigator(
 	{
 		Main: Tabs,
 		// Modal Stack
-		CreateWishlist: CreateWishlistStack,
+		// CreateWishlist: CreateWishlistStack,
 	},
 	{
 		mode: 'card',

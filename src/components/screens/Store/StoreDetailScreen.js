@@ -1,6 +1,7 @@
 import React from 'react'
 import StoreDetailContainer from '@commons/Store/StoreDetail/Container'
 import { NavigationActions } from 'react-navigation'
+import Header from '@screens/Header'
 
 class StoreDetailScreen extends React.Component {
 	constructor(props) {

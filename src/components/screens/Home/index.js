@@ -15,7 +15,6 @@ class Home extends React.Component {
 		headerTitle: <Header title="Home" />,
 	}
 
-
 	render() {
 		return (
 			<View style={styles.container}>

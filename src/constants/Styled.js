@@ -47,6 +47,10 @@ export const StyledConstants = StyleSheet.create({
 	TEXT_WHITE: {
 		color: 'white',
 	},
+
+	TEXT_BLACK: {
+		color: 'black',
+	},
 })
 
 export const StyledSelected = {
