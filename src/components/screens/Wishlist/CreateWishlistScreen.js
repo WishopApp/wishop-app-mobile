@@ -14,7 +14,7 @@ class CreateWishlistScreen extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			header: <Header back={true} navigation={navigation} close={true} />,
+			header: <Header title="New Wishlist" navigation={navigation} close={true} />,
 		}
 	}
 

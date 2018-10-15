@@ -10,7 +10,7 @@ class WishlistScreen extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			header: <Header />,
+			header: <Header title="Wishlist" navigation={navigation} />,
 		}
 	}
 

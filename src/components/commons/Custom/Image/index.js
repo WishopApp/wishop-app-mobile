@@ -58,7 +58,7 @@ export default class CustomImage extends React.Component {
 				return require('@icons/men-shoes/slipper/slipper.png')
 			case 'sneakers':
 				return require('@icons/men-shoes/sneakers/sneakers.png')
-			case 'slipper':
+			case 'sports':
 				return require('@icons/men-shoes/sport/sport.png')
 
 			//men trousers

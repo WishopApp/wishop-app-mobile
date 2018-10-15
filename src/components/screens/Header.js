@@ -25,7 +25,7 @@ export default class Header extends React.Component {
 	render() {
 		let hasLeftHeaderProps = this.props.back ? true : false
 		let hasRightHeaderProps = this.props.close ? true : false
-		console.log(this.props)
+
 		return (
 			<CustomLinearGradient style={styled.container} colors={['#582FFF', '#00A9FF', '#00CED1']}>
 				<View style={styled.wrapperContainer}>
@@ -48,7 +48,7 @@ export default class Header extends React.Component {
 								StyledConstants.TEXT_BLACK,
 							]}
 						>
-							{this.letterSpace('Test Title page')}
+							{this.letterSpace(this.props.title ? this.props.title.toUpperCase() : '')}
 						</Text>
 					</View>
 					<View style={styled.rightHeader}>
@@ -99,7 +99,6 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	button: {
-		backgroundColor: 'pink',
 		width: '100%',
 		height: '100%',
 		justifyContent: 'center',

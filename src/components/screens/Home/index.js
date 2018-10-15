@@ -11,8 +11,10 @@ class Home extends React.Component {
 		}
 	}
 
-	static navigationOptions = {
-		headerTitle: <Header title="Home" />,
+	static navigationOptions = ({ navigation }) => {
+		return {
+			header: <Header back={true} title="Home" navigation={navigation} />,
+		}
 	}
 
 	render() {
