@@ -14,7 +14,7 @@ class CreateWishlistScreen extends React.Component {
 
 	static navigationOptions = ({ navigation }) => {
 		return {
-			header: <Header navigation={navigation} />,
+			header: <Header back={true} navigation={navigation} close={true} />,
 		}
 	}
 
@@ -29,7 +29,6 @@ class CreateWishlistScreen extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<View>
 				{this.state.type === 'Update' ? (

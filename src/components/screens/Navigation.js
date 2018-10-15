@@ -42,9 +42,6 @@ export const CreateWishlistStack = StackNavigator(
 	{
 		CreateWishlist: {
 			screen: CreateWishlistScreen,
-			navigationOptions: {
-				title: 'N E W W I S H L I S T',
-			},
 		},
 		Category: {
 			screen: CategoryScreen,
@@ -89,6 +86,9 @@ export const MywishlistStack = StackNavigator({
 
 	CreateWishlist: {
 		screen: CreateWishlistStack,
+		navigationOptions: {
+			headerMode: 'none',
+		},
 	},
 })
 

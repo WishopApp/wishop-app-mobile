@@ -4,24 +4,38 @@ import CustomLinearGradient from '@custom/LinearGradient'
 import { StyledConstants } from '@constants/Styled'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-const letterSpace = (word, countSpace = 2) => {
-	return word.split('').join('\u200A'.repeat(countSpace))
-}
-
 export default class Header extends React.Component {
+	constructor(props) {
+		super(props)
+		this._back = this._back.bind(this)
+		this.letterSpace = this.letterSpace.bind(this)
+	}
+
 	_back = navigation => {
+		console.log('back')
 		navigation.goBack(null)
 	}
 
+	letterSpace = (word, countSpace = 2) => {
+		return word.split('').join('\u200A'.repeat(countSpace))
+	}
+
+	componentWillMount() {}
+
 	render() {
-		let hasLeftHeaderProps = this.props.navigation ? true : false
-		let hasRightHeaderProps = this.props.rightHeader ? true : false
+		let hasLeftHeaderProps = this.props.back ? true : false
+		let hasRightHeaderProps = this.props.close ? true : false
+		console.log(this.props)
 		return (
 			<CustomLinearGradient style={styled.container} colors={['#582FFF', '#00A9FF', '#00CED1']}>
 				<View style={styled.wrapperContainer}>
 					<View style={styled.leftHeader}>
 						{hasLeftHeaderProps && (
-							<TouchableOpacity activeOpacity={1} onPress={this._back(this.props.navigation)}>
+							<TouchableOpacity
+								style={styled.button}
+								activeOpacity={1}
+								onPress={() => this._back(this.props.navigation)}
+							>
 								<Icon name="chevron-left" size={24} color="#000" />
 							</TouchableOpacity>
 						)}
@@ -34,11 +48,19 @@ export default class Header extends React.Component {
 								StyledConstants.TEXT_BLACK,
 							]}
 						>
-							{letterSpace('Test Title page')}
+							{this.letterSpace('Test Title page')}
 						</Text>
 					</View>
 					<View style={styled.rightHeader}>
-						<Icon name="times" size={20} color="#000" />
+						{hasRightHeaderProps && (
+							<TouchableOpacity
+								style={styled.button}
+								activeOpacity={1}
+								onPress={() => this._back(this.props.navigation)}
+							>
+								<Icon name="times" size={20} color="#000" />
+							</TouchableOpacity>
+						)}
 					</View>
 				</View>
 			</CustomLinearGradient>
@@ -63,7 +85,8 @@ const styled = StyleSheet.create({
 	},
 	leftHeader: {
 		width: '15%',
-		alignItems: 'center',
+		height: '100%',
+		justifyContent: 'center',
 	},
 	middleHeader: {
 		width: '70%',
@@ -71,6 +94,15 @@ const styled = StyleSheet.create({
 	},
 	rightHeader: {
 		width: '15%',
+		height: '100%',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	button: {
+		backgroundColor: 'pink',
+		width: '100%',
+		height: '100%',
+		justifyContent: 'center',
 		alignItems: 'center',
 	},
 })

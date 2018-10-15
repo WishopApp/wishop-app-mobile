@@ -15,24 +15,24 @@ class WishlistDetailScreen extends React.Component {
 		}
 	}
 
-	// componentWillMount() {
-	// 	const setParamsAction = NavigationActions.setParams({
-	// 		params: { hideTabBar: true },
-	// 	})
-	// 	this.props.navigation.dispatch(setParamsAction)
-	// }
+	componentWillMount() {
+		const setParamsAction = NavigationActions.setParams({
+			params: { hideTabBar: true },
+		})
+		this.props.navigation.dispatch(setParamsAction)
+	}
 
-	// componentWillUnmount() {
-	// 	const setParamsAction = NavigationActions.setParams({
-	// 		params: { hideTabBar: false },
-	// 	})
-	// 	this.props.navigation.dispatch(setParamsAction)
-	// }
+	componentWillUnmount() {
+		const setParamsAction = NavigationActions.setParams({
+			params: { hideTabBar: false },
+		})
+		this.props.navigation.dispatch(setParamsAction)
+	}
 
-	// static navigationOptions = ({ navigation }) => ({
-	// 	tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
-	// 	animationEnabled: true,
-	// })
+	static navigationOptions = ({ navigation }) => ({
+		tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
+		animationEnabled: true,
+	})
 
 	render() {
 		return (
