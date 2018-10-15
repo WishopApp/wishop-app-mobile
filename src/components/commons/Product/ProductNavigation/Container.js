@@ -79,7 +79,7 @@ const data = [
 		},
 		region: {
 			identifier: 'Estimotes',
-			uuid: '90727b70-9754-4b10-bba0-5a9219dcc7a8',
+			uuid: '50765cb7-d9ea-4e21-99a4-fa879613a492',
 			major: 0,
 			minor: 0,
 		},
@@ -294,12 +294,14 @@ class ProductNavigationContainer extends React.Component {
 						console.log('ranging', beacon.uuid, '=>', rssi, '=>', beacon.distance)
 						// beacon ที่อยู่ในร้าน ตรงกับ beacon ที่ร้านลงทะเบียน
 						if (this.storeCompleteRegistrationBeacon(beacon.uuid)) {
-							if (rssi < -70)
-								this.state.identifierBeacon[beacon.uuid] = this.setDataEqualsIdentifierBeacon(beacon)
+							// if (rssi < -70)
+							this.state.identifierBeacon[beacon.uuid] = this.setDataEqualsIdentifierBeacon(beacon)
 						}
 					})
+
 					if (lengthOfKeyValue(this.state.identifierBeacon) >= 3) {
 						if (this.state.enablePhonePosition == false) {
+							console.log(lengthOfKeyValue(this.state.identifierBeacon))
 							this.setState({ enablePhonePosition: true })
 							this.interValCalculatePhonePosition()
 						}
@@ -404,17 +406,16 @@ class ProductNavigationContainer extends React.Component {
 
 	interValCalculatePhonePosition = () => {
 		setTimeout(async () => {
-			// if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
-			// 	beacon1 = this.state.identifierBeacon[beacon1.uuid]
-			// 	beacon2 = this.state.identifierBeacon[beacon2.uuid]
-			// 	beacon3 = this.state.identifierBeacon[beacon3.uuid]
-			// 	console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
-			// 	console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
-			// 	console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
+			if (this.state.enablePhonePosition && beacon1 && beacon2 && beacon3) {
+				beacon1 = this.state.identifierBeacon[beacon1.uuid]
+				beacon2 = this.state.identifierBeacon[beacon2.uuid]
+				beacon3 = this.state.identifierBeacon[beacon3.uuid]
+				console.log('rssi1', beacon1.rssi, 'distance1 => ', beacon1.distance)
+				console.log('rssi2', beacon2.rssi, 'distance2 => ', beacon2.distance)
+				console.log('rssi3', beacon3.rssi, 'distance3 => ', beacon3.distance)
 
-			// 	this.calculatePosition(beacon1, beacon2, beacon3)
-			// } else
-			if (this.state.enablePhonePosition) {
+				this.calculatePosition(beacon1, beacon2, beacon3)
+			} else if (this.state.enablePhonePosition) {
 				console.log('interval calulate')
 				let length = lengthOfKeyValue(this.state.identifierBeacon)
 				let identifierToArray = []

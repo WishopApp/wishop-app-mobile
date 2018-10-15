@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import SvgUri from 'react-native-svg-uri'
 import Home from '@screens/Home'
 import SearchScreen from '@screens/Search/SearchScreen'
 import WishlistScreen from '@screens/Wishlist'
@@ -37,62 +38,105 @@ export const StoreStack = StackNavigator({
 })
 
 export const MywishlistStack = StackNavigator({
-	// Wishlist: {
-	// 	screen: WishlistScreen,
-	// 	navigationOptions: {
-	// 		title: 'W I S H L I S T',
-	// 	},
-	// },
-	// WishlistDetail: {
-	// 	screen: WishlistDetailScreen,
-	// 	navigationOptions: {
-	// 		title: ' W I S H L I S T   D E T A I L',
-	// 	},
-	// },
-	// ProductDetail: {
-	// 	screen: ProductDetailScreen,
-	// },
-	ProductNavigation: {
-		screen: ProductNavigationScreen,
+	Wishlist: {
+		screen: WishlistScreen,
+		navigationOptions: {
+			title: 'W I S H L I S T',
+		},
 	},
+	WishlistDetail: {
+		screen: WishlistDetailScreen,
+		navigationOptions: {
+			title: ' W I S H L I S T   D E T A I L',
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
+	// ProductNavigation: {
+	// 	screen: ProductNavigationScreen,
+	// },
 })
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		//  	tabBarIcon: ({ focused }) => {
+		// 			return <SvgUri width={25} height={25} fill={focused ? 'royalblue' : 'white'} source={require('@icons/home.svg')} />
+		// 		},
+		// 	},
+		// },
+		Search: {
+			screen: SearchStack,
 			navigationOptions: {
-				tabBarLabel: 'Home',
+				tabBarLabel: 'Search',
+				tabBarIcon: ({ focused }) => {
+					console.log(focused)
+					return (
+						<SvgUri
+							width={25}
+							height={25}
+							fill={focused ? 'royalblue' : 'white'}
+							source={require('@icons/magnifying-glass.svg')}
+						/>
+					)
+				},
 			},
 		},
 		Store: {
 			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store',
+				tabBarIcon: ({ focused }) => {
+					return (
+						<SvgUri
+							width={25}
+							height={25}
+							fill={focused ? 'royalblue' : 'white'}
+							source={require('@icons/shop.svg')}
+						/>
+					)
+				},
 			},
 		},
-		// Search: {
-		// 	screen: SearchStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Search',
-		// 	},
-		// },
-		// Wishlist: {
-		// 	screen: MywishlistStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Wishlist',
-		// 	},
-		// },
-		ProductNavigation: {
+		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
-				tabBarLabel: 'Navigation',
+				tabBarLabel: 'Wishlist',
+				tabBarIcon: ({ focused }) => {
+					return (
+						<SvgUri
+							width={25}
+							height={25}
+							fill={focused ? 'royalblue' : 'white'}
+							source={require('@icons/wishlist-hover-icon.svg')}
+						/>
+					)
+				},
 			},
 		},
 	},
 	{
 		tabBarPosition: 'bottom',
 		animationEnabled: false,
+		tabBarOptions: {
+			showIcon: true,
+			showLabel: true,
+			style: {
+				height: 60,
+				backgroundColor: 'black',
+			},
+			indicatorStyle: {
+				backgroundColor: 'transparent',
+			},
+			labelStyle: {
+				fontSize: 12,
+			},
+			upperCaseLabel: false,
+		},
 		transitionConfig: () => ({
 			transitionSpec: {
 				duration: 0,
