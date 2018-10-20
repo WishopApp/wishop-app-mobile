@@ -294,7 +294,6 @@ class CreateWishlist extends React.Component {
 							backgroundColor={!this.isNotRequireData() ? styled.createButtonWithData : 'black'}
 							title={this.props.type.toUpperCase()}
 							containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON]}
-							fontSize={StyledConstants.FONT_DESCRIPTIONP}
 							fontWeight="bold"
 							onPress={async () => {
 								if (this.isNotRequireData()) {
@@ -304,7 +303,13 @@ class CreateWishlist extends React.Component {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
 									this.props.navigation.state.params.refetchWishlist()
-									this.setState({ successPopup: SuccessPopup(this.props.navigation) })
+									this.setState({
+										successPopup: SuccessPopup(
+											this.props.navigation,
+											'SUCCEED!',
+											'Your Wishlist had been created.'
+										),
+									})
 								}
 							}}
 							textStyle={styled.textCreateButton}

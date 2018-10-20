@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="123px" height="129px" viewBox="0 0 123 129" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="22.0625758%" x2="100%" y2="81.0960668%" id="linearGradient-1">
+            <stop stop-color="#582FFF" offset="0%"></stop>
+            <stop stop-color="#00A9FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="50%" x2="38.3165583%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#582FFF" offset="0%"></stop>
+            <stop stop-color="#00A9FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-6" x="0" y="0" width="126" height="131"></rect>
+        <g id="Writing" transform="translate(-75.000000, -65.000000)">
+            <g id="图层_2">
+                <g>
+                    <g id="Icons">
+                        <g id="Writing">
+                            <path d="M149.2195,71.1166667 L161.7695,71.1166667 C166.390282,71.1166667 170.136167,74.8625509 170.136167,79.4833333 L170.136167,143.111833" id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M78.1028333,88.5611667 L78.1028333,79.4833333 C78.1028333,74.8625509 81.8487176,71.1166667 86.4695,71.1166667 L99.0195,71.1166667" id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M78.1028333,113.284667 L78.1028333,106.424" id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M151.311167,192.433333 L86.4695,192.433333 C81.8487176,192.433333 78.1028333,188.687449 78.1028333,184.066667 L78.1028333,132.109667" id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M99.0195,66.9333333 L149.2195,66.9333333 L149.2195,77.3916667 C149.2195,79.7020579 147.346558,81.575 145.036167,81.575 L103.202833,81.575 C100.892442,81.575 99.0195,79.7020579 99.0195,77.3916667 L99.0195,66.9333333 Z" id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <polygon id="Shape" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="174.3195 135.832833 149.2195 179.3395 151.311167 192.433333 163.693833 187.706167 188.793833 144.1995"></polygon>
+                            <rect id="Rectangle-path" stroke="url(#linearGradient-1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(185.227980, 133.691686) rotate(30.000000) translate(-185.227980, -133.691686) " x="176.861314" y="126.370852" width="16.7333333" height="14.6416667"></rect>
+                            <path d="M153.402833,136.376667 L153.402833,100.4 C153.402833,98.0896088 151.529891,96.2166667 149.2195,96.2166667 L99.0195,96.2166667 C96.7091088,96.2166667 94.8361667,98.0896088 94.8361667,100.4 L94.8361667,171.516667 C94.8361667,173.827058 96.7091088,175.7 99.0195,175.7 L127.173333,175.7 C130.15939,175.696937 132.917472,174.10267 134.4105,171.516667 L152.273333,140.56 C153.001721,139.285231 153.390636,137.844807 153.402833,136.376667 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                            <rect id="Rectangle-path" opacity="0" x="0" y="0" width="251" height="251"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <path d="M9.44430956,57.8359152 C7.44609663,59.9403067 7.55710846,64.1490897 9.55532139,66.1981025 L33.9224179,90.8416348 C35.9761368,92.9460263 40.0835744,93.0014051 42.1927992,91.007771 L46.0782132,87.2973965 L54.4596063,79.2674815 L95.2009477,40.5023745 C97.3101724,38.5087404 97.3656783,34.4107149 95.3119595,32.3617021 L90.5939568,27.5437531 C88.5402379,25.4947403 84.4328002,25.4947403 82.3790814,27.4883743 L42.5258347,67.1949196 C40.4721158,69.2439324 36.3646782,69.1885537 34.3664652,67.1395409 L21.1005516,53.7932683 C19.1023387,51.6888768 15.1059129,51.7442555 13.1076999,53.9040258 L9.44430956,57.8359152 L9.44430956,57.8359152 Z" id="Shape" fill="url(#linearGradient-2)"></path>
+    </g>
+</svg>

@@ -17,6 +17,19 @@ import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
 import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 
+export const LoadIconStack = {
+	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
+	homeFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/home.svg')} />,
+	search: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/magnifying-glass.svg')} />,
+	searchFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/magnifying-glass.svg')} />,
+	shop: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/shop.svg')} />,
+	shopFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/shop.svg')} />,
+	wishlist: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/wishlist-hover-icon.svg')} />,
+	wishlistFocused: (
+		<SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/wishlist-hover-icon.svg')} />
+	),
+}
+
 export const HomeStack = StackNavigator({
 	Home: {
 		screen: Home,
@@ -94,28 +107,21 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
-		//  	tabBarIcon: ({ focused }) => {
-		// 			return <SvgUri width={25} height={25} fill={focused ? 'royalblue' : 'white'} source={require('@icons/home.svg')} />
-		// 		},
-		// 	},
-		// },
+		Home: {
+			screen: HomeStack,
+			navigationOptions: {
+				tabBarLabel: 'Home',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.homeFocused : LoadIconStack.home
+				},
+			},
+		},
 		Search: {
 			screen: SearchStack,
 			navigationOptions: {
 				tabBarLabel: 'Search',
 				tabBarIcon: ({ focused }) => {
-					return (
-						<SvgUri
-							width={25}
-							height={25}
-							fill={focused ? 'royalblue' : 'white'}
-							source={require('@icons/magnifying-glass.svg')}
-						/>
-					)
+					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
 				},
 			},
 		},
@@ -124,14 +130,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Store',
 				tabBarIcon: ({ focused }) => {
-					return (
-						<SvgUri
-							width={25}
-							height={25}
-							fill={focused ? 'royalblue' : 'white'}
-							source={require('@icons/shop.svg')}
-						/>
-					)
+					return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
 				},
 			},
 		},
@@ -140,14 +139,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Wishlist',
 				tabBarIcon: ({ focused }) => {
-					return (
-						<SvgUri
-							width={25}
-							height={25}
-							fill={focused ? 'royalblue' : 'white'}
-							source={require('@icons/wishlist-hover-icon.svg')}
-						/>
-					)
+					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
 				},
 			},
 		},
