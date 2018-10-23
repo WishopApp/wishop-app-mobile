@@ -7,7 +7,7 @@ import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { Input } from 'react-native-elements'
 
-class LoginContainer extends React.Component {
+class SignupContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -15,11 +15,12 @@ class LoginContainer extends React.Component {
 			password: null,
 			errorMessage: null,
 		}
-		this.login = this.login.bind(this)
+		this.signup = this.signup.bind(this)
+		console.log('Signup', this.props)
 	}
 
-	login = () => {
-		console.log('login')
+	signup = () => {
+		console.log('signup')
 		console.log(this.state.email)
 		console.log(this.state.password)
 	}
@@ -36,9 +37,6 @@ class LoginContainer extends React.Component {
 				style={styled.container}
 				colors={['#582FFF', '#00A9FF', '#00CED1']}
 			>
-				<View style={styled.logoContainer}>
-					<Image style={styled.imageSize} source={require('@images/logo.png')} resizeMode="stretch" />
-				</View>
 				<View style={styled.loginContainer}>
 					<Text style={[StyledConstants.TOPIC, styled.errorMessage]}>
 						{this.state.errorMessage ? this.state.errorMessage : ''}
@@ -70,7 +68,7 @@ class LoginContainer extends React.Component {
 					<TouchableOpacity
 						style={[styled.inputContainer, styled.loginButtonContainer]}
 						activeOpacity={0.5}
-						onPress={() => this.login()}
+						onPress={() => this.signup()}
 					>
 						<CustomLinearGradient
 							start={{ x: 0.2, y: 0 }}
@@ -85,16 +83,10 @@ class LoginContainer extends React.Component {
 									StyledConstants.TEXT_BLACK,
 								]}
 							>
-								{this.letterSpace('Login')}
+								{this.letterSpace('Sign up')}
 							</Text>
 						</CustomLinearGradient>
 					</TouchableOpacity>
-					<View style={styled.signupContainer}>
-						<Text>Not on Wishop Account yet?</Text>
-						<TouchableOpacity activeOpacity={0.5} onPress={() => this.props.navigation.navigate('Signup')}>
-							<Text style={styled.signupText}> Signup here </Text>
-						</TouchableOpacity>
-					</View>
 				</View>
 			</CustomLinearGradient>
 		)
@@ -183,4 +175,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default LoginContainer
+export default SignupContainer

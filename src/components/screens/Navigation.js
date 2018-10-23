@@ -17,6 +17,7 @@ import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
 import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 import LoginScreen from '@screens/Login/LoginScreen'
+import SignupScreen from '@screens/Login/SignupScreen'
 
 export const LoadIconStack = {
 	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
@@ -173,16 +174,17 @@ export const Tabs = TabNavigator(
 	}
 )
 
-export const LoginStack = StackNavigator(
-	{
-		Login: {
-			screen: LoginScreen,
+export const LoginStack = StackNavigator({
+	Login: {
+		screen: LoginScreen,
+		navigationOptions: {
+			header: null,
 		},
 	},
-	{
-		headerMode: 'none',
-	}
-)
+	Signup: {
+		screen: SignupScreen,
+	},
+})
 
 export const Root = StackNavigator(
 	{
