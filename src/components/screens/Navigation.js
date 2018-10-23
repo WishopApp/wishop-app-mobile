@@ -107,15 +107,15 @@ export const MywishlistStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
-			navigationOptions: {
-				tabBarLabel: 'Home',
-				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.homeFocused : LoadIconStack.home
-				},
-			},
-		},
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		// 		tabBarIcon: ({ focused }) => {
+		// 			return focused ? LoadIconStack.homeFocused : LoadIconStack.home
+		// 		},
+		// 	},
+		// },
 		Search: {
 			screen: SearchStack,
 			navigationOptions: {
