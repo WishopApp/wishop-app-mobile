@@ -14,16 +14,18 @@ class SignupContainer extends React.Component {
 		this.state = {
 			email: null,
 			password: null,
+			confirmPassword: null,
 			errorMessage: null,
 		}
 		this.requireField = this.requireField.bind(this)
 		this.signup = this.signup.bind(this)
 	}
 
-	requireField = (email, password) => {
+	requireField = (email, password, confirmPassword) => {
 		if (!email) return 'Please Enter Your Email on Email field'
 		if (email && email.indexOf('@') == -1) return 'Email is invalid.'
 		if (!password) return 'Please Enter Your Password'
+		if (password != confirmPassword) return 'Password is mismatch'
 
 		return null
 	}
@@ -31,11 +33,12 @@ class SignupContainer extends React.Component {
 	signup = async () => {
 		let email = this.state.email
 		let password = this.state.password
-		let error = await this.requireField(email, password)
+		let confirmPassword = this.state.confirmPassword
+		let error = await this.requireField(email, password, confirmPassword)
 		console.log('errorMessage', error)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			// let tokenString = await this.props.login(email, password)
+			let tokenString = await this.props.createUser(email, password)
 			console.log('tokenString', tokenString)
 		}
 	}
@@ -82,6 +85,19 @@ class SignupContainer extends React.Component {
 							}}
 						/>
 					</View>
+					<View style={[styled.inputContainer, styled.InputWidthContainer]}>
+						<Icon name="lock" size={36} color="black" style={styled.passwordIcon} />
+						<TextInput
+							placeholder={'Confirm Password'}
+							placeholderTextColor="#2F4F4F"
+							underlineColorAndroid="transparent"
+							style={[styled.passwordInput, styled.inputStyle]}
+							secureTextEntry={true}
+							onChangeText={confirmPassword => {
+								this.setState({ confirmPassword: confirmPassword })
+							}}
+						/>
+					</View>
 					<TouchableOpacity
 						style={[styled.inputContainer, styled.loginButtonContainer]}
 						activeOpacity={0.5}
@@ -111,9 +127,9 @@ class SignupContainer extends React.Component {
 }
 
 const SignupWithEmail = graphql(Signup, {
-	props: ({ mutate }) => {
-		createUser: (email, password) => mutate({ variable: { email, password } })
-	},
+	props: ({ mutate }) => ({
+		createUser: (email, password) => mutate({ variable: { email, password } }),
+	}),
 })(SignupContainer)
 
 const styled = StyleSheet.create({

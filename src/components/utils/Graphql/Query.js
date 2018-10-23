@@ -41,7 +41,7 @@ export const QuerySubCategoryProps = gql`
 `
 
 export const QueryUserWishlists = gql`
-	query UserWishlists($userId: ID, $email: String!) {
+	query UserWishlists($userId: ID!, $email: String!) {
 		user(_id: $userId, email: $email) {
 			wishlist {
 				_id

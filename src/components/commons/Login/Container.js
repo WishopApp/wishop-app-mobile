@@ -120,10 +120,12 @@ class LoginContainer extends React.Component {
 }
 
 const LoginWithEmail = graphql(Login, {
-	props: ({ mutate }) => {
-		login: (email, password) => mutate({ variables: { email, password } })
-	},
+	props: ({ mutate }) => ({
+		login: (email, password) => mutate({ variables: { email, password } }),
+	}),
 })(LoginContainer)
+
+// const LoginWithEmail = graphql(Login)(LoginContainer)
 
 const styled = StyleSheet.create({
 	container: {

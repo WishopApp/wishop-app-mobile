@@ -70,7 +70,6 @@ class CreateWishlist extends React.Component {
 		if (props.type === 'Update') {
 			if (props.navigation.state.params.wishlist) this.setDefaultValue(props)
 		}
-		console.log(props)
 	}
 
 	setDefaultValue = async props => {
