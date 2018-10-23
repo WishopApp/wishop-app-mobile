@@ -16,6 +16,7 @@ import SubCategoryPropsScreen from '@screens/Category/SubCategoryPropsScreen'
 import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
 import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
+import LoginScreen from '@screens/Login/LoginScreen'
 
 export const LoadIconStack = {
 	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
@@ -172,8 +173,20 @@ export const Tabs = TabNavigator(
 	}
 )
 
+export const LoginStack = StackNavigator(
+	{
+		Login: {
+			screen: LoginScreen,
+		},
+	},
+	{
+		headerMode: 'none',
+	}
+)
+
 export const Root = StackNavigator(
 	{
+		Login: LoginStack,
 		Main: Tabs,
 		// Modal Stack
 		// CreateWishlist: CreateWishlistStack,
@@ -181,5 +194,6 @@ export const Root = StackNavigator(
 	{
 		mode: 'card',
 		headerMode: 'none',
+		initialRouteName: 'Login',
 	}
 )
