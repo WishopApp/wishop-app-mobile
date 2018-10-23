@@ -33,7 +33,7 @@
 		"react-native-awesome-alerts": "^1.0.7",
 		"react-native-beacons-manager": "^1.0.7",
 		"react-native-canvas": "^0.1.23",
-		"react-native-elements": "^1.0.0-beta5",
+		"react-native-elements": "^0.19.1",
 		"react-native-fs": "^2.11.15",
 		"react-native-gesture-handler": "1.0.0-alpha.39",
 		"react-native-linear-gradient": "^2.4.0",

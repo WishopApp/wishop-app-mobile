@@ -5,7 +5,8 @@ import CustomImage from '@custom/Image'
 import { StyledConstants } from '@constants/Styled'
 import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Input } from 'react-native-elements'
+import { graphql } from 'react-apollo'
+import { Signup } from '@utils/Graphql/Mutation'
 
 class SignupContainer extends React.Component {
 	constructor(props) {
@@ -15,14 +16,28 @@ class SignupContainer extends React.Component {
 			password: null,
 			errorMessage: null,
 		}
+		this.requireField = this.requireField.bind(this)
 		this.signup = this.signup.bind(this)
-		console.log('Signup', this.props)
 	}
 
-	signup = () => {
-		console.log('signup')
-		console.log(this.state.email)
-		console.log(this.state.password)
+	requireField = (email, password) => {
+		if (!email) return 'Please Enter Your Email on Email field'
+		if (email && email.indexOf('@') == -1) return 'Email is invalid.'
+		if (!password) return 'Please Enter Your Password'
+
+		return null
+	}
+
+	signup = async () => {
+		let email = this.state.email
+		let password = this.state.password
+		let error = await this.requireField(email, password)
+		console.log('errorMessage', error)
+		if (error) this.setState({ errorMessage: error })
+		else {
+			// let tokenString = await this.props.login(email, password)
+			console.log('tokenString', tokenString)
+		}
 	}
 
 	letterSpace = (word, countSpace = 2) => {
@@ -30,29 +45,31 @@ class SignupContainer extends React.Component {
 	}
 
 	render() {
+		console.log(this.props)
 		return (
 			<CustomLinearGradient
 				start={{ x: 0.2, y: 0.35 }}
 				end={{ x: 0.85, y: 1.0 }}
 				style={styled.container}
-				colors={['#582FFF', '#00A9FF', '#00CED1']}
+				colors={['#00CED1', '#00A9FF', '#582FFF']}
 			>
 				<View style={styled.loginContainer}>
 					<Text style={[StyledConstants.TOPIC, styled.errorMessage]}>
 						{this.state.errorMessage ? this.state.errorMessage : ''}
 					</Text>
-					<Input
-						placeholder="Email"
-						placeholderTextColor="#2F4F4F"
-						leftIcon={<Icon name="envelope" size={24} color="black" />}
-						underlineColorAndroid="transparent"
-						containerStyle={styled.inputContainer}
-						inputStyle={styled.inputStyle}
-						onChangeText={email => {
-							this.setState({ email: email })
-						}}
-					/>
-					<View style={[styled.inputContainer, styled.passwordContainer]}>
+					<View style={[styled.inputContainer, styled.InputWidthContainer]}>
+						<Icon name="envelope" size={24} color="black" style={styled.passwordIcon} />
+						<TextInput
+							placeholder={'Email'}
+							placeholderTextColor="#2F4F4F"
+							underlineColorAndroid="transparent"
+							style={[styled.passwordInput, styled.inputStyle]}
+							onChangeText={email => {
+								this.setState({ email: email })
+							}}
+						/>
+					</View>
+					<View style={[styled.inputContainer, styled.InputWidthContainer]}>
 						<Icon name="lock" size={36} color="black" style={styled.passwordIcon} />
 						<TextInput
 							placeholder={'Password'}
@@ -93,6 +110,12 @@ class SignupContainer extends React.Component {
 	}
 }
 
+const SignupWithEmail = graphql(Signup, {
+	props: ({ mutate }) => {
+		createUser: (email, password) => mutate({ variable: { email, password } })
+	},
+})(SignupContainer)
+
 const styled = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -109,6 +132,7 @@ const styled = StyleSheet.create({
 	},
 
 	errorMessage: {
+		paddingTop: 10,
 		color: '#fff',
 	},
 
@@ -129,7 +153,7 @@ const styled = StyleSheet.create({
 		fontSize: 16,
 	},
 
-	passwordContainer: {
+	InputWidthContainer: {
 		width: '90%',
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -175,4 +199,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default SignupContainer
+export default SignupWithEmail
