@@ -1,5 +1,6 @@
 import React from 'react'
 import SearchContainer from '@commons/Search/Container'
+import SearchByKeywordContainer from '@commons/Search/SearchByKeyword/Container'
 import Header from '@screens/Header'
 import { View, Text, StyleSheet, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons'
@@ -16,7 +17,17 @@ class SearchScreen extends React.Component {
 	}
 
 	render() {
-		return <SearchContainer navigation={this.props.navigation} />
+		let searchString
+		if (this.props.navigation.state.params) {
+			if (this.props.navigation.state.params.searchString) {
+				searchString = this.props.navigation.state.params.searchString
+			}
+		}
+		return searchString ? (
+			<SearchByKeywordContainer searchString={searchString} navigation={this.props.navigation} />
+		) : (
+			<SearchContainer navigation={this.props.navigation} />
+		)
 	}
 }
 

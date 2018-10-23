@@ -7,6 +7,10 @@ export const StyledConstants = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 
+	FONT_TOPIC_DESCRIPTION: {
+		fontSize: 18,
+	},
+
 	FONT_DESCRIPTION: {
 		fontSize: 16,
 	},

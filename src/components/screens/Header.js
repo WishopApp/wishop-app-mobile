@@ -10,11 +10,12 @@ import { Percentage, Viewport } from '@constants/Data'
 export default class Header extends React.Component {
 	constructor(props) {
 		super(props)
-		this._back = this._back.bind(this)
-		this.letterSpace = this.letterSpace.bind(this)
 		this.state = {
 			searchString: null,
 		}
+		this._back = this._back.bind(this)
+		this.letterSpace = this.letterSpace.bind(this)
+		this.searchInputComp = this.searchInputComp.bind(this)
 	}
 
 	_back = navigation => {
@@ -27,6 +28,15 @@ export default class Header extends React.Component {
 	}
 
 	searchInputComp = () => {
+		let placeHolder
+		if (this.props.navigation.state.params) {
+			if (this.props.navigation.state.params.searchString) {
+				placeHolder = this.props.navigation.state.params.searchString
+			}
+		} else {
+			placeHolder = 'Search'
+		}
+
 		return (
 			<View style={styled.inputContainer}>
 				<SearchBar
@@ -37,11 +47,22 @@ export default class Header extends React.Component {
 					platform="android"
 					searchIcon={{ size: 36 }}
 					cancelIcon={true}
-					placeholder="Search"
+					placeholder={placeHolder && placeHolder}
 					placeholderTextColor="#2F4F4F"
 					underlineColorAndroid="transparent"
+					onChangeText={text => {
+						this.setState({ searchString: text })
+					}}
 				/>
-				<TouchableOpacity style={styled.SearchText}>
+				<TouchableOpacity
+					style={styled.SearchText}
+					onPress={() => {
+						if (this.state.searchString)
+							this.props.navigation.replace('Search', {
+								searchString: this.state.searchString,
+							})
+					}}
+				>
 					<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.TEXT_BLACK]}>Search</Text>
 				</TouchableOpacity>
 			</View>
@@ -156,6 +177,8 @@ const styled = StyleSheet.create({
 
 	SearchText: {
 		width: Percentage(15, Viewport.width),
+		height: '100%',
+		justifyContent: 'center',
 		marginBottom: 5,
 	},
 })
