@@ -13,9 +13,16 @@ export const Viewport = {
 	height: viewportHeight,
 }
 
-export const user = {
-	_id: '5bcef970c43071000fd6ea4c',
-	email: 'teeradet.huag@gmail.com',
+export let user = {
+	_id: null,
+	email: null,
+	tokenString: null,
+}
+
+export const setUser = (_id, email, tokenString = null) => {
+	user._id = _id
+	user.email = email
+	user.tokenString = tokenString
 }
 
 export const InputWishlistProps = (array, type) => {

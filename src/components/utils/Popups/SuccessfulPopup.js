@@ -26,7 +26,15 @@ class SuccessfulPopup extends React.Component {
 
 	dissmissPopup() {
 		this.popupDialog.dismiss()
-		if (this.props.navigation != undefined) {
+
+		if (this.props.navigateTo != undefined) {
+			let routeName = this.props.navigateTo.routeName
+			if (this.props.navigateTo.action == 'navigate') {
+				this.props.navigation.navigate(routeName)
+			} else if (this.props.navigateTo.action == 'replace') {
+				this.props.navigation.replace(routeName)
+			}
+		} else if (this.props.navigation != undefined) {
 			this.props.navigation.goBack(null)
 		}
 	}

@@ -7,6 +7,8 @@ import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { graphql } from 'react-apollo'
 import { Login } from '@utils/Graphql/Mutation'
+import { SuccessPopup } from '@utils/Popups/CallPopup'
+import { user, setUser } from '@constants/Data'
 
 class LoginContainer extends React.Component {
 	constructor(props) {
@@ -15,10 +17,10 @@ class LoginContainer extends React.Component {
 			email: null,
 			password: null,
 			errorMessage: null,
+			callSuccessPopup: false,
 		}
 		this.requireField = this.requireField.bind(this)
 		this.login = this.login.bind(this)
-		console.log(this.props)
 	}
 
 	requireField = (email, password) => {
@@ -33,11 +35,17 @@ class LoginContainer extends React.Component {
 		let email = this.state.email
 		let password = this.state.password
 		let error = await this.requireField(email, password)
-		console.log('errorMessage', error)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			let tokenString = await this.props.login(email, password)
-			console.log('tokenString', tokenString)
+			let mutationLogin = await this.props.login(email, password)
+			let loginSuccess = mutationLogin.data.login ? true : false
+			if (loginSuccess) {
+				let tokenString = login.data.login
+				// find _id by email
+
+				setUser('213', email, tokenString)
+				this.setState({ callSuccessPopup: true })
+			}
 		}
 	}
 
@@ -53,6 +61,11 @@ class LoginContainer extends React.Component {
 				style={styled.container}
 				colors={['#582FFF', '#00A9FF', '#00CED1']}
 			>
+				{this.state.callSuccessPopup &&
+					SuccessPopup(this.props.navigation, 'Success', 'Login Success \n Welcome to Wishop!', {
+						routeName: 'Search',
+						action: 'navigate',
+					})}
 				<View style={styled.logoContainer}>
 					<Image style={styled.imageSize} source={require('@images/logo.png')} resizeMode="stretch" />
 				</View>
