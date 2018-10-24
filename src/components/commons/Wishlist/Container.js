@@ -12,6 +12,7 @@ import _ from 'underscore'
 class Wishlist extends React.Component {
 	constructor(props) {
 		super(props)
+		console.log(props)
 	}
 
 	remove = async wishlistId => {
