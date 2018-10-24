@@ -40,10 +40,10 @@ class LoginContainer extends React.Component {
 			let mutationLogin = await this.props.login(email, password)
 			let loginSuccess = mutationLogin.data.login ? true : false
 			if (loginSuccess) {
-				let tokenString = login.data.login
+				let authToken = login.data.login
 				// find _id by email
 
-				setUser('213', email, tokenString)
+				setUser('213', email, authToken)
 				this.setState({ callSuccessPopup: true })
 			}
 		}

@@ -16,13 +16,13 @@ export const Viewport = {
 export let user = {
 	_id: null,
 	email: null,
-	tokenString: null,
+	authToken: null,
 }
 
-export const setUser = (_id, email, tokenString = null) => {
+export const setUser = (_id, email, authToken = null) => {
 	user._id = _id
 	user.email = email
-	user.tokenString = tokenString
+	user.authToken = authToken
 }
 
 export const InputWishlistProps = (array, type) => {
