@@ -1,5 +1,6 @@
 import React from 'react'
-import gql from 'graphql-tag'
+// import gql from 'graphql-tag'
+import { gql } from 'apollo-boost'
 
 export const MutationCreateWishlist = gql`
 	mutation CreateWishlist($userId: ID!, $wishlist: WishlistInput!) {
