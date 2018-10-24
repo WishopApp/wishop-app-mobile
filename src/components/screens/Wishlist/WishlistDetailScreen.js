@@ -2,10 +2,17 @@ import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import WishlistDetailContainer from '@commons/Wishlist/WishlistDetail/Container'
+import Header from '@screens/Header'
 
 class WishlistDetailScreen extends React.Component {
 	constructor(props) {
 		super(props)
+	}
+
+	static navigationOptions = ({ navigation }) => {
+		return {
+			header: <Header navigation={navigation} />,
+		}
 	}
 
 	componentWillMount() {

@@ -51,3 +51,18 @@ export const MutationTest = gql`
 		}
 	}
 `
+
+export const Login = gql`
+	mutation UserLogin($email: String!, $password: String!) {
+		login(email: $email, password: $password)
+	}
+`
+
+export const Signup = gql`
+	mutation UserSignup($email: String!, $password: String!) {
+		createUser(email: $email, password: $password) {
+			_id
+			email
+		}
+	}
+`

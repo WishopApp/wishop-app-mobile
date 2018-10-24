@@ -7,6 +7,8 @@
 		"start-android": "npm run build && npm run android",
 		"android": "react-native run-android",
 		"build": "react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+		"window-build-apk": "cd android && gradlew assembleRelease --console plain",
+		"linux-build-apk": "cd android && ./gradlew assembleRelease --console plain",
 		"debug-android": "react-native log-android",
 		"postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json",
 		"test": "jest"

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import CreateWishlist from '@commons/CreateWishlist'
 import UpdateWishlist from '@commons/CreateWishlist/UpdateWishlist'
-import DismissableModal from '@screens/DismissableModal'
+import Header from '@screens/Header'
 
 class CreateWishlistScreen extends React.Component {
 	constructor(props) {
@@ -12,21 +12,20 @@ class CreateWishlistScreen extends React.Component {
 		}
 	}
 
+	static navigationOptions = ({ navigation }) => {
+		return {
+			header: <Header title="New Wishlist" navigation={navigation} close={true} />,
+		}
+	}
+
 	componentWillMount() {
-		if (this.props.navigation.state.params.type) {
+		if (this.props.navigation.state.params.type === 'Update') {
 			this.setState({ type: this.props.navigation.state.params.type })
 		}
 	}
 
 	componentWillUnmount() {
 		this.setState({ type: 'Create' })
-	}
-
-	static navigationOptions = ({ navigation }) => {
-		return {
-			headerLeft: null,
-			headerRight: <DismissableModal navigation={navigation} />,
-		}
 	}
 
 	render() {

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import SvgUri from 'react-native-svg-uri'
+import Header from '@screens/Header'
 import Home from '@screens/Home'
 import SearchScreen from '@screens/Search/SearchScreen'
 import WishlistScreen from '@screens/Wishlist'
@@ -14,6 +16,21 @@ import SubCategoryPropsScreen from '@screens/Category/SubCategoryPropsScreen'
 import ProductDetailScreen from '@screens/Product/ProductDetailScreen'
 import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
+import LoginScreen from '@screens/Login/LoginScreen'
+import SignupScreen from '@screens/Login/SignupScreen'
+
+export const LoadIconStack = {
+	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
+	homeFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/home.svg')} />,
+	search: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/magnifying-glass.svg')} />,
+	searchFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/magnifying-glass.svg')} />,
+	shop: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/shop.svg')} />,
+	shopFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/shop.svg')} />,
+	wishlist: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/wishlist-hover-icon.svg')} />,
+	wishlistFocused: (
+		<SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/wishlist-hover-icon.svg')} />
+	),
+}
 
 export const HomeStack = StackNavigator({
 	Home: {
@@ -36,63 +53,117 @@ export const StoreStack = StackNavigator({
 	},
 })
 
+export const CreateWishlistStack = StackNavigator(
+	{
+		CreateWishlist: {
+			screen: CreateWishlistScreen,
+		},
+		Category: {
+			screen: CategoryScreen,
+		},
+		SubCategory: {
+			screen: SubCategoryScreen,
+		},
+		CategoryPropsPage: {
+			screen: CategoryPropsScreen,
+		},
+		SubCategoryPropsPage: {
+			screen: SubCategoryPropsScreen,
+		},
+	},
+	{
+		headerMode: 'none',
+		navigationOptions: {
+			tabBarVisible: false,
+		},
+	}
+)
+
 export const MywishlistStack = StackNavigator({
-	// Wishlist: {
-	// 	screen: WishlistScreen,
-	// 	navigationOptions: {
-	// 		title: 'W I S H L I S T',
-	// 	},
+	Wishlist: {
+		screen: WishlistScreen,
+		navigationOptions: {
+			title: 'W I S H L I S T',
+		},
+	},
+	WishlistDetail: {
+		screen: WishlistDetailScreen,
+		navigationOptions: {
+			title: ' W I S H L I S T   D E T A I L',
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
+	// ProductNavigation: {
+	// 	screen: ProductNavigationScreen,
 	// },
-	// WishlistDetail: {
-	// 	screen: WishlistDetailScreen,
-	// 	navigationOptions: {
-	// 		title: ' W I S H L I S T   D E T A I L',
-	// 	},
-	// },
-	// ProductDetail: {
-	// 	screen: ProductDetailScreen,
-	// },
-	ProductNavigation: {
-		screen: ProductNavigationScreen,
+
+	CreateWishlist: {
+		screen: CreateWishlistStack,
+		navigationOptions: {
+			headerMode: 'none',
+		},
 	},
 })
 
 export const Tabs = TabNavigator(
 	{
-		Home: {
-			screen: HomeStack,
+		// Home: {
+		// 	screen: HomeStack,
+		// 	navigationOptions: {
+		// 		tabBarLabel: 'Home',
+		// 		tabBarIcon: ({ focused }) => {
+		// 			return focused ? LoadIconStack.homeFocused : LoadIconStack.home
+		// 		},
+		// 	},
+		// },
+		Search: {
+			screen: SearchStack,
 			navigationOptions: {
-				tabBarLabel: 'Home',
+				tabBarLabel: 'Search',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
+				},
 			},
 		},
 		Store: {
 			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
+				},
 			},
 		},
-		// Search: {
-		// 	screen: SearchStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Search',
-		// 	},
-		// },
-		// Wishlist: {
-		// 	screen: MywishlistStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Wishlist',
-		// 	},
-		// },
-		ProductNavigation: {
+		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
-				tabBarLabel: 'Navigation',
+				tabBarLabel: 'Wishlist',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+				},
 			},
 		},
 	},
 	{
 		tabBarPosition: 'bottom',
 		animationEnabled: false,
+		tabBarOptions: {
+			showIcon: true,
+			showLabel: true,
+			style: {
+				height: 60,
+				backgroundColor: 'black',
+			},
+			indicatorStyle: {
+				backgroundColor: 'transparent',
+			},
+			labelStyle: {
+				fontSize: 12,
+			},
+			upperCaseLabel: false,
+		},
 		transitionConfig: () => ({
 			transitionSpec: {
 				duration: 0,
@@ -103,41 +174,28 @@ export const Tabs = TabNavigator(
 	}
 )
 
-export const CreateWishlistStack = StackNavigator({
-	CreateWishlist: {
-		screen: CreateWishlistScreen,
+export const LoginStack = StackNavigator({
+	Login: {
+		screen: LoginScreen,
 		navigationOptions: {
-			title: 'N E W W I S H L I S T',
+			header: null,
 		},
 	},
-	Category: {
-		screen: CategoryScreen,
-		navigationOptions: {
-			title: 'S E L E C T   C A T E G O R Y',
-		},
-	},
-	SubCategory: {
-		screen: SubCategoryScreen,
-		navigationOptions: {
-			title: 'S E L E C T   S U B C A T E G O R Y',
-		},
-	},
-	CategoryPropsPage: {
-		screen: CategoryPropsScreen,
-	},
-	SubCategoryPropsPage: {
-		screen: SubCategoryPropsScreen,
+	Signup: {
+		screen: SignupScreen,
 	},
 })
 
 export const Root = StackNavigator(
 	{
+		// Login: LoginStack,
 		Main: Tabs,
 		// Modal Stack
-		CreateWishlist: CreateWishlistStack,
+		// CreateWishlist: CreateWishlistStack,
 	},
 	{
 		mode: 'card',
 		headerMode: 'none',
+		// initialRouteName: 'Login',
 	}
 )

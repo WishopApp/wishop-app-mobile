@@ -263,33 +263,38 @@ class CreateWishlist extends React.Component {
 							value={this.state.productName}
 						/>
 					</View>
-					<View style={styled.PropContainer}>
-						{this.state.category != null ? (
-							<CategoryProps
-								styled={styled}
-								categoryId={this.state.category._id}
-								setCategoryPropValue={this.setCategoryPropValue}
-								eachCategoryPropValues={this.state.eachCategoryPropValues}
-								navigation={this.props.navigation}
-							/>
-						) : null}
 
-						{this.state.subCategory != null ? (
-							<SubCategoryProps
-								styled={styled}
-								subCategoryId={this.state.subCategory._id}
-								setSubCategoryPropValue={this.setSubCategoryPropValue}
-								eachSubCategoryPropValues={this.state.eachSubCategoryPropValues}
-								navigation={this.props.navigation}
-							/>
-						) : null}
+					<View style={styled.PropContainer}>
+						<ScrollView showsVerticalScrollIndicator={true}>
+							{this.state.category != null ? (
+								<CategoryProps
+									styled={styled}
+									categoryId={this.state.category._id}
+									setCategoryPropValue={this.setCategoryPropValue}
+									eachCategoryPropValues={this.state.eachCategoryPropValues}
+									navigation={this.props.navigation}
+								/>
+							) : null}
+
+							{this.state.subCategory != null ? (
+								<SubCategoryProps
+									styled={styled}
+									subCategoryId={this.state.subCategory._id}
+									setSubCategoryPropValue={this.setSubCategoryPropValue}
+									eachSubCategoryPropValues={this.state.eachSubCategoryPropValues}
+									navigation={this.props.navigation}
+								/>
+							) : null}
+						</ScrollView>
 					</View>
+
 					<View style={styled.createButtonContainer}>
 						<Button
 							large
-							backgroundColor={!this.isNotRequireData() ? styled.createButtonWithData : 'blue'}
-							title={this.props.type}
-							containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
+							backgroundColor={!this.isNotRequireData() ? styled.createButtonWithData : 'black'}
+							title={this.props.type.toUpperCase()}
+							containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON]}
+							fontWeight="bold"
 							onPress={async () => {
 								if (this.isNotRequireData()) {
 									if (this.props.type === 'Update') {
@@ -298,7 +303,13 @@ class CreateWishlist extends React.Component {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
 									this.props.navigation.state.params.refetchWishlist()
-									this.setState({ successPopup: SuccessPopup(this.props.navigation) })
+									this.setState({
+										successPopup: SuccessPopup(
+											this.props.navigation,
+											'SUCCEED!',
+											'Your Wishlist had been created.'
+										),
+									})
 								}
 							}}
 							textStyle={styled.textCreateButton}
@@ -332,7 +343,7 @@ const styled = StyleSheet.create({
 		borderBottomWidth: 1,
 	},
 	textInput: {
-		width: '45%',
+		width: '50%',
 		borderBottomWidth: 0,
 		textAlign: 'right',
 	},
@@ -343,9 +354,9 @@ const styled = StyleSheet.create({
 	},
 	createButtonContainer: {
 		width: '100%',
-		position: 'absolute',
+		// position: 'absolute',
 		bottom: 0,
-		zIndex: 3,
+		// zIndex: 3,
 	},
 	createButton: {
 		paddingLeft: 0,
@@ -355,7 +366,7 @@ const styled = StyleSheet.create({
 		color: 'white',
 	},
 	categoryProps: {
-		zIndex: -5,
+		// zIndex: -5,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
