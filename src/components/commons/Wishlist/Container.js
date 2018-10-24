@@ -71,6 +71,7 @@ class Wishlist extends React.Component {
 
 const GraphQLQueryWishlist = graphql(QueryUserWishlists, {
 	options: props => {
+		console.log(user)
 		return {
 			variables: {
 				userId: user._id,

@@ -5,8 +5,9 @@ import CustomImage from '@custom/Image'
 import { StyledConstants } from '@constants/Styled'
 import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { Login } from '@utils/Graphql/Mutation'
+import { QueryCurrentUser } from '@utils/Graphql/Query'
 import { SuccessPopup } from '@utils/Popups/CallPopup'
 import { user, setUser } from '@constants/Data'
 
@@ -21,6 +22,7 @@ class LoginContainer extends React.Component {
 		}
 		this.requireField = this.requireField.bind(this)
 		this.login = this.login.bind(this)
+		console.log(this.props)
 	}
 
 	requireField = (email, password) => {
@@ -40,10 +42,17 @@ class LoginContainer extends React.Component {
 			let mutationLogin = await this.props.login(email, password)
 			let loginSuccess = mutationLogin.data.login ? true : false
 			if (loginSuccess) {
-				let authToken = login.data.login
-				// find _id by email
+				let authToken = mutationLogin.data.login
+				setUser.authToken(authToken)
 
-				setUser('213', email, authToken)
+				// get current User that passed login
+				let reQuery = await this.props.data.refetch()
+				let currentUser = reQuery.data.currentUser
+
+				setUser._id(currentUser._id)
+				setUser.email(currentUser.email)
+				setUser.status(currentUser.status)
+				setUser.profile(currentUser.profile)
 				this.setState({ callSuccessPopup: true })
 			}
 		}
@@ -132,13 +141,18 @@ class LoginContainer extends React.Component {
 	}
 }
 
-const LoginWithEmail = graphql(Login, {
+const GraphqlLoginWithEmail = graphql(Login, {
 	props: ({ mutate }) => ({
-		login: (email, password) => mutate({ variables: { email, password } }),
+		login: (email, password) =>
+			mutate({
+				variables: { email, password },
+			}),
 	}),
-})(LoginContainer)
+})
 
-// const LoginWithEmail = graphql(Login)(LoginContainer)
+const GraphqlCurrentUser = graphql(QueryCurrentUser)
+
+const LoginWithEmail = compose(GraphqlLoginWithEmail, GraphqlCurrentUser)(LoginContainer)
 
 const styled = StyleSheet.create({
 	container: {

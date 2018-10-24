@@ -17,12 +17,26 @@ export let user = {
 	_id: null,
 	email: null,
 	authToken: null,
+	status: null,
+	profile: null,
 }
 
-export const setUser = (_id, email, authToken = null) => {
-	user._id = _id
-	user.email = email
-	user.authToken = authToken
+export const setUser = {
+	_id: _id => {
+		user._id = _id
+	},
+	email: email => {
+		user.email = email
+	},
+	authToken: authToken => {
+		user.authToken = authToken
+	},
+	status: status => {
+		user.status = status
+	},
+	profile: profile => {
+		user.profile = profile
+	},
 }
 
 export const InputWishlistProps = (array, type) => {

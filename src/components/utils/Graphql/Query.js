@@ -132,3 +132,25 @@ export const QuerySearchProductByWishlist = gql`
 		}
 	}
 `
+
+export const QueryCurrentUser = gql`
+	query CurrentUser {
+		currentUser {
+			_id
+			email
+			status
+			profile {
+				name
+				telNo
+				avatarUrl
+				address {
+					district
+					province
+					country
+					zipcode
+					detail
+				}
+			}
+		}
+	}
+`
