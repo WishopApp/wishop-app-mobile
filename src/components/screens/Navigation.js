@@ -18,6 +18,7 @@ import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 import LoginScreen from '@screens/Login/LoginScreen'
 import SignupScreen from '@screens/Login/SignupScreen'
+import ProfileScreen from '@screens/Profile/ProfileScreen'
 
 export const LoadIconStack = {
 	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
@@ -30,6 +31,8 @@ export const LoadIconStack = {
 	wishlistFocused: (
 		<SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/wishlist-hover-icon.svg')} />
 	),
+	profile: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/user.svg')} />,
+	profileFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/user.svg')} />,
 }
 
 export const HomeStack = StackNavigator({
@@ -107,6 +110,12 @@ export const MywishlistStack = StackNavigator({
 	},
 })
 
+export const ProfileStack = StackNavigator({
+	Profile: {
+		screen: ProfileScreen,
+	},
+})
+
 export const Tabs = TabNavigator(
 	{
 		// Home: {
@@ -142,6 +151,15 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Wishlist',
 				tabBarIcon: ({ focused }) => {
 					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+				},
+			},
+		},
+		Profile: {
+			screen: ProfileStack,
+			navigationOptions: {
+				tabBarLabel: 'Profile',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.profileFocused : LoadIconStack.profile
 				},
 			},
 		},
