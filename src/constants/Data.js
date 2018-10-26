@@ -13,12 +13,32 @@ export const Viewport = {
 	height: viewportHeight,
 }
 
+// export let user = {
+// 	_id: null,
+// 	email: null,
+// 	authToken: null,
+// 	status: null,
+// 	profile: null,
+// }
+
 export let user = {
-	_id: null,
-	email: null,
-	authToken: null,
-	status: null,
-	profile: null,
+	_id: '5bd063f86f9eb2000f2b0944',
+	email: 'q123@q123.com',
+	authToken:
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViZDA2M2Y4NmY5ZWIyMDAwZjJiMDk0NCJ9LCJpYXQiOjE1NDA0ODA1MTksImV4cCI6MTU0MDU2NjkxOX0.SLunbyheelwiXAZH3nJzr4glNVnXANISTijS79YtvJQ',
+	status: 'CUSTOMER',
+	profile: {
+		name: null,
+		telNo: null,
+		avatarUrl: null,
+		address: {
+			district: null,
+			province: null,
+			country: null,
+			zipcode: null,
+			detail: null,
+		},
+	},
 }
 
 export const setUser = {
