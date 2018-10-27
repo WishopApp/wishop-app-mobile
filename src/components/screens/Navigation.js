@@ -19,6 +19,7 @@ import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 import LoginScreen from '@screens/Login/LoginScreen'
 import SignupScreen from '@screens/Login/SignupScreen'
 import ProfileScreen from '@screens/Profile/ProfileScreen'
+import ProfileAddressScreen from '@screens/Profile/ProfileAddressScreen'
 
 export const LoadIconStack = {
 	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
@@ -113,6 +114,9 @@ export const MywishlistStack = StackNavigator({
 export const ProfileStack = StackNavigator({
 	Profile: {
 		screen: ProfileScreen,
+	},
+	ProfileAddress: {
+		screen: ProfileAddressScreen,
 	},
 })
 

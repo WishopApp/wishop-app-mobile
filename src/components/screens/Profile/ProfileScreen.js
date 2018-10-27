@@ -1,6 +1,7 @@
 import React from 'react'
 import ProfileContainer from '@commons/Profile/Container'
 import Header from '@screens/Header'
+import { TouchableOpacity, Keyboard } from 'react-native'
 
 class ProfileScreen extends React.Component {
 	constructor(props) {

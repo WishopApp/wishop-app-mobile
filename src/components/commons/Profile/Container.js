@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, ScrollView, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity, Keyboard } from 'react-native'
 import { user, Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
@@ -10,10 +10,44 @@ let imageProfileWidth = 100
 let imageProfileHeight = 100
 let iconSize = 18
 
+const letterSpace = (word, countSpace = 2) => {
+	return word.split('').join('\u200A'.repeat(countSpace))
+}
+
 class ProfileContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			name: null,
+			telNo: null,
+			address: {
+				district: null,
+				province: null,
+				country: null,
+				zipcode: null,
+				detail: null,
+			},
+		}
+		this.textInputFocus = this.textInputFocus.bind(this)
+		this.changeToShopOwner = this.changeToShopOwner.bind(this)
 		console.log(user)
+	}
+
+	changeToShopOwner = () => {
+		console.log('ChangeshopOwner')
+	}
+
+	textInputFocus = async node => {
+		await node.setNativeProps({ editable: true })
+		await node.focus()
+	}
+
+	toAddressPage = navigation => {
+		navigation.navigate('ProfileAddress')
+	}
+
+	logout = navigation => {
+		console.log('logout')
 	}
 
 	render() {
@@ -49,14 +83,21 @@ class ProfileContainer extends React.Component {
 										StyledConstants.FONT_BLACK,
 									]}
 								>
-									Status: {user.status}
+									{letterSpace(user.status)}
 								</Text>
 							</View>
-							<View style={styled.profileStatusRight}>
+							<TouchableOpacity
+								style={styled.profileStatusRight}
+								activeOpacity={1}
+								onPress={() => this.changeToShopOwner()}
+							>
 								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BLACK]}>
-									Change to Shop_Owner{' '}
+									Change to Shop Owner
 								</Text>
-							</View>
+								<View style={[styled.profileStatusRightIcon, styled.iconContainer]}>
+									<Icon name="chevron-right" size={14} color="black" style={styled.icon} />
+								</View>
+							</TouchableOpacity>
 						</View>
 					</CustomLinearGradient>
 				</View>
@@ -64,39 +105,41 @@ class ProfileContainer extends React.Component {
 					<View style={styled.inputContainer}>
 						<View style={styled.InputWidthContainer}>
 							<View style={styled.iconContainer}>
-								<Icon name="user" size={iconSize} color="grey" style={styled.icon} />
+								<Icon name="envelope" size={iconSize} color="grey" style={styled.icon} />
 							</View>
 							<TextInput
-								placeholder={'Name'}
+								placeholder={user.email ? user.email : 'Email'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
-								onChangeText={text => {
-									this.setState({ email: text })
-								}}
 							/>
-							<View style={styled.iconContainer}>
-								<Icon name="edit" size={iconSize} light style={styled.icon} />
-							</View>
+							<View style={styled.iconContainer} />
 						</View>
 					</View>
 					<View style={styled.inputContainer}>
 						<View style={styled.InputWidthContainer}>
 							<View style={styled.iconContainer}>
-								<Icon name="envelope" size={iconSize} color="grey" style={styled.icon} />
+								<Icon name="user" size={iconSize} color="grey" style={styled.icon} />
 							</View>
 							<TextInput
-								placeholder={'Email'}
+								ref={component => {
+									this._textInputName = component
+								}}
+								placeholder={user.profile.name ? user.profile.name : 'Name'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
-								onChangeText={text => {
-									this.setState({ email: text })
+								onChangeText={name => {
+									this.setState({ name: name })
 								}}
 							/>
-							<View style={styled.iconContainer}>
+							<TouchableOpacity
+								style={styled.iconContainer}
+								activeOpacity={1}
+								onPress={() => this.textInputFocus(this._textInputName)}
+							>
 								<Icon name="edit" size={iconSize} light style={styled.icon} />
-							</View>
+							</TouchableOpacity>
 						</View>
 					</View>
 					<View style={styled.inputContainer}>
@@ -105,20 +148,34 @@ class ProfileContainer extends React.Component {
 								<Icon name="phone" size={iconSize} color="grey" style={styled.icon} />
 							</View>
 							<TextInput
-								placeholder={'Phone'}
+								ref={component => {
+									this._textInputPhone = component
+								}}
+								placeholder={user.profile.telNo ? user.profile.telNo : 'Phone Number'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
-								onChangeText={text => {
-									this.setState({ email: text })
+								keyboardType={'numeric'}
+								onChangeText={phoneNumber => {
+									this.setState({ telNo: phoneNumber })
 								}}
 							/>
-							<View style={styled.iconContainer}>
+							<TouchableOpacity
+								style={styled.iconContainer}
+								activeOpacity={1}
+								onPress={() => this.textInputFocus(this._textInputPhone)}
+							>
 								<Icon name="edit" size={iconSize} light style={styled.icon} />
-							</View>
+							</TouchableOpacity>
 						</View>
 					</View>
-					<View style={styled.inputContainer}>
+					<TouchableOpacity
+						style={styled.inputContainer}
+						activeOpacity={1}
+						onPress={() => {
+							this.toAddressPage(this.props.navigation)
+						}}
+					>
 						<View style={styled.InputWidthContainer}>
 							<View style={styled.iconContainer}>
 								<Icon name="building" size={iconSize} color="grey" style={styled.icon} />
@@ -130,19 +187,27 @@ class ProfileContainer extends React.Component {
 								editable={false}
 							/>
 							<View style={styled.iconContainer}>
-								<Icon name="chevron-right" size={iconSize} light style={styled.icon} />
+								<Icon name="chevron-right" size={iconSize} color="black" style={styled.icon} />
 							</View>
 						</View>
-					</View>
+					</TouchableOpacity>
 
-					<View style={[styled.inputContainer, styled.logoutContainer]}>
+					<TouchableOpacity
+						style={styled.inputContainer}
+						activeOpacity={1}
+						onPress={() => {
+							this.logout(this.props.navigation)
+						}}
+						View
+						style={[styled.inputContainer, styled.logoutContainer]}
+					>
 						<View style={styled.logoutWrapper}>
 							<View style={styled.iconContainer}>
 								<Icon name="unlock-alt" size={iconSize} color="grey" style={styled.icon} />
 							</View>
 							<Text style={[StyledConstants.FONT_TOPIC_DESCRIPTION, styled.logoutText]}>Logout</Text>
 						</View>
-					</View>
+					</TouchableOpacity>
 				</ScrollView>
 			</View>
 		)
@@ -181,6 +246,18 @@ const styled = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-around',
+	},
+
+	profileStatusRight: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		marginLeft: 10,
+	},
+
+	profileStatusRightIcon: {
+		marginTop: 2,
+		paddingLeft: 10,
 	},
 
 	iconContainer: {
