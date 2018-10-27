@@ -43,7 +43,10 @@ class ProfileContainer extends React.Component {
 	}
 
 	toAddressPage = navigation => {
-		navigation.navigate('ProfileAddress')
+		navigation.navigate('ProfileAddress', {
+			styled: styled,
+			textInputFocus: this.textInputFocus,
+		})
 	}
 
 	logout = navigation => {
