@@ -88,6 +88,7 @@ class LoginContainer extends React.Component {
 							placeholder={'Email'}
 							placeholderTextColor="#2F4F4F"
 							underlineColorAndroid="transparent"
+							keyboardType={'email-address'}
 							style={[styled.passwordInput, styled.inputStyle]}
 							onChangeText={email => {
 								this.setState({ email: email })
