@@ -54,6 +54,7 @@
 		71414E8022EC4515ADD83CD0 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DFA470C3841468EBC2C1600 /* libRNSVG.a */; };
 		80FDDEF18558486EA7673536 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 878AE61FB447440689932151 /* libBVLinearGradient.a */; };
 		694D76A5E62945D8B15D1079 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6DCDF5B8974F429C9287B7 /* libRNFS.a */; };
+		359F1D80CC8D4914B5361814 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B1E83F31A9EC497EA6A2699C /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -382,6 +383,8 @@
 		878AE61FB447440689932151 /* libBVLinearGradient.a */ = {isa = PBXFileReference; name = "libBVLinearGradient.a"; path = "libBVLinearGradient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		77D2977BAD6E4A22971A475E /* RNFS.xcodeproj */ = {isa = PBXFileReference; name = "RNFS.xcodeproj"; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1B6DCDF5B8974F429C9287B7 /* libRNFS.a */ = {isa = PBXFileReference; name = "libRNFS.a"; path = "libRNFS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		389ACE4DF80F47289EB313C0 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B1E83F31A9EC497EA6A2699C /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +419,7 @@
 				71414E8022EC4515ADD83CD0 /* libRNSVG.a in Frameworks */,
 				80FDDEF18558486EA7673536 /* libBVLinearGradient.a in Frameworks */,
 				694D76A5E62945D8B15D1079 /* libRNFS.a in Frameworks */,
+				359F1D80CC8D4914B5361814 /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +612,7 @@
 				D44ABCDB17644DA7A3EE369D /* RNSVG.xcodeproj */,
 				B2EEB67161164AA6A727483E /* BVLinearGradient.xcodeproj */,
 				77D2977BAD6E4A22971A475E /* RNFS.xcodeproj */,
+				389ACE4DF80F47289EB313C0 /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1271,6 +1276,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1280,6 +1286,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Debug;
@@ -1306,6 +1313,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1315,6 +1323,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Release;
@@ -1342,6 +1351,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Debug;
@@ -1368,6 +1378,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Release;
@@ -1403,6 +1414,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1412,6 +1424,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Debug;
@@ -1447,6 +1460,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1456,6 +1470,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Release;
@@ -1490,6 +1505,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1499,6 +1515,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Debug;
@@ -1533,6 +1550,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1542,6 +1560,7 @@
 					"$(SRCROOT)\..\node_modules\react-native-svg\ios/**",
 					"$(SRCROOT)\..\node_modules\react-native-linear-gradient\BVLinearGradient",
 					"$(SRCROOT)\..\node_modules\react-native-fs/**",
+					"$(SRCROOT)\..\node_modules\react-native-image-picker\ios",
 				);
 			};
 			name = Release;

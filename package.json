@@ -18,6 +18,7 @@
 	},
 	"dependencies": {
 		"apollo-boost": "^0.1.17",
+		"axios": "^0.18.0",
 		"babel-plugin-graphql-tag": "^1.5.0",
 		"babel-plugin-module-alias": "^1.6.0",
 		"babel-plugin-module-resolver": "^3.1.1",
@@ -32,6 +33,7 @@
 		"react-native-elements": "^0.19.1",
 		"react-native-fs": "^2.11.15",
 		"react-native-gesture-handler": "1.0.0-alpha.39",
+		"react-native-image-picker": "^0.27.1",
 		"react-native-linear-gradient": "^2.4.0",
 		"react-native-popup-dialog": "^0.11.46",
 		"react-native-router-flux": "^4.0.0-beta.28",
