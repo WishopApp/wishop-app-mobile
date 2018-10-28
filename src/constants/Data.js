@@ -32,7 +32,7 @@ export let user = {
 		telNo: null,
 		avatarUrl: null,
 		address: {
-			district: null,
+			district: 'test',
 			province: null,
 			country: null,
 			zipcode: null,
@@ -56,6 +56,15 @@ export const setUser = {
 	},
 	profile: profile => {
 		user.profile = profile
+	},
+	name: name => {
+		user.profile.name = name
+	},
+	telNo: telNo => {
+		user.profile.telNo = telNo
+	},
+	avatarUrl: avatarUrl => {
+		user.profile.avatarUrl = avatarUrl
 	},
 }
 

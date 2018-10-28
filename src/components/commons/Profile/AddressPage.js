@@ -6,11 +6,28 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 let iconSize = 18
 
+let district = null,
+	province = null,
+	country = null,
+	zipcode = null,
+	detail = null
+if (user.profile && user.profile.address) {
+	district = user.profile.address.district ? user.profile.address.district : null
+	province = user.profile.address.province ? user.profile.address.province : null
+	country = user.profile.address.country ? user.profile.address.country : null
+	zipcode = user.profile.address.zipcode ? user.profile.address.zipcode : null
+	detail = user.profile.address.detail ? user.profile.address.detail : null
+}
+
 class ProfileAddressContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			language: null,
+			district: district,
+			province: province,
+			country: country,
+			zipcode: zipcode,
+			detail: detail,
 		}
 	}
 
@@ -38,7 +55,7 @@ class ProfileAddressContainer extends React.Component {
 							ref={component => {
 								this._textInputDistrict = component
 							}}
-							placeholder={user.profile.address.district ? user.profile.address.district : 'District'}
+							placeholder={this.state.district ? this.state.district : 'District'}
 							underlineColorAndroid="transparent"
 							style={styled.inputStyle}
 							editable={false}
@@ -65,7 +82,7 @@ class ProfileAddressContainer extends React.Component {
 							ref={component => {
 								this._textInputProvince = component
 							}}
-							placeholder={user.profile.address.province ? user.profile.address.province : 'Province'}
+							placeholder={this.state.province ? this.state.province : 'Province'}
 							underlineColorAndroid="transparent"
 							style={styled.inputStyle}
 							editable={false}
@@ -92,7 +109,7 @@ class ProfileAddressContainer extends React.Component {
 							ref={component => {
 								this._textInputZipcode = component
 							}}
-							placeholder={user.profile.address.zipcode ? user.profile.address.zipcode : 'Zipcode'}
+							placeholder={this.state.zipcode ? this.state.zipcode : 'Zipcode'}
 							underlineColorAndroid="transparent"
 							style={styled.inputStyle}
 							editable={false}
@@ -120,7 +137,7 @@ class ProfileAddressContainer extends React.Component {
 							ref={component => {
 								this._textInputCountry = component
 							}}
-							placeholder={user.profile.address.country ? user.profile.address.country : 'Country'}
+							placeholder={this.state.country ? this.state.country : 'Country'}
 							underlineColorAndroid="transparent"
 							style={styled.inputStyle}
 							editable={false}
@@ -154,7 +171,7 @@ class ProfileAddressContainer extends React.Component {
 							ref={component => {
 								this._textInputDetail = component
 							}}
-							placeholder={user.profile.address.detail ? user.profile.address.detail : 'Other Detail'}
+							placeholder={this.state.detail ? this.state.detail : 'Other Detail'}
 							underlineColorAndroid="transparent"
 							style={styled.inputStyle}
 							editable={false}

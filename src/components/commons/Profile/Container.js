@@ -6,10 +6,22 @@ import CustomLinearGradient from '@custom/LinearGradient'
 import SvgUri from 'react-native-svg-uri'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
+import axios from 'axios'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100
 let iconSize = 18
+
+let email = user.email ? user.email : null
+let status = user.status ? user.status : null
+let name = null,
+	telNo = null,
+	avartarUrl = null
+if (user.profile) {
+	name = user.profile.name
+	telNo = user.profile.telNo
+	avartarUrl = user.profile.avartarUrl
+}
 
 const letterSpace = (word, countSpace = 2) => {
 	return word.split('').join('\u200A'.repeat(countSpace))
@@ -28,15 +40,12 @@ class ProfileContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			name: null,
-			telNo: null,
-			address: {
-				district: null,
-				province: null,
-				country: null,
-				zipcode: null,
-				detail: null,
-			},
+			email: email,
+			status: status,
+			name: name,
+			telNo: telNo,
+			avartarUrl: avartarUrl,
+			address: null,
 		}
 		this.selectAvartar = this.selectAvartar.bind(this)
 		this.textInputFocus = this.textInputFocus.bind(this)
@@ -46,28 +55,48 @@ class ProfileContainer extends React.Component {
 
 	selectAvartar = async () => {
 		console.log('select Image')
-		ImagePicker.showImagePicker(options, response => {
-			let uri
-			console.log('Response = ', response)
+		new Promise((resolve, reject) => {
+			ImagePicker.showImagePicker(options, response => {
+				console.log('Response = ', response)
 
-			if (response.didCancel) {
-				console.log('User cancelled image picker')
-			} else if (response.error) {
-				console.log('ImagePicker Error: ', response.error)
-			} else if (response.customButton) {
-				console.log('User tapped custom button: ', response.customButton)
-			} else {
-				// const source = { uri: response.uri }
+				if (response.didCancel) {
+					console.log('User cancelled image picker')
+				} else if (response.error) {
+					console.log('ImagePicker Error: ', response.error)
+				} else {
+					const data = new FormData()
+					data.append('photo', {
+						uri: response.uri,
+						type: response.type,
+						name: response.fileName,
+					})
+					const config = {
+						method: 'POST',
+						headers: {
+							Accept: 'application/json',
+							'Content-Type': 'multipart/form-data',
+						},
+						body: data,
+					}
 
-				// You can also display the image using data:
-				console.log('')
-				const source = { uri: 'data:image/jpeg;base64,' + response.data }
-				console.log(source)
-				// this.setState({
-				// avatarSource: source,
-				// })
-			}
+					fetch('https://dev-api-wishopapp.tk/upload', config)
+						.then(response => {
+							resolve(JSON.parse(response._bodyText))
+						})
+						.catch(err => {
+							reject(err)
+						})
+				}
+			})
 		})
+			.then(response => {
+				let result = response.result
+				console.log('response:', response)
+				this.setState({ avartarUrl: result.fileLocation })
+			})
+			.catch(err => {
+				console.log('err', err)
+			})
 	}
 
 	changeToShopOwner = () => {
@@ -106,8 +135,8 @@ class ProfileContainer extends React.Component {
 								activeOpacity={1}
 								onPress={() => this.selectAvartar()}
 							>
-								{user.profile.avatarUrl ? (
-									<Image source={{ uri: user.profile.avatarUrl }} style={styled.imageProfile} />
+								{this.state.avartarUrl ? (
+									<Image source={{ uri: this.state.avartarUrl }} style={styled.imageProfile} />
 								) : (
 									<SvgUri
 										width={imageProfileWidth}
@@ -127,7 +156,7 @@ class ProfileContainer extends React.Component {
 										StyledConstants.FONT_BLACK,
 									]}
 								>
-									{letterSpace(user.status)}
+									{letterSpace(this.state.status)}
 								</Text>
 							</View>
 							<TouchableOpacity
@@ -152,7 +181,7 @@ class ProfileContainer extends React.Component {
 								<Icon name="envelope" size={iconSize} color="grey" style={styled.icon} />
 							</View>
 							<TextInput
-								placeholder={user.email ? user.email : 'Email'}
+								placeholder={this.state.email ? this.state.email : 'Email'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
@@ -169,7 +198,7 @@ class ProfileContainer extends React.Component {
 								ref={component => {
 									this._textInputName = component
 								}}
-								placeholder={user.profile.name ? user.profile.name : 'Name'}
+								placeholder={this.state.name ? this.state.name : 'Name'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
@@ -195,7 +224,7 @@ class ProfileContainer extends React.Component {
 								ref={component => {
 									this._textInputPhone = component
 								}}
-								placeholder={user.profile.telNo ? user.profile.telNo : 'Phone Number'}
+								placeholder={this.state.telNo ? this.state.telNo : 'Phone Number'}
 								underlineColorAndroid="transparent"
 								style={styled.inputStyle}
 								editable={false}
