@@ -66,6 +66,9 @@ export const setUser = {
 	avatarUrl: avatarUrl => {
 		user.profile.avatarUrl = avatarUrl
 	},
+	address: address => {
+		user.profile.address = address
+	},
 }
 
 export const InputWishlistProps = (array, type) => {

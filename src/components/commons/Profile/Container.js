@@ -18,11 +18,11 @@ let status = user.status ? user.status : null
 let address = null
 let name = null,
 	telNo = null,
-	avartarUrl = null
+	avatarUrl = null
 if (user.profile) {
 	name = user.profile.name ? user.profile.name : null
 	telNo = user.profile.telNo ? user.profile.telNo : null
-	avartarUrl = user.profile.avartarUrl ? user.profile.avartarUrl : null
+	avatarUrl = user.profile.avatarUrl ? user.profile.avatarUrl : null
 	if (user.profile.address) {
 		address = user.address
 	}
@@ -49,7 +49,7 @@ class ProfileContainer extends React.Component {
 			status: status,
 			name: name,
 			telNo: telNo,
-			avartarUrl: avartarUrl,
+			avatarUrl: avatarUrl,
 			address: address,
 			showSaveButton: false,
 		}
@@ -57,7 +57,6 @@ class ProfileContainer extends React.Component {
 		this.textInputFocus = this.textInputFocus.bind(this)
 		this.changeToShopOwner = this.changeToShopOwner.bind(this)
 		this.showSaveButton = this.showSaveButton.bind(this)
-		console.log(this.props)
 	}
 
 	initStateValueAfterUpdate() {
@@ -67,13 +66,13 @@ class ProfileContainer extends React.Component {
 		address = null
 		name = null
 		telNo = null
-		avartarUrl = null
+		avatarUrl = null
 		if (user.profile) {
 			name = user.profile.name ? user.profile.name : null
 			telNo = user.profile.telNo ? user.profile.telNo : null
-			avartarUrl = user.profile.avartarUrl ? user.profile.avartarUrl : null
+			avatarUrl = user.profile.avatarUrl ? user.profile.avatarUrl : null
 			if (user.profile.address) {
-				address = user.address
+				address = user.profile.address
 			}
 		}
 
@@ -81,7 +80,7 @@ class ProfileContainer extends React.Component {
 		this.setState({ status: status })
 		this.setState({ name: name })
 		this.setState({ telNo: telNo })
-		this.setState({ avartarUrl: avartarUrl })
+		this.setState({ avatarUrl: avatarUrl })
 		this.setState({ address: address })
 		this.setState({ showSaveButton: false })
 	}
@@ -90,17 +89,16 @@ class ProfileContainer extends React.Component {
 		setTimeout(() => {
 			let initName = name
 			let initTelno = telNo
-			let initAvartarUrl = avartarUrl
+			let initAvatarUrl = avatarUrl
 			let initAddress = address
 			let stateName = this.state.name
 			let stateTelno = this.state.telNo
-			let stateAvartarUrl = this.state.avartarUrl
-			let stateAddress = this.state.Adress
-
+			let stateAvatarUrl = this.state.avatarUrl
+			let stateAddress = this.state.address
 			if (
 				initName != stateName ||
 				initTelno != stateTelno ||
-				initAvartarUrl != stateAvartarUrl ||
+				initAvatarUrl != stateAvatarUrl ||
 				initAddress != stateAddress
 			) {
 				this.setState({ showSaveButton: true })
@@ -148,7 +146,7 @@ class ProfileContainer extends React.Component {
 			.then(response => {
 				let result = response.result
 				console.log('response:', response)
-				this.setState({ avartarUrl: result.fileLocation })
+				this.setState({ avatarUrl: result.fileLocation })
 			})
 			.catch(err => {
 				console.log('err', err)
@@ -158,8 +156,8 @@ class ProfileContainer extends React.Component {
 	createProfileVariables = () => {
 		let stateName = this.state.name
 		let stateTelno = this.state.telNo
-		let stateAvartarUrl = this.state.avartarUrl
-		let stateAddress = this.state.adress
+		let stateAvatarUrl = this.state.avatarUrl
+		let stateAddress = this.state.address
 		let profile = null
 		let address = {
 			district: null,
@@ -168,16 +166,11 @@ class ProfileContainer extends React.Component {
 			zipcode: null,
 			detail: null,
 		}
-		if (stateName || stateTelno || stateAvartarUrl) {
-			if (stateAddress) {
-				address = stateAddress
-			}
-			profile = {
-				name: stateName,
-				telNo: stateTelno,
-				avatarUrl: stateAvartarUrl,
-				address: address,
-			}
+		profile = {
+			name: stateName,
+			telNo: stateTelno,
+			avatarUrl: stateAvatarUrl,
+			address: stateAddress != undefined || stateAddress != null ? stateAddress : address,
 		}
 		return profile
 	}
@@ -188,7 +181,7 @@ class ProfileContainer extends React.Component {
 		let update = await this.props.updateUser(_id, profile)
 		if (update.data.updateUser) {
 			profile = update.data.updateUser.profile
-			setUser.profile(profile)
+			await setUser.profile(profile)
 			this.initStateValueAfterUpdate()
 		}
 	}
@@ -211,6 +204,7 @@ class ProfileContainer extends React.Component {
 			styled: styled,
 			textInputFocus: this.textInputFocus,
 			setAddress: this.setAddress,
+			address: this.state.address,
 		})
 	}
 
@@ -252,8 +246,8 @@ class ProfileContainer extends React.Component {
 								activeOpacity={1}
 								onPress={() => this.selectAvartar()}
 							>
-								{this.state.avartarUrl ? (
-									<Image source={{ uri: this.state.avartarUrl }} style={styled.imageProfile} />
+								{this.state.avatarUrl ? (
+									<Image source={{ uri: this.state.avatarUrl }} style={styled.imageProfile} />
 								) : (
 									<SvgUri
 										width={imageProfileWidth}
