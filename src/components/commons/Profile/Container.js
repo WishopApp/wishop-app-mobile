@@ -5,6 +5,7 @@ import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
 import SvgUri from 'react-native-svg-uri'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import ImagePicker from 'react-native-image-picker'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100
@@ -12,6 +13,15 @@ let iconSize = 18
 
 const letterSpace = (word, countSpace = 2) => {
 	return word.split('').join('\u200A'.repeat(countSpace))
+}
+
+const options = {
+	mediaType: 'photo',
+	title: 'Select Avatar',
+	storageOptions: {
+		skipBackup: true,
+		path: 'WishopImage',
+	},
 }
 
 class ProfileContainer extends React.Component {
@@ -28,9 +38,36 @@ class ProfileContainer extends React.Component {
 				detail: null,
 			},
 		}
+		this.selectAvartar = this.selectAvartar.bind(this)
 		this.textInputFocus = this.textInputFocus.bind(this)
 		this.changeToShopOwner = this.changeToShopOwner.bind(this)
 		console.log(user)
+	}
+
+	selectAvartar = async () => {
+		console.log('select Image')
+		ImagePicker.showImagePicker(options, response => {
+			let uri
+			console.log('Response = ', response)
+
+			if (response.didCancel) {
+				console.log('User cancelled image picker')
+			} else if (response.error) {
+				console.log('ImagePicker Error: ', response.error)
+			} else if (response.customButton) {
+				console.log('User tapped custom button: ', response.customButton)
+			} else {
+				// const source = { uri: response.uri }
+
+				// You can also display the image using data:
+				console.log('')
+				const source = { uri: 'data:image/jpeg;base64,' + response.data }
+				console.log(source)
+				// this.setState({
+				// avatarSource: source,
+				// })
+			}
+		})
 	}
 
 	changeToShopOwner = () => {
@@ -64,7 +101,11 @@ class ProfileContainer extends React.Component {
 						colors={['#582FFF', '#00A9FF', '#00CED1']}
 					>
 						<View style={styled.profileImageContainer}>
-							<View style={styled.profileWrapperContainer}>
+							<TouchableOpacity
+								style={styled.profileWrapperContainer}
+								activeOpacity={1}
+								onPress={() => this.selectAvartar()}
+							>
 								{user.profile.avatarUrl ? (
 									<Image source={{ uri: user.profile.avatarUrl }} style={styled.imageProfile} />
 								) : (
@@ -75,7 +116,7 @@ class ProfileContainer extends React.Component {
 										source={require('@icons/user.svg')}
 									/>
 								)}
-							</View>
+							</TouchableOpacity>
 						</View>
 						<View style={styled.profileStatusContainer}>
 							<View style={styled.profileStatusLeft}>
