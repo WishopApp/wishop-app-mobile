@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, ScrollView, TextInput, TouchableOpacity, Keyboard } from 'react-native'
-import { user, Viewport, Percentage } from '@constants/Data'
+import { user, setUser, Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomLinearGradient from '@custom/LinearGradient'
 import SvgUri from 'react-native-svg-uri'
@@ -57,8 +57,33 @@ class ProfileContainer extends React.Component {
 		this.textInputFocus = this.textInputFocus.bind(this)
 		this.changeToShopOwner = this.changeToShopOwner.bind(this)
 		this.showSaveButton = this.showSaveButton.bind(this)
-		this.showSaveButton()
 		console.log(this.props)
+	}
+
+	initStateValueAfterUpdate() {
+		// init state value after update
+		email = user.email ? user.email : null
+		status = user.status ? user.status : null
+		address = null
+		name = null
+		telNo = null
+		avartarUrl = null
+		if (user.profile) {
+			name = user.profile.name ? user.profile.name : null
+			telNo = user.profile.telNo ? user.profile.telNo : null
+			avartarUrl = user.profile.avartarUrl ? user.profile.avartarUrl : null
+			if (user.profile.address) {
+				address = user.address
+			}
+		}
+
+		this.setState({ email: email })
+		this.setState({ status: status })
+		this.setState({ name: name })
+		this.setState({ telNo: telNo })
+		this.setState({ avartarUrl: avartarUrl })
+		this.setState({ address: address })
+		this.setState({ showSaveButton: false })
 	}
 
 	showSaveButton = () => {
@@ -161,12 +186,11 @@ class ProfileContainer extends React.Component {
 		let _id = user._id
 		let profile = this.createProfileVariables()
 		let update = await this.props.updateUser(_id, profile)
-		console.log(update)
-		// if (update.data.updateUser) {
-		// 	let profile = update.data.updateUser.profile
-		// 	setUser.profile(profile)
-		// 	this.forceUpdate()
-		// }
+		if (update.data.updateUser) {
+			profile = update.data.updateUser.profile
+			setUser.profile(profile)
+			this.initStateValueAfterUpdate()
+		}
 	}
 
 	changeToShopOwner = () => {
@@ -195,6 +219,7 @@ class ProfileContainer extends React.Component {
 	}
 
 	render() {
+		if (!this.state.showSaveButton) this.showSaveButton()
 		return (
 			<View style={styled.container}>
 				<View style={styled.profileTopContainer}>

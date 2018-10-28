@@ -149,15 +149,15 @@ export const Tabs = TabNavigator(
 		// 		},
 		// 	},
 		// },
-		// Wishlist: {
-		// 	screen: MywishlistStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Wishlist',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
-		// 		},
-		// 	},
-		// },
+		Wishlist: {
+			screen: MywishlistStack,
+			navigationOptions: {
+				tabBarLabel: 'Wishlist',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+				},
+			},
+		},
 		Profile: {
 			screen: ProfileStack,
 			navigationOptions: {
