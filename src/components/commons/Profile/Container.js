@@ -6,7 +6,8 @@ import CustomLinearGradient from '@custom/LinearGradient'
 import SvgUri from 'react-native-svg-uri'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
-import axios from 'axios'
+import { MutationUpdateUser } from '@utils/Graphql/Mutation'
+import { graphql } from 'react-apollo'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100
@@ -14,13 +15,17 @@ let iconSize = 18
 
 let email = user.email ? user.email : null
 let status = user.status ? user.status : null
+let address = null
 let name = null,
 	telNo = null,
 	avartarUrl = null
 if (user.profile) {
-	name = user.profile.name
-	telNo = user.profile.telNo
-	avartarUrl = user.profile.avartarUrl
+	name = user.profile.name ? user.profile.name : null
+	telNo = user.profile.telNo ? user.profile.telNo : null
+	avartarUrl = user.profile.avartarUrl ? user.profile.avartarUrl : null
+	if (user.profile.address) {
+		address = user.address
+	}
 }
 
 const letterSpace = (word, countSpace = 2) => {
@@ -45,16 +50,42 @@ class ProfileContainer extends React.Component {
 			name: name,
 			telNo: telNo,
 			avartarUrl: avartarUrl,
-			address: null,
+			address: address,
+			showSaveButton: false,
 		}
 		this.selectAvartar = this.selectAvartar.bind(this)
 		this.textInputFocus = this.textInputFocus.bind(this)
 		this.changeToShopOwner = this.changeToShopOwner.bind(this)
-		console.log(user)
+		this.showSaveButton = this.showSaveButton.bind(this)
+		this.showSaveButton()
+		console.log(this.props)
+	}
+
+	showSaveButton = () => {
+		setTimeout(() => {
+			let initName = name
+			let initTelno = telNo
+			let initAvartarUrl = avartarUrl
+			let initAddress = address
+			let stateName = this.state.name
+			let stateTelno = this.state.telNo
+			let stateAvartarUrl = this.state.avartarUrl
+			let stateAddress = this.state.Adress
+
+			if (
+				initName != stateName ||
+				initTelno != stateTelno ||
+				initAvartarUrl != stateAvartarUrl ||
+				initAddress != stateAddress
+			) {
+				this.setState({ showSaveButton: true })
+			} else {
+				this.showSaveButton()
+			}
+		}, 2000)
 	}
 
 	selectAvartar = async () => {
-		console.log('select Image')
 		new Promise((resolve, reject) => {
 			ImagePicker.showImagePicker(options, response => {
 				console.log('Response = ', response)
@@ -99,6 +130,45 @@ class ProfileContainer extends React.Component {
 			})
 	}
 
+	createProfileVariables = () => {
+		let stateName = this.state.name
+		let stateTelno = this.state.telNo
+		let stateAvartarUrl = this.state.avartarUrl
+		let stateAddress = this.state.adress
+		let profile = null
+		let address = {
+			district: null,
+			province: null,
+			country: null,
+			zipcode: null,
+			detail: null,
+		}
+		if (stateName || stateTelno || stateAvartarUrl) {
+			if (stateAddress) {
+				address = stateAddress
+			}
+			profile = {
+				name: stateName,
+				telNo: stateTelno,
+				avatarUrl: stateAvartarUrl,
+				address: address,
+			}
+		}
+		return profile
+	}
+
+	editUser = async () => {
+		let _id = user._id
+		let profile = this.createProfileVariables()
+		let update = await this.props.updateUser(_id, profile)
+		console.log(update)
+		// if (update.data.updateUser) {
+		// 	let profile = update.data.updateUser.profile
+		// 	setUser.profile(profile)
+		// 	this.forceUpdate()
+		// }
+	}
+
 	changeToShopOwner = () => {
 		console.log('ChangeshopOwner')
 	}
@@ -108,10 +178,15 @@ class ProfileContainer extends React.Component {
 		await node.focus()
 	}
 
+	setAddress = addressObj => {
+		this.setState({ address: addressObj })
+	}
+
 	toAddressPage = navigation => {
 		navigation.navigate('ProfileAddress', {
 			styled: styled,
 			textInputFocus: this.textInputFocus,
+			setAddress: this.setAddress,
 		})
 	}
 
@@ -129,6 +204,23 @@ class ProfileContainer extends React.Component {
 						end={{ x: 0.25, y: 1 }}
 						colors={['#582FFF', '#00A9FF', '#00CED1']}
 					>
+						{this.state.showSaveButton && (
+							<TouchableOpacity
+								style={styled.saveButton}
+								activeOpacity={0.6}
+								onPress={() => this.editUser()}
+							>
+								<Text
+									style={[
+										StyledConstants.FONT_DESCRIPTION,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_WHITE,
+									]}
+								>
+									Save
+								</Text>
+							</TouchableOpacity>
+						)}
 						<View style={styled.profileImageContainer}>
 							<TouchableOpacity
 								style={styled.profileWrapperContainer}
@@ -287,6 +379,12 @@ class ProfileContainer extends React.Component {
 	}
 }
 
+const ProfileWithMutation = graphql(MutationUpdateUser, {
+	props: ({ mutate }) => ({
+		updateUser: (_id, profile) => mutate({ variables: { _id: _id, profile: profile } }),
+	}),
+})(ProfileContainer)
+
 const styled = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -299,6 +397,15 @@ const styled = StyleSheet.create({
 		height: '75%',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+
+	saveButton: {
+		position: 'absolute',
+		padding: 10,
+		paddingRight: 20,
+		paddingLeft: 20,
+		right: 0,
+		backgroundColor: 'rgba(0,0,0,0.5)',
 	},
 
 	profileWrapperContainer: {
@@ -381,4 +488,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default ProfileContainer
+export default ProfileWithMutation

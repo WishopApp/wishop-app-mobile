@@ -32,7 +32,7 @@ export let user = {
 		telNo: null,
 		avatarUrl: null,
 		address: {
-			district: 'test',
+			district: null,
 			province: null,
 			country: null,
 			zipcode: null,

@@ -67,3 +67,14 @@ export const Signup = gql`
 		}
 	}
 `
+
+export const MutationUpdateUser = gql`
+	mutation UserUpdate($_id: ID!, $profile: ProfileInput!) {
+		updateUser(_id: $_id, profile: $profile) {
+			_id
+			email
+			profile
+			status
+		}
+	}
+`
