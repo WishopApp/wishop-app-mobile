@@ -93,7 +93,9 @@ export const MywishlistStack = StackNavigator({
 	WishlistDetail: {
 		screen: WishlistDetailScreen,
 		navigationOptions: {
-			title: ' W I S H L I S T   D E T A I L',
+			header: ({ navigation }) => {
+				return <Header back={true} title="Wishlist Detail" navigation={navigation} />
+			},
 		},
 	},
 	ProductDetail: {
@@ -149,15 +151,15 @@ export const Tabs = TabNavigator(
 		// 		},
 		// 	},
 		// },
-		// Wishlist: {
-		// 	screen: MywishlistStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Wishlist',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
-		// 		},
-		// 	},
-		// },
+		Wishlist: {
+			screen: MywishlistStack,
+			navigationOptions: {
+				tabBarLabel: 'Wishlist',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+				},
+			},
+		},
 		Profile: {
 			screen: ProfileStack,
 			navigationOptions: {

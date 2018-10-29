@@ -27,85 +27,83 @@ class WishlistDetailContainer extends React.Component {
 		return (
 			<View style={styled.container}>
 				{status === 'Default' && (
-					<View>
-						<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
-							<View style={styled.editContainer}>
-								<Button
-									backgroundColor="white"
-									containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
-									textStyle={StyledSelected.defaultText}
-									onPress={() =>
-										this.props.navigation.navigate('CreateWishlist', {
-											wishlist: wishlist,
-											type: 'Update',
-											refetchWishlist: this.props.refetchWishlist,
-										})
-									}
-									title="Edit"
-								/>
+					<View style={styled.container}>
+						<View style={styled.editContainer}>
+							<Button
+								backgroundColor="white"
+								containerViewStyle={StyledConstants.MAX_WIDTH_BUTTON}
+								textStyle={StyledSelected.defaultText}
+								onPress={() =>
+									this.props.navigation.navigate('CreateWishlist', {
+										wishlist: wishlist,
+										type: 'Update',
+										refetchWishlist: this.props.refetchWishlist,
+									})
+								}
+								title="Edit"
+							/>
+						</View>
+						<View style={styled.wishlistDetail}>
+							<View style={styled.imageContainer}>
+								<CustomImage style={styled.image} title="shoes" />
 							</View>
-							<View style={styled.wishlistDetail}>
-								<View style={styled.imageContainer}>
-									<CustomImage style={styled.image} title="shoes" />
-								</View>
-								<View style={styled.WishlistProductContainer}>
-									<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-										{wishlist.name} {'\n'}
-									</Text>
-									<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-										{wishlist.productName}
-									</Text>
-									<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
-										{wishlist.category.name}, {wishlist.subCategory.name}
-									</Text>
-								</View>
+							<View style={styled.WishlistProductContainer}>
+								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+									{wishlist.name} {'\n'}
+								</Text>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+									{wishlist.productName}
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+									{wishlist.category.name}, {wishlist.subCategory.name}
+								</Text>
 							</View>
+						</View>
 
-							<View style={styled.PropContainer}>
-								{wishlist.categoryProps != null
-									? wishlist.categoryProps.map((property, index) => {
-											return (
-												<View key={index}>
-													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-														<Text
-															style={[
-																StyledConstants.FONT_BOLD,
-																StyledConstants.FONT_DESCRIPTION,
-															]}
-														>
-															{property.name}
-														</Text>
-														<Text style={StyledConstants.FONT_DESCRIPTION}>
-															{property.value}
-														</Text>
-													</View>
+						<ScrollView showsVerticalScrollIndicator={true} style={styled.PropContainer}>
+							{wishlist.categoryProps != null
+								? wishlist.categoryProps.map((property, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{property.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{property.value}
+													</Text>
 												</View>
-											)
-									  })
-									: null}
+											</View>
+										)
+								  })
+								: null}
 
-								{wishlist.subCategoryProps != null
-									? wishlist.subCategoryProps.map((property, index) => {
-											return (
-												<View key={index}>
-													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-														<Text
-															style={[
-																StyledConstants.FONT_BOLD,
-																StyledConstants.FONT_DESCRIPTION,
-															]}
-														>
-															{property.name}
-														</Text>
-														<Text style={StyledConstants.FONT_DESCRIPTION}>
-															{property.value}
-														</Text>
-													</View>
+							{wishlist.subCategoryProps != null
+								? wishlist.subCategoryProps.map((property, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{property.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{property.value}
+													</Text>
 												</View>
-											)
-									  })
-									: null}
-							</View>
+											</View>
+										)
+								  })
+								: null}
 						</ScrollView>
 
 						<View style={styled.SearchContainer}>
@@ -174,9 +172,9 @@ const styled = StyleSheet.create({
 		alignItems: 'center',
 	},
 	PropContainer: {
-		flex: 1,
-		flexDirection: 'column',
-		position: 'relative',
+		// flex: 1,
+		// flexDirection: 'column',
+		// position: 'relative',
 		borderStyle: 'solid',
 		borderTopWidth: 1,
 	},

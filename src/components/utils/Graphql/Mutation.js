@@ -37,8 +37,8 @@ export const MutationUpdateWishlist = gql`
 `
 
 export const MutationRemoveWishlist = gql`
-	mutation RemoveWishlist($userId: ID!, $wishlistId: ID!) {
-		removeWishlist(userId: $userId, wishlistId: $wishlistId) {
+	mutation RemoveWishlist($_id: ID!) {
+		removeWishlist(_id: $_id) {
 			_id
 		}
 	}
