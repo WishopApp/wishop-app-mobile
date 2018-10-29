@@ -45,6 +45,7 @@ class ProductDetailContainer extends React.Component {
 			slider1ActiveSlide: FirstSnapItem,
 		}
 		this._renderItem = this._renderItem.bind(this)
+		console.log(props)
 	}
 
 	_renderItem({ item, index }) {
@@ -59,6 +60,7 @@ class ProductDetailContainer extends React.Component {
 	render() {
 		let { params } = this.props.navigation.state
 		let product = undefined
+		// entries = product.photoUrlList
 		if (params) {
 			params.product ? (product = params.product) : (product = undefined)
 		}
@@ -89,9 +91,7 @@ class ProductDetailContainer extends React.Component {
 									Sell By Store Name
 								</Text>
 								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Shoes, Sneaker</Text>
-								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-									{'\n'} 6900 Baht
-								</Text>
+								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>6900 Baht</Text>
 							</View>
 						</View>
 						<View style={styled.PropContainer}>

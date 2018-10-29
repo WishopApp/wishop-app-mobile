@@ -154,3 +154,26 @@ export const QueryCurrentUser = gql`
 		}
 	}
 `
+
+export const QueryProductBySearchKeyword = gql`
+	query SearchProductByKeyword($keyword: String!) {
+		searchByKeyword(keyword: $keyword) {
+			_id
+			name
+			status
+			category {
+				_id
+				name
+				logo
+			}
+			subCategory {
+				_id
+				name
+			}
+			store {
+				_id
+				name
+			}
+		}
+	}
+`

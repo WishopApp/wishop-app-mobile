@@ -9,12 +9,6 @@ class WishlistDetailScreen extends React.Component {
 		super(props)
 	}
 
-	// static navigationOptions = ({ navigation }) => {
-	// 	return {
-	// 		header: <Header navigation={navigation} />,
-	// 	}
-	// }
-
 	componentWillMount() {
 		const setParamsAction = NavigationActions.setParams({
 			params: { hideTabBar: true },

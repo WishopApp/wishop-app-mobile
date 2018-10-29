@@ -46,6 +46,14 @@ export const SearchStack = StackNavigator({
 	Search: {
 		screen: SearchScreen,
 	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
+	},
 })
 
 export const StoreStack = StackNavigator({
@@ -100,6 +108,11 @@ export const MywishlistStack = StackNavigator({
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
 	},
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,
@@ -133,24 +146,24 @@ export const Tabs = TabNavigator(
 		// 		},
 		// 	},
 		// },
-		// Search: {
-		// 	screen: SearchStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Search',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.searchFocused : LoadIconStack.search
-		// 		},
-		// 	},
-		// },
-		// Store: {
-		// 	screen: StoreStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Store',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
-		// 		},
-		// 	},
-		// },
+		Search: {
+			screen: SearchStack,
+			navigationOptions: {
+				tabBarLabel: 'Search',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
+				},
+			},
+		},
+		Store: {
+			screen: StoreStack,
+			navigationOptions: {
+				tabBarLabel: 'Store',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
+				},
+			},
+		},
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {

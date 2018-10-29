@@ -105,6 +105,9 @@ export default class CustomImage extends React.Component {
 	}
 
 	render() {
+		if (this.props.uri) {
+			return <Image source={{ uri: this.props.uri }} style={this.props.style} />
+		}
 		return <Image source={this.loadImage(this.props.title)} style={this.props.style} />
 	}
 }
