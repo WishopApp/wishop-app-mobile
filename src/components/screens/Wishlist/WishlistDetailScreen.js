@@ -9,6 +9,11 @@ class WishlistDetailScreen extends React.Component {
 		super(props)
 	}
 
+	static navigationOptions = ({ navigation }) => ({
+		tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
+		animationEnabled: true,
+	})
+
 	componentWillMount() {
 		const setParamsAction = NavigationActions.setParams({
 			params: { hideTabBar: true },
@@ -22,11 +27,6 @@ class WishlistDetailScreen extends React.Component {
 		})
 		this.props.navigation.dispatch(setParamsAction)
 	}
-
-	static navigationOptions = ({ navigation }) => ({
-		tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
-		animationEnabled: true,
-	})
 
 	render() {
 		return (

@@ -161,6 +161,7 @@ export const QueryProductBySearchKeyword = gql`
 			_id
 			name
 			status
+			photoUrlList
 			category {
 				_id
 				name
@@ -169,6 +170,40 @@ export const QueryProductBySearchKeyword = gql`
 			subCategory {
 				_id
 				name
+			}
+			store {
+				_id
+				name
+			}
+		}
+	}
+`
+
+export const QueryProduct = gql`
+	query ProductByProductId($_id: ID!) {
+		product(_id: $_id) {
+			_id
+			name
+			status
+			photoUrlList
+			category {
+				_id
+				name
+				logo
+			}
+			subCategory {
+				_id
+				name
+			}
+			categoryProps {
+				_id
+				name
+				value
+			}
+			subCategoryProps {
+				_id
+				name
+				value
 			}
 			store {
 				_id

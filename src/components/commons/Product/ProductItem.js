@@ -20,6 +20,7 @@ class ProductItem extends React.Component {
 					onPress={() =>
 						navigation.navigate('ProductDetail', {
 							product: product,
+							_id: product._id,
 						})
 					}
 				>

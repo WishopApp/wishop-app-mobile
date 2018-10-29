@@ -24,7 +24,6 @@ class SearchByKeywordContainer extends React.Component {
 				products = data.searchByKeyword
 			}
 		}
-		console.log(this.props)
 		return (
 			<View style={styled.container}>
 				<View style={styled.resultSearchLabel}>
@@ -59,8 +58,7 @@ const SearchProductByKeyword = graphql(QueryProductBySearchKeyword, {
 	options: props => {
 		return {
 			variables: {
-				// keyword: props.keyword,
-				keyword: 'สินค้าทดสอบ',
+				keyword: props.keyword,
 			},
 		}
 	},
