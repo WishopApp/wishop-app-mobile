@@ -38,7 +38,8 @@ export default class CustomImage extends React.Component {
 				return require('@icons/women-shoes/women-shoes.png')
 
 			//Subcategory
-
+			case 'default-subcategory':
+				return require('@icons/default-subcategory.png')
 			// Men shirt
 			case 'jacket':
 				return require('@icons/men-shirt/jacket/jacket.png')
@@ -48,26 +49,26 @@ export default class CustomImage extends React.Component {
 				return require('@icons/men-shirt/suit/suit.png')
 			case 't-shirt':
 				return require('@icons/men-shirt/t-shirt/t-shirt.png')
-			case 'under shirt':
-				return require('@icons/men-shirt/under-shirt/under-shirt.png')
+			case 'undershirt':
+				return require('@icons/men-shirt/undershirt/undershirt.png')
 
 			// Men shoes
 			case 'leather shoes':
 				return require('@icons/men-shoes/leather-shoes/leather-shoes.png')
-			case 'slipper':
-				return require('@icons/men-shoes/slipper/slipper.png')
+			case 'men slipper':
+				return require('@icons/men-shoes/men-slipper/men-slipper.png')
 			case 'sneakers':
 				return require('@icons/men-shoes/sneakers/sneakers.png')
-			case 'sports':
-				return require('@icons/men-shoes/sport/sport.png')
+			case 'sport shoes':
+				return require('@icons/men-shoes/sport-shoes/sport-shoes.png')
 
 			//men trousers
 			case 'long trousers':
 				return require('@icons/men-trousers/long-trousers/long-trousers.png')
 			case 'short trousers':
 				return require('@icons/men-trousers/short-trousers/short-trousers.png')
-			case 'underpants':
-				return require('@icons/men-trousers/underpants/underpants.png')
+			case 'underpant':
+				return require('@icons/men-trousers/underpant/underpant.png')
 
 			// Mobile Tablet
 			case 'smart phone':
@@ -77,16 +78,16 @@ export default class CustomImage extends React.Component {
 
 			// women shoes
 
-			case 'high heels':
-				return require('@icons/women-shoes/high-heels/high-heels.png')
+			case 'high heel':
+				return require('@icons/women-shoes/high-heel/high-heel.png')
 			case 'leather shoes':
 				return require('@icons/women-shoes/leather-shoes/leather-shoes.png')
-			case 'slipper':
-				return require('@icons/women-shoes/slipper/slipper.png')
+			case 'woman slipper':
+				return require('@icons/women-shoes/woman-slipper/woman-slipper.png')
 			case 'sneakers':
 				return require('@icons/women-shoes/sneakers/sneakers.png')
-			case 'sports':
-				return require('@icons/women-shoes/sport/sport.png')
+			case 'sport-shoes':
+				return require('@icons/women-shoes/sport-shoes/sport-shoes.png')
 
 			// Other Icon
 			case 'beacon-icon':
