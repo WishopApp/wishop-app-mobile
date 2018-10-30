@@ -21,6 +21,7 @@ class StoreDetailContainer extends React.Component {
 	render() {
 		let storeBranchId = this.props.navigation.state.params._id
 		let productsMatched = this.props.navigation.state.params.productsMatched
+		let recommendProduct = undefined
 		let { storeBranchData } = this.props
 		let { loading, error } = storeBranchData
 		let storeBranch
@@ -40,21 +41,25 @@ class StoreDetailContainer extends React.Component {
 		return (
 			<ScrollView>
 				<View style={styled.coverStoreContainer}>
-					<Image
-						style={styled.coverStoreImage}
-						source={{
-							uri: storeBranch.store.coverUrl
-								? storeBranch.store.coverUrl
-								: 'http://www.f-covers.com/cover/landscape-fantasy-art-facebook-cover-timeline-banner-for-fb.jpg',
-						}}
-					/>
+					{storeBranch.store.coverUrl ? (
+						<Image style={styled.coverStoreImage} source={{ uri: storeBranch.store.coverUrl }} />
+					) : (
+						<Image
+							style={styled.coverStoreImage}
+							source={{
+								uri:
+									'https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-076-premium-dark.png',
+							}}
+						/>
+					)}
+
 					<View style={styled.logoImageContainer}>
 						<Image
 							style={styled.logoStoreImage}
 							source={{
 								uri: storeBranch.store.avatarUrl
 									? storeBranch.store.avatarUrl
-									: 'http://www.allmaxnutrition.com/wp-content/uploads/WNC-logo-Retailer.png',
+									: 'http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/shop_front_icon_55889.jpg',
 							}}
 						/>
 					</View>
@@ -115,28 +120,35 @@ class StoreDetailContainer extends React.Component {
 						</View>
 					</View>
 				)}
-				<View key="RecommendedProductContainer">
-					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
-						<Text
-							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
-						>
-							RECOMMENDED PRODUCTS
-						</Text>
-					</CustomLinearGradient>
-					<View style={styled.recommendedProductDetail}>
-						<View style={styled.imageContainer}>
-							<CustomImage style={styled.image} title={'shoes'} />
-						</View>
-						<View style={styled.recommendedProductContainer}>
-							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>Product Name</Text>
-							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-								5,500 Baht
+				{recommendProduct && (
+					<View key="RecommendedProductContainer">
+						<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
+							<Text
+								style={[
+									StyledConstants.FONT_TOPIC,
+									StyledConstants.FONT_BOLD,
+									StyledConstants.TEXT_WHITE,
+								]}
+							>
+								RECOMMENDED PRODUCTS
 							</Text>
-							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
+						</CustomLinearGradient>
+						<View style={styled.recommendedProductDetail}>
+							<View style={styled.imageContainer}>
+								<CustomImage style={styled.image} title={'shoes'} />
+							</View>
+							<View style={styled.recommendedProductContainer}>
+								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+									Product Name
+								</Text>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+									5,500 Baht
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
+							</View>
 						</View>
 					</View>
-				</View>
-
+				)}
 				{products && (
 					<View>
 						<View key="Store Product">

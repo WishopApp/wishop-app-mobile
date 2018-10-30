@@ -267,6 +267,7 @@ const styled = StyleSheet.create({
 		padding: '4%',
 		height: '10%',
 		flex: 1,
+		marginTop: 15,
 	},
 
 	bottomDescription: {

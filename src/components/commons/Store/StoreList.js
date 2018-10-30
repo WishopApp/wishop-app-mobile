@@ -18,6 +18,23 @@ const compare = (productA, productB) => {
 	return 0
 }
 
+const lengthOfKeyValue = arrayKeyValue => {
+	let num = 0
+	for (let key in arrayKeyValue) {
+		num++
+	}
+	return num
+}
+
+const arrayKeyValueToArray = arrayKeyValue => {
+	let array = []
+	for (let key in arrayKeyValue) {
+		let content = arrayKeyValue[key]
+		array.push(content)
+	}
+	return array
+}
+
 class StoreList extends React.Component {
 	constructor(props) {
 		super(props)
@@ -35,14 +52,22 @@ class StoreList extends React.Component {
 
 	sliceProductsMatchedCompareById = () => {
 		let arrProducts = []
-		console.log(this.state.productsMatched)
 		this.state.productsMatched.map(async (products, indexProducts) => {
 			// let matchedPercentage = prod.matchedPercentage
-			for (let i = 0; i < products.length; i++) {
-				await products.sort(compare)
-				this.usefulProductsMatched.push(products)
-				console.log('add')
-			}
+			await products.sort(compare)
+			products.map(product => {
+				let productId = product._id
+				let matchedPercentage = product.matchedPercentage
+				let isProductInUsefulArray = this.state.usefulProductsMatched[productId] ? true : false
+				if (isProductInUsefulArray) {
+					let matchedPercentageInUsefulArray = this.state.usefulProductsMatched[productId].matchedPercentage
+					if (matchedPercentage > matchedPercentageInUsefulArray) {
+						this.state.usefulProductsMatched[productId] = product
+					}
+				} else {
+					this.state.usefulProductsMatched[productId] = product
+				}
+			})
 		})
 	}
 
@@ -51,18 +76,16 @@ class StoreList extends React.Component {
 		wishlists.map(async wishlist => {
 			let productsMatched = await ProductWithRecommendation(wishlist, products)
 			this.state.productsMatched.push(productsMatched)
-			// console.log('productMatched', productsMatched)
 		})
-		console.log('slice')
 		await this.sliceProductsMatchedCompareById()
-		console.log('nsad')
 	}
 
-	toStoreDetail = storeId => {
-		console.log(this.state.usefulProductsMatched)
+	toStoreDetail = async storeId => {
+		console.log('useful Products', this.state.usefulProductsMatched)
+		let usefulProductsMatched = await arrayKeyValueToArray(this.state.usefulProductsMatched)
 		this.props.navigation.navigate('StoreDetail', {
 			_id: storeId,
-			productsMatched: this.state.productsMatched,
+			productsMatched: usefulProductsMatched,
 		})
 	}
 
@@ -94,7 +117,11 @@ class StoreList extends React.Component {
 							<View style={styled.storeImageContainer}>
 								<CustomImage
 									style={styled.storeImage}
-									uri={storeBranch.store.avatarUrl ? storeBranch.store.avatarUrl : undefined}
+									uri={
+										storeBranch.store.avatarUrl
+											? storeBranch.store.avatarUrl
+											: 'http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/shop_front_icon_55889.jpg'
+									}
 									title="store-icon"
 								/>
 							</View>
@@ -111,7 +138,7 @@ class StoreList extends React.Component {
 								<Text style={[StyledConstants.FONT_DESCRIPTION, styled.descriptionColor]}>
 									{storeBranch.store.description}
 								</Text>
-								<Text style={styled.storeRange}>3.4 km</Text>
+								<Text style={styled.storeRange}>{this.props.distance.toFixed(2)} m</Text>
 							</View>
 							<View style={styled.storeImageMappingWishlistContainer}>
 								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
@@ -180,7 +207,7 @@ const styled = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	storeRange: {
-		fontSize: 8,
+		fontSize: 10,
 	},
 	storeImageMappingWishlistContainer: {
 		width: '20%',
@@ -194,7 +221,7 @@ const styled = StyleSheet.create({
 	},
 
 	descriptionColor: {
-		color: 'rgba(255,255,255,0.7)',
+		color: 'rgba(255,255,255,0.8)',
 	},
 })
 
