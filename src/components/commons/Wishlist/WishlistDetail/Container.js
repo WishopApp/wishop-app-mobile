@@ -45,7 +45,7 @@ class WishlistDetailContainer extends React.Component {
 						</View>
 						<View style={styled.wishlistDetail}>
 							<View style={styled.imageContainer}>
-								<CustomImage style={styled.image} title="shoes" />
+								<CustomImage style={styled.image} uri={wishlist.category.logo} title="shoes" />
 							</View>
 							<View style={styled.WishlistProductContainer}>
 								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
