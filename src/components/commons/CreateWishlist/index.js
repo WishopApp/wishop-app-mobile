@@ -190,10 +190,10 @@ class CreateWishlist extends React.Component {
 
 	upsertWishlist = async createOrUpdateFunc => {
 		let userId = user._id
-		let wishlistId = this.state.wishlistId
+		let _id = this.state.wishlistId
 		let wishlist = await this.getWishlist()
 		if (this.props.type === 'Update') {
-			let updateWishlist = await createOrUpdateFunc(userId, wishlistId, wishlist)
+			let updateWishlist = await createOrUpdateFunc(_id, wishlist)
 		} else {
 			let addWishlist = await createOrUpdateFunc(userId, wishlist)
 		}

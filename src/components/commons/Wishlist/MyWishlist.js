@@ -12,14 +12,20 @@ class MyWishlist extends React.Component {
 	}
 
 	render() {
-		let { wishlist, remove } = this.props
+		let { wishlist, remove, refetchWishlist } = this.props
+
 		return (
 			<View>
 				{wishlist != null ? (
 					<TouchableOpacity
 						activeOpacity={1}
 						style={styled.wishlistContainer}
-						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
+						onPress={() =>
+							this.props.navigation.navigate('WishlistDetail', {
+								wishlist: wishlist,
+								refetchWishlist: refetchWishlist,
+							})
+						}
 					>
 						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
 							<CustomImage style={styled.productImage} uri={wishlist.category.logo} />

@@ -56,7 +56,7 @@ class Wishlist extends React.Component {
 											wishlist={wishlist}
 											remove={this.remove}
 											navigation={this.props.navigation}
-											refetchWishlist={this.refetchWishlist}
+											refetchWishlist={this.props.data.refetch}
 										/>
 									</View>
 								)

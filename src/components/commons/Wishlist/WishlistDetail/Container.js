@@ -21,7 +21,7 @@ class WishlistDetailContainer extends React.Component {
 	}
 
 	render() {
-		let { wishlist } = this.props.navigation.state.params
+		let { wishlist, refetchWishlist } = this.props.navigation.state.params
 		let status = this.state.status
 
 		return (
@@ -37,7 +37,7 @@ class WishlistDetailContainer extends React.Component {
 									this.props.navigation.navigate('CreateWishlist', {
 										wishlist: wishlist,
 										type: 'Update',
-										refetchWishlist: this.props.refetchWishlist,
+										refetchWishlist: refetchWishlist,
 									})
 								}
 								title="Edit"
