@@ -22,7 +22,7 @@ class MyWishlist extends React.Component {
 						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
 					>
 						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-							<CustomImage style={styled.productImage} uri={wishlist.category.logo} title="shoes" />
+							<CustomImage style={styled.productImage} uri={wishlist.category.logo} />
 						</View>
 
 						<View style={styled.WishlistProductContainer}>

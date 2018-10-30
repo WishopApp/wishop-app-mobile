@@ -7,6 +7,7 @@ export const QueryCategories = gql`
 		categories {
 			_id
 			name
+			logo
 		}
 	}
 `
@@ -50,6 +51,7 @@ export const QueryUserWishlists = gql`
 				productName
 				category {
 					_id
+					logo
 					name
 				}
 				subCategory {
@@ -72,8 +74,8 @@ export const QueryUserWishlists = gql`
 `
 
 export const QueryStoreByBeaconUUID = gql`
-	query SearchStoreBranchFromBeaconByUUID($uuid: String!) {
-		searchStoreBranchFromBeacon(uuid: $uuid) {
+	query SearchStoreBranchFromBeaconByUUID($uuid: String!, $userId: ID!) {
+		searchStoreBranchFromBeacon(uuid: $uuid, userId: $userId) {
 			_id
 			name
 			status
@@ -120,6 +122,7 @@ export const QuerySearchProductByWishlist = gql`
 			recommended
 			category {
 				_id
+				logo
 				name
 			}
 			subCategory {
@@ -254,6 +257,48 @@ export const QueryProduct = gql`
 			store {
 				_id
 				name
+			}
+		}
+	}
+`
+
+export const QueryStoreBranchById = gql`
+	query StorebranchById($_id: ID!) {
+		storeBranch(_id: $_id) {
+			_id
+			name
+			status
+			products {
+				_id
+				name
+				price
+				status
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
+			}
+			store {
+				_id
+				name
+				coverUrl
+				avatarUrl
+				description
 			}
 		}
 	}

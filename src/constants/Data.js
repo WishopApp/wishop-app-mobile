@@ -301,6 +301,10 @@ export const ProductWithRecommendation = (wishlist, products) => {
 			})
 		})
 
+		// Add wishlist name object to product
+
+		prod.wishlist = wishlist
+
 		// PECENTAGE CALCULATION
 		const matchedPercentage = point / maxPoint * 100
 		if (maxPoint <= 3 && matchedPercentage >= 30) {

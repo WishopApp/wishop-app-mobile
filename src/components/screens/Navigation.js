@@ -62,6 +62,19 @@ export const StoreStack = StackNavigator({
 	},
 	StoreDetail: {
 		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
 	},
 })
 

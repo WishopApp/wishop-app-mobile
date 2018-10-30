@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants } from '@constants/Styled'
-import { ProductWithRecommendation } from '@constants/Data'
+import { user, ProductWithRecommendation } from '@constants/Data'
 import { QueryStoreByBeaconUUID, QuerySearchProductByWishlist } from '@utils/Graphql/Query'
 import { graphql, compose } from 'react-apollo'
 import CustomImage from '@custom/Image'
@@ -16,17 +16,25 @@ class StoreList extends React.Component {
 			productsMatched: [], // storeBranch => productMatched,
 		}
 		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
+		this.toStoreDetail = this.toStoreDetail.bind(this)
 	}
 	/* proptypes
 		StoreList: object
 	*/
 
-	setProductsMathchedWithWishlistToState = (wishlists, storeBranch) => {
+	setProductsMathchedWithWishlistToState = async (wishlists, storeBranch) => {
 		let products = storeBranch.products
-		wishlists.map(wishlist => {
-			let productsMatched = ProductWithRecommendation(wishlist, products)
+		wishlists.map(async wishlist => {
+			let productsMatched = await ProductWithRecommendation(wishlist, products)
 			this.state.productsMatched[storeBranch._id] = productsMatched
 			// console.log('productMatched', this.state.productsMatched)
+		})
+	}
+
+	toStoreDetail = storeId => {
+		this.props.navigation.navigate('StoreDetail', {
+			_id: storeId,
+			productsMatched: this.state.productsMatched,
 		})
 	}
 
@@ -53,7 +61,7 @@ class StoreList extends React.Component {
 					>
 						<TouchableOpacity
 							style={styled.storeContainer}
-							onPress={() => this.props.navigation.navigate('StoreDetail')}
+							onPress={() => this.toStoreDetail(storeBranch._id)}
 							activeOpacity={1}
 						>
 							<View style={styled.storeImageContainer}>
@@ -104,6 +112,7 @@ const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
 		return {
 			variables: {
 				uuid: props.uuid,
+				userId: user._id,
 			},
 		}
 	},

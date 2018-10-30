@@ -97,7 +97,7 @@ class ProductDetailContainer extends React.Component {
 											StyledConstants.TEXT_BLACK,
 										]}
 									>
-										6900 Baht
+										{product.price}
 									</Text>
 								</View>
 							</View>
