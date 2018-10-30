@@ -22,7 +22,6 @@ class LoginContainer extends React.Component {
 		}
 		this.requireField = this.requireField.bind(this)
 		this.login = this.login.bind(this)
-		console.log(this.props)
 	}
 
 	requireField = (email, password) => {
@@ -49,10 +48,10 @@ class LoginContainer extends React.Component {
 				let reQuery = await this.props.data.refetch()
 				let currentUser = reQuery.data.currentUser
 
-				setUser._id(currentUser._id)
-				setUser.email(currentUser.email)
-				setUser.status(currentUser.status)
-				setUser.profile(currentUser.profile)
+				await setUser._id(currentUser._id)
+				await setUser.email(currentUser.email)
+				await setUser.status(currentUser.status)
+				await setUser.profile(currentUser.profile)
 				this.setState({ callSuccessPopup: true })
 			}
 		}

@@ -13,20 +13,12 @@ let imageProfileWidth = 100
 let imageProfileHeight = 100
 let iconSize = 18
 
-let email = user.email ? user.email : null
-let status = user.status ? user.status : null
+let email = null
+let status = null
 let address = null
 let name = null,
 	telNo = null,
 	avatarUrl = null
-if (user.profile) {
-	name = user.profile.name ? user.profile.name : null
-	telNo = user.profile.telNo ? user.profile.telNo : null
-	avatarUrl = user.profile.avatarUrl ? user.profile.avatarUrl : null
-	if (user.profile.address) {
-		address = user.address
-	}
-}
 
 const letterSpace = (word, countSpace = 2) => {
 	return word.split('').join('\u200A'.repeat(countSpace))
@@ -59,6 +51,10 @@ class ProfileContainer extends React.Component {
 		this.showSaveButton = this.showSaveButton.bind(this)
 	}
 
+	componentWillMount() {
+		this.initStateValueAfterUpdate()
+	}
+
 	initStateValueAfterUpdate() {
 		// init state value after update
 		email = user.email ? user.email : null
@@ -76,13 +72,15 @@ class ProfileContainer extends React.Component {
 			}
 		}
 
-		this.setState({ email: email })
-		this.setState({ status: status })
-		this.setState({ name: name })
-		this.setState({ telNo: telNo })
-		this.setState({ avatarUrl: avatarUrl })
-		this.setState({ address: address })
-		this.setState({ showSaveButton: false })
+		if (this.state) {
+			this.setState({ email: email })
+			this.setState({ status: status })
+			this.setState({ name: name })
+			this.setState({ telNo: telNo })
+			this.setState({ avatarUrl: avatarUrl })
+			this.setState({ address: address })
+			this.setState({ showSaveButton: false })
+		}
 	}
 
 	showSaveButton = () => {
@@ -172,6 +170,7 @@ class ProfileContainer extends React.Component {
 			avatarUrl: stateAvatarUrl,
 			address: stateAddress != undefined || stateAddress != null ? stateAddress : address,
 		}
+		delete profile.address.__typename
 		return profile
 	}
 
@@ -267,7 +266,7 @@ class ProfileContainer extends React.Component {
 										StyledConstants.FONT_BLACK,
 									]}
 								>
-									{letterSpace(this.state.status)}
+									{letterSpace(this.state.status ? this.state.status : '')}
 								</Text>
 							</View>
 							<TouchableOpacity

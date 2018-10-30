@@ -225,7 +225,7 @@ export const LoginStack = StackNavigator({
 
 export const Root = StackNavigator(
 	{
-		// Login: LoginStack,
+		Login: LoginStack,
 		Main: Tabs,
 		// Modal Stack
 		// CreateWishlist: CreateWishlistStack,
@@ -233,6 +233,6 @@ export const Root = StackNavigator(
 	{
 		mode: 'card',
 		headerMode: 'none',
-		// initialRouteName: 'Login',
+		initialRouteName: 'Login',
 	}
 )
