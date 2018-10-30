@@ -102,10 +102,12 @@ export const QueryStoreByBeaconUUID = gql`
 				categoryProps {
 					_id
 					name
+					propId
 					value
 				}
 				subCategoryProps {
 					_id
+					propId
 					name
 					value
 				}
@@ -284,11 +286,13 @@ export const QueryStoreBranchById = gql`
 				}
 				categoryProps {
 					_id
+					propId
 					name
 					value
 				}
 				subCategoryProps {
 					_id
+					propId
 					name
 					value
 				}

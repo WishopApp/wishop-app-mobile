@@ -39,6 +39,7 @@ class StoreContainer extends React.Component {
 		this.setStoreItemRender = this.setStoreItemRender.bind(this)
 		this.addstoreBranchIdUsed = this.addstoreBranchIdUsed.bind(this)
 		this.isStoreBranchIdUsed = this.isStoreBranchIdUsed.bind(this)
+		this.clear = this.clear.bind(this)
 	}
 
 	_reRender = () => {
@@ -121,12 +122,20 @@ class StoreContainer extends React.Component {
 		})
 	}
 
+	clear = () => {
+		this.state.uuidUsed = []
+		this.state.detectedBeacons = []
+		this.state.storeItemRender = []
+		this.state.storeBranchIdUsed = []
+	}
+
 	render() {
 		let { isFocused, loading, error, data } = this.props
+		let currentUser = data.currentUser ? data.currentUser : undefined
 		let beacons = lengthOfKeyValue(this.state.detectedBeacons) > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
-				{beacons
+				{beacons && currentUser
 					? this.beaconDetected(
 							mapKeytoArray(beacons),
 							this.isDetected,
@@ -138,6 +147,19 @@ class StoreContainer extends React.Component {
 
 				{lengthOfKeyValue(this.state.uuidUsed) > 0 && (
 					<View style={styled.storeListContainer}>
+						<View style={styled.tabbarContainer}>
+							<View style={styled.tabbar}>
+								<Button
+									containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON]}
+									buttonStyle={[StyledSelected.defaultBackground, styled.tabbarStoreDetection]}
+									textStyle={[StyledSelected.defaultText, StyledConstants.FONT_DESCRIPTION]}
+									onPress={() => {
+										this.clear()
+									}}
+									title="Clear"
+								/>
+							</View>
+						</View>
 						<View style={[styled.topDescription]}>
 							<Text
 								style={[
@@ -158,7 +180,7 @@ class StoreContainer extends React.Component {
 						</View>
 						<View style={styled.scrollStore}>
 							<ScrollView contentContainerStyle={styled.alignContent}>
-								{this.state.storeItemRender.map((storeItem, index) => {
+								{this.state.storeItemRender.reverse().map((storeItem, index) => {
 									return <View key={'storeItem' + index}>{storeItem}</View>
 								})}
 							</ScrollView>
@@ -209,15 +231,12 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	tabbar: {
-		width: '40%',
+		width: '80%',
 	},
 	tabbarStoreDetection: {
-		borderBottomLeftRadius: 5,
-		borderTopLeftRadius: 5,
-	},
-	tabbarMyStore: {
-		borderBottomRightRadius: 5,
-		borderTopRightRadius: 5,
+		borderStyle: 'solid',
+		borderColor: '#000000',
+		borderWidth: 2,
 	},
 
 	alignContent: {
@@ -227,8 +246,6 @@ const styled = StyleSheet.create({
 	storeListContainer: {
 		flex: 1,
 		flexDirection: 'column',
-		paddingTop: 15,
-		paddingBottom: 25,
 	},
 
 	topDescription: {
@@ -242,8 +259,8 @@ const styled = StyleSheet.create({
 	},
 
 	scrollStore: {
-		height: '95%',
-		top: '15%',
+		height: '65%',
+		top: '5%',
 	},
 
 	bottomContainer: {
@@ -257,6 +274,7 @@ const styled = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
+		marginTop: 5,
 	},
 
 	signalImage: {

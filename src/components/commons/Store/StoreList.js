@@ -9,29 +9,57 @@ import CustomLinearGradient from '@custom/LinearGradient'
 
 let wishlists = undefined
 
+const compare = (productA, productB) => {
+	if (productA.matchedPercentage < productB.matchedPercentage) {
+		return -1
+	} else if (productA.matchedPercentage > productB.matchedPercentage) {
+		return 1
+	}
+	return 0
+}
+
 class StoreList extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			productsMatched: [], // storeBranch => productMatched,
+			usefulProductsMatched: [],
 		}
 		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
 		this.toStoreDetail = this.toStoreDetail.bind(this)
+		this.sliceProductsMatchedCompareById = this.sliceProductsMatchedCompareById.bind(this)
 	}
 	/* proptypes
 		StoreList: object
 	*/
 
+	sliceProductsMatchedCompareById = () => {
+		let arrProducts = []
+		console.log(this.state.productsMatched)
+		this.state.productsMatched.map(async (products, indexProducts) => {
+			// let matchedPercentage = prod.matchedPercentage
+			for (let i = 0; i < products.length; i++) {
+				await products.sort(compare)
+				this.usefulProductsMatched.push(products)
+				console.log('add')
+			}
+		})
+	}
+
 	setProductsMathchedWithWishlistToState = async (wishlists, storeBranch) => {
 		let products = storeBranch.products
 		wishlists.map(async wishlist => {
 			let productsMatched = await ProductWithRecommendation(wishlist, products)
-			this.state.productsMatched[storeBranch._id] = productsMatched
-			// console.log('productMatched', this.state.productsMatched)
+			this.state.productsMatched.push(productsMatched)
+			// console.log('productMatched', productsMatched)
 		})
+		console.log('slice')
+		await this.sliceProductsMatchedCompareById()
+		console.log('nsad')
 	}
 
 	toStoreDetail = storeId => {
+		console.log(this.state.usefulProductsMatched)
 		this.props.navigation.navigate('StoreDetail', {
 			_id: storeId,
 			productsMatched: this.state.productsMatched,
@@ -46,7 +74,6 @@ class StoreList extends React.Component {
 		if (storeBranch) {
 			addstoreBranchIdUsed(storeBranch._id)
 		}
-
 		if (wishlists && storeBranch) {
 			this.setProductsMathchedWithWishlistToState(this.props.wishlists, storeBranch)
 		}

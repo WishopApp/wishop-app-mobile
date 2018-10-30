@@ -23,7 +23,6 @@ class SearchProductList extends React.Component {
 			)
 		if (data.searchByWishlist) {
 			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
-			console.log(products)
 		}
 		return (
 			<View>

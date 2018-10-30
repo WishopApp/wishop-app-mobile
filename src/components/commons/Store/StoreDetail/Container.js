@@ -20,7 +20,7 @@ class StoreDetailContainer extends React.Component {
 
 	render() {
 		let storeBranchId = this.props.navigation.state.params._id
-		let productsMatched = this.props.navigation.state.params.productsMatched[storeBranchId]
+		let productsMatched = this.props.navigation.state.params.productsMatched
 		let { storeBranchData } = this.props
 		let { loading, error } = storeBranchData
 		let storeBranch

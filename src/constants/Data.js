@@ -199,7 +199,7 @@ export const IsThisStoreShouldCheck = (wishlist, products) => {
 				const itemCatePropId = itemCateProp._id
 				const itemCatePropValue = itemCateProp.value
 				map(prodCatePropArray, prodCateProp => {
-					const prodCatePropId = prodCateProp._id
+					const prodCatePropId = prodCateProp.propId
 					const prodCatePropValue = prodCateProp.value
 					if (isEqual(itemCatePropId, prodCatePropId)) {
 						if (isEqual(itemCatePropValue, prodCatePropValue)) {
@@ -214,7 +214,7 @@ export const IsThisStoreShouldCheck = (wishlist, products) => {
 				const itemSubCatePropId = itemSubCateProp._id
 				const itemSubCatePropValue = itemSubCateProp.value
 				map(prodSubCatePropArray, prodSubCateProp => {
-					const prodSubCatePropId = prodSubCateProp._id
+					const prodSubCatePropId = prodSubCateProp.propId
 					const prodSubCatePropValue = prodSubCateProp.value
 					if (isEqual(itemSubCatePropId, prodSubCatePropId)) {
 						if (isEqual(itemSubCatePropValue, prodSubCatePropValue)) {
@@ -276,7 +276,7 @@ export const ProductWithRecommendation = (wishlist, products) => {
 			const itemCatePropId = itemCateProp._id
 			const itemCatePropValue = itemCateProp.value
 			map(prodCatePropArray, prodCateProp => {
-				const prodCatePropId = prodCateProp._id
+				const prodCatePropId = prodCateProp.propId
 				const prodCatePropValue = prodCateProp.value
 				if (isEqual(itemCatePropId, prodCatePropId)) {
 					if (isEqual(itemCatePropValue, prodCatePropValue)) {
@@ -291,8 +291,9 @@ export const ProductWithRecommendation = (wishlist, products) => {
 			const itemSubCatePropId = itemSubCateProp._id
 			const itemSubCatePropValue = itemSubCateProp.value
 			map(prodSubCatePropArray, prodSubCateProp => {
-				const prodSubCatePropId = prodSubCateProp._id
+				const prodSubCatePropId = prodSubCateProp.propId
 				const prodSubCatePropValue = prodSubCateProp.value
+
 				if (isEqual(itemSubCatePropId, prodSubCatePropId)) {
 					if (isEqual(itemSubCatePropValue, prodSubCatePropValue)) {
 						point += 1
