@@ -76,15 +76,37 @@ export const QueryStoreByBeaconUUID = gql`
 		searchStoreBranchFromBeacon(uuid: $uuid) {
 			_id
 			name
-			telNo
 			status
 			store {
 				_id
 				ownerId
-				name
 				avatarUrl
-				coverUrl
 				description
+			}
+			products {
+				_id
+				name
+				price
+				status
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
 			}
 		}
 	}
@@ -149,6 +171,30 @@ export const QueryCurrentUser = gql`
 					country
 					zipcode
 					detail
+				}
+			}
+			wishlist {
+				_id
+				name
+				productName
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
 				}
 			}
 		}

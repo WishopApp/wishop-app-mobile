@@ -22,7 +22,7 @@ class MyWishlist extends React.Component {
 						onPress={() => this.props.navigation.navigate('WishlistDetail', { wishlist: wishlist })}
 					>
 						<View style={[styled.wishlistImageContainer, StyledSelected.background]}>
-							<CustomImage style={styled.productImage} title="shoes" />
+							<CustomImage style={styled.productImage} uri={wishlist.category.logo} title="shoes" />
 						</View>
 
 						<View style={styled.WishlistProductContainer}>
@@ -50,7 +50,7 @@ class MyWishlist extends React.Component {
 							}}
 						>
 							<View>
-								<CustomImage style={styled.wishlistDeleteIcon} title="cancel-icon"/>
+								<CustomImage style={styled.wishlistDeleteIcon} title="cancel-icon" />
 							</View>
 						</TouchableOpacity>
 					</TouchableOpacity>

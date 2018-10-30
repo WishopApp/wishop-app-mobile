@@ -1,41 +1,79 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { StyledConstants } from '@constants/Styled'
-import { QueryStoreByBeaconUUID } from '@utils/Graphql/Query'
-import { graphql } from 'react-apollo'
+import { ProductWithRecommendation } from '@constants/Data'
+import { QueryStoreByBeaconUUID, QuerySearchProductByWishlist } from '@utils/Graphql/Query'
+import { graphql, compose } from 'react-apollo'
 import CustomImage from '@custom/Image'
+import CustomLinearGradient from '@custom/LinearGradient'
+
+let wishlists = undefined
 
 class StoreList extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			productsMatched: [], // storeBranch => productMatched,
+		}
+		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
 	}
 	/* proptypes
 		StoreList: object
 	*/
+
+	setProductsMathchedWithWishlistToState = (wishlists, storeBranch) => {
+		let products = storeBranch.products
+		wishlists.map(wishlist => {
+			let productsMatched = ProductWithRecommendation(wishlist, products)
+			this.state.productsMatched[storeBranch._id] = productsMatched
+			// console.log('productMatched', this.state.productsMatched)
+		})
+	}
+
 	render() {
-		let { loading, error, data } = this.props
+		let { loading, error, searchStoreByUUID, wishlists, addstoreBranchIdUsed } = this.props
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
-		console.log(this.props)
-		let storeBranch = data ? data.searchStoreBranchFromBeacon : undefined
-		console.log(storeBranch)
+		let storeBranch = searchStoreByUUID ? searchStoreByUUID.searchStoreBranchFromBeacon : undefined
+		if (storeBranch) {
+			addstoreBranchIdUsed(storeBranch._id)
+		}
+
+		if (wishlists && storeBranch) {
+			this.setProductsMathchedWithWishlistToState(this.props.wishlists, storeBranch)
+		}
 		return (
 			<View>
-				{storeBranch ? (
-					<View>
+				{storeBranch && (
+					<CustomLinearGradient
+						colors={['#582FFF', '#00A9FF', '#00CED1']}
+						start={{ x: 0.05, y: 0 }}
+						end={{ x: 0.75, y: 0.25 }}
+						style={styled.wishlistChecklist}
+					>
 						<TouchableOpacity
-							style={[styled.storeContainer, styled.wishlistChecklist]}
+							style={styled.storeContainer}
 							onPress={() => this.props.navigation.navigate('StoreDetail')}
 							activeOpacity={1}
 						>
 							<View style={styled.storeImageContainer}>
-								<CustomImage style={styled.storeImage} title="store-icon" />
+								<CustomImage
+									style={styled.storeImage}
+									uri={storeBranch.store.avatarUrl ? storeBranch.store.avatarUrl : undefined}
+									title="store-icon"
+								/>
 							</View>
 							<View style={styled.storeCardContainer}>
-								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_WHITE,
+									]}
+								>
 									{storeBranch.name}
 								</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, styled.descriptionColor]}>
 									{storeBranch.store.description}
 								</Text>
 								<Text style={styled.storeRange}>3.4 km</Text>
@@ -45,9 +83,7 @@ class StoreList extends React.Component {
 								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Let's check!</Text>
 							</View>
 						</TouchableOpacity>
-					</View>
-				) : (
-					<Text> Finding Stroe From Server</Text>
+					</CustomLinearGradient>
 				)}
 			</View>
 		)
@@ -55,7 +91,9 @@ class StoreList extends React.Component {
 }
 
 const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
+	name: 'searchStoreByUUID',
 	options: props => {
+		wishlists = props.wishlists ? props.wishlists : undefined
 		if (props._id) {
 			return {
 				variables: {
@@ -69,7 +107,9 @@ const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
 			},
 		}
 	},
-})(StoreList)
+})
+
+const StoreListWithData = compose(StoreListByBeacon)(StoreList)
 
 const styled = StyleSheet.create({
 	storeContainer: {
@@ -117,9 +157,9 @@ const styled = StyleSheet.create({
 		height: 40,
 	},
 
-	wishlistChecklist: {
-		backgroundColor: 'skyblue',
+	descriptionColor: {
+		color: 'rgba(255,255,255,0.7)',
 	},
 })
 
-export default StoreListByBeacon
+export default StoreListWithData

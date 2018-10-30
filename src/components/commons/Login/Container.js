@@ -52,6 +52,8 @@ class LoginContainer extends React.Component {
 				await setUser.email(currentUser.email)
 				await setUser.status(currentUser.status)
 				await setUser.profile(currentUser.profile)
+				await setUser.wishlist(currentUser.wishlist)
+				console.log(currentUser)
 				this.setState({ callSuccessPopup: true })
 			}
 		}

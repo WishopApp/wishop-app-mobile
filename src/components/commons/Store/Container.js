@@ -5,6 +5,8 @@ import { StyledConstants, StyledSelected } from '@constants/Styled'
 import CustomImage from '@custom/Image'
 import CustomBeacon from '@custom/Beacon/Android'
 import StoreListByBeacon from './StoreList'
+import { QueryCurrentUser } from '@utils/Graphql/Query'
+import { graphql } from 'react-apollo'
 
 let region = 'DetectAllBeacon'
 
@@ -30,17 +32,36 @@ class StoreContainer extends React.Component {
 		this.state = {
 			uuidUsed: [], // ever detected on this store
 			detectedBeacons: [], /// object Beacon
+			storeItemRender: [], // get Render StoreItem
+			storeBranchIdUsed: [], // array map beacon.uuid => storebranchId with beacon already mapping store
 		}
+		this.beaconDetected = this.beaconDetected.bind(this)
+		this.setStoreItemRender = this.setStoreItemRender.bind(this)
+		this.addstoreBranchIdUsed = this.addstoreBranchIdUsed.bind(this)
+		this.isStoreBranchIdUsed = this.isStoreBranchIdUsed.bind(this)
 	}
 
 	_reRender = () => {
 		this.forceUpdate()
 	}
 
+	setStoreItemRender = storeItem => {
+		this.state.storeItemRender.push(storeItem)
+	}
+
+	addstoreBranchIdUsed = storeBranchId => {
+		this.state.storeBranchIdUsed.push(storeBranchId)
+	}
+
+	isStoreBranchIdUsed = storeBranchId => {
+		return this.state.storeBranchIdUsed.indexOf(storeBranchId) > -1 ? true : false
+	}
+
 	componentWillReceiveProps(props) {
 		if (props.isFocused) {
 			this.initFindBeacon()
 		} else {
+			console.log('stop Ranging')
 			CustomBeacon.stopRangingInRegion(region)
 		}
 	}
@@ -71,77 +92,90 @@ class StoreContainer extends React.Component {
 		return false
 	}
 
+	beaconDetected = (beacons, isDetected, setStoreItemRender, addstoreBranchIdUsed, isStoreBranchIdUsed) => {
+		let wishlists
+		if (this.props.data) {
+			if (this.props.data.currentUser) {
+				wishlists = this.props.data.currentUser.wishlist
+			}
+		}
+		beacons.map((beacon, index) => {
+			let neverUsedUUID = !isDetected(beacon.uuid)
+			console.log('neverUsed ', beacon.uuid, '=>', neverUsedUUID)
+			if (neverUsedUUID) {
+				this.state.uuidUsed[beacon.uuid] = beacon
+
+				neverUsedUUID &&
+					setStoreItemRender(
+						<StoreListByBeacon
+							uuid={beacon.uuid}
+							distance={beacon.distance}
+							navigation={this.props.navigation}
+							wishlists={wishlists}
+							setStoreItemRender={setStoreItemRender}
+							addstoreBranchIdUsed={addstoreBranchIdUsed}
+							isStoreBranchIdUsed={isStoreBranchIdUsed}
+						/>
+					)
+			}
+		})
+	}
+
 	render() {
-		let { isFocused } = this.props
+		let { isFocused, loading, error, data } = this.props
 		let beacons = lengthOfKeyValue(this.state.detectedBeacons) > 0 ? this.state.detectedBeacons : undefined
 		return (
 			<View style={styled.container}>
-				<View style={styled.tabbarContainer}>
-					<View style={styled.tabbar}>
-						<Button
-							containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON]}
-							buttonStyle={[StyledSelected.background, styled.tabbarStoreDetection]}
-							textStyle={[StyledSelected.text, StyledConstants.FONT_DESCRIPTION]}
-							onPress={() => {
-								console.log('store Detection')
-							}}
-							title="Store Detection"
-						/>
-					</View>
-					<View style={styled.tabbar}>
-						<Button
-							containerViewStyle={[StyledConstants.MAX_WIDTH_BUTTON]}
-							buttonStyle={[StyledSelected.defaultBackground, styled.tabbarMyStore]}
-							textStyle={[StyledConstants.TEXT_BUTTON_BLACK, StyledConstants.FONT_DESCRIPTION]}
-							onPress={() => {
-								console.log('My Store')
-							}}
-							title="My Store"
-						/>
-					</View>
-				</View>
 				{beacons
-					? beaconDetected(mapKeytoArray(beacons), this.state.uuidUsed, this.props, this.isDetected)
+					? this.beaconDetected(
+							mapKeytoArray(beacons),
+							this.isDetected,
+							this.setStoreItemRender,
+							this.addstoreBranchIdUsed,
+							this.isStoreBranchIdUsed
+					  )
 					: beaconDetecting()}
+
+				{lengthOfKeyValue(this.state.uuidUsed) > 0 && (
+					<View style={styled.storeListContainer}>
+						<View style={[styled.topDescription]}>
+							<Text
+								style={[
+									StyledConstants.FONT_DESCRIPTION,
+									StyledConstants.FONT_BOLD,
+									StyledConstants.TEXT_BLACK,
+								]}
+							>
+								DETECTED STORE
+							</Text>
+							<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, StyledConstants.TEXT_BLACK]}>
+								Store with color is meaning some products
+							</Text>
+							<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, StyledConstants.TEXT_BLACK]}>
+								{' '}
+								of store might matched your wishlist
+							</Text>
+						</View>
+						<View style={styled.scrollStore}>
+							<ScrollView contentContainerStyle={styled.alignContent}>
+								{this.state.storeItemRender.map((storeItem, index) => {
+									return <View key={'storeItem' + index}>{storeItem}</View>
+								})}
+							</ScrollView>
+						</View>
+						<View style={styled.bottomContainer}>
+							<View style={styled.bottomDescription}>
+								<CustomImage style={styled.signalImage} title="beacon-icon" />
+								<Text style={StyledConstants.FONT_DESCRIPTION}>
+									We still detecting store in the background
+								</Text>
+							</View>
+						</View>
+					</View>
+				)}
 			</View>
 		)
 	}
-}
-
-const beaconDetected = (beacons, uuidUsed, props, isDetected) => {
-	return (
-		<View style={styled.storeListContainer}>
-			<View style={[styled.topDescription]}>
-				<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>DETECTED STORE</Text>
-				<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Store with color is meaning some products</Text>
-				<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}> of store might matched your wishlist</Text>
-			</View>
-			<View style={styled.scrollStore}>
-				<ScrollView contentContainerStyle={styled.alignContent}>
-					{beacons.map((beacon, index) => {
-						let neverUsedUUID = !isDetected(beacon.uuid)
-						if (neverUsedUUID) {
-							uuidUsed[beacon.uuid] = beacon
-						}
-
-						return (
-							<View key={index}>
-								{neverUsedUUID && (
-									<StoreListByBeacon uuid={beacon.uuid} navigation={props.navigation} />
-								)}
-							</View>
-						)
-					})}
-				</ScrollView>
-			</View>
-			<View style={styled.bottomContainer}>
-				<View style={styled.bottomDescription}>
-					<CustomImage style={styled.signalImage} title="beacon-icon" />
-					<Text style={StyledConstants.FONT_DESCRIPTION}>We still detecting store in the background</Text>
-				</View>
-			</View>
-		</View>
-	)
 }
 
 const beaconDetecting = () => {
@@ -159,6 +193,8 @@ const beaconDetecting = () => {
 		</View>
 	)
 }
+
+const StoreContainerWithCurrentUser = graphql(QueryCurrentUser)(StoreContainer)
 
 const styled = StyleSheet.create({
 	container: {
@@ -191,6 +227,8 @@ const styled = StyleSheet.create({
 	storeListContainer: {
 		flex: 1,
 		flexDirection: 'column',
+		paddingTop: 15,
+		paddingBottom: 25,
 	},
 
 	topDescription: {
@@ -204,8 +242,8 @@ const styled = StyleSheet.create({
 	},
 
 	scrollStore: {
-		height: '75%',
-		top: '5%',
+		height: '95%',
+		top: '15%',
 	},
 
 	bottomContainer: {
@@ -240,4 +278,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default StoreContainer
+export default StoreContainerWithCurrentUser
