@@ -138,11 +138,15 @@ class StoreList extends React.Component {
 								<Text style={[StyledConstants.FONT_DESCRIPTION, styled.descriptionColor]}>
 									{storeBranch.store.description}
 								</Text>
-								<Text style={styled.storeRange}>{this.props.distance.toFixed(2)} m</Text>
+								<Text style={[styled.storeRange, StyledConstants.TEXT_BLACK]}>
+									{this.props.distance.toFixed(2)} m
+								</Text>
 							</View>
 							<View style={styled.storeImageMappingWishlistContainer}>
 								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
-								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Let's check!</Text>
+								<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, StyledConstants.TEXT_BLACK]}>
+									Let's check!
+								</Text>
 							</View>
 						</TouchableOpacity>
 					</CustomLinearGradient>

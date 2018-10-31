@@ -102,7 +102,7 @@ class StoreContainer extends React.Component {
 		}
 		beacons.map((beacon, index) => {
 			let neverUsedUUID = !isDetected(beacon.uuid)
-			console.log('neverUsed ', beacon.uuid, '=>', neverUsedUUID)
+			// console.log('neverUsed ', beacon.uuid, '=>', neverUsedUUID)
 			if (neverUsedUUID) {
 				this.state.uuidUsed[beacon.uuid] = beacon
 
@@ -123,10 +123,16 @@ class StoreContainer extends React.Component {
 	}
 
 	clear = () => {
+		console.log('clear')
 		this.state.uuidUsed = []
 		this.state.detectedBeacons = []
 		this.state.storeItemRender = []
 		this.state.storeBranchIdUsed = []
+		CustomBeacon.stopRangingInRegion(region)
+		setTimeout(() => {
+			this.initFindBeacon()
+		}, 1000)
+		this.forceUpdate()
 	}
 
 	render() {
