@@ -2,11 +2,17 @@ import React from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import WishlistDetailContainer from '@commons/Wishlist/WishlistDetail/Container'
+import Header from '@screens/Header'
 
 class WishlistDetailScreen extends React.Component {
 	constructor(props) {
 		super(props)
 	}
+
+	static navigationOptions = ({ navigation }) => ({
+		tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
+		animationEnabled: true,
+	})
 
 	componentWillMount() {
 		const setParamsAction = NavigationActions.setParams({
@@ -21,11 +27,6 @@ class WishlistDetailScreen extends React.Component {
 		})
 		this.props.navigation.dispatch(setParamsAction)
 	}
-
-	static navigationOptions = ({ navigation }) => ({
-		tabBarVisible: (navigation.state.params && navigation.state.params.hideTabBar) === true,
-		animationEnabled: true,
-	})
 
 	render() {
 		return (

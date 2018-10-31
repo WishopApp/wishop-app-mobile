@@ -1,6 +1,8 @@
 import React from 'react'
 import { View, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
+import { QueryProduct } from '@utils/Graphql/Query'
+import { graphql } from 'react-apollo'
 import Carousel from 'react-native-snap-carousel'
 import CustomImage from '@custom/Image'
 
@@ -19,24 +21,6 @@ const sliderWidth = viewportWidth
 const itemWidth = slideWidth + itemHorizontalMargin * 2
 const itemheight = slideHeight
 const FirstSnapItem = 0
-let entries = [
-	{
-		text: 'Test1',
-		src: '@images/pikachu.png',
-	},
-	{
-		text: 'Test2',
-		src: '@images/pikachu.png',
-	},
-	{
-		text: 'Test2',
-		src: '@images/pikachu.png',
-	},
-	{
-		text: 'Test2',
-		src: '@images/pikachu.png',
-	},
-]
 
 class ProductDetailContainer extends React.Component {
 	constructor(props) {
@@ -48,74 +32,137 @@ class ProductDetailContainer extends React.Component {
 	}
 
 	_renderItem({ item, index }) {
-		console.log('index', item, ':', index)
 		return (
 			<View style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}>
-				<CustomImage style={styled.imageItem} title="pikachu" />
+				<CustomImage style={styled.imageItem} uri={item} />
 			</View>
 		)
 	}
 
 	render() {
+		let { loading, error, data } = this.props
 		let { params } = this.props.navigation.state
 		let product = undefined
-		if (params) {
-			params.product ? (product = params.product) : (product = undefined)
+		if (data) {
+			if (data.product) {
+				product = data.product
+			}
 		}
 		return (
-			<View>
-				<View style={styled.container}>
-					<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
-						<View style={styled.imageSlideContainer}>
-							<Carousel
-								ref={c => {
-									this._carousel = c
-								}}
-								data={entries}
-								renderItem={this._renderItem}
-								sliderWidth={sliderWidth}
-								itemWidth={itemWidth}
-								inactiveSlideScale={0.9}
-								inactiveSlideOpacity={0.85}
-								onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
-							/>
-						</View>
-						<View style={styled.wishlistDetail}>
-							<View style={styled.WishlistProductContainer}>
-								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-									PRODUCT NAME
-								</Text>
-								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-									Sell By Store Name
-								</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Shoes, Sneaker</Text>
-								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
-									{'\n'} 6900 Baht
-								</Text>
+			<ScrollView>
+				{product && (
+					<View style={styled.container}>
+						<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
+							<View style={styled.imageSlideContainer}>
+								<Carousel
+									ref={c => {
+										this._carousel = c
+									}}
+									data={product.photoUrlList}
+									renderItem={this._renderItem}
+									sliderWidth={sliderWidth}
+									itemWidth={itemWidth}
+									inactiveSlideScale={0.9}
+									inactiveSlideOpacity={0.85}
+									onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+								/>
 							</View>
-						</View>
-						<View style={styled.PropContainer}>
-							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Color</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION}>Blue</Text>
+							<View style={styled.wishlistDetail}>
+								<View style={styled.WishlistProductContainer}>
+									<Text
+										style={[
+											StyledConstants.FONT_TOPIC,
+											StyledConstants.FONT_BOLD,
+											StyledConstants.TEXT_BLACK,
+										]}
+									>
+										{product.name}
+									</Text>
+									<Text
+										style={[
+											StyledConstants.FONT_DESCRIPTION,
+											StyledConstants.FONT_BOLD,
+											StyledConstants.TEXT_BLACK,
+										]}
+									>
+										{product.store.name}
+									</Text>
+									<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+										{product.category.name}, {product.subCategory.name}
+									</Text>
+									<Text
+										style={[
+											StyledConstants.FONT_TOPIC,
+											StyledConstants.FONT_BOLD,
+											StyledConstants.TEXT_BLACK,
+										]}
+									>
+										{product.price}
+									</Text>
+								</View>
 							</View>
-							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>Size</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION}>42 USA</Text>
+							<View style={styled.PropContainer}>
+								{product.categoryProps
+									? product.categoryProps.map((categoryProp, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{categoryProp.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{categoryProp.value}
+													</Text>
+												</View>
+											</View>
+										)
+									  })
+									: null}
+
+								{product.subCategoryProps
+									? product.subCategoryProps.map((subCategoryProp, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{subCategoryProp.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{subCategoryProp.value}
+													</Text>
+												</View>
+											</View>
+										)
+									  })
+									: null}
 							</View>
-							<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-								<Text style={[StyledConstants.FONT_BOLD, StyledConstants.FONT_DESCRIPTION]}>
-									Material
-								</Text>
-								<Text style={StyledConstants.FONT_DESCRIPTION}>Leather</Text>
-							</View>
-						</View>
-					</ScrollView>
-				</View>
-			</View>
+						</ScrollView>
+					</View>
+				)}
+			</ScrollView>
 		)
 	}
 }
+
+const ProductWithData = graphql(QueryProduct, {
+	options: props => {
+		return {
+			variables: {
+				_id: props.navigation.state.params._id,
+			},
+		}
+	},
+})(ProductDetailContainer)
 
 const styled = StyleSheet.create({
 	container: {
@@ -123,7 +170,7 @@ const styled = StyleSheet.create({
 		height: '100%',
 	},
 	wishlistDetail: {
-		height: 150,
+		height: 110,
 		flexDirection: 'column',
 		justifyContent: 'space-around',
 		alignItems: 'center',
@@ -168,19 +215,18 @@ const styled = StyleSheet.create({
 		height: itemheight,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: 'lightgrey',
+		backgroundColor: '#bbb',
 	},
 	imageItem: {
-		width: '80%',
-		height: '80%',
+		width: '100%',
+		height: '100%',
 	},
 
 	activeSnapItem: {
-		backgroundColor: 'pink',
 		borderWidth: 0.75,
 		borderRadius: 2,
 		elevation: 10,
 	},
 })
 
-export default ProductDetailContainer
+export default ProductWithData

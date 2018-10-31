@@ -20,11 +20,16 @@ class ProductItem extends React.Component {
 					onPress={() =>
 						navigation.navigate('ProductDetail', {
 							product: product,
+							_id: product._id,
 						})
 					}
 				>
 					<View style={[styled.productImageContainer, StyledSelected.background]}>
-						<CustomImage style={styled.productImage} title="shoes" />
+						{product ? (
+							<CustomImage style={styled.productImage} uri={product.category.logo} />
+						) : (
+							<CustomImage style={styled.productImage} title="shoes" />
+						)}
 					</View>
 					<View style={styled.productDetailContainer}>
 						<Text style={[styled.topicText, StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>

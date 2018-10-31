@@ -30,14 +30,20 @@ class CategoryCard extends React.Component {
 	}
 
 	render() {
-		let { name } = this.props.data
+		let { name, logo } = this.props.data
+		let { type, subcategoryLogo } = this.props
 		return (
 			<TouchableOpacity
 				activeOpacity={1}
 				style={[styled.card, this.isSelected() && StyledSelected.background]}
 				onPress={this.selected}
 			>
-				<CustomImage style={styled.imageSize} title={this.isSelected() ? name : name} />
+				{type == 'category' && <CustomImage style={styled.imageSize} uri={logo} />}
+				{type == 'subcategory' && <CustomImage style={styled.imageSize} title={subcategoryLogo} />}
+				{type != 'category' &&
+					type != 'subcategory' && (
+						<CustomImage style={styled.imageSize} title={this.isSelected() ? name : name} />
+					)}
 				<Text style={[StyledConstants.FONT_DESCRIPTION, this.isSelected() && StyledSelected.text]}>{name}</Text>
 			</TouchableOpacity>
 		)

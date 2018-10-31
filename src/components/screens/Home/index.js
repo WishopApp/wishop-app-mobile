@@ -11,15 +11,28 @@ class Home extends React.Component {
 		}
 	}
 
-	static navigationOptions = {
-		headerTitle: <Header title="Home" />,
+	static navigationOptions = ({ navigation }) => {
+		return {
+			header: <Header title="Home" navigation={navigation} />,
+		}
 	}
-
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<View>{this.state.successPopup ? this.state.successPopup : null}</View>
+				{this.state.successPopup ? this.state.successPopup : null}
+				<Button
+					title="test"
+					onPress={() => {
+						this.setState({
+							successPopup: SuccessPopup(
+								this.props.navigation,
+								'SUCCEED!',
+								'Your Wishlist had been created.'
+							),
+						})
+					}}
+				/>
 				<Text>Home Screen :</Text>
 			</View>
 		)
