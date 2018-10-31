@@ -5,8 +5,11 @@ import CustomImage from '@custom/Image'
 import { StyledConstants } from '@constants/Styled'
 import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { graphql } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import { Login } from '@utils/Graphql/Mutation'
+import { QueryCurrentUser } from '@utils/Graphql/Query'
+import { SuccessPopup } from '@utils/Popups/CallPopup'
+import { user, setUser } from '@constants/Data'
 
 class LoginContainer extends React.Component {
 	constructor(props) {
@@ -15,10 +18,10 @@ class LoginContainer extends React.Component {
 			email: null,
 			password: null,
 			errorMessage: null,
+			callSuccessPopup: false,
 		}
 		this.requireField = this.requireField.bind(this)
 		this.login = this.login.bind(this)
-		console.log(this.props)
 	}
 
 	requireField = (email, password) => {
@@ -30,14 +33,30 @@ class LoginContainer extends React.Component {
 	}
 
 	login = async () => {
-		let email = this.state.email
+		let email = this.state.email ? this.state.email.toLowerCase() : null
 		let password = this.state.password
 		let error = await this.requireField(email, password)
-		console.log('errorMessage', error)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			let tokenString = await this.props.login(email, password)
-			console.log('tokenString', tokenString)
+			let mutationLogin = await this.props.login(email, password)
+			let loginSuccess = mutationLogin.data.login ? true : false
+			if (loginSuccess) {
+				let authToken = mutationLogin.data.login
+				setUser.authToken(authToken)
+
+				// get current User that passed login
+				let reQuery = await this.props.data.refetch()
+				let currentUser = reQuery.data.currentUser
+
+				await setUser._id(currentUser._id)
+				await setUser.email(currentUser.email)
+				await setUser.status(currentUser.status)
+				await setUser.profile(currentUser.profile)
+				await setUser.wishlist(currentUser.wishlist)
+				console.log(currentUser)
+				this.props.navigation.navigate('Search')
+				// this.setState({ callSuccessPopup: true })
+			}
 		}
 	}
 
@@ -53,6 +72,11 @@ class LoginContainer extends React.Component {
 				style={styled.container}
 				colors={['#582FFF', '#00A9FF', '#00CED1']}
 			>
+				{this.state.callSuccessPopup &&
+					SuccessPopup(this.props.navigation, 'Success', 'Login Success \n Welcome to Wishop!', {
+						routeName: 'Search',
+						action: 'navigate',
+					})}
 				<View style={styled.logoContainer}>
 					<Image style={styled.imageSize} source={require('@images/logo.png')} resizeMode="stretch" />
 				</View>
@@ -66,6 +90,7 @@ class LoginContainer extends React.Component {
 							placeholder={'Email'}
 							placeholderTextColor="#2F4F4F"
 							underlineColorAndroid="transparent"
+							keyboardType={'email-address'}
 							style={[styled.passwordInput, styled.inputStyle]}
 							onChangeText={email => {
 								this.setState({ email: email })
@@ -119,13 +144,18 @@ class LoginContainer extends React.Component {
 	}
 }
 
-const LoginWithEmail = graphql(Login, {
+const GraphqlLoginWithEmail = graphql(Login, {
 	props: ({ mutate }) => ({
-		login: (email, password) => mutate({ variables: { email, password } }),
+		login: (email, password) =>
+			mutate({
+				variables: { email, password },
+			}),
 	}),
-})(LoginContainer)
+})
 
-// const LoginWithEmail = graphql(Login)(LoginContainer)
+const GraphqlCurrentUser = graphql(QueryCurrentUser)
+
+const LoginWithEmail = compose(GraphqlLoginWithEmail, GraphqlCurrentUser)(LoginContainer)
 
 const styled = StyleSheet.create({
 	container: {

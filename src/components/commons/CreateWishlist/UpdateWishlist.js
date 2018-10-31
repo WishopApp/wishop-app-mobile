@@ -11,11 +11,13 @@ class UpdateWishlist extends React.Component {
 
 	render() {
 		let { params } = this.props.navigation.state
+
 		return (
 			<CreateWishlist
 				navigation={this.props.navigation}
 				type={params.type}
 				updateWishlist={this.props.updateWishlist}
+				refetchWishlist={params.refetchWishlist}
 			/>
 		)
 	}
@@ -23,7 +25,7 @@ class UpdateWishlist extends React.Component {
 
 const UpdateWishlistWithMutation = graphql(MutationUpdateWishlist, {
 	props: ({ mutate }) => ({
-		updateWishlist: (userId, wishlistId, wishlist) => mutate({ variables: { userId, wishlistId, wishlist } }),
+		updateWishlist: (_id, wishlist) => mutate({ variables: { _id, wishlist } }),
 	}),
 })(UpdateWishlist)
 

@@ -59,7 +59,7 @@ export default class Header extends React.Component {
 					onPress={() => {
 						if (this.state.searchString)
 							this.props.navigation.replace('Search', {
-								searchString: this.state.searchString,
+								keyword: this.state.searchString,
 							})
 					}}
 				>

@@ -11,34 +11,16 @@ export const MutationCreateWishlist = gql`
 `
 
 export const MutationUpdateWishlist = gql`
-	mutation UpdateWishlist($userId: ID!, $wishlistId: ID!, $wishlist: UpdateWishlist!) {
-		updateWishlist(userId: $userId, wishlistId: $wishlistId, wishlist: $wishlist) {
-			wishlist {
-				_id
-				name
-				productName
-				subCategory {
-					_id
-					name
-				}
-				categoryProps {
-					_id
-					name
-					value
-				}
-				subCategoryProps {
-					_id
-					name
-					value
-				}
-			}
+	mutation UpdateWishlist($_id: ID!, $wishlist: UpdateWishlist!) {
+		updateWishlist(_id: $_id, wishlist: $wishlist) {
+			_id
 		}
 	}
 `
 
 export const MutationRemoveWishlist = gql`
-	mutation RemoveWishlist($userId: ID!, $wishlistId: ID!) {
-		removeWishlist(userId: $userId, wishlistId: $wishlistId) {
+	mutation RemoveWishlist($_id: ID!) {
+		removeWishlist(_id: $_id) {
 			_id
 		}
 	}
@@ -64,6 +46,26 @@ export const Signup = gql`
 		createUser(email: $email, password: $password) {
 			_id
 			email
+		}
+	}
+`
+
+export const MutationUpdateUser = gql`
+	mutation UserUpdate($_id: ID!, $profile: ProfileInput!) {
+		updateUser(_id: $_id, profile: $profile) {
+			_id
+			profile {
+				name
+				telNo
+				avatarUrl
+				address {
+					district
+					province
+					country
+					zipcode
+					detail
+				}
+			}
 		}
 	}
 `

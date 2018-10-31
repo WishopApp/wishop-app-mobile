@@ -81,6 +81,7 @@ class SubCategories extends React.Component {
 											selectedId={selectedId}
 											type={type}
 											data={subCategory}
+											subcategoryLogo={'default-subcategory'}
 										/>
 									)
 								})}

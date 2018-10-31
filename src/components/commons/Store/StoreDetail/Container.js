@@ -2,42 +2,16 @@ import React from 'react'
 import { View, Text, ScrollView, StyleSheet, Image, Button } from 'react-native'
 import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
+import { graphql } from 'react-apollo'
 import CustomLinearGradient from '@custom/LinearGradient'
 import CustomImage from '@custom/Image'
 import ProductList from '@commons/Product/ProductList'
+import { QueryStoreBranchById } from '@utils/Graphql/Query'
 
 const MatchProductWidth = Viewport.width
 const MatchProductHeight = Percentage(15, Viewport.height)
 const TopicWidth = Viewport.width
 const TopicHeight = Percentage(10, Viewport.height)
-
-let mockProducts = [
-	{
-		name: 'mock product1',
-		wishlist: {
-			name: 'First Wishlist Name',
-		},
-		price: 5500,
-		category: { name: 'Shoes' },
-		subCategory: { name: 'Slipper' },
-	},
-	{
-		name: 'mock product2',
-		wishlist: {
-			name: 'Second Wishlist Name',
-		},
-		price: 6500,
-		category: { name: 'Shoes' },
-		subCategory: { name: 'Slipper' },
-	},
-	{
-		name: 'mock product3',
-		wishlist: { name: 'Third Wishlist Name' },
-		price: 7500,
-		category: { name: 'Shoes' },
-		subCategory: { name: 'Slipper' },
-	},
-]
 
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
@@ -45,20 +19,48 @@ class StoreDetailContainer extends React.Component {
 	}
 
 	render() {
+		let storeBranchId = this.props.navigation.state.params._id
+		let productsMatched = this.props.navigation.state.params.productsMatched
+		let recommendProduct = undefined
+		let { storeBranchData } = this.props
+		let { loading, error } = storeBranchData
+		let storeBranch
+		let products
+		if (loading)
+			return (
+				<View>
+					<Text>loading</Text>
+				</View>
+			)
+		if (storeBranchData) {
+			storeBranch = storeBranchData.storeBranch ? storeBranchData.storeBranch : undefined
+			if (storeBranch) {
+				products = storeBranch.products
+			}
+		}
 		return (
 			<ScrollView>
 				<View style={styled.coverStoreContainer}>
-					<Image
-						style={styled.coverStoreImage}
-						source={{
-							uri:
-								'http://www.f-covers.com/cover/landscape-fantasy-art-facebook-cover-timeline-banner-for-fb.jpg',
-						}}
-					/>
+					{storeBranch.store.coverUrl ? (
+						<Image style={styled.coverStoreImage} source={{ uri: storeBranch.store.coverUrl }} />
+					) : (
+						<Image
+							style={styled.coverStoreImage}
+							source={{
+								uri:
+									'https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-076-premium-dark.png',
+							}}
+						/>
+					)}
+
 					<View style={styled.logoImageContainer}>
 						<Image
 							style={styled.logoStoreImage}
-							source={{ uri: 'http://www.allmaxnutrition.com/wp-content/uploads/WNC-logo-Retailer.png' }}
+							source={{
+								uri: storeBranch.store.avatarUrl
+									? storeBranch.store.avatarUrl
+									: 'http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/shop_front_icon_55889.jpg',
+							}}
 						/>
 					</View>
 					<View style={styled.storeDetailContainer}>
@@ -72,7 +74,7 @@ class StoreDetailContainer extends React.Component {
 								]}
 							>
 								{' '}
-								Store Name
+								{storeBranch.store.name}
 							</Text>
 							<Text
 								style={[
@@ -81,72 +83,112 @@ class StoreDetailContainer extends React.Component {
 									StyledConstants.TEXT_WHITE,
 								]}
 							>
-								Store little detail and for introduction
+								{storeBranch.store.description
+									? storeBranch.store.description
+									: 'Store doesn\'t have introduction yet'}
 							</Text>
 						</View>
 					</View>
 				</View>
-				<View style={styled.matchProductContainer}>
-					<CustomLinearGradient style={styled.matchProductLinearGradient}>
-						<Text
-							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
-						>
-							{' '}
-							MATCHED PRODUCT
-						</Text>
-						<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.TEXT_WHITE]}>
-							This store has about 3 products {'\n'} That might matched your wishlist.
-						</Text>
-					</CustomLinearGradient>
-				</View>
-				<View key="MatchedProductList">
-					<ProductList
-						navigation={this.props.navigation}
-						products={mockProducts}
-						detailType="wishlist_name"
-					/>
-				</View>
-				<View key="RecommendedProductContainer">
-					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
-						<Text
-							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
-						>
-							RECOMMENDED PRODUCTS
-						</Text>
-					</CustomLinearGradient>
-					<View style={styled.recommendedProductDetail}>
-						<View style={styled.imageContainer}>
-							<CustomImage style={styled.image} title={'shoes'} />
+				{productsMatched && (
+					<View>
+						<View style={styled.matchProductContainer}>
+							<CustomLinearGradient style={styled.matchProductLinearGradient}>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_WHITE,
+									]}
+								>
+									{' '}
+									MATCHED PRODUCT
+								</Text>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.TEXT_WHITE]}>
+									This store has about {productsMatched.length > 0 ? productsMatched.length : 0}{' '}
+									products {'\n'} That might matched your wishlist.
+								</Text>
+							</CustomLinearGradient>
 						</View>
-						<View style={styled.recommendedProductContainer}>
-							<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>Product Name</Text>
-							<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
-								5,500 Baht
-							</Text>
-							<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
+
+						<View key="MatchedProductList">
+							<ProductList
+								navigation={this.props.navigation}
+								products={productsMatched}
+								detailType="wishlist_name"
+							/>
 						</View>
 					</View>
-				</View>
-				<View key="Store Product">
-					<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
-						<Text
-							style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD, StyledConstants.TEXT_WHITE]}
-						>
-							STORE PRODUCTS
-						</Text>
-					</CustomLinearGradient>
-				</View>
-				<View>
-					<ProductList
-						navigation={this.props.navigation}
-						products={mockProducts}
-						detailType="product_price"
-					/>
-				</View>
+				)}
+				{recommendProduct && (
+					<View key="RecommendedProductContainer">
+						<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
+							<Text
+								style={[
+									StyledConstants.FONT_TOPIC,
+									StyledConstants.FONT_BOLD,
+									StyledConstants.TEXT_WHITE,
+								]}
+							>
+								RECOMMENDED PRODUCTS
+							</Text>
+						</CustomLinearGradient>
+						<View style={styled.recommendedProductDetail}>
+							<View style={styled.imageContainer}>
+								<CustomImage style={styled.image} title={'shoes'} />
+							</View>
+							<View style={styled.recommendedProductContainer}>
+								<Text style={[StyledConstants.FONT_TOPIC, StyledConstants.FONT_BOLD]}>
+									Product Name
+								</Text>
+								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BOLD]}>
+									5,500 Baht
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>Category, Subcategory</Text>
+							</View>
+						</View>
+					</View>
+				)}
+				{products && (
+					<View>
+						<View key="Store Product">
+							<CustomLinearGradient style={[styled.topicHeader, styled.center]}>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_WHITE,
+									]}
+								>
+									STORE PRODUCTS
+								</Text>
+							</CustomLinearGradient>
+						</View>
+
+						<View>
+							<ProductList
+								navigation={this.props.navigation}
+								products={products}
+								detailType="product_price"
+							/>
+						</View>
+					</View>
+				)}
 			</ScrollView>
 		)
 	}
 }
+
+const StoreDetailWithData = graphql(QueryStoreBranchById, {
+	name: 'storeBranchData',
+	options: props => {
+		return {
+			variables: {
+				_id: props.navigation.state.params._id,
+			},
+		}
+	},
+})(StoreDetailContainer)
 
 const styled = StyleSheet.create({
 	topicHeader: {
@@ -246,4 +288,4 @@ const styled = StyleSheet.create({
 	},
 })
 
-export default StoreDetailContainer
+export default StoreDetailWithData

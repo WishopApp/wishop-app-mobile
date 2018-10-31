@@ -7,6 +7,7 @@ import { Viewport, Percentage } from '@constants/Data'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { graphql } from 'react-apollo'
 import { Signup } from '@utils/Graphql/Mutation'
+import { SuccessPopup } from '@utils/Popups/CallPopup'
 
 class SignupContainer extends React.Component {
 	constructor(props) {
@@ -16,6 +17,7 @@ class SignupContainer extends React.Component {
 			password: null,
 			confirmPassword: null,
 			errorMessage: null,
+			callSuccessPopup: false,
 		}
 		this.requireField = this.requireField.bind(this)
 		this.signup = this.signup.bind(this)
@@ -31,15 +33,18 @@ class SignupContainer extends React.Component {
 	}
 
 	signup = async () => {
-		let email = this.state.email
+		let email = this.state.email ? this.state.email.toLowerCase() : null
 		let password = this.state.password
 		let confirmPassword = this.state.confirmPassword
 		let error = await this.requireField(email, password, confirmPassword)
-		console.log('errorMessage', error)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			let tokenString = await this.props.createUser(email, password)
-			console.log('tokenString', tokenString)
+			let user = await this.props.createUser(email, password)
+			let createSuccess = user.data.createUser ? true : false
+			if (createSuccess) {
+				this.props.navigation.goBack(null)
+				// this.setState({ callSuccessPopup: true })
+			}
 		}
 	}
 
@@ -48,7 +53,6 @@ class SignupContainer extends React.Component {
 	}
 
 	render() {
-		console.log(this.props)
 		return (
 			<CustomLinearGradient
 				start={{ x: 0.2, y: 0.35 }}
@@ -56,6 +60,8 @@ class SignupContainer extends React.Component {
 				style={styled.container}
 				colors={['#00CED1', '#00A9FF', '#582FFF']}
 			>
+				{this.state.callSuccessPopup &&
+					SuccessPopup(this.props.navigation, 'Success', 'Signup Success \n Please Login again!')}
 				<View style={styled.loginContainer}>
 					<Text style={[StyledConstants.TOPIC, styled.errorMessage]}>
 						{this.state.errorMessage ? this.state.errorMessage : ''}
@@ -66,6 +72,7 @@ class SignupContainer extends React.Component {
 							placeholder={'Email'}
 							placeholderTextColor="#2F4F4F"
 							underlineColorAndroid="transparent"
+							keyboardType={'email-address'}
 							style={[styled.passwordInput, styled.inputStyle]}
 							onChangeText={email => {
 								this.setState({ email: email })
@@ -128,7 +135,7 @@ class SignupContainer extends React.Component {
 
 const SignupWithEmail = graphql(Signup, {
 	props: ({ mutate }) => ({
-		createUser: (email, password) => mutate({ variable: { email, password } }),
+		createUser: (email, password) => mutate({ variables: { email, password } }),
 	}),
 })(SignupContainer)
 

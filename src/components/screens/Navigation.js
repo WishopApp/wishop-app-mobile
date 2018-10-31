@@ -18,6 +18,8 @@ import ProductNavigationScreen from '@screens/Product/ProductNavigationScreen'
 import StoreDetailScreen from '@screens/Store/StoreDetailScreen'
 import LoginScreen from '@screens/Login/LoginScreen'
 import SignupScreen from '@screens/Login/SignupScreen'
+import ProfileScreen from '@screens/Profile/ProfileScreen'
+import ProfileAddressScreen from '@screens/Profile/ProfileAddressScreen'
 
 export const LoadIconStack = {
 	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
@@ -30,6 +32,8 @@ export const LoadIconStack = {
 	wishlistFocused: (
 		<SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/wishlist-hover-icon.svg')} />
 	),
+	profile: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/user.svg')} />,
+	profileFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/user.svg')} />,
 }
 
 export const HomeStack = StackNavigator({
@@ -42,6 +46,14 @@ export const SearchStack = StackNavigator({
 	Search: {
 		screen: SearchScreen,
 	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
+	},
 })
 
 export const StoreStack = StackNavigator({
@@ -50,6 +62,19 @@ export const StoreStack = StackNavigator({
 	},
 	StoreDetail: {
 		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
 	},
 })
 
@@ -89,11 +114,18 @@ export const MywishlistStack = StackNavigator({
 	WishlistDetail: {
 		screen: WishlistDetailScreen,
 		navigationOptions: {
-			title: ' W I S H L I S T   D E T A I L',
+			header: ({ navigation }) => {
+				return <Header back={true} title="Wishlist Detail" navigation={navigation} />
+			},
 		},
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Product Detail" navigation={navigation} />
+			},
+		},
 	},
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,
@@ -104,6 +136,15 @@ export const MywishlistStack = StackNavigator({
 		navigationOptions: {
 			headerMode: 'none',
 		},
+	},
+})
+
+export const ProfileStack = StackNavigator({
+	Profile: {
+		screen: ProfileScreen,
+	},
+	ProfileAddress: {
+		screen: ProfileAddressScreen,
 	},
 })
 
@@ -118,15 +159,6 @@ export const Tabs = TabNavigator(
 		// 		},
 		// 	},
 		// },
-		Search: {
-			screen: SearchStack,
-			navigationOptions: {
-				tabBarLabel: 'Search',
-				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
-				},
-			},
-		},
 		Store: {
 			screen: StoreStack,
 			navigationOptions: {
@@ -136,12 +168,30 @@ export const Tabs = TabNavigator(
 				},
 			},
 		},
+		Search: {
+			screen: SearchStack,
+			navigationOptions: {
+				tabBarLabel: 'Search',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
+				},
+			},
+		},
 		Wishlist: {
 			screen: MywishlistStack,
 			navigationOptions: {
 				tabBarLabel: 'Wishlist',
 				tabBarIcon: ({ focused }) => {
 					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+				},
+			},
+		},
+		Profile: {
+			screen: ProfileStack,
+			navigationOptions: {
+				tabBarLabel: 'Profile',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.profileFocused : LoadIconStack.profile
 				},
 			},
 		},

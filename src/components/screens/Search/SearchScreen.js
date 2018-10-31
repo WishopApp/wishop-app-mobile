@@ -17,14 +17,14 @@ class SearchScreen extends React.Component {
 	}
 
 	render() {
-		let searchString
+		let keyword
 		if (this.props.navigation.state.params) {
-			if (this.props.navigation.state.params.searchString) {
-				searchString = this.props.navigation.state.params.searchString
+			if (this.props.navigation.state.params.keyword) {
+				keyword = this.props.navigation.state.params.keyword
 			}
 		}
-		return searchString ? (
-			<SearchByKeywordContainer searchString={searchString} navigation={this.props.navigation} />
+		return keyword ? (
+			<SearchByKeywordContainer keyword={keyword} navigation={this.props.navigation} />
 		) : (
 			<SearchContainer navigation={this.props.navigation} />
 		)

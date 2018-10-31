@@ -7,6 +7,7 @@ export const QueryCategories = gql`
 		categories {
 			_id
 			name
+			logo
 		}
 	}
 `
@@ -50,6 +51,7 @@ export const QueryUserWishlists = gql`
 				productName
 				category {
 					_id
+					logo
 					name
 				}
 				subCategory {
@@ -72,19 +74,43 @@ export const QueryUserWishlists = gql`
 `
 
 export const QueryStoreByBeaconUUID = gql`
-	query SearchStoreBranchFromBeaconByUUID($uuid: String!) {
-		searchStoreBranchFromBeacon(uuid: $uuid) {
+	query SearchStoreBranchFromBeaconByUUID($uuid: String!, $userId: ID!) {
+		searchStoreBranchFromBeacon(uuid: $uuid, userId: $userId) {
 			_id
 			name
-			telNo
 			status
 			store {
 				_id
 				ownerId
-				name
 				avatarUrl
-				coverUrl
 				description
+			}
+			products {
+				_id
+				name
+				price
+				status
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					propId
+					value
+				}
+				subCategoryProps {
+					_id
+					propId
+					name
+					value
+				}
 			}
 		}
 	}
@@ -98,6 +124,7 @@ export const QuerySearchProductByWishlist = gql`
 			recommended
 			category {
 				_id
+				logo
 				name
 			}
 			subCategory {
@@ -128,6 +155,154 @@ export const QuerySearchProductByWishlist = gql`
 				_id
 				propId
 				value
+			}
+		}
+	}
+`
+
+export const QueryCurrentUser = gql`
+	query CurrentUser {
+		currentUser {
+			_id
+			email
+			status
+			profile {
+				name
+				telNo
+				avatarUrl
+				address {
+					district
+					province
+					country
+					zipcode
+					detail
+				}
+			}
+			wishlist {
+				_id
+				name
+				productName
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					name
+					value
+				}
+			}
+		}
+	}
+`
+
+export const QueryProductBySearchKeyword = gql`
+	query SearchProductByKeyword($keyword: String!) {
+		searchByKeyword(keyword: $keyword) {
+			_id
+			name
+			status
+			photoUrlList
+			category {
+				_id
+				name
+				logo
+			}
+			subCategory {
+				_id
+				name
+			}
+			store {
+				_id
+				name
+			}
+		}
+	}
+`
+
+export const QueryProduct = gql`
+	query ProductByProductId($_id: ID!) {
+		product(_id: $_id) {
+			_id
+			name
+			status
+			photoUrlList
+			category {
+				_id
+				name
+				logo
+			}
+			subCategory {
+				_id
+				name
+			}
+			categoryProps {
+				_id
+				name
+				value
+			}
+			subCategoryProps {
+				_id
+				name
+				value
+			}
+			store {
+				_id
+				name
+			}
+		}
+	}
+`
+
+export const QueryStoreBranchById = gql`
+	query StorebranchById($_id: ID!) {
+		storeBranch(_id: $_id) {
+			_id
+			name
+			status
+			products {
+				_id
+				name
+				price
+				status
+				category {
+					_id
+					name
+					logo
+				}
+				subCategory {
+					_id
+					name
+				}
+				categoryProps {
+					_id
+					propId
+					name
+					value
+				}
+				subCategoryProps {
+					_id
+					propId
+					name
+					value
+				}
+			}
+			store {
+				_id
+				name
+				coverUrl
+				avatarUrl
+				description
 			}
 		}
 	}
