@@ -33,7 +33,7 @@ class SignupContainer extends React.Component {
 	}
 
 	signup = async () => {
-		let email = this.state.email
+		let email = this.state.email ? this.state.email.toLowerCase() : null
 		let password = this.state.password
 		let confirmPassword = this.state.confirmPassword
 		let error = await this.requireField(email, password, confirmPassword)
@@ -42,7 +42,8 @@ class SignupContainer extends React.Component {
 			let user = await this.props.createUser(email, password)
 			let createSuccess = user.data.createUser ? true : false
 			if (createSuccess) {
-				this.setState({ callSuccessPopup: true })
+				this.props.navigation.goBack(null)
+				// this.setState({ callSuccessPopup: true })
 			}
 		}
 	}

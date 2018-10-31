@@ -32,7 +32,6 @@ class CategoryCard extends React.Component {
 	render() {
 		let { name, logo } = this.props.data
 		let { type, subcategoryLogo } = this.props
-		console.log(this.props)
 		return (
 			<TouchableOpacity
 				activeOpacity={1}

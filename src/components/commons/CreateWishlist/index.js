@@ -303,13 +303,14 @@ class CreateWishlist extends React.Component {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
 									this.props.navigation.state.params.refetchWishlist()
-									this.setState({
-										successPopup: SuccessPopup(
-											this.props.navigation,
-											'SUCCEED!',
-											'Your Wishlist had been created.'
-										),
-									})
+									this.props.navigation.goBack(null)
+									// this.setState({
+									// 	successPopup: SuccessPopup(
+									// 		this.props.navigation,
+									// 		'SUCCEED!',
+									// 		'Your Wishlist had been created.'
+									// 	),
+									// })
 								}
 							}}
 							textStyle={styled.textCreateButton}

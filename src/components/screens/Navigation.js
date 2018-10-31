@@ -159,21 +159,21 @@ export const Tabs = TabNavigator(
 		// 		},
 		// 	},
 		// },
-		// Search: {
-		// 	screen: SearchStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Search',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.searchFocused : LoadIconStack.search
-		// 		},
-		// 	},
-		// },
 		Store: {
 			screen: StoreStack,
 			navigationOptions: {
 				tabBarLabel: 'Store',
 				tabBarIcon: ({ focused }) => {
 					return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
+				},
+			},
+		},
+		Search: {
+			screen: SearchStack,
+			navigationOptions: {
+				tabBarLabel: 'Search',
+				tabBarIcon: ({ focused }) => {
+					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
 				},
 			},
 		},
@@ -238,7 +238,7 @@ export const LoginStack = StackNavigator({
 
 export const Root = StackNavigator(
 	{
-		// Login: LoginStack,
+		Login: LoginStack,
 		Main: Tabs,
 		// Modal Stack
 		// CreateWishlist: CreateWishlistStack,
@@ -246,6 +246,6 @@ export const Root = StackNavigator(
 	{
 		mode: 'card',
 		headerMode: 'none',
-		// initialRouteName: 'Login',
+		initialRouteName: 'Login',
 	}
 )

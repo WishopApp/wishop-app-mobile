@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import ImagePicker from 'react-native-image-picker'
 import { MutationUpdateUser } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
+import { NavigationActions } from 'react-navigation'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100
@@ -208,7 +209,7 @@ class ProfileContainer extends React.Component {
 	}
 
 	logout = navigation => {
-		console.log('logout')
+		navigation.navigate('Login')
 	}
 
 	render() {

@@ -33,7 +33,7 @@ class LoginContainer extends React.Component {
 	}
 
 	login = async () => {
-		let email = this.state.email
+		let email = this.state.email ? this.state.email.toLowerCase() : null
 		let password = this.state.password
 		let error = await this.requireField(email, password)
 		if (error) this.setState({ errorMessage: error })
@@ -54,7 +54,8 @@ class LoginContainer extends React.Component {
 				await setUser.profile(currentUser.profile)
 				await setUser.wishlist(currentUser.wishlist)
 				console.log(currentUser)
-				this.setState({ callSuccessPopup: true })
+				this.props.navigation.navigate('Search')
+				// this.setState({ callSuccessPopup: true })
 			}
 		}
 	}

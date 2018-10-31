@@ -54,20 +54,23 @@ class StoreList extends React.Component {
 		let arrProducts = []
 		this.state.productsMatched.map(async (products, indexProducts) => {
 			// let matchedPercentage = prod.matchedPercentage
-			await products.sort(compare)
-			products.map(product => {
-				let productId = product._id
-				let matchedPercentage = product.matchedPercentage
-				let isProductInUsefulArray = this.state.usefulProductsMatched[productId] ? true : false
-				if (isProductInUsefulArray) {
-					let matchedPercentageInUsefulArray = this.state.usefulProductsMatched[productId].matchedPercentage
-					if (matchedPercentage > matchedPercentageInUsefulArray) {
+			if (products.length > 0) {
+				await products.sort(compare)
+				products.map(product => {
+					let productId = product._id
+					let matchedPercentage = product.matchedPercentage
+					let isProductInUsefulArray = this.state.usefulProductsMatched[productId] ? true : false
+					if (isProductInUsefulArray) {
+						let matchedPercentageInUsefulArray = this.state.usefulProductsMatched[productId]
+							.matchedPercentage
+						if (matchedPercentage > matchedPercentageInUsefulArray) {
+							this.state.usefulProductsMatched[productId] = product
+						}
+					} else {
 						this.state.usefulProductsMatched[productId] = product
 					}
-				} else {
-					this.state.usefulProductsMatched[productId] = product
-				}
-			})
+				})
+			}
 		})
 	}
 
