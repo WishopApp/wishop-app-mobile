@@ -41,6 +41,8 @@ const findSubCatProps = (catProps, _id) => {
 	return checked
 }
 
+let wishlistItemForReRender = undefined
+
 class CreateWishlist extends React.Component {
 	constructor(props) {
 		super(props)
@@ -91,13 +93,13 @@ class CreateWishlist extends React.Component {
 
 		if (wishlist.categoryProps) {
 			let categoryProps = InputWishlistProps(wishlist.categoryProps, 'Category')
-			state.categoryProps = categoryProps
-			state.eachCategoryPropValues = categoryProps
+			state.categoryProps = categoryProps.slice()
+			state.eachCategoryPropValues = categoryProps.slice()
 		}
 		if (wishlist.subCategoryProps) {
-			let subCategoryProps = InputWishlistProps(wishlist.categoryProps, 'Subcategory')
-			state.subCategoryProps = subCategoryProps
-			state.eachSubCategoryPropValues = subCategoryProps
+			let subCategoryProps = InputWishlistProps(wishlist.subCategoryProps, 'Subcategory')
+			state.subCategoryProps = subCategoryProps.slice()
+			state.eachSubCategoryPropValues = subCategoryProps.slice()
 		}
 	}
 
@@ -194,6 +196,10 @@ class CreateWishlist extends React.Component {
 		let wishlist = await this.getWishlist()
 		if (this.props.type === 'Update') {
 			let updateWishlist = await createOrUpdateFunc(_id, wishlist)
+			wishlist = updateWishlist.data.updateWishlist
+			if (wishlist) {
+				wishlistItemForReRender = wishlist
+			}
 		} else {
 			let addWishlist = await createOrUpdateFunc(userId, wishlist)
 		}
@@ -299,10 +305,15 @@ class CreateWishlist extends React.Component {
 								if (this.isNotRequireData()) {
 									if (this.props.type === 'Update') {
 										await this.upsertWishlist(this.props.updateWishlist)
+										if (wishlistItemForReRender)
+											await this.props.navigation.state.params.wishlistDetailRerenderAfterUpdate(
+												wishlistItemForReRender
+											)
 									} else {
 										await this.upsertWishlist(this.props.createWishlist)
 									}
-									this.props.navigation.state.params.refetchWishlist()
+									await this.props.navigation.state.params.refetchWishlist()
+
 									this.props.navigation.goBack(null)
 									// this.setState({
 									// 	successPopup: SuccessPopup(

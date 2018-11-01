@@ -14,6 +14,27 @@ export const MutationUpdateWishlist = gql`
 	mutation UpdateWishlist($_id: ID!, $wishlist: UpdateWishlist!) {
 		updateWishlist(_id: $_id, wishlist: $wishlist) {
 			_id
+			name
+			productName
+			category {
+				_id
+				name
+				logo
+			}
+			subCategory {
+				_id
+				name
+			}
+			categoryProps {
+				_id
+				name
+				value
+			}
+			subCategoryProps {
+				_id
+				name
+				value
+			}
 		}
 	}
 `

@@ -24,6 +24,10 @@ class LoginContainer extends React.Component {
 		this.login = this.login.bind(this)
 	}
 
+	componentWillMount() {
+		setUser.defaultUser()
+	}
+
 	requireField = (email, password) => {
 		if (!email) return 'Please Enter Your Email on Email field'
 		if (email && email.indexOf('@') == -1) return 'Email is invalid.'
@@ -47,7 +51,7 @@ class LoginContainer extends React.Component {
 				// get current User that passed login
 				let reQuery = await this.props.data.refetch()
 				let currentUser = reQuery.data.currentUser
-
+				console.log(currentUser)
 				await setUser._id(currentUser._id)
 				await setUser.email(currentUser.email)
 				await setUser.status(currentUser.status)

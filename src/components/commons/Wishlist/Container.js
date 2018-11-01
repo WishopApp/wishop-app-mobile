@@ -6,7 +6,7 @@ import MyWishlist from '@commons/Wishlist/MyWishlist'
 import { graphql, compose } from 'react-apollo'
 import { QueryUserWishlists } from '@utils/Graphql/Query'
 import { MutationRemoveWishlist } from '@utils/Graphql/Mutation'
-import { user } from '@constants/Data'
+import { user, setUser } from '@constants/Data'
 import _ from 'underscore'
 
 class Wishlist extends React.Component {
@@ -21,6 +21,10 @@ class Wishlist extends React.Component {
 
 	refetchWishlist = async () => {
 		await this.props.data.refetch()
+		let wishlists = this.props.data.user.wishlist ? this.props.data.user.wishlist : undefined
+		if (wishlists) {
+			setUser.wishlist(wishlists)
+		}
 	}
 
 	render() {
@@ -101,6 +105,7 @@ const GraphQLRemoveWishlist = graphql(MutationRemoveWishlist, {
 								return prev
 							}
 							prev.user.wishlist.splice(deleteIndex, 1)
+							setUser.wishlist(prev.user.wishlist)
 						}
 						return prev
 					},

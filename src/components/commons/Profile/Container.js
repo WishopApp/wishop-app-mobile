@@ -9,6 +9,7 @@ import ImagePicker from 'react-native-image-picker'
 import { MutationUpdateUser } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
 import { NavigationActions } from 'react-navigation'
+import CustomImage from '@custom/Image'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100

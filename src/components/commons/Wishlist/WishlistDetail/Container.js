@@ -4,24 +4,32 @@ import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import SearchProductListByWishlist from '@commons/Search/SearchByWishlist/SearchProductList'
 import CustomImage from '@custom/Image'
+import { user } from '@constants/Data'
 
 class WishlistDetailContainer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			status: 'Default',
+			wishlist: this.props.navigation.state.params.wishlist,
 		}
+		this.wishlistDetailRerenderAfterUpdate = this.wishlistDetailRerenderAfterUpdate.bind(this)
 	}
 	/* proptypes
 		wishlist: object
-    */
+	*/
+
+	wishlistDetailRerenderAfterUpdate = wishlistItem => {
+		this.setState({ wishlist: wishlistItem })
+	}
 
 	setStatus = status => {
 		this.setState({ status: status })
 	}
 
 	render() {
-		let { wishlist, refetchWishlist } = this.props.navigation.state.params
+		let { refetchWishlist } = this.props.navigation.state.params
+		let wishlist = this.state.wishlist
 		let status = this.state.status
 
 		return (
@@ -38,6 +46,7 @@ class WishlistDetailContainer extends React.Component {
 										wishlist: wishlist,
 										type: 'Update',
 										refetchWishlist: refetchWishlist,
+										wishlistDetailRerenderAfterUpdate: this.wishlistDetailRerenderAfterUpdate,
 									})
 								}
 								title="Edit"
