@@ -92,15 +92,14 @@ const GraphQLRemoveWishlist = graphql(MutationRemoveWishlist, {
 					UserWishlists: (prev, { mutationResult }) => {
 						if (prev.user.wishlist.length > 0) {
 							const wishlistList = prev.user.wishlist
-							let count = 0
-							const deleteIndex = _.findIndex(wishlistList, wishlist => {
-								if (wishlist != null) {
-									if (wishlist._id === wishlistId) {
-										return count
-									}
+							let deleteIndex = -1
+							for (let i = 0; i < wishlistList.length; i++) {
+								let wishlist = wishlistList[i]
+								if (wishlist._id === wishlistId) {
+									deleteIndex = i
+									break
 								}
-								count++
-							})
+							}
 							if (deleteIndex < 0) {
 								return prev
 							}
