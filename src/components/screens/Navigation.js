@@ -1,6 +1,8 @@
 import React from 'react'
+import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import CustomImage from '@custom/Image'
 import SvgUri from 'react-native-svg-uri'
 import Header from '@screens/Header'
 import Home from '@screens/Home'
@@ -21,19 +23,19 @@ import SignupScreen from '@screens/Login/SignupScreen'
 import ProfileScreen from '@screens/Profile/ProfileScreen'
 import ProfileAddressScreen from '@screens/Profile/ProfileAddressScreen'
 
+const styled = StyleSheet.create({
+	icon: {
+		width: 25,
+		height: 25,
+	},
+})
+
 export const LoadIconStack = {
-	home: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/home.svg')} />,
-	homeFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/home.svg')} />,
-	search: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/magnifying-glass.svg')} />,
-	searchFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/magnifying-glass.svg')} />,
-	shop: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/shop.svg')} />,
-	shopFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/shop.svg')} />,
-	wishlist: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/wishlist-hover-icon.svg')} />,
-	wishlistFocused: (
-		<SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/wishlist-hover-icon.svg')} />
-	),
-	profile: <SvgUri width={25} height={25} fill={'white'} source={require('@icons/user.svg')} />,
-	profileFocused: <SvgUri width={25} height={25} fill={'royalblue'} source={require('@icons/user.svg')} />,
+	home: <CustomImage style={styled.icon} title="home" />,
+	search: <CustomImage style={styled.icon} title="magnifying_glass" />,
+	shop: <CustomImage style={styled.icon} title="shop" />,
+	wishlist: <CustomImage style={styled.icon} title="wishlist" />,
+	profile: <CustomImage style={styled.icon} title="user" />,
 }
 
 export const HomeStack = StackNavigator({
@@ -164,7 +166,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Store',
 				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.shopFocused : LoadIconStack.shop
+					return LoadIconStack.shop
 				},
 			},
 		},
@@ -173,7 +175,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Search',
 				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.searchFocused : LoadIconStack.search
+					return LoadIconStack.search
 				},
 			},
 		},
@@ -182,7 +184,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Wishlist',
 				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.wishlistFocused : LoadIconStack.wishlist
+					return LoadIconStack.wishlist
 				},
 			},
 		},
@@ -191,7 +193,7 @@ export const Tabs = TabNavigator(
 			navigationOptions: {
 				tabBarLabel: 'Profile',
 				tabBarIcon: ({ focused }) => {
-					return focused ? LoadIconStack.profileFocused : LoadIconStack.profile
+					return LoadIconStack.profile
 				},
 			},
 		},

@@ -249,12 +249,7 @@ class ProfileContainer extends React.Component {
 								{this.state.avatarUrl ? (
 									<Image source={{ uri: this.state.avatarUrl }} style={styled.imageProfile} />
 								) : (
-									<SvgUri
-										width={imageProfileWidth}
-										height={imageProfileHeight}
-										fill={'black'}
-										source={require('@icons/user.svg')}
-									/>
+									<CustomImage style={styled.iconAvatar} title="user" />
 								)}
 							</TouchableOpacity>
 						</View>
@@ -416,6 +411,10 @@ const styled = StyleSheet.create({
 		height: '75%',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	iconAvatar: {
+		width: imageProfileWidth,
+		height: imageProfileHeight,
 	},
 
 	saveButton: {

@@ -102,6 +102,16 @@ export default class CustomImage extends React.Component {
 				return require('@images/pikachu.png')
 			case 'store-icon':
 				return require('@images/store_default.png')
+			case 'home':
+				return require('@icons/home.png')
+			case 'magnifying_glass':
+				return require('@icons/magnifying_glass.png')
+			case 'shop':
+				return require('@icons/shop.png')
+			case 'wishlist':
+				return require('@icons/wishlist.png')
+			case 'user':
+				return require('@icons/user.png')
 		}
 	}
 

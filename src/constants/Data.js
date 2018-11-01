@@ -14,32 +14,11 @@ export const Viewport = {
 	height: viewportHeight,
 }
 
-// export let user = {
-// 	_id: null,
-// 	email: null,
-// 	authToken: null,
-// 	status: null,
-// 	profile: {
-// 		name: null,
-// 		telNo: null,
-// 		avatarUrl: null,
-// 		address: {
-// 			district: null,
-// 			province: null,
-// 			country: null,
-// 			zipcode: null,
-// 			detail: null,
-// 		},
-// 	},
-// 	wishlist: null,
-// }
-
 export let user = {
-	_id: '5bd063f86f9eb2000f2b0944',
-	email: 'q123@q123.com',
-	authToken:
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViZDA2M2Y4NmY5ZWIyMDAwZjJiMDk0NCJ9LCJpYXQiOjE1NDA4OTM5OTksImV4cCI6MTU0MDk4MDM5OX0.njNbe9p-4YEh8wxEcNFRKbi_wW26tQYzs3tHQAW8SXs',
-	status: 'CUSTOMER',
+	_id: null,
+	email: null,
+	authToken: null,
+	status: null,
 	profile: {
 		name: null,
 		telNo: null,
@@ -52,53 +31,7 @@ export let user = {
 			detail: null,
 		},
 	},
-	wishlist: [
-		{
-			_id: '5bd6f28cbf8f1a000f9d7318',
-			name: 'Kkfjfjfnjf',
-			productName: 'Jfjfjrjffi',
-			category: {
-				_id: '5bcf2306c43071000fd6ea4d',
-				name: 'Men Shoes',
-				logo: 'https://wishop-app.s3.amazonaws.com/leather-shoe.png',
-				__typename: 'Category',
-			},
-			subCategory: {
-				_id: '5bcf2426c43071000fd6ea50',
-				name: 'Leather Shoes',
-				__typename: 'SubCategory',
-			},
-			categoryProps: [
-				{
-					_id: '5bcf2306c43071000fd6ea4e',
-					name: 'Size',
-					value: '35-39 eu',
-					__typename: 'WishlistCategoryProp',
-				},
-				{
-					_id: '5bcf2306c43071000fd6ea4f',
-					name: 'Color',
-					value: 'red',
-					__typename: 'WishlistCategoryProp',
-				},
-			],
-			subCategoryProps: [
-				{
-					_id: '5bcf2427c43071000fd6ea51',
-					name: 'Animal skin',
-					value: 'crocodile',
-					__typename: 'WishlistSubCategoryProp',
-				},
-				{
-					_id: '5bcf2427c43071000fd6ea52',
-					name: 'Type ',
-					value: 'rope tie',
-					__typename: 'WishlistSubCategoryProp',
-				},
-			],
-			__typename: 'Wishlist',
-		},
-	],
+	wishlist: null,
 }
 
 export const setUser = {
