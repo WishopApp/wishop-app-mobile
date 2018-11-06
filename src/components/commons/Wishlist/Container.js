@@ -17,6 +17,7 @@ class Wishlist extends React.Component {
 
 	remove = async wishlistId => {
 		await this.props.removeWishlist(wishlistId)
+		if (this.props.data.user.wishlist) this.props.data.refetch()
 	}
 
 	refetchWishlist = async () => {
@@ -88,27 +89,6 @@ const GraphQLRemoveWishlist = graphql(MutationRemoveWishlist, {
 		removeWishlist: wishlistId =>
 			mutate({
 				variables: { _id: wishlistId },
-				updateQueries: {
-					UserWishlists: (prev, { mutationResult }) => {
-						if (prev.user.wishlist.length > 0) {
-							const wishlistList = prev.user.wishlist
-							let deleteIndex = -1
-							for (let i = 0; i < wishlistList.length; i++) {
-								let wishlist = wishlistList[i]
-								if (wishlist._id === wishlistId) {
-									deleteIndex = i
-									break
-								}
-							}
-							if (deleteIndex < 0) {
-								return prev
-							}
-							prev.user.wishlist.splice(deleteIndex, 1)
-							setUser.wishlist(prev.user.wishlist)
-						}
-						return prev
-					},
-				},
 			}),
 	}),
 })
