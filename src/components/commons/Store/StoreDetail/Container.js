@@ -46,22 +46,19 @@ class StoreDetailContainer extends React.Component {
 					) : (
 						<Image
 							style={styled.coverStoreImage}
-							source={{
-								uri:
-									'https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-076-premium-dark.png',
-							}}
+							source={require('@images/background_default_store_detail_cover.png')}
 						/>
 					)}
 
 					<View style={styled.logoImageContainer}>
-						<Image
-							style={styled.logoStoreImage}
-							source={{
-								uri: storeBranch.store.avatarUrl
-									? storeBranch.store.avatarUrl
-									: 'http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/shop_front_icon_55889.jpg',
-							}}
-						/>
+						{storeBranch.store.avatarUrl ? (
+							<Image style={styled.logoStoreImage} source={{ uri: storeBranch.store.avatarUrl }} />
+						) : (
+							<Image
+								style={styled.coverStoreImage}
+								source={require('@images/store_default_store_detail_logo.png')}
+							/>
+						)}
 					</View>
 					<View style={styled.storeDetailContainer}>
 						<View style={styled.textStoreDetailContainer}>

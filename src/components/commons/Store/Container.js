@@ -61,6 +61,7 @@ class StoreContainer extends React.Component {
 	componentWillReceiveProps(props) {
 		if (props.isFocused) {
 			this.initFindBeacon()
+			props.data.refetch()
 		} else {
 			console.log('stop Ranging')
 			CustomBeacon.stopRangingInRegion(region)
@@ -98,6 +99,7 @@ class StoreContainer extends React.Component {
 		if (this.props.data) {
 			if (this.props.data.currentUser) {
 				wishlists = this.props.data.currentUser.wishlist
+				console.log('user wishlists', wishlists)
 			}
 		}
 		beacons.map((beacon, index) => {
