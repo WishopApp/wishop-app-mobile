@@ -99,7 +99,6 @@ class StoreContainer extends React.Component {
 		if (this.props.data) {
 			if (this.props.data.currentUser) {
 				wishlists = this.props.data.currentUser.wishlist
-				console.log('user wishlists', wishlists)
 			}
 		}
 		beacons.map((beacon, index) => {

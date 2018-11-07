@@ -13,14 +13,40 @@ const MatchProductHeight = Percentage(15, Viewport.height)
 const TopicWidth = Viewport.width
 const TopicHeight = Percentage(10, Viewport.height)
 
+let stopGetProductMatchedFunc = false
+
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			productsMatched: props.navigation.state.params.productsMatched,
+		}
+		this.getProductsMatchedWishlist = this.getProductsMatchedWishlist.bind(this)
+	}
+
+	componentWillMount() {
+		this.getProductsMatchedWishlist()
+		stopGetProductMatchedFunc = true
+	}
+
+	componentWillUnmount() {
+		stopGetProductMatchedFunc = false
+	}
+
+	getProductsMatchedWishlist = () => {
+		setTimeout(async () => {
+			let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist()
+			if (productsMatched.length > 0) {
+				this.setState({ productsMatched: productsMatched })
+			} else {
+				if (stopGetProductMatchedFunc) this.getProductsMatchedWishlist()
+			}
+		}, 1000)
 	}
 
 	render() {
 		let storeBranchId = this.props.navigation.state.params._id
-		let productsMatched = this.props.navigation.state.params.productsMatched
+		let productsMatched = this.state.productsMatched
 		let recommendProduct = undefined
 		let { storeBranchData } = this.props
 		let { loading, error } = storeBranchData
@@ -82,7 +108,7 @@ class StoreDetailContainer extends React.Component {
 							>
 								{storeBranch.store.description
 									? storeBranch.store.description
-									: 'Store doesn\'t have introduction yet'}
+									: "Store doesn't have introduction yet"}
 							</Text>
 						</View>
 					</View>

@@ -90,6 +90,7 @@ export const QueryStoreByBeaconUUID = gql`
 				name
 				price
 				status
+				photoUrlList
 				category {
 					_id
 					name
@@ -140,6 +141,9 @@ export const QuerySearchProductByWishlist = gql`
 						name
 						telNo
 					}
+				}
+				products {
+					photoUrlList
 				}
 			}
 			storeBranch {
@@ -275,6 +279,7 @@ export const QueryStoreBranchById = gql`
 				name
 				price
 				status
+				photoUrlList
 				category {
 					_id
 					name

@@ -26,9 +26,12 @@ class ProductItem extends React.Component {
 				>
 					<View style={[styled.productImageContainer, StyledSelected.background]}>
 						{product ? (
-							<CustomImage style={styled.productImage} uri={product.category.logo} />
+							<CustomImage
+								style={styled.productImage}
+								uri={product.photoUrlList ? product.photoUrlList[0] : product.category.logo}
+							/>
 						) : (
-							<CustomImage style={styled.productImage} title="shoes" />
+							<CustomImage style={styled.productImage} uri={product.category.logo} />
 						)}
 					</View>
 					<View style={styled.productDetailContainer}>
@@ -69,8 +72,8 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	productImage: {
-		width: 75,
-		height: 75,
+		width: 100,
+		height: 100,
 	},
 	productDetailContainer: {
 		width: '80%',

@@ -45,10 +45,15 @@ class StoreList extends React.Component {
 		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
 		this.toStoreDetail = this.toStoreDetail.bind(this)
 		this.sliceProductsMatchedCompareById = this.sliceProductsMatchedCompareById.bind(this)
+		this.getProductsMatchedWishlist = this.getProductsMatchedWishlist.bind(this)
 	}
 	/* proptypes
 		StoreList: object
 	*/
+	static defaultProps = {
+		...React.defaultProps,
+		usefulProductsMatchedFuncSuccess: true,
+	}
 
 	sliceProductsMatchedCompareById = () => {
 		let arrProducts = []
@@ -83,12 +88,19 @@ class StoreList extends React.Component {
 		await this.sliceProductsMatchedCompareById()
 	}
 
+	getProductsMatchedWishlist = async () => {
+		if (this.props.usefulProductsMatchedFuncSuccess) {
+			return await arrayKeyValueToArray(this.state.usefulProductsMatched)
+		}
+		return []
+	}
+
 	toStoreDetail = async storeId => {
-		console.log('useful Products', this.state.usefulProductsMatched)
 		let usefulProductsMatched = await arrayKeyValueToArray(this.state.usefulProductsMatched)
 		this.props.navigation.navigate('StoreDetail', {
 			_id: storeId,
 			productsMatched: usefulProductsMatched,
+			getProductsMatchedWishlist: this.getProductsMatchedWishlist,
 		})
 	}
 
