@@ -1,4 +1,7 @@
+import React from 'react'
 import { AppRegistry } from 'react-native'
 import App from './App'
 
-AppRegistry.registerComponent('wishopappmobile', () => App)
+const app = () => <App />
+
+AppRegistry.registerComponent('Wishops', () => app)

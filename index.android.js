@@ -3,4 +3,4 @@ import App from './App'
 
 const app = () => <App />
 
-AppRegistry.registerComponent('wishopappmobile', () => app)
+AppRegistry.registerComponent('Wishops', () => app)
