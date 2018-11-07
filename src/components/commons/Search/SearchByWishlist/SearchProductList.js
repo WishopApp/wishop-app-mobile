@@ -12,6 +12,21 @@ class SearchProductList extends React.Component {
 		super(props)
 	}
 
+	setPhotoUrlListWithProduct = products => {
+		products.map(product => {
+			let productId = product._id
+			let storeBranchId = product.storeBranch._id
+			let storeAllProduct = product.storeBranch.products
+			for (let i = 0; i < storeAllProduct.length; i++) {
+				let storeProduct = storeAllProduct[i]
+				if (productId == storeProduct._id) {
+					product.photoUrlList = storeProduct.photoUrlList
+					break
+				}
+			}
+		})
+	}
+
 	render() {
 		let { loading, error, data, navigation } = this.props
 		let products = undefined
@@ -23,6 +38,7 @@ class SearchProductList extends React.Component {
 			)
 		if (data.searchByWishlist) {
 			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
+			this.setPhotoUrlListWithProduct(products)
 		}
 		return (
 			<View>

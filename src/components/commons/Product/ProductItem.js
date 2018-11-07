@@ -45,7 +45,9 @@ class ProductItem extends React.Component {
 								StyledConstants.FONT_BOLD,
 							]}
 						>
-							{detailType == 'store_name' ? product.store && product.store.name : null}
+							{detailType == 'store_name'
+								? product.store ? product.store.name : product.storeBranch && product.storeBranch.name
+								: null}
 							{detailType == 'wishlist_name' ? product.wishlist && product.wishlist.name : null}
 							{detailType == 'product_price' ? product.price && product.price + ' Baht. ' : null}
 						</Text>

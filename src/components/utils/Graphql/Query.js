@@ -120,6 +120,7 @@ export const QueryStoreByBeaconUUID = gql`
 export const QuerySearchProductByWishlist = gql`
 	query SearchProductByWishlist($wishlist: WishlistInput!) {
 		searchByWishlist(wishlist: $wishlist) {
+			_id
 			name
 			matchedPercentage
 			recommended
@@ -132,23 +133,13 @@ export const QuerySearchProductByWishlist = gql`
 				_id
 				name
 			}
-			store {
-				_id
-				name
-				owner {
-					_id
-					profile {
-						name
-						telNo
-					}
-				}
-				products {
-					photoUrlList
-				}
-			}
 			storeBranch {
 				_id
 				name
+				products {
+					_id
+					photoUrlList
+				}
 			}
 			categoryProps {
 				_id
