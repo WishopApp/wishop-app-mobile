@@ -1,4 +1,4 @@
-package com.wishopappmobile;
+package com.wishop;
 
 import android.app.Application;
 
