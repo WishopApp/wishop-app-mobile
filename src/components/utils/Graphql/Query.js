@@ -231,6 +231,7 @@ export const QueryProduct = gql`
 			_id
 			name
 			status
+			price
 			photoUrlList
 			category {
 				_id
