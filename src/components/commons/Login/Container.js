@@ -58,7 +58,7 @@ class LoginContainer extends React.Component {
 				await setUser.profile(currentUser.profile)
 				await setUser.wishlist(currentUser.wishlist)
 				console.log(currentUser)
-				this.props.navigation.navigate('Search')
+				this.props.navigation.navigate('Home')
 				// this.setState({ callSuccessPopup: true })
 			}
 		}

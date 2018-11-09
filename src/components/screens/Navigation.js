@@ -146,21 +146,12 @@ export const ProfileStack = StackNavigator({
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.homeFocused : LoadIconStack.home
-		// 		},
-		// 	},
-		// },
-		Store: {
-			screen: StoreStack,
+		Home: {
+			screen: HomeStack,
 			navigationOptions: {
-				tabBarLabel: 'Store',
+				tabBarLabel: 'Home',
 				tabBarIcon: ({ focused }) => {
-					return LoadIconStack.shop
+					return LoadIconStack.home
 				},
 			},
 		},
@@ -170,6 +161,15 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Search',
 				tabBarIcon: ({ focused }) => {
 					return LoadIconStack.search
+				},
+			},
+		},
+		Store: {
+			screen: StoreStack,
+			navigationOptions: {
+				tabBarLabel: 'Store',
+				tabBarIcon: ({ focused }) => {
+					return LoadIconStack.shop
 				},
 			},
 		},
@@ -206,7 +206,7 @@ export const Tabs = TabNavigator(
 				backgroundColor: 'transparent',
 			},
 			labelStyle: {
-				fontSize: 12,
+				fontSize: 11,
 			},
 			upperCaseLabel: false,
 		},
@@ -236,8 +236,6 @@ export const Root = StackNavigator(
 	{
 		Login: LoginStack,
 		Main: Tabs,
-		// Modal Stack
-		// CreateWishlist: CreateWishlistStack,
 	},
 	{
 		mode: 'card',
