@@ -208,6 +208,7 @@ export const QueryProductBySearchKeyword = gql`
 			name
 			status
 			photoUrlList
+			storeBranchId
 			category {
 				_id
 				name
@@ -221,6 +222,9 @@ export const QueryProductBySearchKeyword = gql`
 				_id
 				name
 			}
+			storeBranch {
+				_id
+			}
 		}
 	}
 `
@@ -233,6 +237,7 @@ export const QueryProduct = gql`
 			status
 			price
 			photoUrlList
+			storeBranchId
 			category {
 				_id
 				name

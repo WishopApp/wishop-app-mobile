@@ -34,14 +34,16 @@ class StoreDetailContainer extends React.Component {
 	}
 
 	getProductsMatchedWishlist = () => {
-		setTimeout(async () => {
-			let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist()
-			if (productsMatched.length > 0) {
-				this.setState({ productsMatched: productsMatched })
-			} else {
-				if (stopGetProductMatchedFunc) this.getProductsMatchedWishlist()
-			}
-		}, 1000)
+		if (this.props.navigation.state.params.getProductsMatchedWishlist) {
+			setTimeout(async () => {
+				let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist()
+				if (productsMatched.length > 0) {
+					this.setState({ productsMatched: productsMatched })
+				} else {
+					if (stopGetProductMatchedFunc) this.getProductsMatchedWishlist()
+				}
+			}, 1000)
+		}
 	}
 
 	render() {

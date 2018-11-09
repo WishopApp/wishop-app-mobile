@@ -50,11 +50,6 @@ export const SearchStack = StackNavigator({
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
-		navigationOptions: {
-			header: ({ navigation }) => {
-				return <Header back={true} title="Product Detail" navigation={navigation} />
-			},
-		},
 	},
 })
 
@@ -123,11 +118,6 @@ export const MywishlistStack = StackNavigator({
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
-		navigationOptions: {
-			header: ({ navigation }) => {
-				return <Header back={true} title="Product Detail" navigation={navigation} />
-			},
-		},
 	},
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,

@@ -186,6 +186,7 @@ const styled = StyleSheet.create({
 		// position: 'relative',
 		borderStyle: 'solid',
 		borderTopWidth: 1,
+		paddingBottom: 50,
 	},
 	inputContainer: {
 		height: '15%',
