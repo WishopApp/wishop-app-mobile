@@ -22,6 +22,7 @@ import LoginScreen from '@screens/Login/LoginScreen'
 import SignupScreen from '@screens/Login/SignupScreen'
 import ProfileScreen from '@screens/Profile/ProfileScreen'
 import ProfileAddressScreen from '@screens/Profile/ProfileAddressScreen'
+import HowToBeShopOwnerScreen from '@screens/Profile/HowToBeShopOwnerScreen'
 
 const styled = StyleSheet.create({
 	icon: {
@@ -137,6 +138,9 @@ export const ProfileStack = StackNavigator({
 	},
 	ProfileAddress: {
 		screen: ProfileAddressScreen,
+	},
+	HowToBeShopOwner: {
+		screen: HowToBeShopOwnerScreen,
 	},
 })
 
