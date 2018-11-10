@@ -11,12 +11,15 @@ import _ from 'underscore'
 class HomeContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		this.navigateCampaignStore = this.navigateCampaignStore.bind(this)
 	}
 
-	navigateCampaignStore = navigation => {
-		navigation.navigate('StoreDetail', {
-			_id: 'asdasd', // #store _id
-		})
+	navigateCampaignStore = storeBranchId => {
+		if (storeBranchId != 0) {
+			this.props.navigation.navigate('StoreDetail', {
+				_id: storeBranchId, // #store _id
+			})
+		}
 	}
 
 	randomStoresInArray = stores => {
@@ -25,8 +28,15 @@ class HomeContainer extends React.Component {
 
 	campaignCard = store => {
 		let storeBranch = store.branchs
+		let storeBranchId = storeBranch.length > 0 ? storeBranch[0]._id : 0
 		return (
-			<TouchableOpacity activeOpacity={0.9} style={styled.campaignContainer}>
+			<TouchableOpacity
+				activeOpacity={0.9}
+				style={styled.campaignContainer}
+				onPress={() => {
+					this.navigateCampaignStore(storeBranchId)
+				}}
+			>
 				<View style={styled.campaignImageContainer}>
 					<CustomImage
 						style={styled.image}
@@ -135,7 +145,7 @@ const styled = StyleSheet.create({
 	},
 
 	iconStyleIfNoBranch: {
-		marginBottom: 25,
+		marginBottom: 30,
 	},
 
 	campaignStoreNameContainer: {

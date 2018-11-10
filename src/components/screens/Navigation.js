@@ -43,6 +43,17 @@ export const HomeStack = StackNavigator({
 	Home: {
 		screen: Home,
 	},
+	StoreDetail: {
+		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
 })
 
 export const SearchStack = StackNavigator({
