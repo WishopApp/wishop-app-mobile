@@ -4,6 +4,9 @@ import { Viewport, Percentage } from '@constants/Data'
 import { StyledConstants } from '@constants/Styled'
 import CustomImage from '@custom/Image'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { graphql } from 'react-apollo'
+import { QueryStores } from '@utils/Graphql/Query'
+import _ from 'underscore'
 
 class HomeContainer extends React.Component {
 	constructor(props) {
@@ -16,45 +19,79 @@ class HomeContainer extends React.Component {
 		})
 	}
 
-	render() {
+	randomStoresInArray = stores => {
+		return _.shuffle(stores)
+	}
+
+	campaignCard = store => {
+		let storeBranch = store.branchs
 		return (
-			<ScrollView style={styled.container}>
-				<TouchableOpacity activeOpacity={0.9} style={styled.campaignContainer}>
-					<View style={styled.campaignImageContainer}>
-						<CustomImage
-							style={styled.image}
-							uri="https://us.123rf.com/450wm/illdirection/illdirection1603/illdirection160300030/55596780-path-with-landscape-background.jpg?ver=6"
+			<TouchableOpacity activeOpacity={0.9} style={styled.campaignContainer}>
+				<View style={styled.campaignImageContainer}>
+					<CustomImage
+						style={styled.image}
+						uri="https://us.123rf.com/450wm/illdirection/illdirection1603/illdirection160300030/55596780-path-with-landscape-background.jpg?ver=6"
+					/>
+				</View>
+				<View style={styled.campaignStoreNameContainer}>
+					<View style={styled.iconContainer}>
+						<Icon
+							name="angle-right"
+							size={36}
+							style={[styled.icon, storeBranch.length < 1 && styled.iconStyleIfNoBranch]}
+							light
+							color="#000"
 						/>
 					</View>
-					<View style={styled.campaignStoreNameContainer}>
-						<View style={styled.iconContainer}>
-							<Icon name="angle-right" size={36} style={styled.icon} light color="#000" />
-						</View>
-						<Text
-							style={[
-								styled.labelCampaign,
-								StyledConstants.FONT_DESCRIPTION,
-								StyledConstants.FONT_BOLD,
-								StyledConstants.TEXT_BLACK,
-							]}
-						>
-							Store Name
-						</Text>
-						<Text
-							style={[
-								styled.labelCampaign,
-								styled.labelStoreBranch,
-								StyledConstants.FONT_DESCRIPTION_SMALL,
-							]}
-						>
-							List Store branch Name
-						</Text>
-					</View>
-				</TouchableOpacity>
+					<Text
+						style={[
+							styled.labelCampaign,
+							StyledConstants.FONT_DESCRIPTION,
+							StyledConstants.FONT_BOLD,
+							StyledConstants.TEXT_BLACK,
+						]}
+					>
+						{store.name}
+					</Text>
+					{storeBranch.length > 0 &&
+						storeBranch.map((storebranch, index) => {
+							return (
+								<View key={index}>
+									<Text
+										style={[
+											styled.labelCampaign,
+											styled.labelStoreBranch,
+											StyledConstants.FONT_DESCRIPTION_SMALL,
+										]}
+									>
+										{'#' + storebranch.name + ' '}
+									</Text>
+								</View>
+							)
+						})}
+				</View>
+			</TouchableOpacity>
+		)
+	}
+
+	render() {
+		let { loading, error, data } = this.props
+		let stores = undefined
+		if (data) {
+			if (data.stores) stores = this.randomStoresInArray(data.stores)
+		}
+		return (
+			<ScrollView style={styled.container}>
+				{stores &&
+					stores.map((store, index) => {
+						return <View key={index}>{store.status != 'BANNED' && this.campaignCard(store)}</View>
+					})}
 			</ScrollView>
 		)
 	}
 }
+
+const HomeWithData = graphql(QueryStores)(HomeContainer)
 
 const styled = StyleSheet.create({
 	container: {
@@ -70,7 +107,7 @@ const styled = StyleSheet.create({
 		flexDirection: 'column',
 		borderColor: '#bbb',
 		borderWidth: StyleSheet.hairlineWidth,
-		elevation: 5,
+		elevation: 4,
 	},
 
 	campaignImageContainer: {
@@ -97,6 +134,10 @@ const styled = StyleSheet.create({
 		marginBottom: 5,
 	},
 
+	iconStyleIfNoBranch: {
+		marginBottom: 25,
+	},
+
 	campaignStoreNameContainer: {
 		flex: 1,
 		flexDirection: 'column',
@@ -112,8 +153,8 @@ const styled = StyleSheet.create({
 
 	labelStoreBranch: {
 		marginLeft: 20,
-		color: 'rgba(0,0,0,0.7)',
+		color: '#bbb',
 	},
 })
 
-export default HomeContainer
+export default HomeWithData

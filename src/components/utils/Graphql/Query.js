@@ -309,3 +309,17 @@ export const QueryStoreBranchById = gql`
 		}
 	}
 `
+
+export const QueryStores = gql`
+	query AllStores {
+		stores {
+			_id
+			name
+			status
+			branchs {
+				_id
+				name
+			}
+		}
+	}
+`
