@@ -94,7 +94,11 @@ class HomeContainer extends React.Component {
 			<ScrollView style={styled.container}>
 				{stores &&
 					stores.map((store, index) => {
-						return <View key={index}>{store.status != 'BANNED' && this.campaignCard(store)}</View>
+						return (
+							<View key={index}>
+								{store.status != 'BANNED' && store.branchs.length > 0 && this.campaignCard(store)}
+							</View>
+						)
 					})}
 			</ScrollView>
 		)
