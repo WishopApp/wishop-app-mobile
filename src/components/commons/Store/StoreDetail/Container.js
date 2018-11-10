@@ -35,8 +35,10 @@ class StoreDetailContainer extends React.Component {
 
 	getProductsMatchedWishlist = () => {
 		if (this.props.navigation.state.params.getProductsMatchedWishlist) {
+			this.state.productsMatched = []
 			setTimeout(async () => {
-				let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist()
+				let storeBranchId = this.props.navigation.state.params._id
+				let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist(storeBranchId)
 				if (productsMatched.length > 0) {
 					this.setState({ productsMatched: productsMatched })
 				} else {

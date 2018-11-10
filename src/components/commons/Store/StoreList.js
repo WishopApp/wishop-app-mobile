@@ -39,9 +39,11 @@ class StoreList extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			productsMatched: [], // storeBranch => productMatched,
-			usefulProductsMatched: [],
+			productsMatched: [], // product ที่ผ่้านกระบวนการตรวจสอบจาก wishlist แล้ว,
+			usefulProductsMatched: [], // product ที่ตรงกับ wishlist และ ตรงกับร้านค้า จนได้ percentage มาแล้ว
+			mapStoreBranchAndUsefulProductsMatched: [], // map[storebranch_id => [useful products] ]
 		}
+		this.resetStateValueAfterTask = this.resetStateValueAfterTask.bind(this)
 		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
 		this.toStoreDetail = this.toStoreDetail.bind(this)
 		this.sliceProductsMatchedCompareById = this.sliceProductsMatchedCompareById.bind(this)
@@ -55,6 +57,11 @@ class StoreList extends React.Component {
 		usefulProductsMatchedFuncSuccess: true,
 	}
 
+	resetStateValueAfterTask = () => {
+		this.state.productsMatched = []
+		this.state.usefulProductsMatched = []
+	}
+
 	sliceProductsMatchedCompareById = () => {
 		let arrProducts = []
 		this.state.productsMatched.map(async (products, indexProducts) => {
@@ -66,39 +73,48 @@ class StoreList extends React.Component {
 					let matchedPercentage = product.matchedPercentage
 					let isProductInUsefulArray = this.state.usefulProductsMatched[productId] ? true : false
 					if (isProductInUsefulArray) {
+						arrProducts[productId] = product
 						let matchedPercentageInUsefulArray = this.state.usefulProductsMatched[productId]
 							.matchedPercentage
 						if (matchedPercentage > matchedPercentageInUsefulArray) {
 							this.state.usefulProductsMatched[productId] = product
+							arrProducts[productId] = product
 						}
 					} else {
 						this.state.usefulProductsMatched[productId] = product
+						arrProducts[productId] = product
 					}
 				})
 			}
 		})
+		return arrProducts
 	}
 
 	setProductsMathchedWithWishlistToState = async (wishlists, storeBranch) => {
 		let products = storeBranch.products
+		let storeBranchId = storeBranch._id
 		wishlists.map(async wishlist => {
 			let productsMatched = await ProductWithRecommendation(wishlist, products)
 			this.state.productsMatched.push(productsMatched)
 		})
-		await this.sliceProductsMatchedCompareById()
+		let usefulProducts = await this.sliceProductsMatchedCompareById()
+		this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId] = usefulProducts
 	}
 
-	getProductsMatchedWishlist = async () => {
+	getProductsMatchedWishlist = async storeBranchId => {
 		if (this.props.usefulProductsMatchedFuncSuccess) {
-			return await arrayKeyValueToArray(this.state.usefulProductsMatched)
+			return await arrayKeyValueToArray(this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId])
 		}
 		return []
 	}
 
-	toStoreDetail = async storeId => {
-		let usefulProductsMatched = await arrayKeyValueToArray(this.state.usefulProductsMatched)
+	toStoreDetail = async storeBranchId => {
+		// let usefulProductsMatched = await arrayKeyValueToArray(this.state.usefulProductsMatched)
+		let usefulProductsMatched = await arrayKeyValueToArray(
+			this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId]
+		)
 		this.props.navigation.navigate('StoreDetail', {
-			_id: storeId,
+			_id: storeBranchId,
 			productsMatched: usefulProductsMatched,
 			getProductsMatchedWishlist: this.getProductsMatchedWishlist,
 		})

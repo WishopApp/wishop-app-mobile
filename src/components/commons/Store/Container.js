@@ -187,7 +187,7 @@ class StoreContainer extends React.Component {
 						</View>
 						<View style={styled.scrollStore}>
 							<ScrollView contentContainerStyle={styled.alignContent}>
-								{this.state.storeItemRender.reverse().map((storeItem, index) => {
+								{this.state.storeItemRender.map((storeItem, index) => {
 									return <View key={'storeItem' + index}>{storeItem}</View>
 								})}
 							</ScrollView>
