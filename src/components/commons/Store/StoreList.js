@@ -35,6 +35,12 @@ const arrayKeyValueToArray = arrayKeyValue => {
 	return array
 }
 
+export const setClearDataStoreList = bool => {
+	clearDataStoreList = bool
+}
+
+export let clearDataStoreList = false
+
 class StoreList extends React.Component {
 	constructor(props) {
 		super(props)
@@ -43,7 +49,7 @@ class StoreList extends React.Component {
 			usefulProductsMatched: [], // product ที่ตรงกับ wishlist และ ตรงกับร้านค้า จนได้ percentage มาแล้ว
 			mapStoreBranchAndUsefulProductsMatched: [], // map[storebranch_id => [useful products] ]
 		}
-		this.resetStateValueAfterTask = this.resetStateValueAfterTask.bind(this)
+		this.clear = this.clear.bind(this)
 		this.setProductsMathchedWithWishlistToState = this.setProductsMathchedWithWishlistToState.bind(this)
 		this.toStoreDetail = this.toStoreDetail.bind(this)
 		this.sliceProductsMatchedCompareById = this.sliceProductsMatchedCompareById.bind(this)
@@ -57,14 +63,22 @@ class StoreList extends React.Component {
 		usefulProductsMatchedFuncSuccess: true,
 	}
 
-	resetStateValueAfterTask = () => {
-		this.state.productsMatched = []
-		this.state.usefulProductsMatched = []
+	componentWillMount() {
+		if (clearDataStoreList) {
+			this.clear()
+			setClearDataStoreList(false)
+		}
 	}
 
-	sliceProductsMatchedCompareById = () => {
+	clear = () => {
+		this.state.productsMatched = []
+		this.state.usefulProductsMatched = []
+		this.state.mapStoreBranchAndUsefulProductsMatched = []
+	}
+
+	sliceProductsMatchedCompareById = async () => {
 		let arrProducts = []
-		this.state.productsMatched.map(async (products, indexProducts) => {
+		await this.state.productsMatched.map(async (products, indexProducts) => {
 			// let matchedPercentage = prod.matchedPercentage
 			if (products.length > 0) {
 				await products.sort(compare)
@@ -93,11 +107,12 @@ class StoreList extends React.Component {
 	setProductsMathchedWithWishlistToState = async (wishlists, storeBranch) => {
 		let products = storeBranch.products
 		let storeBranchId = storeBranch._id
-		wishlists.map(async wishlist => {
+		await wishlists.map(async wishlist => {
 			let productsMatched = await ProductWithRecommendation(wishlist, products)
-			this.state.productsMatched.push(productsMatched)
+			await this.state.productsMatched.push(productsMatched)
 		})
 		let usefulProducts = await this.sliceProductsMatchedCompareById()
+
 		this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId] = usefulProducts
 	}
 
