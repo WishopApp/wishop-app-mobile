@@ -174,14 +174,14 @@ class StoreList extends React.Component {
 							<View style={styled.storeCardContainer}>
 								<Text
 									style={[
-										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_TOPIC_DESCRIPTION,
 										StyledConstants.FONT_BOLD,
 										StyledConstants.TEXT_WHITE,
 									]}
 								>
 									{storeBranch.name}
 								</Text>
-								<Text style={[StyledConstants.FONT_DESCRIPTION, styled.descriptionColor]}>
+								<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, styled.descriptionColor]}>
 									{storeBranch.store.description}
 								</Text>
 								<Text style={[styled.storeRange, StyledConstants.TEXT_BLACK]}>
