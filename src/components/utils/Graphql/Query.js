@@ -316,6 +316,7 @@ export const QueryStores = gql`
 			_id
 			name
 			status
+			promotions
 			branchs {
 				_id
 				name

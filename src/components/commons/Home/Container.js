@@ -26,7 +26,7 @@ class HomeContainer extends React.Component {
 		return _.shuffle(stores)
 	}
 
-	campaignCard = store => {
+	campaignCard = (store, imagePromotionUrl) => {
 		let storeBranch = store.branchs
 		let storeBranchId = storeBranch.length > 0 ? storeBranch[0]._id : 0
 		return (
@@ -38,10 +38,14 @@ class HomeContainer extends React.Component {
 				}}
 			>
 				<View style={styled.campaignImageContainer}>
-					<CustomImage
-						style={styled.image}
-						uri="https://us.123rf.com/450wm/illdirection/illdirection1603/illdirection160300030/55596780-path-with-landscape-background.jpg?ver=6"
-					/>
+					{imagePromotionUrl ? (
+						<CustomImage style={styled.image} uri={imagePromotionUrl} />
+					) : (
+						<CustomImage
+							style={styled.image}
+							uri="https://us.123rf.com/450wm/illdirection/illdirection1603/illdirection160300030/55596780-path-with-landscape-background.jpg?ver=6"
+						/>
+					)}
 				</View>
 				<View style={styled.campaignStoreNameContainer}>
 					<View style={styled.iconContainer}>
@@ -87,18 +91,24 @@ class HomeContainer extends React.Component {
 	render() {
 		let { loading, error, data } = this.props
 		let stores = undefined
+		let promotions = undefined
 		if (data) {
 			if (data.stores) stores = this.randomStoresInArray(data.stores)
 		}
 		return (
 			<ScrollView style={styled.container}>
 				{stores &&
+					promotions.length > 0 &&
 					stores.map((store, index) => {
-						return (
-							<View key={index}>
-								{store.status != 'BANNED' && store.branchs.length > 0 && this.campaignCard(store)}
-							</View>
-						)
+						promotions.map(imagePromotionUrl => {
+							return (
+								<View key={index}>
+									{store.status != 'BANNED' &&
+										store.branchs.length > 0 &&
+										this.campaignCard(store, imagePromotionUrl)}
+								</View>
+							)
+						})
 					})}
 			</ScrollView>
 		)
