@@ -63,6 +63,14 @@ export const SearchStack = StackNavigator({
 	ProductDetail: {
 		screen: ProductDetailScreen,
 	},
+	StoreDetail: {
+		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
 })
 
 export const StoreStack = StackNavigator({
@@ -134,7 +142,14 @@ export const MywishlistStack = StackNavigator({
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,
 	// },
-
+	StoreDetail: {
+		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
 	CreateWishlist: {
 		screen: CreateWishlistStack,
 		navigationOptions: {
