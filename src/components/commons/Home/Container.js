@@ -7,108 +7,35 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { graphql } from 'react-apollo'
 import { QueryStores } from '@utils/Graphql/Query'
 import _ from 'underscore'
+import PromotionList from './PromotionsList'
 
 class HomeContainer extends React.Component {
 	constructor(props) {
 		super(props)
-		this.navigateCampaignStore = this.navigateCampaignStore.bind(this)
-	}
-
-	navigateCampaignStore = storeBranchId => {
-		if (storeBranchId != 0) {
-			this.props.navigation.navigate('StoreDetail', {
-				_id: storeBranchId, // #store _id
-			})
-		}
 	}
 
 	randomStoresInArray = stores => {
 		return _.shuffle(stores)
 	}
 
-	campaignCard = (store, imagePromotionUrl) => {
-		let storeBranch = store.branchs
-		let storeBranchId = storeBranch.length > 0 ? storeBranch[0]._id : 0
-		return (
-			<TouchableOpacity
-				activeOpacity={0.9}
-				style={styled.campaignContainer}
-				onPress={() => {
-					this.navigateCampaignStore(storeBranchId)
-				}}
-			>
-				<View style={styled.campaignImageContainer}>
-					{imagePromotionUrl ? (
-						<CustomImage style={styled.image} uri={imagePromotionUrl} />
-					) : (
-						<CustomImage
-							style={styled.image}
-							uri="https://us.123rf.com/450wm/illdirection/illdirection1603/illdirection160300030/55596780-path-with-landscape-background.jpg?ver=6"
-						/>
-					)}
-				</View>
-				<View style={styled.campaignStoreNameContainer}>
-					<View style={styled.iconContainer}>
-						<Icon
-							name="angle-right"
-							size={36}
-							style={[styled.icon, storeBranch.length < 1 && styled.iconStyleIfNoBranch]}
-							light
-							color="#000"
-						/>
-					</View>
-					<Text
-						style={[
-							styled.labelCampaign,
-							StyledConstants.FONT_DESCRIPTION,
-							StyledConstants.FONT_BOLD,
-							StyledConstants.TEXT_BLACK,
-						]}
-					>
-						{store.name}
-					</Text>
-					{storeBranch.length > 0 &&
-						storeBranch.map((storebranch, index) => {
-							return (
-								<View key={index}>
-									<Text
-										style={[
-											styled.labelCampaign,
-											styled.labelStoreBranch,
-											StyledConstants.FONT_DESCRIPTION_SMALL,
-										]}
-									>
-										{'#' + storebranch.name + ' '}
-									</Text>
-								</View>
-							)
-						})}
-				</View>
-			</TouchableOpacity>
-		)
-	}
-
 	render() {
 		let { loading, error, data } = this.props
 		let stores = undefined
-		let promotions = undefined
 		if (data) {
 			if (data.stores) stores = this.randomStoresInArray(data.stores)
 		}
 		return (
 			<ScrollView style={styled.container}>
 				{stores &&
-					promotions.length > 0 &&
 					stores.map((store, index) => {
-						promotions.map(imagePromotionUrl => {
-							return (
-								<View key={index}>
-									{store.status != 'BANNED' &&
-										store.branchs.length > 0 &&
-										this.campaignCard(store, imagePromotionUrl)}
-								</View>
-							)
-						})
+						return (
+							<View key={index}>
+								{store.status != 'BANNED' &&
+									store.branchs.length > 0 && (
+										<PromotionList navigation={this.props.navigation} store={store} />
+									)}
+							</View>
+						)
 					})}
 			</ScrollView>
 		)
@@ -120,64 +47,6 @@ const HomeWithData = graphql(QueryStores)(HomeContainer)
 const styled = StyleSheet.create({
 	container: {
 		flex: 1,
-	},
-
-	campaignContainer: {
-		margin: 20,
-		marginTop: 10,
-		marginBottom: 10,
-		width: Percentage(90, Viewport.width),
-		height: Percentage(30, Viewport.height),
-		flexDirection: 'column',
-		borderColor: '#bbb',
-		borderWidth: StyleSheet.hairlineWidth,
-		elevation: 4,
-	},
-
-	campaignImageContainer: {
-		width: '100%',
-		height: '75%',
-	},
-
-	image: {
-		width: '100%',
-		height: '100%',
-		resizeMode: 'cover',
-	},
-
-	iconContainer: {
-		height: '100%',
-		position: 'absolute',
-		right: 0,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-
-	icon: {
-		marginRight: 15,
-		marginBottom: 5,
-	},
-
-	iconStyleIfNoBranch: {
-		marginBottom: 30,
-	},
-
-	campaignStoreNameContainer: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'space-around',
-		backgroundColor: '#FFF',
-		borderTopColor: '#bbb',
-		borderTopWidth: StyleSheet.hairlineWidth,
-	},
-
-	labelCampaign: {
-		paddingLeft: 20,
-	},
-
-	labelStoreBranch: {
-		marginLeft: 20,
-		color: '#bbb',
 	},
 })
 
