@@ -49,7 +49,7 @@ class MyWishlist extends React.Component {
 							</Text>
 						</View>
 						<TouchableOpacity
-							activeOpacity={1}
+							activeOpacity={0.4}
 							style={styled.WishlistDeleteContainer}
 							onPress={() => {
 								remove(wishlist._id)

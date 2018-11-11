@@ -4,7 +4,7 @@ import { Button } from 'react-native-elements'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import CustomImage from '@custom/Image'
 import CustomBeacon from '@custom/Beacon/Android'
-import StoreListByBeacon from './StoreList'
+import StoreListByBeacon, { setClearDataStoreList } from './StoreList'
 import { QueryCurrentUser } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
 
@@ -61,6 +61,7 @@ class StoreContainer extends React.Component {
 	componentWillReceiveProps(props) {
 		if (props.isFocused) {
 			this.initFindBeacon()
+			props.data.refetch()
 		} else {
 			console.log('stop Ranging')
 			CustomBeacon.stopRangingInRegion(region)
@@ -128,6 +129,7 @@ class StoreContainer extends React.Component {
 		this.state.detectedBeacons = []
 		this.state.storeItemRender = []
 		this.state.storeBranchIdUsed = []
+		setClearDataStoreList(true)
 		CustomBeacon.stopRangingInRegion(region)
 		setTimeout(() => {
 			this.initFindBeacon()
@@ -186,7 +188,7 @@ class StoreContainer extends React.Component {
 						</View>
 						<View style={styled.scrollStore}>
 							<ScrollView contentContainerStyle={styled.alignContent}>
-								{this.state.storeItemRender.reverse().map((storeItem, index) => {
+								{this.state.storeItemRender.map((storeItem, index) => {
 									return <View key={'storeItem' + index}>{storeItem}</View>
 								})}
 							</ScrollView>

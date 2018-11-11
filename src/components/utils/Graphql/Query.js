@@ -90,6 +90,7 @@ export const QueryStoreByBeaconUUID = gql`
 				name
 				price
 				status
+				photoUrlList
 				category {
 					_id
 					name
@@ -119,6 +120,7 @@ export const QueryStoreByBeaconUUID = gql`
 export const QuerySearchProductByWishlist = gql`
 	query SearchProductByWishlist($wishlist: WishlistInput!) {
 		searchByWishlist(wishlist: $wishlist) {
+			_id
 			name
 			matchedPercentage
 			recommended
@@ -131,20 +133,13 @@ export const QuerySearchProductByWishlist = gql`
 				_id
 				name
 			}
-			store {
-				_id
-				name
-				owner {
-					_id
-					profile {
-						name
-						telNo
-					}
-				}
-			}
 			storeBranch {
 				_id
 				name
+				products {
+					_id
+					photoUrlList
+				}
 			}
 			categoryProps {
 				_id
@@ -213,6 +208,7 @@ export const QueryProductBySearchKeyword = gql`
 			name
 			status
 			photoUrlList
+			storeBranchId
 			category {
 				_id
 				name
@@ -226,6 +222,9 @@ export const QueryProductBySearchKeyword = gql`
 				_id
 				name
 			}
+			storeBranch {
+				_id
+			}
 		}
 	}
 `
@@ -236,7 +235,9 @@ export const QueryProduct = gql`
 			_id
 			name
 			status
+			price
 			photoUrlList
+			storeBranchId
 			category {
 				_id
 				name
@@ -275,6 +276,7 @@ export const QueryStoreBranchById = gql`
 				name
 				price
 				status
+				photoUrlList
 				category {
 					_id
 					name
@@ -303,6 +305,21 @@ export const QueryStoreBranchById = gql`
 				coverUrl
 				avatarUrl
 				description
+			}
+		}
+	}
+`
+
+export const QueryStores = gql`
+	query AllStores {
+		stores {
+			_id
+			name
+			status
+			promotions
+			branchs {
+				_id
+				name
 			}
 		}
 	}

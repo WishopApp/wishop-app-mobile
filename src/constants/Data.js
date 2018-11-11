@@ -65,6 +65,27 @@ export const setUser = {
 	wishlist: wishlist => {
 		user.wishlist = wishlist
 	},
+	defaultUser: () => {
+		user = {
+			_id: null,
+			email: null,
+			authToken: null,
+			status: null,
+			profile: {
+				name: null,
+				telNo: null,
+				avatarUrl: null,
+				address: {
+					district: null,
+					province: null,
+					country: null,
+					zipcode: null,
+					detail: null,
+				},
+			},
+			wishlist: null,
+		}
+	},
 }
 
 export const InputWishlistProps = (array, type) => {

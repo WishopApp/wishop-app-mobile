@@ -6,7 +6,7 @@ import MyWishlist from '@commons/Wishlist/MyWishlist'
 import { graphql, compose } from 'react-apollo'
 import { QueryUserWishlists } from '@utils/Graphql/Query'
 import { MutationRemoveWishlist } from '@utils/Graphql/Mutation'
-import { user } from '@constants/Data'
+import { user, setUser } from '@constants/Data'
 import _ from 'underscore'
 
 class Wishlist extends React.Component {
@@ -17,10 +17,15 @@ class Wishlist extends React.Component {
 
 	remove = async wishlistId => {
 		await this.props.removeWishlist(wishlistId)
+		if (this.props.data.user.wishlist) this.props.data.refetch()
 	}
 
 	refetchWishlist = async () => {
 		await this.props.data.refetch()
+		let wishlists = this.props.data.user.wishlist ? this.props.data.user.wishlist : undefined
+		if (wishlists) {
+			setUser.wishlist(wishlists)
+		}
 	}
 
 	render() {
@@ -84,27 +89,6 @@ const GraphQLRemoveWishlist = graphql(MutationRemoveWishlist, {
 		removeWishlist: wishlistId =>
 			mutate({
 				variables: { _id: wishlistId },
-				updateQueries: {
-					UserWishlists: (prev, { mutationResult }) => {
-						if (prev.user.wishlist.length > 0) {
-							const wishlistList = prev.user.wishlist
-							let count = 0
-							const deleteIndex = _.findIndex(wishlistList, wishlist => {
-								if (wishlist != null) {
-									if (wishlist._id === wishlistId) {
-										return count
-									}
-								}
-								count++
-							})
-							if (deleteIndex < 0) {
-								return prev
-							}
-							prev.user.wishlist.splice(deleteIndex, 1)
-						}
-						return prev
-					},
-				},
 			}),
 	}),
 })

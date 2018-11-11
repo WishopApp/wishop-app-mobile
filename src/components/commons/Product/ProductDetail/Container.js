@@ -3,8 +3,10 @@ import { View, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-nat
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QueryProduct } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
+import { Viewport } from '@constants/Data'
 import Carousel from 'react-native-snap-carousel'
 import CustomImage from '@custom/Image'
+import { NavigationActions } from 'react-navigation'
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
 
@@ -49,10 +51,10 @@ class ProductDetailContainer extends React.Component {
 			}
 		}
 		return (
-			<ScrollView>
+			<View style={styled.container}>
 				{product && (
 					<View style={styled.container}>
-						<ScrollView style={styled.container} contentContainerStyle={styled.contentOfScrollView}>
+						<ScrollView style={styled.contentOfScrollView}>
 							<View style={styled.imageSlideContainer}>
 								<Carousel
 									ref={c => {
@@ -65,8 +67,10 @@ class ProductDetailContainer extends React.Component {
 									inactiveSlideScale={0.9}
 									inactiveSlideOpacity={0.85}
 									onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+									style={styled.imageSlideContainer}
 								/>
 							</View>
+
 							<View style={styled.wishlistDetail}>
 								<View style={styled.WishlistProductContainer}>
 									<Text
@@ -97,7 +101,7 @@ class ProductDetailContainer extends React.Component {
 											StyledConstants.TEXT_BLACK,
 										]}
 									>
-										{product.price}
+										{product.price} Baht
 									</Text>
 								</View>
 							</View>
@@ -149,7 +153,7 @@ class ProductDetailContainer extends React.Component {
 						</ScrollView>
 					</View>
 				)}
-			</ScrollView>
+			</View>
 		)
 	}
 }
@@ -168,6 +172,10 @@ const styled = StyleSheet.create({
 	container: {
 		width: '100%',
 		height: '100%',
+	},
+	contentOfScrollView: {
+		width: Viewport.Width,
+		height: Viewport.height,
 	},
 	wishlistDetail: {
 		height: 110,

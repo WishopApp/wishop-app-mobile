@@ -2,6 +2,15 @@
 	"name": "wishop-app-mobile",
 	"version": "0.1.0",
 	"private": true,
+	"description": "Wishop App made for Senior Project and work with wishop websites",
+	"author": {
+		"email": "teeradet.huag@gmail.com",
+		"name": "Teeradet Phondetparinya"
+	},
+	"repository": {
+		"type": "public",
+		"url": "https://github.com/WishopApp/wishop-app-mobile"
+	},
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"start-android": "npm run build && npm run android",

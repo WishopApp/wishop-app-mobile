@@ -26,9 +26,12 @@ class ProductItem extends React.Component {
 				>
 					<View style={[styled.productImageContainer, StyledSelected.background]}>
 						{product ? (
-							<CustomImage style={styled.productImage} uri={product.category.logo} />
+							<CustomImage
+								style={styled.productImage}
+								uri={product.photoUrlList ? product.photoUrlList[0] : product.category.logo}
+							/>
 						) : (
-							<CustomImage style={styled.productImage} title="shoes" />
+							<CustomImage style={styled.productImage} uri={product.category.logo} />
 						)}
 					</View>
 					<View style={styled.productDetailContainer}>
@@ -42,7 +45,9 @@ class ProductItem extends React.Component {
 								StyledConstants.FONT_BOLD,
 							]}
 						>
-							{detailType == 'store_name' ? product.store && product.store.name : null}
+							{detailType == 'store_name'
+								? product.store ? product.store.name : product.storeBranch && product.storeBranch.name
+								: null}
 							{detailType == 'wishlist_name' ? product.wishlist && product.wishlist.name : null}
 							{detailType == 'product_price' ? product.price && product.price + ' Baht. ' : null}
 						</Text>
@@ -69,8 +74,8 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	productImage: {
-		width: 75,
-		height: 75,
+		width: 100,
+		height: 100,
 	},
 	productDetailContainer: {
 		width: '80%',

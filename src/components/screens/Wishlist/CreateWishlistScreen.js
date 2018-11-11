@@ -13,8 +13,15 @@ class CreateWishlistScreen extends React.Component {
 	}
 
 	static navigationOptions = ({ navigation }) => {
+		let title = ''
+		let type = navigation.state.params.type
+		if (navigation.state.params.type === 'Update') {
+			title = 'Edit Wishlist'
+		} else {
+			title = 'New Wishlist'
+		}
 		return {
-			header: <Header title="New Wishlist" navigation={navigation} close={true} />,
+			header: <Header title={title} navigation={navigation} close={true} />,
 		}
 	}
 

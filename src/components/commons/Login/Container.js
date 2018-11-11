@@ -24,6 +24,10 @@ class LoginContainer extends React.Component {
 		this.login = this.login.bind(this)
 	}
 
+	componentWillMount() {
+		setUser.defaultUser()
+	}
+
 	requireField = (email, password) => {
 		if (!email) return 'Please Enter Your Email on Email field'
 		if (email && email.indexOf('@') == -1) return 'Email is invalid.'
@@ -38,24 +42,27 @@ class LoginContainer extends React.Component {
 		let error = await this.requireField(email, password)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			let mutationLogin = await this.props.login(email, password)
-			let loginSuccess = mutationLogin.data.login ? true : false
-			if (loginSuccess) {
-				let authToken = mutationLogin.data.login
-				setUser.authToken(authToken)
+			try {
+				let mutationLogin = await this.props.login(email, password)
+				let loginSuccess = mutationLogin.data.login ? true : false
+				if (loginSuccess) {
+					let authToken = mutationLogin.data.login
+					setUser.authToken(authToken)
 
-				// get current User that passed login
-				let reQuery = await this.props.data.refetch()
-				let currentUser = reQuery.data.currentUser
-
-				await setUser._id(currentUser._id)
-				await setUser.email(currentUser.email)
-				await setUser.status(currentUser.status)
-				await setUser.profile(currentUser.profile)
-				await setUser.wishlist(currentUser.wishlist)
-				console.log(currentUser)
-				this.props.navigation.navigate('Search')
-				// this.setState({ callSuccessPopup: true })
+					// get current User that passed login
+					let reQuery = await this.props.data.refetch()
+					let currentUser = reQuery.data.currentUser
+					await setUser._id(currentUser._id)
+					await setUser.email(currentUser.email)
+					await setUser.status(currentUser.status)
+					await setUser.profile(currentUser.profile)
+					await setUser.wishlist(currentUser.wishlist)
+					this.props.navigation.navigate('Home')
+					// this.setState({ callSuccessPopup: true })
+				}
+			} catch (err) {
+				let message = 'Something Went Wrong, Please sign in again'
+				this.setState({ errorMessage: message })
 			}
 		}
 	}

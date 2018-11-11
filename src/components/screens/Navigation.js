@@ -22,6 +22,7 @@ import LoginScreen from '@screens/Login/LoginScreen'
 import SignupScreen from '@screens/Login/SignupScreen'
 import ProfileScreen from '@screens/Profile/ProfileScreen'
 import ProfileAddressScreen from '@screens/Profile/ProfileAddressScreen'
+import HowToBeShopOwnerScreen from '@screens/Profile/HowToBeShopOwnerScreen'
 
 const styled = StyleSheet.create({
 	icon: {
@@ -42,6 +43,17 @@ export const HomeStack = StackNavigator({
 	Home: {
 		screen: Home,
 	},
+	StoreDetail: {
+		screen: StoreDetailScreen,
+		navigationOptions: {
+			header: ({ navigation }) => {
+				return <Header back={true} title="Store Detail" navigation={navigation} />
+			},
+		},
+	},
+	ProductDetail: {
+		screen: ProductDetailScreen,
+	},
 })
 
 export const SearchStack = StackNavigator({
@@ -50,11 +62,6 @@ export const SearchStack = StackNavigator({
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
-		navigationOptions: {
-			header: ({ navigation }) => {
-				return <Header back={true} title="Product Detail" navigation={navigation} />
-			},
-		},
 	},
 })
 
@@ -123,11 +130,6 @@ export const MywishlistStack = StackNavigator({
 	},
 	ProductDetail: {
 		screen: ProductDetailScreen,
-		navigationOptions: {
-			header: ({ navigation }) => {
-				return <Header back={true} title="Product Detail" navigation={navigation} />
-			},
-		},
 	},
 	// ProductNavigation: {
 	// 	screen: ProductNavigationScreen,
@@ -148,25 +150,19 @@ export const ProfileStack = StackNavigator({
 	ProfileAddress: {
 		screen: ProfileAddressScreen,
 	},
+	HowToBeShopOwner: {
+		screen: HowToBeShopOwnerScreen,
+	},
 })
 
 export const Tabs = TabNavigator(
 	{
-		// Home: {
-		// 	screen: HomeStack,
-		// 	navigationOptions: {
-		// 		tabBarLabel: 'Home',
-		// 		tabBarIcon: ({ focused }) => {
-		// 			return focused ? LoadIconStack.homeFocused : LoadIconStack.home
-		// 		},
-		// 	},
-		// },
-		Store: {
-			screen: StoreStack,
+		Home: {
+			screen: HomeStack,
 			navigationOptions: {
-				tabBarLabel: 'Store',
+				tabBarLabel: 'Home',
 				tabBarIcon: ({ focused }) => {
-					return LoadIconStack.shop
+					return LoadIconStack.home
 				},
 			},
 		},
@@ -176,6 +172,15 @@ export const Tabs = TabNavigator(
 				tabBarLabel: 'Search',
 				tabBarIcon: ({ focused }) => {
 					return LoadIconStack.search
+				},
+			},
+		},
+		Store: {
+			screen: StoreStack,
+			navigationOptions: {
+				tabBarLabel: 'Store',
+				tabBarIcon: ({ focused }) => {
+					return LoadIconStack.shop
 				},
 			},
 		},
@@ -212,7 +217,7 @@ export const Tabs = TabNavigator(
 				backgroundColor: 'transparent',
 			},
 			labelStyle: {
-				fontSize: 12,
+				fontSize: 11,
 			},
 			upperCaseLabel: false,
 		},
@@ -242,8 +247,6 @@ export const Root = StackNavigator(
 	{
 		Login: LoginStack,
 		Main: Tabs,
-		// Modal Stack
-		// CreateWishlist: CreateWishlistStack,
 	},
 	{
 		mode: 'card',

@@ -4,6 +4,4 @@ import App from './App'
 
 const app = () => <App />
 
-AppRegistry.registerComponent('wishopappmobile', () => app)
-
-export default app
+AppRegistry.registerComponent('Wishops', () => app)

@@ -9,6 +9,7 @@ import ImagePicker from 'react-native-image-picker'
 import { MutationUpdateUser } from '@utils/Graphql/Mutation'
 import { graphql } from 'react-apollo'
 import { NavigationActions } from 'react-navigation'
+import CustomImage from '@custom/Image'
 
 let imageProfileWidth = 100
 let imageProfileHeight = 100
@@ -27,6 +28,7 @@ const letterSpace = (word, countSpace = 2) => {
 
 const options = {
 	mediaType: 'photo',
+	takePhotoButtonTitle: null,
 	title: 'Select Avatar',
 	storageOptions: {
 		skipBackup: true,
@@ -187,7 +189,7 @@ class ProfileContainer extends React.Component {
 	}
 
 	changeToShopOwner = () => {
-		console.log('ChangeshopOwner')
+		this.props.navigation.navigate('HowToBeShopOwner')
 	}
 
 	textInputFocus = async node => {
@@ -209,6 +211,7 @@ class ProfileContainer extends React.Component {
 	}
 
 	logout = navigation => {
+		setUser.defaultUser()
 		navigation.navigate('Login')
 	}
 
@@ -265,18 +268,22 @@ class ProfileContainer extends React.Component {
 									{letterSpace(this.state.status ? this.state.status : '')}
 								</Text>
 							</View>
-							<TouchableOpacity
-								style={styled.profileStatusRight}
-								activeOpacity={1}
-								onPress={() => this.changeToShopOwner()}
-							>
-								<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BLACK]}>
-									Change to Shop Owner
-								</Text>
-								<View style={[styled.profileStatusRightIcon, styled.iconContainer]}>
-									<Icon name="chevron-right" size={14} color="black" style={styled.icon} />
-								</View>
-							</TouchableOpacity>
+							{this.state.status != 'SHOP_OWNER' ? (
+								<TouchableOpacity
+									style={styled.profileStatusRight}
+									activeOpacity={1}
+									onPress={() => this.changeToShopOwner()}
+								>
+									<Text style={[StyledConstants.FONT_DESCRIPTION, StyledConstants.FONT_BLACK]}>
+										How to be a Shop Owner
+									</Text>
+									<View style={[styled.profileStatusRightIcon, styled.iconContainer]}>
+										<Icon name="chevron-right" size={14} color="black" style={styled.icon} />
+									</View>
+								</TouchableOpacity>
+							) : (
+								<View style={styled.customerprofileStatusRight} />
+							)}
 						</View>
 					</CustomLinearGradient>
 				</View>
@@ -444,6 +451,10 @@ const styled = StyleSheet.create({
 		flexDirection: 'row',
 		alignItems: 'center',
 		justifyContent: 'space-around',
+	},
+
+	customerprofileStatusRight: {
+		width: '40%',
 	},
 
 	profileStatusRight: {

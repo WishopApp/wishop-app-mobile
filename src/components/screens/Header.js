@@ -23,6 +23,13 @@ export default class Header extends React.Component {
 		navigation.goBack(null)
 	}
 
+	infoAction = (navigation, infoNavigate) => {
+		let storeBranchId = infoNavigate.data.storeBranchId
+		navigation.navigate(infoNavigate.navigateName, {
+			_id: storeBranchId,
+		})
+	}
+
 	letterSpace = (word, countSpace = 2) => {
 		return word.split('').join('\u200A'.repeat(countSpace))
 	}
@@ -72,6 +79,8 @@ export default class Header extends React.Component {
 	render() {
 		let hasLeftHeaderProps = this.props.back ? true : false
 		let hasRightHeaderProps = this.props.close ? true : false
+		let infoRightHeaderProps = this.props.info ? true : false
+		let infoNavigate = this.props.infoNavigate ? this.props.infoNavigate : undefined
 
 		return (
 			<CustomLinearGradient style={styled.container} colors={['#582FFF', '#00A9FF', '#00CED1']}>
@@ -109,6 +118,15 @@ export default class Header extends React.Component {
 									onPress={() => this._back(this.props.navigation)}
 								>
 									<Icon name="times" size={20} color="#000" />
+								</TouchableOpacity>
+							)}
+							{infoRightHeaderProps && (
+								<TouchableOpacity
+									style={styled.button}
+									activeOpacity={1}
+									onPress={() => this.infoAction(this.props.navigation, infoNavigate)}
+								>
+									<Icon name="info-circle" size={20} color="#000" />
 								</TouchableOpacity>
 							)}
 						</View>

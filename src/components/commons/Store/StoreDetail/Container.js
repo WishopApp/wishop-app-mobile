@@ -13,14 +13,44 @@ const MatchProductHeight = Percentage(15, Viewport.height)
 const TopicWidth = Viewport.width
 const TopicHeight = Percentage(10, Viewport.height)
 
+let stopGetProductMatchedFunc = false
+
 class StoreDetailContainer extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			productsMatched: props.navigation.state.params.productsMatched,
+		}
+		this.getProductsMatchedWishlist = this.getProductsMatchedWishlist.bind(this)
+	}
+
+	componentWillMount() {
+		this.getProductsMatchedWishlist()
+		stopGetProductMatchedFunc = true
+	}
+
+	componentWillUnmount() {
+		stopGetProductMatchedFunc = false
+	}
+
+	getProductsMatchedWishlist = () => {
+		if (this.props.navigation.state.params.getProductsMatchedWishlist) {
+			this.state.productsMatched = []
+			setTimeout(async () => {
+				let storeBranchId = this.props.navigation.state.params._id
+				let productsMatched = await this.props.navigation.state.params.getProductsMatchedWishlist(storeBranchId)
+				if (productsMatched.length > 0) {
+					this.setState({ productsMatched: productsMatched })
+				} else {
+					if (stopGetProductMatchedFunc) this.getProductsMatchedWishlist()
+				}
+			}, 1000)
+		}
 	}
 
 	render() {
 		let storeBranchId = this.props.navigation.state.params._id
-		let productsMatched = this.props.navigation.state.params.productsMatched
+		let productsMatched = this.state.productsMatched
 		let recommendProduct = undefined
 		let { storeBranchData } = this.props
 		let { loading, error } = storeBranchData
@@ -46,22 +76,19 @@ class StoreDetailContainer extends React.Component {
 					) : (
 						<Image
 							style={styled.coverStoreImage}
-							source={{
-								uri:
-									'https://digitalsynopsis.com/wp-content/uploads/2017/02/beautiful-color-gradients-backgrounds-076-premium-dark.png',
-							}}
+							source={require('@images/background_default_store_detail_cover.png')}
 						/>
 					)}
 
 					<View style={styled.logoImageContainer}>
-						<Image
-							style={styled.logoStoreImage}
-							source={{
-								uri: storeBranch.store.avatarUrl
-									? storeBranch.store.avatarUrl
-									: 'http://www.gondola.be/sites/default/files/news_aktualiteits_artikel/shop_front_icon_55889.jpg',
-							}}
-						/>
+						{storeBranch.store.avatarUrl ? (
+							<Image style={styled.logoStoreImage} source={{ uri: storeBranch.store.avatarUrl }} />
+						) : (
+							<Image
+								style={styled.coverStoreImage}
+								source={require('@images/store_default_store_detail_logo.png')}
+							/>
+						)}
 					</View>
 					<View style={styled.storeDetailContainer}>
 						<View style={styled.textStoreDetailContainer}>
@@ -85,7 +112,7 @@ class StoreDetailContainer extends React.Component {
 							>
 								{storeBranch.store.description
 									? storeBranch.store.description
-									: 'Store doesn\'t have introduction yet'}
+									: "Store doesn't have introduction yet"}
 							</Text>
 						</View>
 					</View>
