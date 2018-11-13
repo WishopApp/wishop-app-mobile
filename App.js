@@ -4,10 +4,15 @@ import { Root } from '@screens/Navigation'
 import client from '@apollo-client'
 import { ApolloProvider } from 'react-apollo'
 import { TouchableOpacity, Keyboard } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 
 class App extends React.Component {
 	dismissKeyboard = () => {
 		Keyboard.dismiss()
+	}
+
+	componentDidMount() {
+		SplashScreen.hide()
 	}
 
 	render() {
