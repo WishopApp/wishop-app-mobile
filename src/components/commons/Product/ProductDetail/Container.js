@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QueryProduct } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
@@ -33,11 +33,20 @@ class ProductDetailContainer extends React.Component {
 		this._renderItem = this._renderItem.bind(this)
 	}
 
+	snapImageByTouch = index => {
+		console.log(index)
+		this.setState({ slider1ActiveSlide: index })
+	}
+
 	_renderItem({ item, index }) {
 		return (
-			<View style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}>
+			<TouchableOpacity
+				activeOpacity={1}
+				onPress={() => this.snapImageByTouch(index)}
+				style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}
+			>
 				<CustomImage style={styled.imageItem} uri={item} />
-			</View>
+			</TouchableOpacity>
 		)
 	}
 
@@ -67,6 +76,7 @@ class ProductDetailContainer extends React.Component {
 									inactiveSlideScale={0.9}
 									inactiveSlideOpacity={0.85}
 									onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+									useScrollView={true}
 									style={styled.imageSlideContainer}
 								/>
 							</View>
@@ -108,45 +118,45 @@ class ProductDetailContainer extends React.Component {
 							<View style={styled.PropContainer}>
 								{product.categoryProps
 									? product.categoryProps.map((categoryProp, index) => {
-										return (
-											<View key={index}>
-												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-													<Text
-														style={[
-															StyledConstants.FONT_BOLD,
-															StyledConstants.FONT_DESCRIPTION,
-														]}
-													>
-														{categoryProp.name}
-													</Text>
-													<Text style={StyledConstants.FONT_DESCRIPTION}>
-														{categoryProp.value}
-													</Text>
+											return (
+												<View key={index}>
+													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+														<Text
+															style={[
+																StyledConstants.FONT_BOLD,
+																StyledConstants.FONT_DESCRIPTION,
+															]}
+														>
+															{categoryProp.name}
+														</Text>
+														<Text style={StyledConstants.FONT_DESCRIPTION}>
+															{categoryProp.value}
+														</Text>
+													</View>
 												</View>
-											</View>
-										)
+											)
 									  })
 									: null}
 
 								{product.subCategoryProps
 									? product.subCategoryProps.map((subCategoryProp, index) => {
-										return (
-											<View key={index}>
-												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-													<Text
-														style={[
-															StyledConstants.FONT_BOLD,
-															StyledConstants.FONT_DESCRIPTION,
-														]}
-													>
-														{subCategoryProp.name}
-													</Text>
-													<Text style={StyledConstants.FONT_DESCRIPTION}>
-														{subCategoryProp.value}
-													</Text>
+											return (
+												<View key={index}>
+													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+														<Text
+															style={[
+																StyledConstants.FONT_BOLD,
+																StyledConstants.FONT_DESCRIPTION,
+															]}
+														>
+															{subCategoryProp.name}
+														</Text>
+														<Text style={StyledConstants.FONT_DESCRIPTION}>
+															{subCategoryProp.value}
+														</Text>
+													</View>
 												</View>
-											</View>
-										)
+											)
 									  })
 									: null}
 							</View>
