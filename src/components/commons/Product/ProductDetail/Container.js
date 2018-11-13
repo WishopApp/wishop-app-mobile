@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 import { StyledConstants, StyledSelected } from '@constants/Styled'
 import { QueryProduct } from '@utils/Graphql/Query'
 import { graphql } from 'react-apollo'
@@ -33,11 +33,20 @@ class ProductDetailContainer extends React.Component {
 		this._renderItem = this._renderItem.bind(this)
 	}
 
+	snapImageByTouch = index => {
+		console.log(index)
+		this.setState({ slider1ActiveSlide: index })
+	}
+
 	_renderItem({ item, index }) {
 		return (
-			<View style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}>
+			<TouchableOpacity
+				activeOpacity={1}
+				onPress={() => this.snapImageByTouch(index)}
+				style={[styled.sliderItem, this.state.slider1ActiveSlide === index && styled.activeSnapItem]}
+			>
 				<CustomImage style={styled.imageItem} uri={item} />
-			</View>
+			</TouchableOpacity>
 		)
 	}
 
@@ -51,63 +60,63 @@ class ProductDetailContainer extends React.Component {
 			}
 		}
 		return (
-			<View style={styled.container}>
+			<ScrollView style={styled.contentOfScrollView} accessible={true}>
 				{product && (
 					<View style={styled.container}>
-						<ScrollView style={styled.contentOfScrollView}>
-							<View style={styled.imageSlideContainer}>
-								<Carousel
-									ref={c => {
-										this._carousel = c
-									}}
-									data={product.photoUrlList}
-									renderItem={this._renderItem}
-									sliderWidth={sliderWidth}
-									itemWidth={itemWidth}
-									inactiveSlideScale={0.9}
-									inactiveSlideOpacity={0.85}
-									onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
-									style={styled.imageSlideContainer}
-								/>
-							</View>
+						<View style={styled.imageSlideContainer}>
+							<Carousel
+								ref={c => {
+									this._carousel = c
+								}}
+								data={product.photoUrlList}
+								renderItem={this._renderItem}
+								sliderWidth={sliderWidth}
+								itemWidth={itemWidth}
+								inactiveSlideScale={0.9}
+								inactiveSlideOpacity={0.85}
+								onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+								useScrollView={true}
+								style={styled.imageSlideContainer}
+							/>
+						</View>
 
-							<View style={styled.wishlistDetail}>
-								<View style={styled.WishlistProductContainer}>
-									<Text
-										style={[
-											StyledConstants.FONT_TOPIC,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.name}
-									</Text>
-									<Text
-										style={[
-											StyledConstants.FONT_DESCRIPTION,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.store.name}
-									</Text>
-									<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
-										{product.category.name}, {product.subCategory.name}
-									</Text>
-									<Text
-										style={[
-											StyledConstants.FONT_TOPIC,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.price} Baht
-									</Text>
-								</View>
+						<View style={styled.wishlistDetail}>
+							<View style={styled.WishlistProductContainer}>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.name}
+								</Text>
+								<Text
+									style={[
+										StyledConstants.FONT_DESCRIPTION,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.store.name}
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+									{product.category.name}, {product.subCategory.name}
+								</Text>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.price} Baht
+								</Text>
 							</View>
-							<View style={styled.PropContainer}>
-								{product.categoryProps
-									? product.categoryProps.map((categoryProp, index) => {
+						</View>
+						<View style={styled.PropContainer}>
+							{product.categoryProps
+								? product.categoryProps.map((categoryProp, index) => {
 										return (
 											<View key={index}>
 												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
@@ -125,11 +134,11 @@ class ProductDetailContainer extends React.Component {
 												</View>
 											</View>
 										)
-									  })
-									: null}
+								  })
+								: null}
 
-								{product.subCategoryProps
-									? product.subCategoryProps.map((subCategoryProp, index) => {
+							{product.subCategoryProps
+								? product.subCategoryProps.map((subCategoryProp, index) => {
 										return (
 											<View key={index}>
 												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
@@ -147,13 +156,12 @@ class ProductDetailContainer extends React.Component {
 												</View>
 											</View>
 										)
-									  })
-									: null}
-							</View>
-						</ScrollView>
+								  })
+								: null}
+						</View>
 					</View>
 				)}
-			</View>
+			</ScrollView>
 		)
 	}
 }

@@ -46,7 +46,9 @@ class SearchProductList extends React.Component {
 				{products != undefined ? (
 					<ProductList navigation={navigation} products={products} detailType="store_name" />
 				) : (
-					<SearchNotFound />
+					<View>
+						<Text>loading</Text>
+					</View>
 				)}
 			</View>
 		)
