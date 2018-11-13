@@ -60,110 +60,108 @@ class ProductDetailContainer extends React.Component {
 			}
 		}
 		return (
-			<View style={styled.container}>
+			<ScrollView style={styled.contentOfScrollView} accessible={true}>
 				{product && (
 					<View style={styled.container}>
-						<ScrollView style={styled.contentOfScrollView}>
-							<View style={styled.imageSlideContainer}>
-								<Carousel
-									ref={c => {
-										this._carousel = c
-									}}
-									data={product.photoUrlList}
-									renderItem={this._renderItem}
-									sliderWidth={sliderWidth}
-									itemWidth={itemWidth}
-									inactiveSlideScale={0.9}
-									inactiveSlideOpacity={0.85}
-									onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
-									useScrollView={true}
-									style={styled.imageSlideContainer}
-								/>
-							</View>
+						<View style={styled.imageSlideContainer}>
+							<Carousel
+								ref={c => {
+									this._carousel = c
+								}}
+								data={product.photoUrlList}
+								renderItem={this._renderItem}
+								sliderWidth={sliderWidth}
+								itemWidth={itemWidth}
+								inactiveSlideScale={0.9}
+								inactiveSlideOpacity={0.85}
+								onSnapToItem={index => this.setState({ slider1ActiveSlide: index })}
+								useScrollView={true}
+								style={styled.imageSlideContainer}
+							/>
+						</View>
 
-							<View style={styled.wishlistDetail}>
-								<View style={styled.WishlistProductContainer}>
-									<Text
-										style={[
-											StyledConstants.FONT_TOPIC,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.name}
-									</Text>
-									<Text
-										style={[
-											StyledConstants.FONT_DESCRIPTION,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.store.name}
-									</Text>
-									<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
-										{product.category.name}, {product.subCategory.name}
-									</Text>
-									<Text
-										style={[
-											StyledConstants.FONT_TOPIC,
-											StyledConstants.FONT_BOLD,
-											StyledConstants.TEXT_BLACK,
-										]}
-									>
-										{product.price} Baht
-									</Text>
-								</View>
+						<View style={styled.wishlistDetail}>
+							<View style={styled.WishlistProductContainer}>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.name}
+								</Text>
+								<Text
+									style={[
+										StyledConstants.FONT_DESCRIPTION,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.store.name}
+								</Text>
+								<Text style={StyledConstants.FONT_DESCRIPTION_SMALL}>
+									{product.category.name}, {product.subCategory.name}
+								</Text>
+								<Text
+									style={[
+										StyledConstants.FONT_TOPIC,
+										StyledConstants.FONT_BOLD,
+										StyledConstants.TEXT_BLACK,
+									]}
+								>
+									{product.price} Baht
+								</Text>
 							</View>
-							<View style={styled.PropContainer}>
-								{product.categoryProps
-									? product.categoryProps.map((categoryProp, index) => {
-											return (
-												<View key={index}>
-													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-														<Text
-															style={[
-																StyledConstants.FONT_BOLD,
-																StyledConstants.FONT_DESCRIPTION,
-															]}
-														>
-															{categoryProp.name}
-														</Text>
-														<Text style={StyledConstants.FONT_DESCRIPTION}>
-															{categoryProp.value}
-														</Text>
-													</View>
+						</View>
+						<View style={styled.PropContainer}>
+							{product.categoryProps
+								? product.categoryProps.map((categoryProp, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{categoryProp.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{categoryProp.value}
+													</Text>
 												</View>
-											)
-									  })
-									: null}
+											</View>
+										)
+								  })
+								: null}
 
-								{product.subCategoryProps
-									? product.subCategoryProps.map((subCategoryProp, index) => {
-											return (
-												<View key={index}>
-													<View style={[styled.inputContainer, styled.inputPropsContainer]}>
-														<Text
-															style={[
-																StyledConstants.FONT_BOLD,
-																StyledConstants.FONT_DESCRIPTION,
-															]}
-														>
-															{subCategoryProp.name}
-														</Text>
-														<Text style={StyledConstants.FONT_DESCRIPTION}>
-															{subCategoryProp.value}
-														</Text>
-													</View>
+							{product.subCategoryProps
+								? product.subCategoryProps.map((subCategoryProp, index) => {
+										return (
+											<View key={index}>
+												<View style={[styled.inputContainer, styled.inputPropsContainer]}>
+													<Text
+														style={[
+															StyledConstants.FONT_BOLD,
+															StyledConstants.FONT_DESCRIPTION,
+														]}
+													>
+														{subCategoryProp.name}
+													</Text>
+													<Text style={StyledConstants.FONT_DESCRIPTION}>
+														{subCategoryProp.value}
+													</Text>
 												</View>
-											)
-									  })
-									: null}
-							</View>
-						</ScrollView>
+											</View>
+										)
+								  })
+								: null}
+						</View>
 					</View>
 				)}
-			</View>
+			</ScrollView>
 		)
 	}
 }
