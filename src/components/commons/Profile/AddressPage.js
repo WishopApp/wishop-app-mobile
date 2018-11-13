@@ -79,7 +79,7 @@ class ProfileAddressContainer extends React.Component {
 							}}
 						/>
 						<TouchableOpacity
-							style={styled.iconContainer}
+							style={[styled.iconContainer, { backgroundColor: 'blue' }]}
 							activeOpacity={1}
 							onPress={() => textInputFocus(this._textInputDistrict)}
 						>

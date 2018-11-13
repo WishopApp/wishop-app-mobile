@@ -471,6 +471,7 @@ const styled = StyleSheet.create({
 
 	iconContainer: {
 		width: '10%',
+		padding: 8,
 		// height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',

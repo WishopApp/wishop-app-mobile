@@ -29,12 +29,13 @@ class SearchProductList extends React.Component {
 	}
 
 	render() {
-		let { loading, error, data, navigation } = this.props
+		let { data, navigation } = this.props
+		let { loading, error } = this.props.data
 		let products = undefined
 		if (loading)
 			return (
 				<View>
-					<SearchByWishlist />
+					<Text>loading</Text>
 				</View>
 			)
 		if (data.searchByWishlist) {
@@ -47,7 +48,7 @@ class SearchProductList extends React.Component {
 					<ProductList navigation={navigation} products={products} detailType="store_name" />
 				) : (
 					<View>
-						<Text>loading</Text>
+						<SearchNotFound />
 					</View>
 				)}
 			</View>
