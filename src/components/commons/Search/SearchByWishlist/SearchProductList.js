@@ -6,6 +6,7 @@ import { graphql } from 'react-apollo'
 import { InputWishlistProps } from '@constants/Data'
 import ProductList from '@commons/Product/ProductList'
 import SearchByWishlist from './Container'
+import SearchNotFound from '@commons/Search/SearchNotFound'
 
 class SearchProductList extends React.Component {
 	constructor(props) {
@@ -38,11 +39,15 @@ class SearchProductList extends React.Component {
 			)
 		if (data.searchByWishlist) {
 			products = data.searchByWishlist.length > 0 ? data.searchByWishlist : undefined
-			this.setPhotoUrlListWithProduct(products)
+			if (products) this.setPhotoUrlListWithProduct(products)
 		}
 		return (
 			<View>
-				{products && <ProductList navigation={navigation} products={products} detailType="store_name" />}
+				{products != undefined ? (
+					<ProductList navigation={navigation} products={products} detailType="store_name" />
+				) : (
+					<SearchNotFound />
+				)}
 			</View>
 		)
 	}
