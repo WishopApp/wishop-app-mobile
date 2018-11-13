@@ -60,22 +60,18 @@ class PromotionsList extends React.Component {
 					>
 						{store.name}
 					</Text>
-					{storeBranch.length > 0 &&
-						storeBranch.map((storebranch, index) => {
-							return (
-								<View key={index}>
-									<Text
-										style={[
-											styled.labelCampaign,
-											styled.labelStoreBranch,
-											StyledConstants.FONT_DESCRIPTION_SMALL,
-										]}
-									>
-										{'#' + storebranch.name + ' '}
-									</Text>
-								</View>
-							)
-						})}
+					<View style={[styled.labelCampaign, styled.branchNameContainer]}>
+						{storeBranch.length > 0 &&
+							storeBranch.map((storebranch, index) => {
+								return (
+									<View key={index}>
+										<Text style={[styled.labelStoreBranch, StyledConstants.FONT_DESCRIPTION_SMALL]}>
+											{'#' + storebranch.name + ' '}
+										</Text>
+									</View>
+								)
+							})}
+					</View>
 				</View>
 			</TouchableOpacity>
 		)
@@ -154,8 +150,13 @@ const styled = StyleSheet.create({
 	},
 
 	labelStoreBranch: {
-		marginLeft: 20,
 		color: '#bbb',
+	},
+
+	branchNameContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'flex-start',
 	},
 })
 
