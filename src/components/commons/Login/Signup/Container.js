@@ -39,11 +39,16 @@ class SignupContainer extends React.Component {
 		let error = await this.requireField(email, password, confirmPassword)
 		if (error) this.setState({ errorMessage: error })
 		else {
-			let user = await this.props.createUser(email, password)
-			let createSuccess = user.data.createUser ? true : false
-			if (createSuccess) {
-				this.props.navigation.goBack(null)
-				// this.setState({ callSuccessPopup: true })
+			try {
+				let user = await this.props.createUser(email, password)
+				let createSuccess = user.data.createUser ? true : false
+				if (createSuccess) {
+					this.props.navigation.goBack(null)
+					// this.setState({ callSuccessPopup: true })
+				}
+			} catch (err) {
+				let message = 'This email is already in used'
+				this.setState({ errorMessage: message })
 			}
 		}
 	}
