@@ -85,7 +85,7 @@ class StoreDetailContainer extends React.Component {
 							<Image style={styled.logoStoreImage} source={{ uri: storeBranch.store.avatarUrl }} />
 						) : (
 							<Image
-								style={styled.coverStoreImage}
+								style={styled.logoStoreImage}
 								source={require('@images/store_default_store_detail_logo.png')}
 							/>
 						)}
@@ -252,9 +252,9 @@ const styled = StyleSheet.create({
 	logoStoreImage: {
 		width: '65%',
 		height: Percentage(65, Percentage(25, Viewport.height)),
-		borderRadius: 100,
-		borderWidth: 5,
-		borderColor: 'pink',
+		borderWidth: 2,
+		borderColor: 'black',
+		backgroundColor: 'white',
 	},
 	storeDetailContainer: {
 		width: '60%',
