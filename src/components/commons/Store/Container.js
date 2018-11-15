@@ -133,7 +133,7 @@ class StoreContainer extends React.Component {
 		CustomBeacon.stopRangingInRegion(region)
 		setTimeout(() => {
 			this.initFindBeacon()
-		}, 1000)
+		}, 2000)
 		this.forceUpdate()
 	}
 

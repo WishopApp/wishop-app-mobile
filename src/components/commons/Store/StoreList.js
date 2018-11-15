@@ -118,7 +118,16 @@ class StoreList extends React.Component {
 
 	getProductsMatchedWishlist = async storeBranchId => {
 		if (this.props.usefulProductsMatchedFuncSuccess) {
-			return await arrayKeyValueToArray(this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId])
+			let productArrays = arrayKeyValueToArray(this.state.mapStoreBranchAndUsefulProductsMatched[storeBranchId])
+			let productNoneMathPercentageZero = []
+			if (productArrays.length > 0) {
+				await productArrays.map(product => {
+					if (product.matchedPercentage > 0) productNoneMathPercentageZero[product._id] = product
+				})
+				return await arrayKeyValueToArray(productNoneMathPercentageZero)
+			}
+
+			return productNoneMathPercentageZero
 		}
 		return []
 	}
@@ -136,10 +145,13 @@ class StoreList extends React.Component {
 	}
 
 	render() {
-		let { loading, error, searchStoreByUUID, wishlists, addstoreBranchIdUsed } = this.props
+		let { searchStoreByUUID, wishlists, addstoreBranchIdUsed, uuid } = this.props
+		let { loading, error } = searchStoreByUUID
 		if (loading) return <Text>loading</Text>
 		if (error) return <Text>error</Text>
+
 		let storeBranch = searchStoreByUUID ? searchStoreByUUID.searchStoreBranchFromBeacon : undefined
+
 		if (storeBranch) {
 			addstoreBranchIdUsed(storeBranch._id)
 		}
@@ -182,16 +194,12 @@ class StoreList extends React.Component {
 									{storeBranch.name}
 								</Text>
 								<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, styled.descriptionColor]}>
-									{storeBranch.store.description}
+									{storeBranch.store.description && storeBranch.store.description.length
+										? storeBranch.store.description.substr(0, 70) + '...'
+										: storeBranch.store.description}
 								</Text>
 								<Text style={[styled.storeRange, StyledConstants.TEXT_BLACK]}>
 									{this.props.distance.toFixed(2)} m
-								</Text>
-							</View>
-							<View style={styled.storeImageMappingWishlistContainer}>
-								<CustomImage style={styled.checkListIcon} title="wishlist-hover-icon" />
-								<Text style={[StyledConstants.FONT_DESCRIPTION_SMALL, StyledConstants.TEXT_BLACK]}>
-									Let's check!
 								</Text>
 							</View>
 						</TouchableOpacity>
@@ -248,7 +256,7 @@ const styled = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	storeCardContainer: {
-		width: '80%',
+		width: '100%',
 		padding: '3%',
 		marginLeft: '3%',
 		display: 'flex',
