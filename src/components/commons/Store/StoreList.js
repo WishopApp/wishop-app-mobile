@@ -147,8 +147,18 @@ class StoreList extends React.Component {
 	render() {
 		let { searchStoreByUUID, wishlists, addstoreBranchIdUsed, uuid } = this.props
 		let { loading, error } = searchStoreByUUID
-		if (loading) return <Text>loading</Text>
-		if (error) return <Text>error</Text>
+		if (loading)
+			return (
+				<View>
+					<View />
+				</View>
+			)
+		if (error)
+			return (
+				<View>
+					<View />
+				</View>
+			)
 
 		let storeBranch = searchStoreByUUID ? searchStoreByUUID.searchStoreBranchFromBeacon : undefined
 
@@ -226,6 +236,7 @@ const StoreListByBeacon = graphql(QueryStoreByBeaconUUID, {
 				uuid: props.uuid,
 				userId: user._id,
 			},
+			fetchPolicy: 'network-only',
 		}
 	},
 })
